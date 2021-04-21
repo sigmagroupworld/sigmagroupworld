@@ -1,4 +1,5 @@
 <?php
+
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles',PHP_INT_MAX);
 function my_theme_enqueue_styles() {
     $parent_style = 'adforest-style'; // This is 'adforest-style' for the AdForest theme.
@@ -10,12 +11,8 @@ function my_theme_enqueue_styles() {
         wp_get_theme()->get('Version')
     );
 }
-/*add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
-function enqueue_parent_styles() {
-   wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
-}*/
 
-include(get_stylesheet_directory_uri() . '/cpt-functions.php');
+include get_stylesheet_directory().'/cpt-functions.php';
 
 // create a Custom post type news
 add_action('init', 'sigma_mt_news_custom_posts');
