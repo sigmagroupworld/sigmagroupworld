@@ -15,14 +15,8 @@ function my_theme_enqueue_styles() {
 	wp_enqueue_script( 'header-js', get_stylesheet_directory_uri().'/assets/js/custom-header.js');
 	
 }
-/*add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
-function enqueue_parent_styles() {
-   wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
-}*/
 
 include get_stylesheet_directory().'/cpt-functions.php';
-
-
 
 // change permalink for Custom post type
 add_filter( 'post_type_link', 'sigma_mt_show_permalinks', 1, 2 );

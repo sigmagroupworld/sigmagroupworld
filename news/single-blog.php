@@ -249,6 +249,12 @@ get_header();
 					<div class="blog-sub-title">
 						<h3>Upcoming Events</h3>
 					</div>
+					<?php 
+						 $the_query = new WP_Query( array(
+						 'post_type' => 'event-items',
+					   ));
+					?>
+					<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 					<div class="calendar-event ">
 						<h5>SiGMA Europe (Malta)</h5> 
     					<div class="date">  
@@ -259,6 +265,8 @@ get_header();
     					</div>
     					<a class="eventbtn" href="#" target="_blank">REGISTER FREE</a>
 					</div>
+					<?php endwhile; 
+					  wp_reset_postdata(); ?>
 				</div>
 			</div>
 		</div>

@@ -170,7 +170,7 @@ function sigma_mt_events_editions(){
 	);
 }
 
-//
+// Create CPT for authors
 add_action('init', 'sigma_mt_author_custom_posts');
 function sigma_mt_author_custom_posts(){
 	register_post_type('authors', array(
@@ -190,6 +190,6 @@ function sigma_mt_author_custom_posts(){
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'authors', 'with_front' => false),
 		'has_archive' => true,
-		'supports' => array('title','thumbnail')
+		'supports' => array('title','thumbnail','editor')
 	));
 }
