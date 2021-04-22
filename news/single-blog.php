@@ -90,6 +90,7 @@ get_header();
 					<?php the_post_thumbnail(); ?>
 				</div>
 				<div class="post-body">
+					<?php echo get_stylesheet_directory(); ?>
 					<?php the_content(); ?>
 				</div>
 				<div class="social-sharing last">
