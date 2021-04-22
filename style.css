@@ -1,4 +1,4 @@
-/*
+`/*
 Theme Name: Twenty Twenty-One-child
 Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. With new block patterns, which allow you to create a beautiful layout in a matter of seconds, this theme’s soft colors and eye-catching — yet timeless — design will let your work shine. Take it for a spin! See how Twenty Twenty-One elevates your portfolio, business website, or personal blog.
 Template: twentytwentyone
@@ -253,6 +253,7 @@ a {transition: all .5s ease-in-out 0s;
     top: 34px;
     margin: 0;
     font-weight: 100;
+    font-size: 12px;
 }
 .ehf-header #masthead .custom-header .header-cmenu li.wpml-ls-item a.hfe-menu-item {
     display: flex;
@@ -351,6 +352,9 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     .ehf-header #masthead .custom-header .header-cmenu li {
         margin-right: 4%;
     }
+    .ehf-header #masthead .custom-header .header-cmenu ul.hfe-nav-menu {
+    	justify-content: flex-end;
+    }
 }
 
 @media (max-width: 1700px){
@@ -389,6 +393,30 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     }
     .ehf-header #masthead .custom-header .header-cmenu nav {
         overflow: auto;
+        background: #fff;
+	    padding: 0px;
+	    -webkit-overflow-scrolling: touch;
+	    height: 100vh;
+	    overflow: hidden;
+	    overflow-y: scroll !important;
+	    -webkit-box-orient: vertical;
+	    -webkit-box-direction: normal;
+	    -webkit-flex-direction: column;
+	    -moz-box-orient: vertical;
+	    -moz-box-direction: normal;
+	    -ms-flex-direction: column;
+	    flex-direction: column;
+	    position: fixed;
+	    top: 0px;
+	    right: 0;
+	    z-index: 996;
+	    -webkit-transition: .3s all;
+	    -o-transition: .3s all;
+	    -moz-transition: .3s all;
+	    transition: .3s all;
+	    padding-top: 100px;
+	    max-width: 520px;
+	    display: flex;
     }
     .ehf-header #masthead .custom-header .header-cmenu a.hfe-menu-item br{
         display: none;
@@ -425,10 +453,27 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     .ehf-header #masthead .custom-header .header-cmenu .hfe-nav-menu__toggle.elementor-clickable {
         line-height: 80px;
         padding-top: 20px;
+        position: relative;
+        z-index: 999;
     }
-    .ehf-header #masthead .custom-header .header-cmenu .hfe-nav-menu__toggle.elementor-clickable i.fas.fa-bars {
-        color: #ed1a3b;
-        font-size: 49px;
+    .wpml-ls-menu-item .hfe-has-submenu-container {
+    	display: none;
+    }
+    .ehf-header #masthead .custom-header .header-cmenu li.wpml-ls-item ul.sub-menu {
+    	visibility: visible;
+	    opacity: 1;
+	    display: flex;
+	    flex-wrap: wrap;
+    }
+    .ehf-header #masthead .custom-header .header-cmenu li.wpml-ls-item ul.sub-menu li.wpml-ls-item a {
+    	display: block;
+    	text-align: center;
+    }
+    .ehf-header #masthead .custom-header .header-cmenu li img.wpml-ls-flag {
+    	margin-right: 0;
+    }
+    .ehf-header #masthead .custom-header .header-cmenu li span.wpml-ls-native {
+    	display: block;
     }
     .ehf-header #masthead .custom-header .header-cmenu .hfe-nav-menu__toggle.elementor-clickable .hfe-nav-menu-icon {
         padding: 0;
