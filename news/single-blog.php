@@ -12,18 +12,24 @@ get_header();
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri();?>/assets/css/all.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri();?>/news/css/news.css">
 </head>
 <body>
 
 <section>
+	<!-- News Banner start -->
 	<div class="blog-banner">
 		<a href="#">
 			<img src="<?php echo get_field('banner_image'); ?>" alt="">
 		</a>
 	</div>
+	<!-- News Banner end -->
+
+	<!-- News page main section start -->
 	<div class="blog-content">
 		<div class="page-container">
+			<!-- Leftbar start -->
 			<div class="blog-leftbar">
 				<div class="singleBannerAdvert bottom-border">
 					<a href="#" target="_blank">
@@ -43,6 +49,9 @@ get_header();
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/YHfPQvoi_tU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 			</div>
+			<!-- Leftbar end -->
+
+			<!-- Middle Detail News start -->
 			<div class="blog-details">
 				<h2 class="blog-title"><?php the_title(); ?></h2>
 				<div class="info">
@@ -143,6 +152,9 @@ get_header();
 				</div>
 
 			</div>
+			<!-- Middle Detail News end -->
+
+			<!-- Rightbar start -->
 			<div class="blog-rightbar">
 				<div class="magazine-widget bottom-border">
 					<div class="blog-sub-title">
@@ -269,8 +281,11 @@ get_header();
 					  wp_reset_postdata(); ?>
 				</div>
 			</div>
+			<!-- Rightbar end -->
+
 		</div>
 	</div>
+	<!-- News page main section end -->
 </section>
 <?php
 	get_footer();

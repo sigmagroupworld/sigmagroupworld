@@ -19,7 +19,7 @@ function my_theme_enqueue_styles() {
 include get_stylesheet_directory().'/cpt-functions.php';
 
 // change permalink for Custom post type
-add_filter( 'post_type_link', 'sigma_mt_show_permalinks', 1, 2 );
+/*add_filter( 'post_type_link', 'sigma_mt_show_permalinks', 1, 2 );
 function sigma_mt_show_permalinks( $post_link, $post ){
     if ( is_object( $post ) && $post->post_type == 'news-items' ){
         $terms = wp_get_object_terms( $post->ID, 'news-tag' );
@@ -28,7 +28,7 @@ function sigma_mt_show_permalinks( $post_link, $post ){
         }
     }
     return $post_link;
-}
+}*/
 
 
 
