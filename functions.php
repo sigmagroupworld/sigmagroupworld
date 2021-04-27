@@ -29,9 +29,6 @@ function sigma_mt_show_permalinks( $post_link, $post ){
     }
     return $post_link;
 }*/
-
-
-
 function upcoming_event_shortcode(){
     ob_start();
     $upcomingevent = get_field('upcoming_event', 'option');
