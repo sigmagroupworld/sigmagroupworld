@@ -1,5 +1,76 @@
 <?php 
-//
+
+// create a Custom post type news
+add_action('init', 'sigma_mt_news_custom_posts');
+function sigma_mt_news_custom_posts() {
+	register_post_type('news-items', array(
+		'labels' => array(
+			'name' => __('News', 'sigmaigaming'),
+			'singular_name' => __('News', 'sigmaigaming'),
+			'menu_name' => __('News', 'sigmaigaming'),
+			'add_new' => __('Add News Item', 'sigmaigaming'),
+			'add_new_item' => __('Add News Item', 'sigmaigaming'),
+			'edit_item' => __('Edit News Item', 'sigmaigaming'),
+			'new_item' => __('News Items', 'sigmaigaming'),
+			'view_item' => __('View News Items', 'sigmaigaming'),
+			'search_items' => __('Search News Items', 'sigmaigaming'),
+			'not_found' => __('No News Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No News Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'news/%news-tag%'),
+		'has_archive' => false,
+		
+		'supports' => array('title','thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post texonomies for news post
+add_action( 'init', 'sigma_mt_taxonomies_news', 0 );
+function sigma_mt_taxonomies_news(){
+	register_taxonomy('news-cat', array('news-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('News Categories', 'sigmaigaming'),
+				'singular_name' => __('News Category', 'sigmaigaming'),
+				'search_items' => __('Search News Category', 'sigmaigaming'),
+				'all_items' => __('All News Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent News Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent News Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit News Category', 'sigmaigaming'),
+				'update_item' => __('Refresh News Category', 'sigmaigaming'),
+				'add_new_item' => __('Add News Category', 'sigmaigaming'),
+				'new_item_name' => __('New News Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'latest-news')
+		)
+	);
+}
+
+// create a Custom post tags for news post
+add_action( 'init', 'sigma_mt_tags_news', 0 );
+function sigma_mt_tags_news(){
+	register_taxonomy('news-tag','news-items',
+		array(
+			'hierarchical'  => true,
+			'labels' => array(
+				'add_new_item' => __('Add New Tag', 'sigmaigaming'),
+				'new_item_name' => __('New Tag', 'sigmaigaming')
+			),
+			'label'         => __('Tags', 'sigmaigaming'),
+			'singular_name' => __('Tag', 'sigmaigaming'),
+			'rewrite'       => [
+				'slug' => 'tags',
+				"with_front" => false
+			],
+			'show_tagcloud' => true,
+			'query_var'     => true
+		)
+	);
+}
+
+// create a Custom post type events
 add_action('init', 'sigma_mt_events_custom_posts');
 function sigma_mt_events_custom_posts(){
 	register_post_type('event-items', array(
@@ -24,7 +95,7 @@ function sigma_mt_events_custom_posts(){
 	));
 }
 
-//
+// create a categories for events
 add_action( 'init', 'sigma_mt_events_categories', 0 );
 function sigma_mt_events_categories(){
 	register_taxonomy('event-category', array('event-items'), array(
@@ -48,7 +119,7 @@ function sigma_mt_events_categories(){
 	);
 }
 
-//
+// create taxonomy years for events
 add_action( 'init', 'sigma_mt_events_years', 0 );
 function sigma_mt_events_years(){
 	register_taxonomy('event-years', array('event-items'), array(
@@ -97,5 +168,28 @@ function sigma_mt_events_editions(){
 			'rewrite' => array( 'slug' => 'event-editions', 'hierarchical' => true ),
 		)
 	);
+}
 
+// Create CPT for authors
+add_action('init', 'sigma_mt_author_custom_posts');
+function sigma_mt_author_custom_posts(){
+	register_post_type('authors', array(
+		'labels' => array(
+			'name' => __('Authors', 'sigmaigaming'),
+			'singular_name' => __('Author', 'sigmaigaming'),
+			'menu_name' => __('Authors', 'sigmaigaming'),
+			'add_new' => __('Add an Author', 'sigmaigaming'),
+			'add_new_item' => __('Add an Author', 'sigmaigaming'),
+			'edit_item' => __('Edit an Authors', 'sigmaigaming'),
+			'new_item' => __('Authors', 'sigmaigaming'),
+			'view_item' => __('View Authors', 'sigmaigaming'),
+			'search_items' => __('Search Authors', 'sigmaigaming'),
+			'not_found' => __('No Authors found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Authors found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'authors', 'with_front' => false),
+		'has_archive' => true,
+		'supports' => array('title','thumbnail','editor')
+	));
 }

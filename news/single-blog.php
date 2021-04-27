@@ -12,18 +12,24 @@ get_header();
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri();?>/assets/css/all.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri();?>/news/css/news.css">
 </head>
 <body>
 
 <section>
+	<!-- News Banner start -->
 	<div class="blog-banner">
 		<a href="#">
 			<img src="<?php echo get_field('banner_image'); ?>" alt="">
 		</a>
 	</div>
+	<!-- News Banner end -->
+
+	<!-- News page main section start -->
 	<div class="blog-content">
 		<div class="page-container">
+			<!-- Leftbar start -->
 			<div class="blog-leftbar">
 				<div class="singleBannerAdvert bottom-border">
 					<a href="#" target="_blank">
@@ -43,6 +49,9 @@ get_header();
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/YHfPQvoi_tU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 			</div>
+			<!-- Leftbar end -->
+
+			<!-- Middle Detail News start -->
 			<div class="blog-details">
 				<h2 class="blog-title"><?php the_title(); ?></h2>
 				<div class="info">
@@ -90,7 +99,6 @@ get_header();
 					<?php the_post_thumbnail(); ?>
 				</div>
 				<div class="post-body">
-					<?php echo get_stylesheet_directory(); ?>
 					<?php the_content(); ?>
 				</div>
 				<div class="social-sharing last">
@@ -144,6 +152,9 @@ get_header();
 				</div>
 
 			</div>
+			<!-- Middle Detail News end -->
+
+			<!-- Rightbar start -->
 			<div class="blog-rightbar">
 				<div class="magazine-widget bottom-border">
 					<div class="blog-sub-title">
@@ -250,6 +261,12 @@ get_header();
 					<div class="blog-sub-title">
 						<h3>Upcoming Events</h3>
 					</div>
+					<?php 
+						 $the_query = new WP_Query( array(
+						 'post_type' => 'event-items',
+					   ));
+					?>
+					<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 					<div class="calendar-event ">
 						<h5>SiGMA Europe (Malta)</h5> 
     					<div class="date">  
@@ -260,10 +277,15 @@ get_header();
     					</div>
     					<a class="eventbtn" href="#" target="_blank">REGISTER FREE</a>
 					</div>
+					<?php endwhile; 
+					  wp_reset_postdata(); ?>
 				</div>
 			</div>
+			<!-- Rightbar end -->
+
 		</div>
 	</div>
+	<!-- News page main section end -->
 </section>
 <?php
 	get_footer();
