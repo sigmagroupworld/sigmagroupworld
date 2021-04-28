@@ -389,7 +389,7 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
 /* Header Language dropdown End */
 
 /* Scroll top css start */
-.scroll-up-wrapper {
+.scroll_To_Top {
     position: fixed;
     bottom: 60px;
     right: 42px;
@@ -408,24 +408,26 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     -o-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
     -moz-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
     transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
-    -webkit-box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%);
-    -moz-box-shadow: 0px 5px 15px 2px rgba(0,0,0,0.25);
-    box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%);
+    -webkit-box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%) !important;
+    -moz-box-shadow: 0px 5px 15px 2px rgba(0,0,0,0.25) !important;
+    box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%) !important;
 }
-.show {
+/*.show {
     display: block;
-}
-.scroll-up-wrapper.show {
+}*/
+.scroll_To_Top.scrollDiv {
     opacity: 1;
 }
-.scroll-up-wrapper i {
+.scroll_To_Top i {
     position: relative;
     overflow: hidden;
-    font-size: 1.2rem;
+    font-size: 12px;
     width: inherit;
     height: inherit;
     line-height: inherit;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: transparent;
     text-shadow: 0px 0px #000, 0px 50px #000;
     -webkit-transition: text-shadow .3s ease;
@@ -434,7 +436,7 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     transition: text-shadow .3s ease;
     z-index: 1;
 }
-.scroll-up-wrapper:hover i {
+.scroll_To_Top:hover i {
     text-shadow: 0px -50px #000, 0px 0px #000;
 }
 /* Scroll top css end */

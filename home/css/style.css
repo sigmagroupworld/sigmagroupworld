@@ -404,11 +404,11 @@
     transform: rotateZ(360deg);
   }
 }
-.americalabel {
+.desktop-banner .americas {
     bottom: 14%;
     left: 14%;
 }
-.maplabel a.americalabel::before {
+.maplabel a.americas::before {
     border-color: #8acc94;
 }
 .maplabel a:hover img, .maplabel a:hover:before {
@@ -416,25 +416,25 @@
     width: 150px;
     transition: width .5s ease,height .5s ease;
 }
-.europelabel {
+.desktop-banner .europe {
     top: 4%;
     left: 54%;
 }
-.maplabel a.europelabel::before {
+.maplabel a.europe::before {
     border-color: #73b0d0;
 }
-.africalabel {
+.desktop-banner .africa {
     bottom: 5%;
     right: 34%;
 }
-.maplabel a.africalabel::before {
+.maplabel a.africa::before {
     border-color: #fe870e;
 }
-.asialabel {
+.desktop-banner .asia {
     bottom: 30%;
     right: 20%;
 }
-.maplabel a.asialabel::before {
+.maplabel a.asia::before {
     border-color: #e85e5e;
 }
 .maplabel a img {
@@ -482,7 +482,7 @@
 }
 .all-country:before, 
 .all-country:after {
-    content: '';
+    content: "";
     position: absolute;
     background-repeat: no-repeat;
     background-size: contain;

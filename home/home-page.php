@@ -1,26 +1,16 @@
 <?php
 /**
- * Template Name: Home Page
+ * Template Name: SigmaMT Home Page Layout
  * Created By: Rinkal Petersen
  * Created at: 22 Apr 2021
  */
+/* Directory template css */
+wp_enqueue_style('home', get_stylesheet_directory_uri().'/home/css/style.css'); 
 get_header();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0" />
-	<!-- <script src="https://kit.fontawesome.com/59bd8e2ce9.js" crossorigin="anonymous"></script> -->
-	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri();?>/assets/css/all.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri();?>/home/css/style.css">
-</head>
-<body>
-<?php
-ob_start();
-$desktop_b = get_field('desktop_banner');
-//echo '<pre>';print_r($desktop_b);
+
+<?php ob_start(); $desktop_b = get_field('desktop_banner');
+
 if ($desktop_b){
 ?>
 <!-- Home page banner start -->
@@ -60,18 +50,12 @@ if ($desktop_b){
 		 		    </div>
 		 		    <div class="maplabel">
 		 		    	<div class="innermaplabel">
-		 		    		<a class="americalabel" href="<?php echo $desktop_b['america_link']; ?>">
-		 		    			<img src="<?php echo $desktop_b['america_logo']; ?>" alt="">
-		 		    		</a>
-	 					  	<a class="europelabel" href="<?php echo $desktop_b['europe_link']; ?>">
-	 					  		<img src="<?php echo $desktop_b['europe_logo']; ?>" alt="">
-	 					  	</a>
-		 					<a class="africalabel" href="<?php echo $desktop_b['africa_link']; ?>">
-		 						<img src="<?php echo $desktop_b['africa_logo']; ?>" alt="">
-		 					</a>
-		 					<a class="asialabel" href="<?php echo $desktop_b['asia_link']; ?>">
-		 						<img src="<?php echo $desktop_b['asia_logo']; ?>" alt="">
-		 					</a>
+		 		    		<?php
+							foreach($desktop_b['countries'] as $key => $value) { ?>
+								<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>">
+	 					  			<img src="<?php echo $value['country_logo']; ?>" alt="">
+	 					  		</a>
+							<?php  } ?>
 		 		    	</div>
 		 		    </div>
 	 			</div>
@@ -86,42 +70,18 @@ if ($desktop_b){
 				</span>
 			</div>
 			<div class="events-wrapper">
-				<div class="all-country europe">
-					<div class="event-box">
-						<a href="<?php echo $desktop_b['europe_link']; ?>">
-							<span class="img">
-								<img src="<?php echo $desktop_b['europe_logo']; ?>" alt="">
-							</span>
-						</a>
+				<?php
+				foreach($desktop_b['countries'] as $key => $value) { ?>
+					<div class="all-country <?php echo $value['country_name']; ?>">
+						<div class="event-box">
+							<a href="<?php echo $value['country_link']; ?>">
+								<span class="img">
+									<img src="<?php echo $value['country_logo']; ?>" alt="">
+								</span>
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class="all-country asia">
-					<div class="event-box">
-						<a href="<?php echo $desktop_b['asia_link']; ?>">
-							<span class="img">
-								<img src="<?php echo $desktop_b['asia_logo']; ?>" alt="">
-							</span>
-						</a>
-					</div>
-				</div>
-				<div class="all-country africa">
-					<div class="event-box">
-						<a href="<?php echo $desktop_b['africa_link']; ?>">
-							<span class="img">  
-								<img src="<?php echo $desktop_b['africa_logo']; ?>" alt="">
-							</span>
-						</a>
-					</div>
-				</div>
-				<div class="all-country americas">
-					<div class="event-box">
-						<a href="<?php echo $desktop_b['america_link']; ?>">
-							<span class="img">
-								<img src="<?php echo $desktop_b['america_logo']; ?>" alt="">
-							</span>
-						</a>
-					</div>
-				</div>
+				<?php  } ?>
 			</div>
 		</div>
 		<!-- Mobile banner end -->
@@ -129,157 +89,193 @@ if ($desktop_b){
 </section>
 <!-- Home page banner End -->
 
-<!-- <section class="home-blog">
+<section class="home-blog">
 	<div class="container">
-		<div class="home-news">
-			<div class="latest-news hp-left">
-				<div class="h-title">
-					<a href="#">
-						Latest News<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</a>
-				</div>
-				<div class="blog-listing-module">
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2 class="big">Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
+		<?php
+			/* Add your taxonomy. */
+			/*$taxonomies = array( 
+			    'news-tag',
+			);
+
+
+			$posts_array = get_posts(
+			    array(
+			        'posts_per_page' => -1,
+			        'post_type' => 'fabric_building',
+			        'tax_query' => array(
+			            array(
+			                'taxonomy' => 'fabric_building_types',
+			                'field' => 'term_id',
+			                'terms' => $cat->term_id,
+			            )
+			        )
+			    )
+			);
+
+			$args = array(
+			    'orderby'           => 'name', 
+			    'order'             => 'ASC',
+			    'hide_empty'        => true,
+			    'exclude'           => array('816'), 
+			    'exclude_tree'      => array(), 
+			    'include'           => array(),
+			    'number'            => '', 
+			    'fields'            => 'all', 
+			    'slug'              => '', 
+			    'parent'            => '',
+			    'hierarchical'      => true, 
+			    'child_of'          => 0, 
+			    'get'               => '', 
+			    'name__like'        => '',
+			    'description__like' => '',
+			    'pad_counts'        => false, 
+			    'offset'            => '', 
+			    'search'            => '', 
+			    'cache_domain'      => 'core'
+			); 
+
+			$terms = get_terms( $taxonomies, $args );
+			foreach ( $terms as $term ) {
+				// here's code for getting the posts for custom post type
+				$posts_array = get_posts(
+	                array( 'showposts' => -1,
+	                    'post_type' => 'news-items',
+	                    'tax_query' => array(
+	                        array(
+	                        'taxonomy' => 'news-tag',
+	                        'field' => 'term_id',
+	                        'terms' => $term->term_id,
+	                        )
+	                    )
+	                )
+	            );
+		        foreach ( $posts_array as $k=>$post ) {
+		        	$row = 0;
+		            ?>
+		            <div class="home-news">
+						<div class="latest-news hp-left">
+							<div class="h-title">
+								<a href="#">
+									<?php echo $term->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+								</a>
+							</div>
+							<div class="blog-listing-module">								
+								<div class="post-item">
+									<a href="#">
+										<?php if($row === 0) { ?>
+											<div class="thumb-img">
+				                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+				                    		</div>
+				                    	<?php } ?>
+			                    		<h2<?php if($row === 0) { ?> class="big" <?php } ?>><?php echo $post->post_title; ?></h2>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="affiliate hp-center">
+							<div class="h-title">
+								<a href="#">
+									Affiliate Grand Slam<i class="fa fa-angle-right" aria-hidden="true"></i>
+								</a>
+							</div>
+							<div class="blog-listing-module">
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2 class="big">Sweden is at its "highest threat level" of money laundering</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="spotify hp-right">
+							<div class="h-title">
+								<a href="#">
+									Watch/Spotify<i class="fa fa-angle-right" aria-hidden="true"></i>
+								</a>
+							</div>
+							<div class="blog-listing-module">
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2 class="big">Gibraltar's Gambling Regulation in the year ahead | SiGMA TV</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+								<div class="post-item">
+									<a href="#">
+										<div class="thumb-img">
+			                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
+			                    		</div>
+			                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="post-item">
-						<a href="#">
-                    		<h2>Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-                    		<h2>Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-                    		<h2>Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-                    		<h2>Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-                    		<h2>Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-                    		<h2>Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="affiliate hp-center">
-				<div class="h-title">
-					<a href="#">
-						Affiliate Grand Slam<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</a>
-				</div>
-				<div class="blog-listing-module">
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2 class="big">Sweden is at its "highest threat level" of money laundering</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="spotify hp-right">
-				<div class="h-title">
-					<a href="#">
-						Watch/Spotify<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</a>
-				</div>
-				<div class="blog-listing-module">
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2 class="big">Gibraltar's Gambling Regulation in the year ahead | SiGMA TV</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-					<div class="post-item">
-						<a href="#">
-							<div class="thumb-img">
-                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-                    		</div>
-                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
+			<?php $row++; }
+			} */ ?>
+		
 	</div>
-</section> -->
+</section>
 
 <!-- News Image slider start -->
 <!-- <section class="sigma-news">
@@ -300,5 +296,3 @@ if ($desktop_b){
 
 	get_footer();
 ?>
-</body>
-</html>

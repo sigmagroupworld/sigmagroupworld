@@ -246,6 +246,7 @@ body {
 /* Recent News css start */
 .releted-post .listing-wrapper {
     display: flex;
+    flex-wrap: wrap;
 }
 .releted-post .listing-wrapper article {
     width: 31%;

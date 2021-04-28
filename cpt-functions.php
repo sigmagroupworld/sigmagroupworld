@@ -18,7 +18,7 @@ function sigma_mt_news_custom_posts() {
 			'not_found_in_trash' => __('No News Items found in Trash', 'sigmaigaming'),
 		),
 		'public' => TRUE,
-		'rewrite' => array('slug' => 'news/%news-tag%'),
+		'rewrite' => array('slug' => 'news'),
 		'has_archive' => false,
 		
 		'supports' => array('title','thumbnail', 'editor', 'comments'),
@@ -62,7 +62,7 @@ function sigma_mt_tags_news(){
 			'singular_name' => __('Tag', 'sigmaigaming'),
 			'rewrite'       => [
 				'slug' => 'tags',
-				"with_front" => false
+				'with_front' => false
 			],
 			'show_tagcloud' => true,
 			'query_var'     => true
