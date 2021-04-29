@@ -52,3 +52,22 @@ function sigma_mt_upcoming_event_shortcode(){
     return ob_get_clean();
 }
 add_shortcode('upcoming-event', 'sigma_mt_upcoming_event_shortcode');
+
+
+
+// Shortcode for search form
+function wpbsearchform( $form ) {
+    $form = '<form role="search" method="get" id="searchform" class="search-form" action="' . home_url( '/' ) . '" >
+    <div><label class="" for="s"><i aria-hidden="true" class="fa fa-search"></i></label>
+    <input type="text" class="search-field" value="' . get_search_query() . '" name="s" id="s" />
+    <input type="submit" class="search-submit" id="searchsubmit" value="'. esc_attr__('Search') .'" />
+    </div>
+    </form>';
+    return $form;
+}
+add_shortcode('wpbsearch', 'wpbsearchform');
+
+add_action( 'after_setup_theme', 'my_theme_setup' );
+function my_theme_setup(){
+  load_theme_textdomain( 'wpml_theme', get_template_directory() . '/languages' );
+}
