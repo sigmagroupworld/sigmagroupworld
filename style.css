@@ -16,7 +16,7 @@ html {font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100
 html, body, div, h1, h2, h3, h4, h5, h6, p, ul, li, form {margin: 0; padding: 0; list-style: none; font-weight: normal;}
 button, input, select, textarea {margin: 0; padding: 0; border: none;}
 .custfield:focus {outline: none; border: none; box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none;}
-body {font-size: 14px; color: #000000;}
+body {font-size: 14px; color: #000000; font-family: "Montserrat"; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 a {text-decoration: none;}
 a:hover, a:focus {text-decoration: none; outline: none;}
 img {border: none; vertical-align: middle; max-width: 100%}
@@ -29,6 +29,13 @@ a {transition: all .5s ease-in-out 0s;
     -moz-transition: all .5s ease-in-out 0s;
     -webkit-transition: all .5s ease-in-out 0s;
     -o-transition: all .5s ease-in-out 0s;}
+a:focus {
+    background: none !important;
+    outline: none !important;
+}
+.site a:focus:not(.wp-block-button__link):not(.wp-block-file__button) img {
+    outline: none;
+}
 /* Custom CSS End */
 
 /* Footer Styling */
@@ -87,16 +94,71 @@ a {transition: all .5s ease-in-out 0s;
     border-radius: 100%;
 }
 /* Footer Language switcher css start */
+/* Scroll top css start */
+.scroll {
+    margin-bottom: 0 !important;
+}
+.scroll_to_top {
+    position: fixed;
+    bottom: 60px;
+    right: 42px;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    opacity: 1;
+    z-index: 333;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
+    -o-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
+    -moz-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
+    transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
+    -webkit-box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%) !important;
+    -moz-box-shadow: 0px 5px 15px 2px rgba(0,0,0,0.25) !important;
+    box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%) !important;
+}
+.scroll_to_top i {
+    position: relative;
+    overflow: hidden;
+    font-size: 12px;
+    width: inherit;
+    height: inherit;
+    line-height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    text-shadow: 0px 0px #000, 0px 50px #000;
+    -webkit-transition: text-shadow .3s ease;
+    -o-transition: text-shadow .3s ease;
+    -moz-transition: text-shadow .3s ease;
+    transition: text-shadow .3s ease;
+    z-index: 1;
+}
+.scroll_to_top:hover i {
+    text-shadow: 0px -50px #000, 0px 0px #000;
+}
+/* Scroll top css end */
 
 /* Header Styling */
 /* Header fixed css start */
+.logged-in.ehf-header #masthead {
+    top: 32px;
+}
+body #page {
+    padding-top: 100px;
+}
 .ehf-header #masthead {
     top: 0px;
     left: 0px;
     width: 100%;
     z-index: 9998;
     padding: 0px 15px;
-    position: fixed;
+    position: fixed !important;
     background-color: #fff;
     -webkit-box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
     -moz-box-shadow: 0 5px 10px 0 rgba(0,0,0,0.15);
@@ -388,58 +450,136 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
 
 /* Header Language dropdown End */
 
-/* Scroll top css start */
-.scroll_To_Top {
-    position: fixed;
-    bottom: 60px;
-    right: 42px;
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
+/* Newsletter css start */
+/* Newslatter form css start */
+.footer-newsletter form  {
+    display: flex;
+}
+.wpforms-container-full.footer-newsletter .wpforms-field-container {
+    width: -webkit-calc(100% - 150px);
+    width: -moz-calc(100% - 150px);
+    width: calc(100% - 150px);
+}
+.wpforms-container-full.footer-newsletter .wpforms-submit-container {
+    min-width: 150px;
+}
+div.wpforms-container-full.footer-newsletter .wpforms-form .wpforms-field.wpforms-field-email,
+div.wpforms-container-full.footer-newsletter .wpforms-form .wpforms-submit-container {
+    padding: 0;
+}
+div.wpforms-container-full .wpforms-form input[type=email],
+.wpforms-container-full.footer-newsletter .wpforms-field-container input[type=email] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    font-family: "Montserrat";
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    padding: 12px 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #d1d1d1;
+    -webkit-border-top-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    border-bottom-right-radius: 0px;
+    background: #414042;
+    border-color: #414042;
+    color: #fff;
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 5px;
+    border: none !important;
+}
+div.wpforms-container-full .wpforms-form input[type=email]::placeholder,
+.wpforms-container-full.footer-newsletter .wpforms-field-container input[type=email]::placeholder {
+    font-size: 14px;
+    color: #8dc3f1;
+}
+div.wpforms-container-full .wpforms-form button[type=submit] {
+    display: block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: "Montserrat";
+    font-size: 14px !important;
+    font-weight: 400;
+    color: #fff !important;
+    outline: 0;
     text-align: center;
     cursor: pointer;
-    background-color: #fff;
-    opacity: 0;
-    z-index: 333;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
-    -o-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
-    -moz-transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
-    transition: bottom .5s ease,opacity .5s ease,background-color .5s ease;
-    -webkit-box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%) !important;
-    -moz-box-shadow: 0px 5px 15px 2px rgba(0,0,0,0.25) !important;
-    box-shadow: 0px 5px 15px 2px rgb(0 0 0 / 25%) !important;
+    border: 0 !important;
+    width: 100%;
+    padding: 8px 15px 9px 15px !important;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 0 5px 5px 0;
+    background: #ed1a3b;
+    background-color: #ed1a3b !important;
+    border: 0;
+    text-transform: uppercase;
 }
-/*.show {
-    display: block;
-}*/
-.scroll_To_Top.scrollDiv {
-    opacity: 1;
+div.wpforms-container-full .wpforms-form button[type=submit]:hover,
+div.wpforms-container-full .wpforms-form button[type=submit]:focus {
+    background: -webkit-linear-gradient(45deg,#d80032 0%,#ff4c5c 40%,#ff4c5c 60%,#d80032 100%);
+    background: -moz-linear-gradient(45deg,#d80032 0%,#ff4c5c 40%,#ff4c5c 60%,#d80032 100%);
+    background: -o-linear-gradient(45deg,#d80032 0%,#ff4c5c 40%,#ff4c5c 60%,#d80032 100%);
+    background: linear-gradient(45deg,#d80032 0%,#ff4c5c 40%,#ff4c5c 60%,#d80032 100%);
 }
-.scroll_To_Top i {
-    position: relative;
-    overflow: hidden;
-    font-size: 12px;
-    width: inherit;
-    height: inherit;
-    line-height: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: transparent;
-    text-shadow: 0px 0px #000, 0px 50px #000;
-    -webkit-transition: text-shadow .3s ease;
-    -o-transition: text-shadow .3s ease;
-    -moz-transition: text-shadow .3s ease;
-    transition: text-shadow .3s ease;
-    z-index: 1;
+div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
+    font-family: "Montserrat";
+    font-size: 11px;
+    color: #b20000;
+    font-weight: 400;
+    text-align: left;
 }
-.scroll_To_Top:hover i {
-    text-shadow: 0px -50px #000, 0px 0px #000;
+.footer-newsletter.wpforms-container-full {
+    margin-bottom: 0;
 }
-/* Scroll top css end */
+/* Newslatter form css end */
+.newsletter {
+    background-repeat: repeat;
+    background-size: 75px 75px;
+}
+.newsletter-inner {
+    text-align: center;
+    font-family: "Montserrat";
+    font-size: 14px;
+    padding: 30px 0;
+    max-width: 560px;
+    margin: 0 auto;
+}
+.newsletter-inner h4 {
+    color: #000;
+    font-weight: 600;
+    padding: 10px 0;
+    font-size: 14px;
+}
+.newsletter-inner p {
+    color: #000;
+    font-weight: 400;
+    padding: 10px 0;
+    line-height: 20px;
+}
+.newsletter-inner p a {
+    color: #ed1a3b;
+    font-weight: 600;
+}
+.newsletter-inner p:empty {
+    display: none;
+}
+/* Newsletter css end */
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */
@@ -704,7 +844,7 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     }
 }
 @media (max-width: 530px) {
-    /************* Header Language dropdown Start *************/
+    /* Header Language dropdown Start */
     .ehf-header #masthead .custom-header .header-cmenu li.wpml-ls-item ul.sub-menu {
         justify-content: flex-start;
         margin: 0 0 0 20px;
@@ -713,7 +853,7 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
         margin-right: 0px !important;
         padding-bottom: 120px;
     }
-    /************* Header Language dropdown End *************/
+    /* Header Language dropdown End */
 
 
 }

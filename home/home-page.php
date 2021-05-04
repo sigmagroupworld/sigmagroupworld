@@ -6,32 +6,35 @@
  */
 /* Directory template css */
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/home/css/style.css'); 
+wp_enqueue_script('test', get_stylesheet_directory_uri().'/home/js/custom-home.js', array(), '1.0.0', true);
 get_header();
 ?>
 
-<?php ob_start(); $desktop_b = get_field('desktop_banner');
+<?php ob_start(); $desktop_banner = get_field('desktop_banner');
+$taxonomy = 'news-tag';
+$row = 0;
 
-if ($desktop_b){ ?>
+if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
-	<section class="home-banner" style="background-image: url(<?php echo $desktop_b['banner_background_image']; ?>);">
+	<section class="home-banner" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
 		<div class="banner-container">
 			<!-- Desktop banner start -->
 			<div class="desktop-banner">
 				<div class="labelwrapmap">
 		 	  		<span>	
-		 	    		<img src="<?php echo $desktop_b['desktop_featured_image']; ?>" alt="Title">
+		 	    		<img src="<?php echo $desktop_banner['desktop_featured_image']; ?>" alt="Title">
 		 	  		</span>
 		 		</div>
 				<div class="sigmaBannerWrapper">
 			 		<div class="bannerInnerWrapper">
 			 			<div class="bannermapwrapper bannermapwrap-left">
-			 				<div class="inneranimate" style="background-image: url(<?php echo $desktop_b['map_image_one']; ?>);">
+			 				<div class="inneranimate" style="background-image: url(<?php echo $desktop_banner['map_image_one']; ?>);">
 			 					<div class="americaele2"></div>
 			 					<div class="americaele"></div>
 			 				</div>
 			 		    </div>
 			 		    <div class="bannermapwrapper bannermapwrap-middle">
-			 		      	<div class="inneranimate" style="background-image: url(<?php echo $desktop_b['map_image_two']; ?>);">
+			 		      	<div class="inneranimate" style="background-image: url(<?php echo $desktop_banner['map_image_two']; ?>);">
 			 		      		<div class="asiaele3"></div>
 			 		      		<div class="asiaele2"></div>
 			 					<div class="asiaele"></div>
@@ -41,7 +44,7 @@ if ($desktop_b){ ?>
 			 		      	</div>
 			 		    </div>
 			 			<div class="bannermapwrapper bannermapwrap-right">
-			 				<div class="inneranimate" style="background-image: url(<?php echo $desktop_b['map_image_three']; ?>);">
+			 				<div class="inneranimate" style="background-image: url(<?php echo $desktop_banner['map_image_three']; ?>);">
 					 	        <div class="gamele"></div>
 			 					<div class="gamele1"></div>
 			 					<div class="gamele2"></div>
@@ -50,7 +53,7 @@ if ($desktop_b){ ?>
 			 		    <div class="maplabel">
 			 		    	<div class="innermaplabel">
 			 		    		<?php
-								foreach($desktop_b['countries'] as $key => $value) { ?>
+								foreach($desktop_banner['countries'] as $key => $value) { ?>
 									<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>">
 		 					  			<img src="<?php echo $value['country_logo']; ?>" alt="">
 		 					  		</a>
@@ -65,12 +68,12 @@ if ($desktop_b){ ?>
 			<div class="mobile-banner">
 				<div class="mobilelabelmap">
 					<span>
-						<img src="<?php echo $desktop_b['mobile_featured_image']; ?>" alt="Title">
+						<img src="<?php echo $desktop_banner['mobile_featured_image']; ?>" alt="Title">
 					</span>
 				</div>
 				<div class="events-wrapper">
 					<?php
-					foreach($desktop_b['countries'] as $key => $value) { ?>
+					foreach($desktop_banner['countries'] as $key => $value) { ?>
 						<div class="all-country <?php echo $value['country_name']; ?>">
 							<div class="event-box">
 								<a href="<?php echo $value['country_link']; ?>">
@@ -87,7 +90,6 @@ if ($desktop_b){ ?>
 		</div>
 	</section>
 	<!-- Home page banner End -->
-
 	<!-- News category menu start -->
 	<section>
 		<div class="container">
@@ -107,79 +109,305 @@ if ($desktop_b){ ?>
 						</div>
 					</div>
 					<?php
-						$taxonomies = array( 
-						    'news-tag',
-						);
-						$args = array(
-						    'orderby'           => 'name', 
-						    'order'             => 'ASC',
-						    'hide_empty'        => true,
-						    'exclude'           => array(), 
-						    'exclude_tree'      => array(), 
-						    'include'           => array(),
-						    'number'            => '', 
-						    'fields'            => 'all', 
-						    'slug'              => '', 
-						    'parent'            => '',
-						    'hierarchical'      => true, 
-						    'child_of'          => 0, 
-						    'get'               => '', 
-						    'name__like'        => '',
-						    'description__like' => '',
-						    'pad_counts'        => false, 
-						    'offset'            => '', 
-						    'search'            => '', 
-						    'cache_domain'      => 'core'
-						);
-						$terms = get_terms( $taxonomies, $args );
+					$menu_name = sigma_mt_get_tags_menu();
 					?>
 					<ul>
-						<?php foreach ( $terms as $tag ) { ?>
+						<?php foreach ( $menu_name as $k => $tag ) { ?>
 			  				<li>
-			  					<a href="<?php echo get_tag_link($tag->term_id) ?>"><?php echo $tag->name; ?></a>
+			  					<a href="<?php echo $tag->url; ?>"><?php echo $tag->title; ?></a>
 			  				</li>
 			  			<?php } ?>
 		 			</ul>
 				</div>
 				<div class="news-search">
-					<?php echo do_shortcode( '[wpbsearch]' ); ?>
+					<?php echo do_shortcode( '[sigma-mt-wpbsearch]' ); ?>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- News category menu end -->
-
+	<!-- Latest blog section -->
 	<section class="home-blog">
 		<div class="container">
 			<div class="home-news">
 				<div class="latest-news hp-left">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data('', $taxonomy, 14);
+					?>
 					<div class="h-title">
-						<a href="#">Latest News<?php #echo _('Latest News', 'wpml_theme'); ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						<a href="#">Latest News<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</div>
+		       		<?php
+	        		foreach ( $news_tags['term_data'] as $k => $post ) {
+		        		setup_postdata( $post );
+		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			            ?>
+			            <div class="blog-listing-module">								
+							<div class="post-item">
+								<a href="<?php the_permalink(); ?>">
+									<?php if($row === 0) { ?>
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+			                    	<?php } ?>
+		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
+								</a>
+							</div>
+						</div>							
+						<?php $row++; ?>
+						<?php wp_reset_postdata();
+					} ?>
+				</div>
+				<div class="affiliate hp-center">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1060, $taxonomy, 12);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php 
+							if(isset($news_tags['term_value']->name))
+							{
+								echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+							<?php } ?>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+				<div class="spotify hp-right">
+					<div class="h-title">
+						<a href="#">
+							Watch/Spotify<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<?php
+					$post_args = array(
+			          'posts_per_page' => 10,
+			          'post_type' => 'video-items',
+			          'orderby'        => 'rand',
+			          'post_status'    => 'publish'
+			        );
+			        $get_videos = get_posts($post_args);
+					?>
+					<div class="blog-listing-module">
+						<?php foreach ( $get_videos as $k => $video ) {
+							$youtube_videos = get_field('youtube_videos');
+							$value = get_field( "youtube_videos", $video->ID );
+							print_r($youtube_videos); ?>
+							<div class="post-item">
+								<a href="<?php the_permalink(); ?>">
+									<?php if($row === 0) { ?>
+										<?php print($value); ?>
+										<div class="thumb-img">
+			                        		<img src="<?php echo $value; ?>" alt="">
+			                    		</div>
+			                    	<?php } ?>
+		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php echo $video->post_title; ?></h2>
+								</a>
+							</div>
+						<?php $row++; } ?>
+					</div>
+					<div class="">
+						<iframe src="https://open.spotify.com/embed-podcast/show/0PSwKvn79VuUYyALuUYUec" width="100%" height="232" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Latest blog section end -->
+
+	<!-- News Image slider start -->
+	<section class="sigma-news">
+		<div class="container">
+			<div class="single-news">
+				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
+				  	<div class="all-news">
+				  		<a href="#">
+				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
+				  		</a>
+				  	</div>
+				<?php } ?>
+			</div>
+		</div>
+	</section>
+	<!-- News Image slider end -->
+
+	<!-- Asia news section -->
+	<section class="home-blog">
+		<div class="container">
+			<div class="home-news">
+				<?php
+				$news_tags = sigma_mt_get_news_tags_data(1061, $taxonomy, 6); 
+				?>					
+				<div class="latest-news hp-left">
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+		       		<?php				
+	        		foreach ( $news_tags['term_data'] as $k => $post ) {
+		        		setup_postdata( $post );
+		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+			            <div class="blog-listing-module">								
+							<div class="post-item">
+								<a href="<?php the_permalink(); ?>">
+									<?php if($row === 0) { ?>
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+			                    	<?php } ?>
+		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
+								</a>
+							</div>
+						</div>							
+						<?php $row++; ?>
+						<?php wp_reset_postdata(); ?>
+					<?php } ?>
+				</div>
+				<div class="affiliate hp-center">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1062, $taxonomy, 6);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+				<div class="spotify hp-right">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1055, $taxonomy, 12);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Asia news section end-->
+
+	<!-- News Image slider start -->
+	<section class="sigma-news">
+		<div class="container">
+			<div class="single-news">
+				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
+				  	<div class="all-news">
+				  		<a href="#">
+				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
+				  		</a>
+				  	</div>
+				<?php } ?>
+			</div>
+		</div>
+	</section>
+	<!-- News Image slider end -->
+
+	<!-- Europe news section -->
+	<section class="home-blog">
+		<div class="container">
+			<div class="home-news">
+				<?php
+				$news_tags = sigma_mt_get_news_tags_data(1054, $taxonomy, 9);
+				?>					
+				<div class="latest-news hp-left">
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</a>
 					</div>
 		       		<?php
-					$post_args = array(
-					      'posts_per_page' => -1,
-					      'post_type' => 'news-items',
-					      'posts_per_page' => 10,
-					      'orderby'        => 'rand',
-					      'post_status'    => 'publish'
-					);
-					$getPosts = get_posts($post_args);
-					$row = 0;
-	        		foreach ( $getPosts as $k => $post ) :
+	        		foreach ( $news_tags['term_data'] as $k => $post ) :
 		        		setup_postdata( $post );
-		        		$featuredImage = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-		            ?>
+		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );?>
 			            <div class="blog-listing-module">								
 							<div class="post-item">
-								<a href="#">
+								<a href="<?php the_permalink(); ?>">
 									<?php if($row === 0) { ?>
 										<div class="thumb-img">
-			                        		<img src="<?php echo $featuredImage[0] ?>" alt="">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
 			                    		</div>
 			                    	<?php } ?>
-		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
 								</a>
 							</div>
 						</div>							
@@ -188,29 +416,180 @@ if ($desktop_b){ ?>
 					endforeach; ?>
 				</div>
 				<div class="affiliate hp-center">
-					<?php 
-					$post_args = array(
-					      'posts_per_page' => -1,
-					      'post_type' => 'news-items',
-					      'tax_query' => array(
-					          array(
-					              'taxonomy' => 'news-tag',
-					              'field' => 'term_id',
-					              'terms' => '867',
-					          )
-					      )
-					);
-					$getPosts = get_posts($post_args);
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1067, $taxonomy, 9);
 					?>
 					<div class="h-title">
 						<a href="#">
-							Affiliate Grand Slam<i class="fa fa-angle-right" aria-hidden="true"></i>
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+				<div class="spotify hp-right">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1079, $taxonomy, 12);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Europe news section end-->
+
+	<!-- News Image slider start -->
+	<section class="sigma-news">
+		<div class="container">
+			<div class="single-news">
+				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
+				  	<div class="all-news">
+				  		<a href="#">
+				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
+				  		</a>
+				  	</div>
+				<?php } ?>
+			</div>
+		</div>
+	</section>
+	<!-- News Image slider end -->
+
+	<!-- America news section -->
+	<section class="home-blog">
+		<div class="container">
+			<div class="home-news">
+				<?php
+				$news_tags = sigma_mt_get_news_tags_data(1066, $taxonomy, 12);
+				?>					
+				<div class="latest-news hp-left">
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+		       		<?php
+	        		foreach ( $news_tags['term_data'] as $k => $post ) :
+		        		setup_postdata( $post );
+		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+			            <div class="blog-listing-module">								
+							<div class="post-item">
+								<a href="<?php the_permalink(); ?>">
+									<?php if($row === 0) { ?>
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+			                    	<?php } ?>
+		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
+								</a>
+							</div>
+						</div>							
+						<?php $row++; ?>
+						<?php wp_reset_postdata();
+					endforeach; ?>
+				</div>
+				<div class="affiliate hp-center">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1068, $taxonomy, 6);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0]; ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+				<div class="spotify hp-right">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(854, $taxonomy, 12);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</a>
 					</div>
 					<div class="blog-listing-module">
 						<?php 
 						$row = 0;
-						foreach ( $getPosts as $k => $post ) {
+						foreach ( $news_tags['term_data'] as $k => $post ) {
 				        	setup_postdata( $post );
 				        	$featuredImage = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
 				        	<?php if($row === 0) { ?>
@@ -235,129 +614,16 @@ if ($desktop_b){ ?>
 						<?php $row++; } ?>
 					</div>
 				</div>
-				<div class="spotify hp-right">
-					<div class="h-title">
-						<a href="#">
-							Watch/Spotify<i class="fa fa-angle-right" aria-hidden="true"></i>
-						</a>
-					</div>
-					<div class="blog-listing-module">
-						<div class="post-item">
-							<a href="#">
-								<div class="thumb-img">
-	                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-	                    		</div>
-	                    		<h2 class="big">Gibraltar's Gambling Regulation in the year ahead | SiGMA TV</h2>
-							</a>
-						</div>
-						<div class="post-item">
-							<a href="#">
-								<div class="thumb-img">
-	                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-	                    		</div>
-	                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-							</a>
-						</div>
-						<div class="post-item">
-							<a href="#">
-								<div class="thumb-img">
-	                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-	                    		</div>
-	                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-							</a>
-						</div>
-						<div class="post-item">
-							<a href="#">
-								<div class="thumb-img">
-	                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-	                    		</div>
-	                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-							</a>
-						</div>
-						<div class="post-item">
-							<a href="#">
-								<div class="thumb-img">
-	                        		<img src="images/swedish-polic-money-laundry.jpg" alt="">
-	                    		</div>
-	                    		<h2>Be unique and stop using templates in affiliate marketing" - Olessia Selitsky</h2>
-							</a>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
-
-	<section class="home-blog">
-		<div class="container">
-			<div class="home-news">
-				<?php
-				$terms_array = array( 
-				  'taxonomy' => 'news-tag',
-				  'parent'   => 0
-				);
-				$news_terms = get_terms($terms_array); 
-				$counter = 0;
-				foreach($news_terms as $term) : 
-					$counter++;
-					if ($counter % 3 == 0)  {
-						$class = 'spotify hp-right';
-					} else if ($counter % 3 == 1) {
-						$class = 'latest-news hp-left';
-					} else {
-						$class = 'affiliate hp-center';
-					}
-					?>					
-					<div class="<?php echo $class; ?>">
-						<div class="h-title">
-							<a href="#">
-								<?php echo $term->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
-							</a>
-						</div>
-			       		<?php
-						$post_args = array(
-						      'posts_per_page' => -1,
-						      'post_type' => 'news-items',
-						      'tax_query' => array(
-						          array(
-						              'taxonomy' => 'news-tag',
-						              'field' => 'term_id',
-						              'terms' => $term->term_id,
-						          )
-						      )
-						);
-						$getPosts = get_posts($post_args);
-						$row = 0;
-		        		foreach ( $getPosts as $k => $post ) :
-			        		setup_postdata( $post );
-			        		$featuredImage = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			            ?>
-				            <div class="blog-listing-module">								
-								<div class="post-item">
-									<a href="<?php the_permalink(); ?>">
-										<?php if($row === 0) { ?>
-											<div class="thumb-img">
-				                        		<img src="<?php echo $featuredImage[0] ?>" alt="">
-				                    		</div>
-				                    	<?php } ?>
-			                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
-									</a>
-								</div>
-							</div>							
-							<?php $row++; ?>
-							<?php wp_reset_postdata();
-						endforeach; ?>
-					</div>
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
+	<!-- America news section end-->
 
 	<!-- News Image slider start -->
 	<section class="sigma-news">
 		<div class="container">
 			<div class="single-news">
-				<?php foreach($desktop_b['sigma_banner_add'] as $key => $value) {  ?>
+				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
 				  	<div class="all-news">
 				  		<a href="#">
 				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
@@ -369,8 +635,146 @@ if ($desktop_b){ ?>
 	</section>
 	<!-- News Image slider end -->
 
+	<!-- Africa news section -->
+	<section class="home-blog">
+		<div class="container">
+			<div class="home-news">
+				<?php
+				$news_tags = sigma_mt_get_news_tags_data(1078, $taxonomy, 13);
+				?>					
+				<div class="latest-news hp-left">
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+		       		<?php
+	        		foreach ( $news_tags['term_data'] as $k => $post ) :
+		        		setup_postdata( $post );
+		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+			            <div class="blog-listing-module">								
+							<div class="post-item">
+								<a href="<?php the_permalink(); ?>">
+									<?php if($row === 0) { ?>
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+			                    	<?php } ?>
+		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
+								</a>
+							</div>
+						</div>							
+						<?php $row++; ?>
+						<?php wp_reset_postdata();
+					endforeach; ?>
+				</div>
+				<div class="affiliate hp-center">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1070, $taxonomy, 12);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php 
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+				<div class="spotify hp-right">
+					<?php
+					$news_tags = sigma_mt_get_news_tags_data(1064, $taxonomy, 12);
+					?>
+					<div class="h-title">
+						<a href="#">
+							<?php  echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</a>
+					</div>
+					<div class="blog-listing-module">
+						<?php
+						foreach ( $news_tags['term_data'] as $k => $post ) {
+				        	setup_postdata( $post );
+				        	$featuredImage = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+				        	<?php if($row === 0) { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featuredImage[0] ?>" alt="">
+			                    		</div>
+		                    			<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="post-item">
+									<a href="<?php the_permalink(); ?>">
+										<div class="thumb-img">
+			                        		<img src="<?php echo $featuredImage[0] ?>" alt="">
+			                    		</div>
+			                    		<h2><?php the_title(); ?></h2>
+									</a>
+								</div>
+							<?php } ?>
+						<?php $row++; } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Africa news section end-->
+
+	<!-- News Image slider start -->
+	<section class="sigma-news">
+		<div class="container">
+			<div class="single-news">
+				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
+				  	<div class="all-news">
+				  		<a href="#">
+				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
+				  		</a>
+				  	</div>
+				<?php } ?>
+			</div>
+		</div>
+	</section>
+	<!-- News Image slider end -->
 <?php
 }
-
-	get_footer();
 ?>
+<div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
+	<div class="container">
+		<div class="newsletter-inner">
+			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
+			<div class="newsletter-form">
+				<?php
+				$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
+				echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
+                ?>
+			</div>
+			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>
+		</div>
+	</div>
+</div>
+<?php get_footer(); ?>

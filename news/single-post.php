@@ -8,13 +8,15 @@
 /* News template css */
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/news/css/news.css'); 
 get_header();
+
+$fetured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 ?>
 
 <section>
 	<!-- News Banner start -->
 	<div class="blog-banner">
 		<a href="#">
-			<img src="<?php echo get_field('banner_image'); ?>" alt="">
+			<img src="<?php echo $fetured_image_url[0]; ?>" alt="">
 		</a>
 	</div>
 	<!-- News Banner end -->

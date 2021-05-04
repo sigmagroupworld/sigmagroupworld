@@ -9,7 +9,7 @@ wp_enqueue_style('directory', get_stylesheet_directory_uri().'/directory/css/dir
 get_header();
 ?>
 
-<?php ob_start(); $directory = get_field('directory_box');
+<?php  ob_start(); $directory = get_field('directory_box');
 
 if ($directory){
 ?>
@@ -36,5 +36,19 @@ if ($directory){
 	</section>
 <?php
 }
-get_footer(); 
 ?>
+<div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
+	<div class="container">
+		<div class="newsletter-inner">
+			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
+			<div class="newsletter-form">
+				<?php
+				$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
+				echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
+                ?>
+			</div>
+			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>
+		</div>
+	</div>
+</div>
+<?php get_footer(); ?>

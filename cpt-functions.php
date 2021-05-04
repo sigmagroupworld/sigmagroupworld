@@ -21,7 +21,7 @@ function sigma_mt_news_custom_posts() {
 		'rewrite' => array('slug' => 'news'),
 		'has_archive' => false,
 		
-		'supports' => array('title','thumbnail', 'editor', 'comments'),
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
 
@@ -58,8 +58,8 @@ function sigma_mt_tags_news(){
 				'add_new_item' => __('Add New Tag', 'sigmaigaming'),
 				'new_item_name' => __('New Tag', 'sigmaigaming')
 			),
-			'label'         => __('Tags', 'sigmaigaming'),
-			'singular_name' => __('Tag', 'sigmaigaming'),
+			'label'         => __('News Tags', 'sigmaigaming'),
+			'singular_name' => __('News Tag', 'sigmaigaming'),
 			'rewrite'       => [
 				'slug' => 'tags',
 				'with_front' => false
@@ -91,7 +91,7 @@ function sigma_mt_events_custom_posts(){
 		'publicly_queryable' => false,
 		'rewrite' => array('slug' => 'event-items'),
 		'has_archive' => false,
-		'supports' => array('title','thumbnail','editor', 'revisions'),
+		'supports' => array('title', 'thumbnail', 'editor', 'revisions'),
 	));
 }
 
@@ -190,6 +190,54 @@ function sigma_mt_author_custom_posts(){
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'authors', 'with_front' => false),
 		'has_archive' => true,
-		'supports' => array('title','thumbnail','editor')
+		'supports' => array('title', 'thumbnail', 'editor')
 	));
+}
+
+// create a Custom post type videos
+add_action('init', 'sigma_mt_videos_custom_posts');
+function sigma_mt_videos_custom_posts() {
+	register_post_type('video-items', array(
+		'labels' => array(
+			'name' => __('Sigma Videos', 'sigmaigaming'),
+			'singular_name' => __('Sigma Video', 'sigmaigaming'),
+			'menu_name' => __('Sigma Videos', 'sigmaigaming'),
+			'add_new' => __('Add Video Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Videos Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Videos Item', 'sigmaigaming'),
+			'new_item' => __('Videos Items', 'sigmaigaming'),
+			'view_item' => __('View Videos Items', 'sigmaigaming'),
+			'search_items' => __('Search Videos Items', 'sigmaigaming'),
+			'not_found' => __('No Videos Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Videos Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'sigma-videos'),
+		'has_archive' => false,
+		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post texonomies for news post
+add_action( 'init', 'sigma_mt_taxonomies_videos', 0 );
+function sigma_mt_taxonomies_videos(){
+	register_taxonomy('videos-cat', array('video-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Video Categories', 'sigmaigaming'),
+				'singular_name' => __('Video Category', 'sigmaigaming'),
+				'search_items' => __('Search Video Category', 'sigmaigaming'),
+				'all_items' => __('All Video Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Videos Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent News Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Videos Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Videos Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Videos Category', 'sigmaigaming'),
+				'new_item_name' => __('New Videos Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'sm-videos')
+		)
+	);
 }
