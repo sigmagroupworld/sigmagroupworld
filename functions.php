@@ -20,7 +20,9 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-fontawesome', get_stylesheet_uri() . '/assets/js/all.css', null, false);*/
     wp_enqueue_script('jquery');
     wp_enqueue_style('sigmamt-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
+    wp_enqueue_style('sigmamt-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script( 'sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );
+     wp_enqueue_script( 'sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 }
 // load js files in footer & style in header end
 
@@ -120,6 +122,18 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
     $post_term_data['term_data'] = $get_posts;
     $result_data = array_merge($term_data, $post_term_data);
     return $result_data;
+}
+
+//function to get news tags.
+function sigma_mt_get_testimonial_data() {
+    $post_args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'testimonial-items',
+      'orderby'        => 'rand',
+      'post_status'    => 'publish'
+    );
+    $get_posts = get_posts($post_args);
+    return $get_posts;
 }
 
 //Get tags menus

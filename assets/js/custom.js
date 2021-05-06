@@ -18,4 +18,23 @@ jQuery(document).ready(function($) {
 	    }
 	});
 });
-/**** Scroll To Top end ***/
+/**** Scroll To Top ***/
+
+/**** Testimonial Slider ***/
+jQuery(document).ready(function($) {
+  	$(".testimonial_slide").slick({
+    	slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1500,
+        responsive: [{
+        	breakpoint: 850,
+        	settings: {
+        		slidesToShow: 1,
+        		slidesToScroll: 1,
+        		infinite: true,
+        	}
+    	}]
+ 	});
+});
+/**** Testimonial Slider end ***/

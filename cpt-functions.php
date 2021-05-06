@@ -229,11 +229,59 @@ function sigma_mt_taxonomies_videos(){
 				'search_items' => __('Search Video Category', 'sigmaigaming'),
 				'all_items' => __('All Video Categories', 'sigmaigaming'),
 				'parent_item' => __('Parent Videos Category', 'sigmaigaming'),
-				'parent_item_colon' => __('Parent News Category:', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Videos Category:', 'sigmaigaming'),
 				'edit_item' => __('Edit Videos Category', 'sigmaigaming'),
 				'update_item' => __('Refresh Videos Category', 'sigmaigaming'),
 				'add_new_item' => __('Add Videos Category', 'sigmaigaming'),
 				'new_item_name' => __('New Videos Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'sm-videos')
+		)
+	);
+}
+
+// create a Custom post type testimonial
+add_action('init', 'sigma_mt_testimonial_custom_posts');
+function sigma_mt_testimonial_custom_posts() {
+	register_post_type('testimonial-items', array(
+		'labels' => array(
+			'name' => __('Sigma Testimonial', 'sigmaigaming'),
+			'singular_name' => __('Sigma Testimonial', 'sigmaigaming'),
+			'menu_name' => __('Sigma Testimonials', 'sigmaigaming'),
+			'add_new' => __('Add Testimonial Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Testimonials Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Testimonials Item', 'sigmaigaming'),
+			'new_item' => __('Testimonias Items', 'sigmaigaming'),
+			'view_item' => __('View Testimonias Items', 'sigmaigaming'),
+			'search_items' => __('Search Testimonials Items', 'sigmaigaming'),
+			'not_found' => __('No Testimonial Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Testimonial Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'sigma-testimonial'),
+		'has_archive' => false,
+		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post texonomies for news post
+add_action( 'init', 'sigma_mt_taxonomies_testimonial', 0 );
+function sigma_mt_taxonomies_testimonial(){
+	register_taxonomy('videos-cat', array('testimonial-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Testimonial Categories', 'sigmaigaming'),
+				'singular_name' => __('Testimonial Category', 'sigmaigaming'),
+				'search_items' => __('Search Testimonial Category', 'sigmaigaming'),
+				'all_items' => __('All Ttestimonial Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Testimonials Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Testimonials Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Testimonials Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Testimonials Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Testimonials Category', 'sigmaigaming'),
+				'new_item_name' => __('New Testimonials Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
 			'query_var' => true,

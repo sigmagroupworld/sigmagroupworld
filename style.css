@@ -242,7 +242,8 @@ body #page {
     -ms-flex-pack: start;
     justify-content: flex-start;
 }
-.ehf-header #masthead .custom-header .header-cmenu li ul.sub-menu {
+.ehf-header #masthead .custom-header .header-cmenu li ul.sub-menu,
+.mobile-languages .wpml-ls-legacy-dropdown .wpml-ls-sub-menu {
     background-color: #fff;
     -webkit-box-shadow: 0 2px 15px 0 rgb(0 0 0 / 14%);
     -moz-box-shadow: 0 2px 15px 0 rgba(0,0,0,0.14);
@@ -276,8 +277,15 @@ body #page {
     outline: none;
     text-decoration: none;
 }
-.ehf-header #masthead .custom-header .header-cmenu li a:hover,.ehf-header #masthead .custom-header .header-cmenu li ul.sub-menu li a.hfe-sub-menu-item:hover {
+.ehf-header #masthead .custom-header .header-cmenu li a:hover,.ehf-header #masthead .custom-header .header-cmenu li ul.sub-menu li a.hfe-sub-menu-item:hover,
+.mobile-languages .wpml-ls-legacy-dropdown a:hover,
+.mobile-languages.elementor-widget-wpml-language-switcher .wpml-elementor-ls .wpml-ls-legacy-dropdown a:hover,
+.mobile-languages .wpml-ls-legacy-dropdown a:focus,
+.mobile-languages.elementor-widget-wpml-language-switcher .wpml-elementor-ls .wpml-ls-legacy-dropdown a:focus,
+.mobile-languages .wpml-ls-legacy-dropdown a:active,
+.mobile-languages.elementor-widget-wpml-language-switcher .wpml-elementor-ls .wpml-ls-legacy-dropdown a:active {
     color: #ed1a3b;
+    outline: none;
 }
 html[lang="es-ES"] .ehf-header #masthead .custom-header .header-cmenu li {
     margin-right: 4%;
@@ -286,6 +294,56 @@ html[lang="fr-FR"] .ehf-header #masthead .custom-header .header-cmenu li {
     position: relative;
     margin-right: 4%;
 }
+/* mobile languages switcher start */
+.mobile-languages {
+    display: none;
+}
+.mobile-languages .wpml-ls-legacy-dropdown a,
+.mobile-languages.elementor-widget-wpml-language-switcher .wpml-elementor-ls .wpml-ls-legacy-dropdown a,
+.mobile-languages .wpml-ls-legacy-dropdown .wpml-ls-sub-menu {
+    border: none;
+    font-size: 12px;
+    line-height: 18px;
+    color: #353434;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.mobile-languages .wpml-ls-legacy-dropdown .wpml-ls-sub-menu li {
+    padding: 7px 15px 5px 15px;
+}
+.mobile-languages .wpml-ls-legacy-dropdown .wpml-ls-sub-menu li a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0; 
+    font-size: 12px;
+    line-height: 18px;
+    color: #353434;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.mobile-languages .wpml-ls-legacy-dropdown a:hover,
+.mobile-languages.elementor-widget-wpml-language-switcher .wpml-elementor-ls .wpml-ls-legacy-dropdown a:hover {
+    background: transparent;
+}
+.mobile-languages .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: '';
+    border: none;
+    top: 10px;
+}
+.mobile-languages .wpml-ls-legacy-dropdown {
+    width: auto;
+}
+/* mobile languages switcher end */
 /* Header Menu css End */
 /* Header Menu Button css start */
 
@@ -403,7 +461,9 @@ html[lang="ja"] .ehf-header #masthead .custom-header .header-cmenu li.bookPass {
     align-items: center;
     padding: 0;
 }
-.ehf-header #masthead .custom-header .header-cmenu li img.wpml-ls-flag {
+.ehf-header #masthead .custom-header .header-cmenu li img.wpml-ls-flag,
+.mobile-languages .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle img.wpml-ls-flag,
+.mobile-languages .wpml-ls-legacy-dropdown .wpml-ls-flag {
     background-color: #eee;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -802,8 +862,21 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
         filter: blur(3px);
     }
     /* Body Blur on Menu Open End */
-    
-    
+    /* Mobile languages start */
+    .header-all-menu .mobile-languages {
+        display: block;
+        width: auto;
+        margin-bottom: 0;
+    }
+    .header-all-menu .elementor-widget-wrap {
+        flex-wrap: unset;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .header-all-menu .header-cmenu {
+        width: auto !important;
+    }
+    /* Mobile languages end */
 }
 @media (max-width: 1024px) {
     /* Footer Menu styling start */

@@ -10,6 +10,8 @@ wp_enqueue_script('test', get_stylesheet_directory_uri().'/home/js/custom-home.j
 get_header();
 ?>
 
+<?php #echo do_shortcode( '[scheduled_posts]' ); ?>
+
 <?php ob_start(); $desktop_banner = get_field('desktop_banner');
 $taxonomy = 'news-tag';
 $row = 0;
@@ -164,9 +166,7 @@ if ($desktop_banner){ ?>
 					?>
 					<div class="h-title">
 						<a href="#">
-							<?php 
-							if(isset($news_tags['term_value']->name))
-							{
+							<?php if(isset($news_tags['term_value']->name)) {
 								echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
 							<?php } ?>
 						</a>
@@ -212,24 +212,29 @@ if ($desktop_banner){ ?>
 			          'post_status'    => 'publish'
 			        );
 			        $get_videos = get_posts($post_args);
+			        $r = 0;
 					?>
 					<div class="blog-listing-module">
 						<?php foreach ( $get_videos as $k => $video ) {
-							$youtube_videos = get_field('youtube_videos');
-							$value = get_field( "youtube_videos", $video->ID );
-							print_r($youtube_videos); ?>
+							$youtube_video_link = get_field('youtube_video_link',  $video->ID); ?>
 							<div class="post-item">
-								<a href="<?php the_permalink(); ?>">
-									<?php if($row === 0) { ?>
-										<?php print($value); ?>
+								<?php if($r === 0) { ?>
+									<a href="#">
 										<div class="thumb-img">
-			                        		<img src="<?php echo $value; ?>" alt="">
+			                        		<iframe src="<?php echo $youtube_video_link; ?>" scrolling="no" frameborder="1" height="100%" width="100%" allowfullscreen></iframe>
 			                    		</div>
-			                    	<?php } ?>
-		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php echo $video->post_title; ?></h2>
-								</a>
+			                    		<h2 class="big"><?php echo $video->post_title; ?></h2>
+									</a>
+								<?php } else { ?>
+									<a href="#">
+										<div class="thumb-img">
+			                        		<iframe src="<?php echo $youtube_video_link; ?>" scrolling="no" frameborder="1" height="100%" width="100%" allowfullscreen></iframe>
+			                    		</div>
+			                    		<h2><?php echo $video->post_title; ?></h2>
+									</a>
+								<?php } ?>
 							</div>
-						<?php $row++; } ?>
+						<?php $r++; } ?>
 					</div>
 					<div class="">
 						<iframe src="https://open.spotify.com/embed-podcast/show/0PSwKvn79VuUYyALuUYUec" width="100%" height="232" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
@@ -244,13 +249,11 @@ if ($desktop_banner){ ?>
 	<section class="sigma-news">
 		<div class="container">
 			<div class="single-news">
-				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
-				  	<div class="all-news">
-				  		<a href="#">
-				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
-				  		</a>
-				  	</div>
-				<?php } ?>
+			  	<div class="all-news">
+			  		<a href="#">
+			  			<img src="<?php echo $desktop_banner['sigma_upcoming_add']; ?>" alt="">
+			  		</a>
+			  	</div>
 			</div>
 		</div>
 	</section>
@@ -323,6 +326,25 @@ if ($desktop_banner){ ?>
 								</div>
 							<?php } ?>
 						<?php $row++; } ?>
+						<!-- Testomonial Section -->
+						<div class="testimonial_slide">
+							<?php $testimonials = sigma_mt_get_testimonial_data(); 
+							foreach($testimonials as $k => $item) {
+								$company_name = get_field( "testimonial_company", $item->ID );
+								$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'thumbnail' ); ?>
+								<figure class="testimonial">
+									<img src="<?php echo $featured_image[0]; ?>" alt="<?php echo $item->post_title; ?>" />
+									<div class="peopl">
+										<h3><?php echo $item->post_title; ?></h3>
+										<p class="company_name"><?php echo $company_name; ?></p>
+									</div>
+									<blockquote><?php echo $item->post_content; ?>
+										<div class="btn"></div>
+									</blockquote>
+								</figure>
+							<?php } ?>
+						</div>
+						<!-- Testomonial Section end -->
 					</div>
 				</div>
 				<div class="spotify hp-right">
@@ -370,13 +392,11 @@ if ($desktop_banner){ ?>
 	<section class="sigma-news">
 		<div class="container">
 			<div class="single-news">
-				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
-				  	<div class="all-news">
-				  		<a href="#">
-				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
-				  		</a>
-				  	</div>
-				<?php } ?>
+			  	<div class="all-news">
+			  		<a href="#">
+			  			<img src="<?php echo $desktop_banner['sigma_asia_add']; ?>" alt="">
+			  		</a>
+			  	</div>
 			</div>
 		</div>
 	</section>
@@ -496,13 +516,11 @@ if ($desktop_banner){ ?>
 	<section class="sigma-news">
 		<div class="container">
 			<div class="single-news">
-				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
-				  	<div class="all-news">
-				  		<a href="#">
-				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
-				  		</a>
-				  	</div>
-				<?php } ?>
+			  	<div class="all-news">
+			  		<a href="#">
+			  			<img src="<?php echo $desktop_banner['sigma_europe_add']; ?>" alt="">
+			  		</a>
+			  	</div>
 			</div>
 		</div>
 	</section>
@@ -623,13 +641,11 @@ if ($desktop_banner){ ?>
 	<section class="sigma-news">
 		<div class="container">
 			<div class="single-news">
-				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
-				  	<div class="all-news">
-				  		<a href="#">
-				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
-				  		</a>
-				  	</div>
-				<?php } ?>
+			  	<div class="all-news">
+			  		<a href="#">
+			  			<img src="<?php echo $desktop_banner['sigma_americas_add']; ?>" alt="">
+			  		</a>
+			  	</div>
 			</div>
 		</div>
 	</section>
@@ -749,13 +765,11 @@ if ($desktop_banner){ ?>
 	<section class="sigma-news">
 		<div class="container">
 			<div class="single-news">
-				<?php foreach($desktop_banner['sigma_banner_add'] as $key => $value) {  ?>
-				  	<div class="all-news">
-				  		<a href="#">
-				  			<img src="<?php echo $value['sigma_banner']; ?>" alt="">
-				  		</a>
-				  	</div>
-				<?php } ?>
+			  	<div class="all-news">
+			  		<a href="#">
+			  			<img src="<?php echo $desktop_banner['sigma_africa_add']; ?>" alt="">
+			  		</a>
+			  	</div>
 			</div>
 		</div>
 	</section>
