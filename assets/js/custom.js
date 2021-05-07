@@ -1,5 +1,5 @@
-/**** Scroll To Top ***/
 jQuery(document).ready(function($) {
+	/**** Scroll To Top ***/
 	$(".scroll_to_top").click(function() {
 	    $("html, body").animate({ 
 	        scrollTop: 0 
@@ -17,16 +17,15 @@ jQuery(document).ready(function($) {
 	    	$(".scroll_To_Top").removeClass("no_scroll").addClass("scroll_div");
 	    }
 	});
-});
-/**** Scroll To Top ***/
+	/**** Scroll To Top ***/
 
-/**** Testimonial Slider ***/
-jQuery(document).ready(function($) {
+	/**** Testimonial Slider ***/
   	$(".testimonial_slide").slick({
     	slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 1500,
+        arrows: true,
         responsive: [{
         	breakpoint: 850,
         	settings: {
@@ -36,5 +35,15 @@ jQuery(document).ready(function($) {
         	}
     	}]
  	});
+	/**** Testimonial Slider end ***/
+
+	/**** Video pop up ***/
+	$(".js-video-button").modalVideo({
+		youtube:{
+			controls:0,
+			nocookie: true
+		}
+	});
+	/**** Video pop up end ***/
+
 });
-/**** Testimonial Slider end ***/

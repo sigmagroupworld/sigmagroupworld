@@ -16,13 +16,13 @@ function sigma_mt_enqueue_styles() {
 // load js files in footer & style in header start
 add_action('wp_enqueue_scripts', 'sigma_mt_scripts');
 function sigma_mt_scripts() {
-    /*wp_enqueue_script('sigmamt-main-script', get_template_directory_uri() . '/assets/js/custom12.js', array(), false, true);
-    wp_enqueue_style('sigmamt-fontawesome', get_stylesheet_uri() . '/assets/js/all.css', null, false);*/
     wp_enqueue_script('jquery');
     wp_enqueue_style('sigmamt-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
+    wp_enqueue_style('home-style', CHILD_DIR .'/home/css/style.css'); 
     wp_enqueue_style('sigmamt-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script( 'sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );
-     wp_enqueue_script( 'sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
+    wp_enqueue_script('home-script', CHILD_DIR .'/home/js/custom-home.js', array(), '1.0.0', true);
+    wp_enqueue_script( 'sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 }
 // load js files in footer & style in header end
 
@@ -150,6 +150,23 @@ function sigma_mt_get_tags_menu() {
         'update_post_term_cache' => false );
     $items = wp_get_nav_menu_items( $menu, $args );
     return $items;
+}
+
+//Shortcode to display banner adds
+add_shortcode( 'sigma-mt-banner-adds', 'sigma_mt_banner_adds' );
+function sigma_mt_banner_adds( $atts ) {
+    $output ='<section class="sigma-news">
+                <div class="container">
+                    <div class="single-news">
+                        <div class="all-news">
+                            <a href="#">
+                                <img src="'. $atts['banner_add'] .'" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>';
+    return $output;
 }
 
 /**

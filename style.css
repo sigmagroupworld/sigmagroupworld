@@ -10,25 +10,79 @@ Text Domain: twentytwentyone
 */
 
 /* Custom CSS Start */
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {display: block; margin: 0; padding: 0;}
-* {box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
-html {font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;}
-html, body, div, h1, h2, h3, h4, h5, h6, p, ul, li, form {margin: 0; padding: 0; list-style: none; font-weight: normal;}
-button, input, select, textarea {margin: 0; padding: 0; border: none;}
-.custfield:focus {outline: none; border: none; box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none;}
-body {font-size: 14px; color: #000000; font-family: "Montserrat"; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
-a {text-decoration: none;}
-a:hover, a:focus {text-decoration: none; outline: none;}
-img {border: none; vertical-align: middle; max-width: 100%}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+    display: block; 
+    margin: 0; 
+    padding: 0;
+}
+* {
+    box-sizing:border-box; 
+    -moz-box-sizing:border-box; 
+    -webkit-box-sizing:border-box;
+}
+html {
+    font-size: 100%; 
+    -webkit-text-size-adjust: 100%; 
+    -ms-text-size-adjust: 100%;
+}
+html, body, div, h1, h2, h3, h4, h5, h6, p, ul, li, form {
+    margin: 0; 
+    padding: 0; 
+    list-style: none; 
+    font-weight: normal;
+}
+button, input, select, textarea {
+    margin: 0; 
+    padding: 0; 
+    border: none;
+}
+.custfield:focus {
+    outline: none; 
+    border: none; 
+    box-shadow: none; 
+    -moz-box-shadow: none; 
+    -webkit-box-shadow: none;
+}
+body {
+    font-size: 14px; 
+    color: #000000; 
+    font-family: "Montserrat"; 
+    text-rendering: auto; 
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+}
+a {
+    text-decoration: none;
+}
+a:hover, 
+a:focus {
+    text-decoration: none; 
+    outline: none;
+}
+img {
+    border: none; 
+    vertical-align: middle; 
+    max-width: 100%;
+}
 
-::-webkit-input-placeholder {font-size: 18px;}
-::-moz-placeholder {font-size: 18px;}
-:-ms-input-placeholder {font-size: 18px;}
-:-moz-placeholder {font-size: 18px;}
-a {transition: all .5s ease-in-out 0s;
+::-webkit-input-placeholder {
+    font-size: 18px;
+}
+::-moz-placeholder {
+    font-size: 18px;
+}
+:-ms-input-placeholder {
+    font-size: 18px;
+}
+:-moz-placeholder {
+    font-size: 18px;
+}
+a {
+    transition: all .5s ease-in-out 0s;
     -moz-transition: all .5s ease-in-out 0s;
     -webkit-transition: all .5s ease-in-out 0s;
-    -o-transition: all .5s ease-in-out 0s;}
+    -o-transition: all .5s ease-in-out 0s;
+}
 a:focus {
     background: none !important;
     outline: none !important;
@@ -640,6 +694,11 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     display: none;
 }
 /* Newsletter css end */
+/* Popup Home page start */
+.modal-video-close-btn {
+    background: transparent !important;
+}
+/* Popup Home page end */
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */

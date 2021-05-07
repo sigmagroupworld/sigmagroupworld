@@ -937,6 +937,132 @@ body {
 }
 /* Search css end */
 /* news menu css end */
+/* Testimonial css start */
+.testimonial_slide {
+	background-color: #f1f1f2;
+	margin-top: 10px;
+}
+.testimonial_slide .testimonial {
+	padding-top: 20px;
+}
+.testimonial_slide .testimonial img {
+	height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    margin: 0 auto;
+}
+.peopl h3 {
+	font-size: 16px;
+	font-weight: 600;
+	color: #000;
+	text-align: center;
+}
+.peopl p.company_name {
+	font-size: 12px;
+    line-height: 18px;
+    margin: 2px 2px auto;
+    font-family: "Montserrat";
+    font-weight: 600;
+    color: #292929;
+    text-align: center;
+}
+.testimonial blockquote {
+	font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 2px 10px;
+    padding: 24px 20px;
+    position: relative;
+    background-color: #fff;
+    border-radius: 20px;
+    font-style: italic;
+    text-align: center;
+}
+.testimonial blockquote:before,
+.testimonial blockquote:after {
+	content: '';
+    position: absolute;
+    height: 14px;
+    width: 16px;
+}
+.testimonial blockquote:before {
+    top: 12px;
+    left: 6px;
+    background-image: url(/wp-content/uploads/2021/05/left-quote.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.testimonial blockquote:after {
+    right: 6px;
+    bottom: 12px;
+    background-image: url(/wp-content/uploads/2021/05/right-quote.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.testimonial span {
+	padding: 10px 15px;
+    text-align: right;
+    color: #ed1a3b;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Montserrat";
+    display: block;
+}
+.testimonial_slide .slick-prev,
+.testimonial_slide .slick-arrow.slick-next {
+	transform: unset;
+    top: 80px;
+    z-index: 1;
+    height: 30px;
+    width: 30px;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    display: block;
+    padding: 0;
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+    background-color: transparent !important;
+}
+.testimonial_slide .slick-prev {
+    left: 6%;
+}
+.testimonial_slide .slick-arrow.slick-next {
+    right: 6%;
+    left: unset;
+}
+.testimonial_slide .slick-prev:before, 
+.testimonial_slide .slick-arrow.slick-next:before {
+    font-size: 22px;
+    line-height: 24px;
+    opacity: 1;
+    color: #fff;
+    font-weight: 400;
+    height: 100%;
+    width: 100%;
+    background-image: unset;
+    background-color: #ed1a3b;
+    font-family: "Font Awesome 5 Free";
+    display: block;
+}
+.testimonial_slide .slick-prev:before {
+    content: '\f104';
+    padding: 2px 3px 3px 2px;
+}
+.testimonial_slide .slick-arrow.slick-next:before {
+    content: '\f105';
+    padding: 2px 2px 3px 3px;
+}
+/* Testimonial css end */
+
+
+.js-video-button .thumb-img .top {
+    height: 140px;
+}
 /* Media screen css start */
 @media (max-width: 1600px) {
     /* World Gaming Festival Image css start */

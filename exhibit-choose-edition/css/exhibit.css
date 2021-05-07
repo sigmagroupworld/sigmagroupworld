@@ -504,6 +504,7 @@
 .mobilelabelmap .event-box {
     width: calc(50% - 20px * 2) !important;
     margin-top: 0px;
+    text-align: center;
 }
 .mobilelabelmap .event-box .img {
     height: 180px !important;
@@ -718,10 +719,19 @@
 	    width: 34px;
 	    height: 56px;
 	}
-	.maplabel a:before, .maplabel a img {
-	    width: 80px;
-	    height: 80px;
+	.maplabel a:before, .maplabel a img,
+    .labelwrapmap.exhibit .desktopmedialabel img,
+    .desktopmedialabel a::before {
+	    width: 80px !important;
+	    height: 80px !important;
 	}
+    .labelwrapmap.exhibit .desktopmedialabel img {
+        margin: 0 !important;
+    }
+    .labelwrapmap.exhibit .desktopmedialabel {
+        justify-content: flex-start;
+        padding-left: 80px;
+    }
 }
 @media (max-width: 1350px) {
 	.inneranimate, .innermaplabel {
@@ -846,6 +856,9 @@
         display: block;
     }
     .desktop-banner {
+        display: none;
+    }
+    .mobilelabelmap .event-box.explore a::before {
         display: none;
     }
 }
