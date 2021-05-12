@@ -9,7 +9,7 @@
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/news/css/news.css'); 
 get_header();
 
-$fetured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+$featured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 ?>
 
 <section>
@@ -26,7 +26,7 @@ $fetured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'larg
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
-				<div class="singleBannerAdvert bottom-border">
+				<div class="single-banner-advert bottom-border">
 					<a href="#" target="_blank">
                     	<img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Banners/Sold%20Banners/AGS-PM-Affiliate-Program-Left-Banner.png" alt="">       
     				</a>
@@ -161,54 +161,54 @@ $fetured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'larg
     					<img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Magazine/Magazine%20covers/Sigma%2013%20for%20web-1.png" alt="magazine"/>
   					</a>
 				</div>
-				<div class="offersWrapper">
+				<div class="offers-wrapper">
 					<div class="blog-sub-title">
 						<h3>Casino Offers</h3>
 					</div>
-					<div class="offerwrap">
-						<div class="offeritem">
-							<div class="imgwrap">
+					<div class="offer-wrap">
+						<div class="offer-item">
+							<div class="img-wrap">
           						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
+        					<div class="link-wrap">
+        						<a class="play-btn" target="_blank" href="#">Play Now</a>
+        						<a class="tnc-link" href="#">*T&amp;C Apply</a>
         					</div>
 						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
+						<div class="offer-item">
+							<div class="img-wrap">
           						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
+        					<div class="link-wrap">
+        						<a class="play-btn" target="_blank" href="#">Play Now</a>
+        						<a class="tnc-link" href="#">*T&amp;C Apply</a>
         					</div>
 						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
+						<div class="offer-item">
+							<div class="img-wrap">
           						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
+        					<div class="link-wrap">
+        						<a class="play-btn" target="_blank" href="#">Play Now</a>
+        						<a class="tnc-link" href="#">*T&amp;C Apply</a>
         					</div>
 						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
+						<div class="offer-item">
+							<div class="img-wrap">
           						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
+        					<div class="link-wrap">
+        						<a class="play-btn" target="_blank" href="#">Play Now</a>
+        						<a class="tnc-link" href="#">*T&amp;C Apply</a>
         					</div>
 						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
+						<div class="offer-item">
+							<div class="img-wrap">
           						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
+        					<div class="link-wrap">
+        						<a class="play-btn" target="_blank" href="#">Play Now</a>
+        						<a class="tnc-link" href="#">*T&amp;C Apply</a>
         					</div>
 						</div>
 					</div>
@@ -251,9 +251,9 @@ $fetured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'larg
 					<p><?php __('No News'); ?></p>
 					<?php endif; ?>
 				</div>
-				<div class="aftermovie bottom-border">
+				<div class="after-movie bottom-border">
 					<div class="blog-sub-title">
-						<h3>SiGMA 2019 Aftermovie</h3>
+						<h3>SiGMA 2019 after-movie</h3>
 					</div>
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZWE0KQRlSaU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
@@ -271,10 +271,10 @@ $fetured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'larg
 						<div class="calendar-event ">
 							<h5>SiGMA Europe (Malta)</h5> 
     						<div class="date">  November 16, 2021</div>
-    					<div class="widget_type_rich-text">
+    					<div class="widget-type-rich-text">
      						<p>Following the UK's December 2020 release of the Pfizer BioNTech vaccine, SIGMA Group will move its April event to November. SIGMA Europe, which will be based...</p>
     					</div>
-    					<a class="eventbtn" href="#" target="_blank">REGISTER FREE</a>
+    					<a class="event-btn" href="#" target="_blank">REGISTER FREE</a>
 					</div>
 					<?php endwhile; ?>
 					<?php wp_reset_postdata(); ?>

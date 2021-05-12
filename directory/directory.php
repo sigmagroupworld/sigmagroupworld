@@ -23,14 +23,17 @@ if ($directory){
 			  				<div class="bottom-txt" style="background-color: <?php echo $value['directory_color']; ?>">
 			    				<div class="txt-all">
 				      				<div class="icon">
-				                  		<img src="<?php echo $value['directory_icon']; ?>" alt="">
+				                  		<?php 
+				                  		if( !empty( $value['directory_icon'] ) ){ ?>
+									    	<img src="<?php echo $value['directory_icon']['url']; ?>" alt="<?php echo $value['directory_icon']['alt']; ?>" />
+										<?php } ?>
 				        			</div>
 								    <h6><?php echo $value['directory_name']; ?></h6>
 			    				</div>
 			  				</div>
 			  			</a>
 					</div>
-				<?php }; ?>
+				<?php } ?>
 			</div>
 		</div>
 	</section>
@@ -43,8 +46,8 @@ if ($directory){
 			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
 			<div class="newsletter-form">
 				<?php
-				$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
-				echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
+					$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
+					echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
                 ?>
 			</div>
 			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>

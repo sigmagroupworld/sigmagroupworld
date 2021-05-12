@@ -21,39 +21,40 @@
     overflow: hidden;
     position: relative;
 }
-.labelwrapmap {
+.label-wrap-map {
     position: absolute;
     top: 0;
     left: 0;
     text-align: left;
     z-index: 99;
 }
-.labelwrapmap.exhibit,
-.mobilelabelmap.exhibit {
+.label-wrap-map.exhibit,
+.mobile-label-map.exhibit {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
-.labelwrapmap.exhibit .desktopmedialabel {
+.label-wrap-map.exhibit .desktop-media-label {
     width: 50%;
     padding-top: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 80px;
 }
-.desktopmedialabel a,
-.mobilelabelmap .event-box a {
+.desktop-media-label a,
+.mobile-label-map .event-box a {
     position: relative;
     display: inline-block;
 }
-.desktopmedialabel img {
+.desktop-media-label img {
     width: 120px !important;
     height: 120px !important;
     object-fit: contain;
     margin: 0 !important;
 }
-.desktopmedialabel a::before,
-.mobilelabelmap .event-box.explore a::before {
+.desktop-media-label a::before,
+.mobile-label-map .event-box.explore a::before {
     content: '';
     position: absolute;
     top: 0;
@@ -64,26 +65,26 @@
     height: 120px;
     animation: spinCircle 10s linear infinite;
 }
-.labelwrapmap span {
+.label-wrap-map span {
     display: inline-block;
     width: 50%;
     height: 200px;
 }
-.labelwrapmap img {
+.label-wrap-map img {
 	width: 250px;
     height: 140px;
     object-fit: contain;
     margin: 0 0 0 10%;
 }
-.sigmaBannerWrapper {
+.sigma-banner-wrapper {
     height: calc( 100vh - 100px );
 }
-.bannerInnerWrapper {
+.banner-inner-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
 }
-.bannermapwrapper, .maplabel {
+.banner-map-wrapper, .map-label {
     position: absolute;
     top: 0;
     left: 0;
@@ -93,7 +94,7 @@
     display: flex;
     align-items: center;
 }
-.inneranimate, .innermaplabel {
+.inner-animate, .inner-map-label {
     position: relative;
     width: 1200px;
     height: 700px;
@@ -102,7 +103,7 @@
     background-size: 1200px 700px;
     background-position: center;
 }
-.bannermapwrap-left .inneranimate:before {
+.banner-map-wrap-left .inner-animate:before {
     content: '';
     position: absolute;
     left: -44px;
@@ -123,7 +124,7 @@
     	transform: rotateY(360deg); 
     }
 }
-.bannermapwrap-left .inneranimate:after {
+.banner-map-wrap-left .inner-animate:after {
     content: '';
     position: absolute;
     left: 102px;
@@ -143,7 +144,7 @@
 	95% { transform: rotate(-5deg); }
 	100% { transform: rotate(0deg); }
 }
-.bannermapwrap-left .americaele2:before {
+.banner-map-wrap-left .america-ele2:before {
     content: '';
     position: absolute;
     left: 292px;
@@ -188,7 +189,7 @@
 		transform: scale3d(1, 1, 1);
 	}
 }
-.bannermapwrap-left .americaele2:after {
+.banner-map-wrap-left .america-ele2:after {
     content: '';
     position: absolute;
     left: 370px;
@@ -201,7 +202,7 @@
     z-index: 2;
     animation: tada 2.5s infinite;
 }
-.bannermapwrap-left .americaele:before {
+.banner-map-wrap-left .america-ele:before {
     content: '';
     position: absolute;
     left: 310px;
@@ -214,7 +215,7 @@
     z-index: 2;
     animation: wiggle 3.5s infinite;
 }
-.bannermapwrap-middle .inneranimate:before {
+.banner-map-wrap-middle .inner-animate:before {
     content: '';
     position: absolute;
     right: 38.3%;
@@ -227,7 +228,7 @@
     z-index: 2;
     animation: tada 5s infinite linear;
 }
-.bannermapwrap-middle .inneranimate:after {
+.banner-map-wrap-middle .inner-animate:after {
     content: '';
     position: absolute;
     right: 35.3%;
@@ -240,7 +241,7 @@
     z-index: 2;
     animation: tada 5s infinite;
 }
-.bannermapwrap-middle .asiaele3:after {
+.banner-map-wrap-middle .asia-ele3:after {
     content: '';
     position: absolute;
     right: 17%;
@@ -253,7 +254,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele2:before {
+.banner-map-wrap-middle .asia-ele2:before {
     content: '';
     position: absolute;
     right: 25.8%;
@@ -266,7 +267,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele2:after {
+.banner-map-wrap-middle .asia-ele2:after {
     content: '';
     position: absolute;
     right: 23.3%;
@@ -279,7 +280,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele:before {
+.banner-map-wrap-middle .asia-ele:before {
     content: '';
     position: absolute;
     right: 12.3%;
@@ -292,7 +293,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele:after {
+.banner-map-wrap-middle .asia-ele:after {
     content: '';
     position: absolute;
     left: 48.2%;
@@ -305,7 +306,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .africaele:before {
+.banner-map-wrap-middle .africa-ele:before {
     content: '';
     position: absolute;
     right: 42.2%;
@@ -318,7 +319,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .africaele:after {
+.banner-map-wrap-middle .africa-ele:after {
     content: '';
     position: absolute;
     left: 51.5%;
@@ -331,7 +332,7 @@
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .europeele:before {
+.banner-map-wrap-middle .europe-ele:before {
     content: '';
     position: absolute;
     left: 47.2%;
@@ -344,7 +345,7 @@
     z-index: 2;
     animation: spinCircle 10s linear infinite;
 }
-.bannermapwrap-middle .europeele:after {
+.banner-map-wrap-middle .europe-ele:after {
     content: '';
     position: absolute;
     left: 46.15%;
@@ -357,7 +358,7 @@
     z-index: 2;
     animation: spinCircle 8s linear infinite;
 }
-.bannermapwrap-middle .europeele2:before {
+.banner-map-wrap-middle .europe-ele2:before {
     content: '';
     position: absolute;
     left: 41%;
@@ -380,7 +381,7 @@
 		ospacity: 1;
 	}
 }
-.bannermapwrap-middle .europeele2:after {
+.banner-map-wrap-middle .europe-ele2:after {
     content: '';
     position: absolute;
     left: 47%;
@@ -393,7 +394,7 @@
     z-index: 2;
     animation: spinCircle 8s linear infinite;
 }
-.bannermapwrap-right .inneranimate:before {
+.banner-map-wrap-right .inner-animate:before {
     content: '';
     position: absolute;
     right: 14%;
@@ -405,7 +406,7 @@
     height: 34px;
     z-index: 2;
 }
-.bannermapwrap-right .gamele1:before {
+.banner-map-wrap-right .game-le1:before {
     content: '';
     position: absolute;
     left: 24%;
@@ -417,7 +418,7 @@
     height: 70px;
     z-index: 2;
 }
-.bannermapwrap-right .gamele1:after {
+.banner-map-wrap-right .game-le1:after {
     content: '';
     position: absolute;
     left: 19%;
@@ -429,12 +430,12 @@
     height: 68px;
     z-index: 2;
 }
-.maplabel a {
+.map-label a {
     display: inline-block;
     position: absolute;
     cursor: pointer;
 }
-.maplabel a::before {
+.map-label a::before {
     content: '';
     position: absolute;
     top: 0;
@@ -457,10 +458,10 @@
     bottom: 14%;
     left: 14%;
 }
-.maplabel a.americas::before {
+.map-label a.americas::before {
     border-color: #8acc94;
 }
-.maplabel a:hover img, .maplabel a:hover:before {
+.map-label a:hover img, .map-label a:hover:before {
     height: 150px;
     width: 150px;
     transition: width .5s ease,height .5s ease;
@@ -469,24 +470,24 @@
     top: 4%;
     left: 54%;
 }
-.maplabel a.europe::before {
+.map-label a.europe::before {
     border-color: #73b0d0;
 }
 .desktop-banner .africa{
     bottom: 5%;
     right: 34%;
 }
-.maplabel a.africa::before {
+.map-label a.africa::before {
     border-color: #fe870e;
 }
 .desktop-banner .asia {
     bottom: 30%;
     right: 20%;
 }
-.maplabel a.asia::before {
+.map-label a.asia::before {
     border-color: #e85e5e;
 }
-.maplabel a img {
+.map-label a img {
     width: 120px;
     height: 120px;
     object-fit: contain;
@@ -495,18 +496,18 @@
 .mobile-banner {
 	display: none;
 }
-.mobilelabelmap .event-box.explore a::before {
+.mobile-label-map .event-box.explore a::before {
     width: 100px;
     height: 100px;
     top: 40px;
     left: -1px;
 }
-.mobilelabelmap .event-box {
+.mobile-label-map .event-box {
     width: calc(50% - 20px * 2) !important;
     margin-top: 0px;
     text-align: center;
 }
-.mobilelabelmap .event-box .img {
+.mobile-label-map .event-box .img {
     height: 180px !important;
 }
 .events-wrapper {
@@ -602,252 +603,248 @@
     background-size: 178px 150px !important;
 }
 @media (max-width: 1600px) {
-	.labelwrapmap span {
+	.label-wrap-map span {
 	    width: 1000px;
 	    height: 150px;
 	}
-	.labelwrapmap img {
+	.label-wrap-map img {
 	    width: 180px !important;
 	    height: 100px !important;
 	    margin: 0 0 0 20% !important;
 	}
-	.inneranimate, .innermaplabel {
+	.inner-animate, .inner-map-label {
 	    width: 1000px;
 	    height: 500px;
 	    background-size: 1000px 500px;
 	}
-	.bannermapwrap-left .inneranimate:before {
+	.banner-map-wrap-left .inner-animate:before {
 	    left: -8px;
 	    top: 106px;
 	    width: 80px;
 	    height: 15px;
 	}
-	.bannermapwrap-left .inneranimate:after {
+	.banner-map-wrap-left .inner-animate:after {
 	    left: 92px;
 	    top: 154px;
 	    width: 35px;
 	    height: 45px;
 	}
-	.bannermapwrap-left .americaele2:before {
+	.banner-map-wrap-left .america-ele2:before {
 	    width: 28px;
 	    height: 24px;
 	    left: 248px;
 	    top: 184px;
 	}
-	.bannermapwrap-left .americaele2:after {
+	.banner-map-wrap-left .america-ele2:after {
 	    left: 312px;
 	    bottom: 148px;
 	    width: 26px;
 	    height: 20px;
 	}
-	.bannermapwrap-left .americaele:before {
+	.banner-map-wrap-left .america-ele:before {
 	    left: 265px;
 	    bottom: 94px;
 	    width: 28px;
 	    height: 48px;
 	}
-	.bannermapwrap-middle .asiaele3:after {
+	.banner-map-wrap-middle .asia-ele3:after {
 	    right: 17.2%;
 	    width: 22px;
 	    height: 18px;
 	}
-	.bannermapwrap-middle .asiaele2:before {
+	.banner-map-wrap-middle .asia-ele2:before {
 	    right: 26.4%;
 	    top: 45.4%;
 	    width: 16px;
 	    height: 16px;
 	}
-	.bannermapwrap-middle .asiaele2:after {
+	.banner-map-wrap-middle .asia-ele2:after {
 	    right: 24%;
 	    top: 43%;
 	    width: 16px;
 	    height: 32px;
 	}
-	.bannermapwrap-middle .asiaele2:after {
+	.banner-map-wrap-middle .asia-ele2:after {
 	    right: 24%;
 	    top: 43%;
 	    width: 16px;
 	    height: 32px;
 	}
-	.bannermapwrap-middle .asiaele:after {
+	.banner-map-wrap-middle .asia-ele:after {
 	    left: 48.7%;
 	    width: 12px;
 	    height: 12px;
 	    top: 48.4%;
 	}
-	.bannermapwrap-middle .africaele:before {
+	.banner-map-wrap-middle .africa-ele:before {
 	    right: 42.3%;
 	    top: 49%;
 	    width: 13px;
 	    height: 13px;
 	}
-	.bannermapwrap-middle .africaele:after {
+	.banner-map-wrap-middle .africa-ele:after {
 	    width: 16px;
 	    height: 18px;
 	}
-	.bannermapwrap-middle .europeele:before {
+	.banner-map-wrap-middle .europe-ele:before {
 	    left: 47.3%;
 	    top: 30.6%;
 	    width: 15px;
 	    height: 14px;
 	}
-	.bannermapwrap-middle .europeele:after {
+	.banner-map-wrap-middle .europe-ele:after {
 	    left: 46.3%;
 	    top: 35%;
 	    width: 8px;
 	    height: 8px;
 	}
-	.bannermapwrap-middle .europeele2:before {
+	.banner-map-wrap-middle .europe-ele2:before {
 	    left: 41%;
 	    top: 44%;
 	    width: 105px;
 	    height: 15px;
 	}
-	.bannermapwrap-middle .europeele2:after {
+	.banner-map-wrap-middle .europe-ele2:after {
 	    width: 8px;
 	    height: 8px;
 	    left: 47.2%;
 	    top: 37.2%;
 	}
-	.bannermapwrap-right .gamele1:before {
+	.banner-map-wrap-right .game-le1:before {
 	    width: 28px;
 	    height: 42px;
 	}
-	.bannermapwrap-right .gamele1:after {
+	.banner-map-wrap-right .game-le1:after {
 	    left: 19%;
 	    bottom: 28%;
 	    width: 34px;
 	    height: 56px;
 	}
-	.maplabel a:before, .maplabel a img,
-    .labelwrapmap.exhibit .desktopmedialabel img,
-    .desktopmedialabel a::before {
+	.map-label a:before, .map-label a img,
+    .label-wrap-map.exhibit .desktop-media-label img,
+    .desktop-media-label a::before {
 	    width: 80px !important;
 	    height: 80px !important;
 	}
-    .labelwrapmap.exhibit .desktopmedialabel img {
+    .label-wrap-map.exhibit .desktop-media-label img {
         margin: 0 !important;
-    }
-    .labelwrapmap.exhibit .desktopmedialabel {
-        justify-content: flex-start;
-        padding-left: 80px;
     }
 }
 @media (max-width: 1350px) {
-	.inneranimate, .innermaplabel {
+	.inner-animate, .inner-map-label {
 	    width: 760px;
 	    height: 440px;
 	    background-size: 760px 440px;
 	}
-	.bannermapwrap-left .inneranimate:before {
+	.banner-map-wrap-left .inner-animate:before {
 	    left: -16px;
 	    top: 93px;
 	    width: 80px;
 	    height: 15px;
 	}
-	.bannermapwrap-left .inneranimate:after {
+	.banner-map-wrap-left .inner-animate:after {
 	    left: 65px;
 	    top: 134px;
 	    width: 30px;
 	    height: 40px;
 	}
-	.bannermapwrap-left .americaele2:before {
+	.banner-map-wrap-left .america-ele2:before {
 	    width: 25px;
 	    height: 20px;
 	    left: 188px;
 	    top: 160px;
 	}
-	.bannermapwrap-left .americaele2:after {
+	.banner-map-wrap-left .america-ele2:after {
 	    left: 234px;
 	    bottom: 130px;
 	    width: 25px;
 	    height: 20px;
 	}
-	.bannermapwrap-left .americaele:before {
+	.banner-map-wrap-left .america-ele:before {
 	    left: 198px;
 	    bottom: 80px;
 	    width: 26px;
 	    height: 45px;
 	}
-	.bannermapwrap-middle .asiaele3:after {
+	.banner-map-wrap-middle .asia-ele3:after {
 	    width: 18px;
 	    height: 14px;
 	    right: 17%;
 	}
-	.bannermapwrap-middle .asiaele2:before {
+	.banner-map-wrap-middle .asia-ele2:before {
 	    right: 26.1%;
 	    top: 45.4%;
 	    width: 16px;
 	    height: 16px;
 	}
-	.bannermapwrap-middle .asiaele2:after {
+	.banner-map-wrap-middle .asia-ele2:after {
 	    right: 23.5%;
 	    top: 42%;
 	    width: 16px;
 	    height: 16px;
 	}
-	.bannermapwrap-middle .asiaele:before {
+	.banner-map-wrap-middle .asia-ele:before {
 	    right: 12.3%;
 	    width: 18px;
 	    height: 14px;
 	}
-	.bannermapwrap-middle .asiaele:after {
+	.banner-map-wrap-middle .asia-ele:after {
 	    left: 48.5%;
 	    width: 12px;
 	    height: 12px;
 	}
-	.bannermapwrap-middle .africaele:before {
+	.banner-map-wrap-middle .africa-ele:before {
 	    right: 42.3%;
 	    top: 48.2%;
 	    width: 12px;
 	    height: 12px;
 	}
-	.bannermapwrap-middle .africaele:after {
+	.banner-map-wrap-middle .africa-ele:after {
 	    width: 15px;
 	    height: 15px;
 	    left: 51.4%;
 	}
-	.bannermapwrap-middle .europeele:before {
+	.banner-map-wrap-middle .europe-ele:before {
 	    left: 47.3%;
 	    top: 30.6%;
 	    width: 15px;
 	    height: 14px;
 	}
-	.bannermapwrap-middle .europeele:after {
+	.banner-map-wrap-middle .europe-ele:after {
 	    left: 46.3%;
 	    top: 35%;
 	    width: 8px;
 	    height: 8px;
 	}
-	.bannermapwrap-middle .europeele2:before {
+	.banner-map-wrap-middle .europe-ele2:before {
 	    left: 41%;
 	    top: 44%;
 	    width: 105px;
 	    height: 15px;
 	}
-	.bannermapwrap-middle .europeele2:after {
+	.banner-map-wrap-middle .europe-ele2:after {
 	    width: 8px;
 	    height: 8px;
 	    left: 47.2%;
 	    top: 37.2%;
 	}
-	.bannermapwrap-right .gamele1:before {
+	.banner-map-wrap-right .game-le1:before {
 	    width: 28px;
 	    height: 42px;
 	}
-	.bannermapwrap-right .gamele1:after {
+	.banner-map-wrap-right .game-le1:after {
 	    left: 19%;
 	    bottom: 28%;
 	    width: 34px;
 	    height: 56px;
 	}
-	.maplabel a:before, .maplabel a img {
+	.map-label a:before, .map-label a img {
 	    width: 70px;
 	    height: 70px;
 	}
 }
 @media (max-width: 1200px) {
-	.labelwrapmap img {
+	.label-wrap-map img {
 	    margin: 0 !important;
 	}
 }
@@ -858,7 +855,7 @@
     .desktop-banner {
         display: none;
     }
-    .mobilelabelmap .event-box.explore a::before {
+    .mobile-label-map .event-box.explore a::before {
         display: none;
     }
 }

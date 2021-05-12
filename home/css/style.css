@@ -21,33 +21,33 @@ body {
     position: relative;
 }
 /* World Gaming Festival Image css start */
-.labelwrapmap {
+.label-wrap-map {
     position: absolute;
     top: 0;
     left: 0;
     text-align: left;
 }
-.labelwrapmap span {
+.label-wrap-map span {
     display: inline-block;
     width: 1200px;
     height: 200px;
 }
-.labelwrapmap img {
+.label-wrap-map img {
 	width: 250px;
     height: 140px;
     object-fit: contain;
     margin: 0 0 0 10%;
 }
 /* World Gaming Festival Image css end */
-.sigmaBannerWrapper {
+.sigma-banner-wrapper {
     height: calc( 100vh - 100px );
 }
-.bannerInnerWrapper {
+.banner-inner-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
 }
-.bannermapwrapper, .maplabel {
+.banner-map-wrapper, .map-label {
     position: absolute;
     top: 0;
     left: 0;
@@ -57,7 +57,7 @@ body {
     display: flex;
     align-items: center;
 }
-.inneranimate, .innermaplabel {
+.inner-animate, .inner-map-label {
     position: relative;
     width: 1200px;
     height: 700px;
@@ -66,7 +66,7 @@ body {
     background-size: 1200px 700px;
     background-position: center;
 }
-.bannermapwrap-left .inneranimate:before {
+.banner-map-wrap-left .inner-animate:before {
     content: '';
     position: absolute;
     left: -44px;
@@ -87,7 +87,7 @@ body {
     	transform: rotateY(360deg); 
     }
 }
-.bannermapwrap-left .inneranimate:after {
+.banner-map-wrap-left .inner-animate:after {
     content: '';
     position: absolute;
     left: 102px;
@@ -107,7 +107,7 @@ body {
 	95% { transform: rotate(-5deg); }
 	100% { transform: rotate(0deg); }
 }
-.bannermapwrap-left .americaele2:before {
+.banner-map-wrap-left .america-ele2:before {
     content: '';
     position: absolute;
     left: 292px;
@@ -142,7 +142,7 @@ body {
 		transform: scale3d(1, 1, 1);
 	}
 }
-.bannermapwrap-left .americaele2:after {
+.banner-map-wrap-left .america-ele2:after {
     content: '';
     position: absolute;
     left: 370px;
@@ -155,7 +155,7 @@ body {
     z-index: 2;
     animation: tada 2.5s infinite;
 }
-.bannermapwrap-left .americaele:before {
+.banner-map-wrap-left .america-ele:before {
     content: '';
     position: absolute;
     left: 310px;
@@ -168,7 +168,7 @@ body {
     z-index: 2;
     animation: wiggle 3.5s infinite;
 }
-.bannermapwrap-middle .inneranimate:before {
+.banner-map-wrap-middle .inner-animate:before {
     content: '';
     position: absolute;
     right: 38.3%;
@@ -181,7 +181,7 @@ body {
     z-index: 2;
     animation: tada 5s infinite linear;
 }
-.bannermapwrap-middle .inneranimate:after {
+.banner-map-wrap-middle .inner-animate:after {
     content: '';
     position: absolute;
     right: 35.3%;
@@ -194,7 +194,7 @@ body {
     z-index: 2;
     animation: tada 5s infinite;
 }
-.bannermapwrap-middle .asiaele3:after {
+.banner-map-wrap-middle .asia-ele3:after {
     content: '';
     position: absolute;
     right: 17%;
@@ -207,7 +207,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele2:before {
+.banner-map-wrap-middle .asia-ele2:before {
     content: '';
     position: absolute;
     right: 25.8%;
@@ -220,7 +220,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele2:after {
+.banner-map-wrap-middle .asia-ele2:after {
     content: '';
     position: absolute;
     right: 23.3%;
@@ -233,7 +233,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele:before {
+.banner-map-wrap-middle .asia-ele:before {
     content: '';
     position: absolute;
     right: 12.3%;
@@ -246,7 +246,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .asiaele:after {
+.banner-map-wrap-middle .asia-ele:after {
     content: '';
     position: absolute;
     left: 48.2%;
@@ -259,7 +259,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .africaele:before {
+.banner-map-wrap-middle .africa-ele:before {
     content: '';
     position: absolute;
     right: 42.2%;
@@ -272,7 +272,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .africaele:after {
+.banner-map-wrap-middle .africa-ele:after {
     content: '';
     position: absolute;
     left: 51.5%;
@@ -285,7 +285,7 @@ body {
     z-index: 2;
     animation: tada 4s infinite;
 }
-.bannermapwrap-middle .europeele:before {
+.banner-map-wrap-middle .europe-ele:before {
     content: '';
     position: absolute;
     left: 47.2%;
@@ -298,7 +298,7 @@ body {
     z-index: 2;
     animation: spinCircle 10s linear infinite;
 }
-.bannermapwrap-middle .europeele:after {
+.banner-map-wrap-middle .europe-ele:after {
     content: '';
     position: absolute;
     left: 46.15%;
@@ -311,7 +311,7 @@ body {
     z-index: 2;
     animation: spinCircle 8s linear infinite;
 }
-.bannermapwrap-middle .europeele2:before {
+.banner-map-wrap-middle .europe-ele2:before {
     content: '';
     position: absolute;
     left: 41%;
@@ -334,7 +334,7 @@ body {
 		ospacity: 1;
 	}
 }
-.bannermapwrap-middle .europeele2:after {
+.banner-map-wrap-middle .europe-ele2:after {
     content: '';
     position: absolute;
     left: 47%;
@@ -347,7 +347,7 @@ body {
     z-index: 2;
     animation: spinCircle 8s linear infinite;
 }
-.bannermapwrap-right .inneranimate:before {
+.banner-map-wrap-right .inner-animate:before {
     content: '';
     position: absolute;
     right: 14%;
@@ -359,7 +359,7 @@ body {
     height: 34px;
     z-index: 2;
 }
-.bannermapwrap-right .gamele1:before {
+.banner-map-wrap-right .gamele1:before {
     content: '';
     position: absolute;
     left: 24%;
@@ -371,7 +371,7 @@ body {
     height: 70px;
     z-index: 2;
 }
-.bannermapwrap-right .gamele1:after {
+.banner-map-wrap-right .gamele1:after {
     content: '';
     position: absolute;
     left: 19%;
@@ -383,12 +383,12 @@ body {
     height: 68px;
     z-index: 2;
 }
-.maplabel a {
+.map-label a {
     display: inline-block;
     position: absolute;
     cursor: pointer;
 }
-.maplabel a::before {
+.map-label a::before {
     content: '';
     position: absolute;
     top: 0px;
@@ -411,10 +411,10 @@ body {
     bottom: 14%;
     left: 14%;
 }
-.maplabel a.americas::before {
+.map-label a.americas::before {
     border-color: #8acc94;
 }
-.maplabel a:hover img, .maplabel a:hover:before {
+.map-label a:hover img, .map-label a:hover:before {
     height: 150px;
     width: 150px;
     transition: width .5s ease,height .5s ease;
@@ -423,24 +423,24 @@ body {
     top: 4%;
     left: 54%;
 }
-.maplabel a.europe::before {
+.map-label a.europe::before {
     border-color: #73b0d0;
 }
 .desktop-banner .africa {
     bottom: 5%;
     right: 34%;
 }
-.maplabel a.africa::before {
+.map-label a.africa::before {
     border-color: #fe870e;
 }
 .desktop-banner .asia {
     bottom: 30%;
     right: 20%;
 }
-.maplabel a.asia::before {
+.map-label a.asia::before {
     border-color: #e85e5e;
 }
-.maplabel a img {
+.map-label a img {
     width: 120px;
     height: 120px;
     object-fit: contain;
@@ -620,13 +620,17 @@ body {
 .post-item {
     padding-bottom: 7px;
     padding-top: 2px;
-    margin-bottom: 0px;
+    margin-bottom: 6px;
     border-bottom: 1px solid #e4e4e4;
+}
+.post-item:first-child {
+    margin-bottom: 0;
 }
 .post-item a {
     display: block;
 }
-.post-item h2 {
+.post-item h2,
+.hp-right .post-item:first-child h2 {
     font-size: 16px;
     line-height: 1.31;
     color: #010101;
@@ -660,11 +664,14 @@ body {
     font-weight: 600;
     margin-top: 10px;
 }
-.hp-center .post-item:first-child h2,
-.hp-right .post-item:first-child h2 {
+.hp-center .post-item:first-child h2 {
     font-size: 20px;
     line-height: 1.40;
     font-weight: 600;
+}
+.hp-right .post-item:first-child h2 {
+    font-weight: 600;
+    margin: 10px 0;
 }
 .hp-center .blog-listing-module .post-item:first-child a,
 .hp-right .blog-listing-module .post-item:first-child a {
@@ -693,6 +700,96 @@ body {
     width: 100%;
     height: 100%;
 }
+/* watch spotify section start */
+.modal-video-body {
+	max-width: 100%;
+    width: 80%;
+}
+.post-item:first-child .js-video-button .thumb-img .top {
+    width: 100%;
+    height: 140px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+}
+.post-item:first-child .js-video-button .thumb-img .top span {
+    font-size: 13px;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+}
+.post-item:first-child .js-video-button .thumb-img .top:before {
+    content: '';
+    display: block;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(-2%,rgba(0,0,0,0)),color-stop(107%,rgba(0,0,0,0.86)));
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0) -2%,rgba(0,0,0,0.86) 107%);
+    background-image: -moz-linear-gradient(top,rgba(0,0,0,0) -2%,rgba(0,0,0,0.86) 107%);
+    background-image: -o-linear-gradient(top,rgba(0,0,0,0) -2%,rgba(0,0,0,0.86) 107%);
+    background-image: linear-gradient(to bottom,rgba(0,0,0,0) -2%,rgba(0,0,0,0.86) 107%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+.spotify .post-item:first-child .top .play-btn {
+    background-color: rgba(226,23,53,0.8);
+    z-index: 2;
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px auto;
+}
+.spotify .post-item:first-child .top .play-btn::before {
+    border-width: 10px 0 10px 21px;
+    top: 24px;
+    left: 27px;
+}
+.post-item .js-video-button .thumb-img .top {
+	height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+.spotify .top .play-btn {
+    min-width: 30px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #e21735;
+    position: relative;
+    margin: 0 auto;
+}
+.spotify .top .play-btn:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 0 5px 11px;
+    border-color: transparent transparent transparent #fff;
+    position: absolute;
+    top: 10px;
+    left: 11px;
+}
+/* watch spotify section end */
 /* News slider start */
 .all-news a {
     display: block;
@@ -711,8 +808,11 @@ body {
     -moz-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 20px 0 60px 0;
+    padding: 20px 0 40px 0;
     position: relative;
+}
+.news-search {
+	padding-top: 7px;
 }
 .news-menu {
     width: 100%;
@@ -928,6 +1028,8 @@ body {
     outline: none !important;
     position: absolute;
     right: 0;
+    padding-top: 2px;
+    padding-left: 0;
 }
 .news-search .search-form .s-form.open .search-field {
     display: block;
@@ -935,17 +1037,21 @@ body {
 .news-search .search-form .s-form.open .search-label {
     display: none;
 }
+.ui-widget.ui-widget-content {
+    max-width: 245px !important;
+    width: 100% !important;
+}
 /* Search css end */
 /* news menu css end */
 /* Testimonial css start */
-.testimonial_slide {
+.testimonial-slide {
 	background-color: #f1f1f2;
 	margin-top: 10px;
 }
-.testimonial_slide .testimonial {
+.testimonial-slide .testimonial {
 	padding-top: 20px;
 }
-.testimonial_slide .testimonial img {
+.testimonial-slide .testimonial img {
 	height: 120px;
     width: 120px;
     border-radius: 100%;
@@ -1009,8 +1115,8 @@ body {
     font-family: "Montserrat";
     display: block;
 }
-.testimonial_slide .slick-prev,
-.testimonial_slide .slick-arrow.slick-next {
+.testimonial-slide .slick-prev,
+.testimonial-slide .slick-arrow.slick-next {
 	transform: unset;
     top: 80px;
     z-index: 1;
@@ -1028,15 +1134,15 @@ body {
     background: transparent;
     background-color: transparent !important;
 }
-.testimonial_slide .slick-prev {
+.testimonial-slide .slick-prev {
     left: 6%;
 }
-.testimonial_slide .slick-arrow.slick-next {
+.testimonial-slide .slick-arrow.slick-next {
     right: 6%;
     left: unset;
 }
-.testimonial_slide .slick-prev:before, 
-.testimonial_slide .slick-arrow.slick-next:before {
+.testimonial-slide .slick-prev:before, 
+.testimonial-slide .slick-arrow.slick-next:before {
     font-size: 22px;
     line-height: 24px;
     opacity: 1;
@@ -1049,261 +1155,280 @@ body {
     font-family: "Font Awesome 5 Free";
     display: block;
 }
-.testimonial_slide .slick-prev:before {
+.testimonial-slide .slick-prev:before {
     content: '\f104';
     padding: 2px 3px 3px 2px;
 }
-.testimonial_slide .slick-arrow.slick-next:before {
+.testimonial-slide .slick-arrow.slick-next:before {
     content: '\f105';
     padding: 2px 2px 3px 3px;
 }
 /* Testimonial css end */
-
-
-.js-video-button .thumb-img .top {
-    height: 140px;
+/* Magezine slider css start */
+.magazine-section {
+    display: flex;
+    justify-content: space-between;
 }
+.sigma-magazines,
+.block-magazines {
+    width: 47%;
+}
+.magazine-section .testimonial-slide .testimonial {
+    padding-top: 0;
+}
+.magazine-section .testimonial-slide .testimonial img {
+    height: 142px;
+    width: auto;
+    border-radius: 0;
+    margin: 0 auto;
+}
+.magazine-section .testimonial-slide .slick-prev, 
+.magazine-section .testimonial-slide .slick-arrow.slick-next {
+    top: unset;
+    bottom: 10px;
+}
+/* Magezine slider css end */
 /* Media screen css start */
 @media (max-width: 1600px) {
     /* World Gaming Festival Image css start */
-	.labelwrapmap span {
+	.label-wrap-map span {
 	    width: 1000px;
 	    height: 150px;
 	}
-	.labelwrapmap img {
+	.label-wrap-map img {
 	    width: 180px !important;
 	    height: 100px !important;
 	    margin: 0 0 0 20% !important;
 	}
     /* World Gaming Festival Image css end */
-	.inneranimate, .innermaplabel {
+	.inner-animate, .inner-map-label {
 	    width: 1000px;
 	    height: 500px;
 	    background-size: 1000px 500px;
 	}
-	.bannermapwrap-left .inneranimate:before {
+	.banner-map-wrap-left .inner-animate:before {
 	    left: -8px;
 	    top: 106px;
 	    width: 80px;
 	    height: 15px;
 	}
-	.bannermapwrap-left .inneranimate:after {
+	.banner-map-wrap-left .inner-animate:after {
 	    left: 92px;
 	    top: 154px;
 	    width: 35px;
 	    height: 45px;
 	}
-	.bannermapwrap-left .americaele2:before {
+	.banner-map-wrap-left .america-ele2:before {
 	    width: 28px;
 	    height: 24px;
 	    left: 248px;
 	    top: 184px;
 	}
-	.bannermapwrap-left .americaele2:after {
+	.banner-map-wrap-left .america-ele2:after {
 	    left: 312px;
 	    bottom: 148px;
 	    width: 26px;
 	    height: 20px;
 	}
-	.bannermapwrap-left .americaele:before {
+	.banner-map-wrap-left .america-ele:before {
 	    left: 265px;
 	    bottom: 94px;
 	    width: 28px;
 	    height: 48px;
 	}
-	.bannermapwrap-middle .asiaele3:after {
+	.banner-map-wrap-middle .asia-ele3:after {
 	    right: 17.2%;
 	    width: 22px;
 	    height: 18px;
 	}
-	.bannermapwrap-middle .asiaele2:before {
+	.banner-map-wrap-middle .asia-ele2:before {
 	    right: 26.4%;
 	    top: 45.4%;
 	    width: 16px;
 	    height: 16px;
 	}
-	.bannermapwrap-middle .asiaele2:after {
+	.banner-map-wrap-middle .asia-ele2:after {
 	    right: 24%;
 	    top: 43%;
 	    width: 16px;
 	    height: 32px;
 	}
-	.bannermapwrap-middle .asiaele2:after {
+	.banner-map-wrap-middle .asia-ele2:after {
 	    right: 24%;
 	    top: 43%;
 	    width: 16px;
 	    height: 32px;
 	}
-	.bannermapwrap-middle .asiaele:after {
+	.banner-map-wrap-middle .asia-ele:after {
 	    left: 48.7%;
 	    width: 12px;
 	    height: 12px;
 	    top: 48.4%;
 	}
-	.bannermapwrap-middle .africaele:before {
+	.banner-map-wrap-middle .africa-ele:before {
 	    right: 42.3%;
 	    top: 49%;
 	    width: 13px;
 	    height: 13px;
 	}
-	.bannermapwrap-middle .africaele:after {
+	.banner-map-wrap-middle .africa-ele:after {
 	    width: 16px;
 	    height: 18px;
 	}
-	.bannermapwrap-middle .europeele:before {
+	.banner-map-wrap-middle .europe-ele:before {
 	    left: 47.3%;
 	    top: 30.6%;
 	    width: 15px;
 	    height: 14px;
 	}
-	.bannermapwrap-middle .europeele:after {
+	.banner-map-wrap-middle .europe-ele:after {
 	    left: 46.3%;
 	    top: 35%;
 	    width: 8px;
 	    height: 8px;
 	}
-	.bannermapwrap-middle .europeele2:before {
+	.banner-map-wrap-middle .europe-ele2:before {
 	    left: 41%;
 	    top: 44%;
 	    width: 105px;
 	    height: 15px;
 	}
-	.bannermapwrap-middle .europeele2:after {
+	.banner-map-wrap-middle .europe-ele2:after {
 	    width: 8px;
 	    height: 8px;
 	    left: 47.2%;
 	    top: 37.2%;
 	}
-	.bannermapwrap-right .gamele1:before {
+	.banner-map-wrap-right .gamele1:before {
 	    width: 28px;
 	    height: 42px;
 	}
-	.bannermapwrap-right .gamele1:after {
+	.banner-map-wrap-right .gamele1:after {
 	    left: 19%;
 	    bottom: 28%;
 	    width: 34px;
 	    height: 56px;
 	}
-	.maplabel a:before, .maplabel a img {
+	.map-label a:before, .map-label a img {
 	    width: 80px;
 	    height: 80px;
 	}
 }
 @media (max-width: 1350px) {
-	.inneranimate, .innermaplabel {
+	.inner-animate, .inner-map-label {
 	    width: 760px;
 	    height: 440px;
 	    background-size: 760px 440px;
 	}
-	.bannermapwrap-left .inneranimate:before {
+	.banner-map-wrap-left .inner-animate:before {
 	    left: -16px;
 	    top: 93px;
 	    width: 80px;
 	    height: 15px;
 	}
-	.bannermapwrap-left .inneranimate:after {
+	.banner-map-wrap-left .inner-animate:after {
 	    left: 65px;
 	    top: 134px;
 	    width: 30px;
 	    height: 40px;
 	}
-	.bannermapwrap-left .americaele2:before {
+	.banner-map-wrap-left .america-ele2:before {
 	    width: 25px;
 	    height: 20px;
 	    left: 188px;
 	    top: 160px;
 	}
-	.bannermapwrap-left .americaele2:after {
+	.banner-map-wrap-left .america-ele2:after {
 	    left: 234px;
 	    bottom: 130px;
 	    width: 25px;
 	    height: 20px;
 	}
-	.bannermapwrap-left .americaele:before {
+	.banner-map-wrap-left .america-ele:before {
 	    left: 198px;
 	    bottom: 80px;
 	    width: 26px;
 	    height: 45px;
 	}
-	.bannermapwrap-middle .asiaele3:after {
+	.banner-map-wrap-middle .asia-ele3:after {
 	    width: 18px;
 	    height: 14px;
 	    right: 17%;
 	}
-	.bannermapwrap-middle .asiaele2:before {
+	.banner-map-wrap-middle .asia-ele2:before {
 	    right: 26.1%;
 	    top: 45.4%;
 	    width: 16px;
 	    height: 16px;
 	}
-	.bannermapwrap-middle .asiaele2:after {
+	.banner-map-wrap-middle .asia-ele2:after {
 	    right: 23.5%;
 	    top: 42%;
 	    width: 16px;
 	    height: 16px;
 	}
-	.bannermapwrap-middle .asiaele:before {
+	.banner-map-wrap-middle .asia-ele:before {
 	    right: 12.3%;
 	    width: 18px;
 	    height: 14px;
 	}
-	.bannermapwrap-middle .asiaele:after {
+	.banner-map-wrap-middle .asia-ele:after {
 	    left: 48.5%;
 	    width: 12px;
 	    height: 12px;
 	}
-	.bannermapwrap-middle .africaele:before {
+	.banner-map-wrap-middle .africa-ele:before {
 	    right: 42.3%;
 	    top: 48.2%;
 	    width: 12px;
 	    height: 12px;
 	}
-	.bannermapwrap-middle .africaele:after {
+	.banner-map-wrap-middle .africa-ele:after {
 	    width: 15px;
 	    height: 15px;
 	    left: 51.4%;
 	}
-	.bannermapwrap-middle .europeele:before {
+	.banner-map-wrap-middle .europe-ele:before {
 	    left: 47.3%;
 	    top: 30.6%;
 	    width: 15px;
 	    height: 14px;
 	}
-	.bannermapwrap-middle .europeele:after {
+	.banner-map-wrap-middle .europe-ele:after {
 	    left: 46.3%;
 	    top: 35%;
 	    width: 8px;
 	    height: 8px;
 	}
-	.bannermapwrap-middle .europeele2:before {
+	.banner-map-wrap-middle .europe-ele2:before {
 	    left: 41%;
 	    top: 44%;
 	    width: 105px;
 	    height: 15px;
 	}
-	.bannermapwrap-middle .europeele2:after {
+	.banner-map-wrap-middle .europe-ele2:after {
 	    width: 8px;
 	    height: 8px;
 	    left: 47.2%;
 	    top: 37.2%;
 	}
-	.bannermapwrap-right .gamele1:before {
+	.banner-map-wrap-right .gamele1:before {
 	    width: 28px;
 	    height: 42px;
 	}
-	.bannermapwrap-right .gamele1:after {
+	.banner-map-wrap-right .gamele1:after {
 	    left: 19%;
 	    bottom: 28%;
 	    width: 34px;
 	    height: 56px;
 	}
-	.maplabel a:before, .maplabel a img {
+	.map-label a:before, .map-label a img {
 	    width: 70px;
 	    height: 70px;
 	}
 }
 @media (max-width: 1200px) {
-	.labelwrapmap img {
+	.label-wrap-map img {
 	    margin: 0 !important;
 	}
 }
@@ -1318,6 +1443,15 @@ body {
         width: -webkit-calc(50% - 40px);
         width: -moz-calc(50% - 40px);
         width: calc(50% - 40px);
+    }
+    .magazine-section .testimonial-slide .testimonial img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .magazine-section .testimonial-slide .slick-list,
+    .magazine-section .testimonial-slide .slick-track {
+        height: 100%;
     }
 }
 @media (max-width: 768px) {
@@ -1413,6 +1547,10 @@ body {
     /* news menu css end */
     .all-news a {
         margin: 5px 0 10px 0;
+    }
+    .ui-widget.ui-widget-content {
+        max-width: 100% !important;
+        width: calc(100% - 55%) !important;
     }
 }
 @media (max-width: 600px) {

@@ -1,26 +1,26 @@
 jQuery(document).ready(function($) {
 	/**** Scroll To Top ***/
-	$(".scroll_to_top").click(function() {
+	$(".scroll-to-top").click(function() {
 	    $("html, body").animate({ 
 	        scrollTop: 0 
 	    }, "slow");
 	    return false;
 	});
-	var scroll_btn = document.getElementById("scroll_top");
+	var scroll_btn = document.getElementById("scroll-top");
 	$(window).scroll(function() {    
 	    var scroll = $(window).scrollTop();    
 	    if (scroll <= 100) {
 	    	scroll_btn.style.display = "none";
-	        $(".scroll_To_Top").removeClass("scroll_div").addClass("no_scroll");
+	        $(".scroll-to-top").removeClass("scroll_div").addClass("no_scroll");
 	    } else {
 	    	scroll_btn.style.display = "block";
-	    	$(".scroll_To_Top").removeClass("no_scroll").addClass("scroll_div");
+	    	$(".scroll-to-top").removeClass("no_scroll").addClass("scroll_div");
 	    }
 	});
 	/**** Scroll To Top ***/
 
 	/**** Testimonial Slider ***/
-  	$(".testimonial_slide").slick({
+  	$(".testimonial-slide").slick({
     	slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: false,
@@ -45,5 +45,27 @@ jQuery(document).ready(function($) {
 		}
 	});
 	/**** Video pop up end ***/
+	
+	/**** Search Autocomplete ***/
+	$('.search-form .search-field').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				dataType: 'json',
+				url: AutocompleteSearch.ajax_url,
+				data: {
+					term: request.term,
+					action: 'autocompleteSearch',
+					security: AutocompleteSearch.ajax_nonce,
+				},
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		select: function(event, ui) {
+			window.location.href = ui.item.link;
+		},
+	});
+	/**** Search Autocomplete end ***/
 
 });

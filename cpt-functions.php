@@ -18,9 +18,7 @@ function sigma_mt_news_custom_posts() {
 			'not_found_in_trash' => __('No News Items found in Trash', 'sigmaigaming'),
 		),
 		'public' => TRUE,
-		'rewrite' => array('slug' => 'news'),
-		'has_archive' => false,
-		
+		'rewrite' => array('slug' => 'news'),		
 		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
@@ -90,7 +88,6 @@ function sigma_mt_events_custom_posts(){
 		'public' => true,
 		'publicly_queryable' => false,
 		'rewrite' => array('slug' => 'event-items'),
-		'has_archive' => false,
 		'supports' => array('title', 'thumbnail', 'editor', 'revisions'),
 	));
 }
@@ -189,7 +186,6 @@ function sigma_mt_author_custom_posts(){
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'authors', 'with_front' => false),
-		'has_archive' => true,
 		'supports' => array('title', 'thumbnail', 'editor')
 	));
 }
@@ -212,9 +208,7 @@ function sigma_mt_videos_custom_posts() {
 			'not_found_in_trash' => __('No Videos Items found in Trash', 'sigmaigaming'),
 		),
 		'public' => TRUE,
-		'rewrite' => array('slug' => 'sigma-videos'),
-		'has_archive' => false,
-		
+		'rewrite' => array('slug' => 'sigma-videos'),		
 		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
@@ -260,9 +254,7 @@ function sigma_mt_testimonial_custom_posts() {
 			'not_found_in_trash' => __('No Testimonial Items found in Trash', 'sigmaigaming'),
 		),
 		'public' => TRUE,
-		'rewrite' => array('slug' => 'sigma-testimonial'),
-		'has_archive' => false,
-		
+		'rewrite' => array('slug' => 'sigma-testimonial'),		
 		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
@@ -286,6 +278,52 @@ function sigma_mt_taxonomies_testimonial(){
 			'show_ui' => true,
 			'query_var' => true,
 			'rewrite' => array('slug' => 'sm-videos')
+		)
+	);
+}
+
+// create a Custom post type news
+add_action('init', 'sigma_mt_magazine_custom_posts');
+function sigma_mt_magazine_custom_posts() {
+	register_post_type('magazine-items', array(
+		'labels' => array(
+			'name' => __('Sigma Magazines', 'sigmaigaming'),
+			'singular_name' => __('Sigma Magazine', 'sigmaigaming'),
+			'menu_name' => __('Sigma Magazines', 'sigmaigaming'),
+			'add_new' => __('Add Magazine Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Magazine Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Magazine Item', 'sigmaigaming'),
+			'new_item' => __('Magazines Items', 'sigmaigaming'),
+			'view_item' => __('View Magazine Item', 'sigmaigaming'),
+			'search_items' => __('Search Magazines Items', 'sigmaigaming'),
+			'not_found' => __('No Magazines Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Magazines Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'magazines'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post texonomies for news post
+add_action( 'init', 'sigma_mt_taxonomies_magazines', 0 );
+function sigma_mt_taxonomies_magazines(){
+	register_taxonomy('magazines-cat', array('magazine-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Magazine Categories', 'sigmaigaming'),
+				'singular_name' => __('Magazine Category', 'sigmaigaming'),
+				'search_items' => __('Search Magazine Category', 'sigmaigaming'),
+				'all_items' => __('All Magazine Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Magazine Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Magazine Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Magazine Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Magazine Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Magazine Category', 'sigmaigaming'),
+				'new_item_name' => __('New Magazine Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'magazines-cat')
 		)
 	);
 }
