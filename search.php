@@ -1,13 +1,10 @@
 <?php
 /**
  * The template for displaying search results pages
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
- *
- * @package WordPress
- * @subpackage Twenty_Twenty_One
- * @since Twenty Twenty-One 1.0
+ * Created By: Rinkal Petersen
+ * Created at: 22 Apr 2021
  */
+/* Search pagee css */
 
 get_header();
 
@@ -26,11 +23,11 @@ $wp_query = new WP_Query( $args );
 
 <section class="search-page">
 	<div class="container">
-		<div class="search-page-title">
-			<h2>SEARCH RESULTS</h2>
-		</div>
 		<div class="search-content">
 			<?php if ( $wp_query->have_posts() ) { ?>
+				<div class="search-page-title">
+					<h2><?php _e( 'SEARCH RESULTS', 'sigmaigaming' ); ?></h2>
+				</div>
 				<ul>
 					<?php while ( $wp_query->have_posts() ) {
 				        $wp_query->the_post(); ?>
@@ -42,14 +39,14 @@ $wp_query = new WP_Query( $args );
 				</ul>
 				<div class="pagination">
 					<!-- Add the pagination functions here. -->
-					<div class="search-pagination alignLeft"><?php next_posts_link( 'Next page >' ); ?></div>
-					<div class="search-pagination alignRight"><?php previous_posts_link( '< Previous page' ); ?></div>	
+					<div class="search-pagination alignLeft"><?php next_posts_link( 'Next page &gt;' ); ?></div>
+					<div class="search-pagination alignRight"><?php previous_posts_link( '&lt; Previous page' ); ?></div>	
 				</div>
 		    <?php } else { ?>
 		    	<div class="search-page-title">
-					<h2>Nothing Found</h2>
+					<h2><?php _e( 'Nothing Found', 'sigmaigaming' ); ?></h2>
 		    		<div class="alert alert-info">
-		        		<p>Sorry, but nothing matched your search criteria. Please try again with some different keywords.</p>
+		    			<?php echo '<p>' . esc_html__( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'sigmaigaming' ) . '</p>'; ?>
 		       		</div>
 		       	</div>
 			<?php } ?>

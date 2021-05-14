@@ -342,12 +342,12 @@ body #page {
     color: #ed1a3b;
     outline: none;
 }
-html[lang='es-ES'] .ehf-header #masthead .custom-header .header-cmenu li {
+html[lang='es-ES'] .ehf-header #masthead .custom-header .header-cmenu li,
+html[lang='fr-FR'] .ehf-header #masthead .custom-header .header-cmenu li {
     margin-right: 4%;
 }
 html[lang='fr-FR'] .ehf-header #masthead .custom-header .header-cmenu li {
     position: relative;
-    margin-right: 4%;
 }
 /* mobile languages switcher start */
 .mobile-languages {
@@ -449,10 +449,12 @@ html[lang='fr-FR'] .ehf-header #masthead .custom-header .header-cmenu li {
 .ehf-header #masthead .custom-header .header-cmenu li.bookPass a.hfe-menu-item:focus {
     background: #ed1a3b !important;
     border-color: #ed1a3b !important;
+    color: #fff !important;
 }
 .ehf-header #masthead .custom-header .header-cmenu li.sponsorExhibit a.hfe-menu-item:focus {
     background: #6fd13b !important;
     border-color: #6fd13b !important;
+    color: #fff !important;
 }
 .ehf-header #masthead .custom-header .header-cmenu li.lastbtn a.hfe-menu-item:after{
     content: '';
@@ -700,6 +702,131 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     background: transparent !important;
 }
 /* Popup Home page end */
+
+/* texonomy archive css page start */
+.blog-listing-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.list-single-item {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    height: 165px;
+    overflow: hidden;
+}
+.list-single-item:nth-child(odd) {
+    margin-right: 10px;
+}
+.list-single-item:nth-child(even) {
+    margin-left: 10px;
+}
+.list-single-item a {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+.list-single-item a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    transition: all .3s linear;
+    background-color: rgba(255,255,255,0.6);
+}
+.list-single-item a:hover:before {
+    opacity: 1;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.list-single-item a:after {
+    content: '\f022';
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    color: #ed1a3b;
+    top: 150%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 35px;
+    line-height: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    opacity: 0;
+    text-align: center;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: top .4s,opacity .4s,-webkit-transform 0s .4s;
+    transition: top .4s,opacity .4s,-webkit-transform 0s .4s;
+    -o-transition: top .4s,opacity .4s,-o-transform 0s .4s;
+    -moz-transition: top .4s,opacity .4s,transform 0s .4s,-moz-transform 0s .4s;
+    transition: top .4s,opacity .4s,transform 0s .4s;
+    transition: top .4s,opacity .4s,transform 0s .4s,-webkit-transform 0s .4s,-moz-transform 0s .4s,-o-transform 0s .4s;
+    z-index: 16;
+    background-color: #fff;
+}
+.list-single-item a:hover:after {
+    opacity: 1;
+    top: 50%;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: top 0s,opacity .4s,-webkit-transform .4s;
+    transition: top 0s,opacity .4s,-webkit-transform .4s;
+    -o-transition: top 0s,opacity .4s,-o-transform .4s;
+    -moz-transition: top 0s,opacity .4s,transform .4s,-moz-transform .4s;
+    transition: top 0s,opacity .4s,transform .4s;
+    transition: top 0s,opacity .4s,transform .4s,-webkit-transform .4s,-moz-transform .4s,-o-transform .4s;
+}
+.post-desc {
+    height: 100%;
+}
+.post-desc img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.post-desc h3 {
+    background-color: rgba(0,0,0,0.75);
+    min-height: 56px;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+}
+/* Pagination css start */
+.pagination ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pagination ul li {
+    margin: 0 5px;
+}
+/* Pagination css end */
+/* texonomy archive css page end */
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */

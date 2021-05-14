@@ -22,12 +22,11 @@ if ($directory){
 			  			<a href="<?php echo $value['directory_link']; ?>" class="<?php echo $value['country_name']; ?>">
 			  				<div class="bottom-txt" style="background-color: <?php echo $value['directory_color']; ?>">
 			    				<div class="txt-all">
-				      				<div class="icon">
-				                  		<?php 
-				                  		if( !empty( $value['directory_icon'] ) ){ ?>
+			    					<?php if( !empty( $value['directory_icon'] ) ){ ?>
+				      					<div class="icon">
 									    	<img src="<?php echo $value['directory_icon']['url']; ?>" alt="<?php echo $value['directory_icon']['alt']; ?>" />
-										<?php } ?>
-				        			</div>
+				        				</div>
+				        			<?php } ?>
 								    <h6><?php echo $value['directory_name']; ?></h6>
 			    				</div>
 			  				</div>

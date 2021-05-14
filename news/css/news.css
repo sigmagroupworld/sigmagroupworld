@@ -14,6 +14,9 @@ body {
     height: 100%;
     object-fit: cover;
 }
+/*.blog-banner.texonomy-banner img {
+    object-fit: contain;
+}*/
 /* Blog Banner css end */
 .page-container {
     width: 100%;
@@ -486,6 +489,28 @@ body {
     position: relative;
 }
 /* Rightbar css End */
+
+/** Archive posts css ***/
+
+.nav-links .page-numbers.current, .prev.page-numbers, .next.page-numbers {
+    line-height: 30px;
+    padding: 0px 15px;
+    text-align: center;
+    width: auto;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: #ee4438;
+    color: #f4f4f4;
+    margin: 0;
+    font-size: 14px;
+}
+.navigation.pagination .nav-links a {
+    text-align: center;
+    margin: 0;
+}
+/** Archive posts css end ***/
+
 
 /* Media Screen start */
 @media (max-width: 1300px) {

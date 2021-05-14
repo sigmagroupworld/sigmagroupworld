@@ -1,5 +1,43 @@
 <?php 
 
+// Update posts slug
+add_action( 'init', 'sigma_mt_update_posts_slug' );
+function sigma_mt_update_posts_slug() {
+    $posts = get_posts( array (  'numberposts' => -1 ) );
+    foreach ( $posts as $post ) {
+        // check the slug and run an update if necessary 
+        $new_slug = sanitize_title( $post->post_title );
+        if ( $post->post_name != $new_slug ) {
+            wp_update_post(
+                array (
+                    'ID'        => $post->ID,
+                    'post_name' => $new_slug
+                )
+            );
+        }
+    }
+}
+
+// create widgets for sidebar
+add_action( 'widgets_init', 'sigma_mt_widgets_init' );
+function sigma_mt_widgets_init() {
+    register_sidebar( array(
+        'name' => __( 'Post Page Sidebar', 'sigmaigaming' ),
+        'id' => 'news-posts-sidebar',
+        'description' => __( 'The main sidebar appears on the right on each post page template', 'sigmaigaming' ),
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
+    ) );
+}
+
+// Register and load the widget
+add_action( 'widgets_init', 'sigma_mt_load_widget' );
+function sigma_mt_load_widget() {
+    register_widget( 'sigma_mt_widget' );
+}
+
 // create a Custom post type news
 add_action('init', 'sigma_mt_news_custom_posts');
 function sigma_mt_news_custom_posts() {
@@ -23,7 +61,7 @@ function sigma_mt_news_custom_posts() {
 	));
 }
 
-// create a Custom post texonomies for news post
+// create a Custom post taxonomy for news post
 add_action( 'init', 'sigma_mt_taxonomies_news', 0 );
 function sigma_mt_taxonomies_news(){
 	register_taxonomy('news-cat', array('news-items'), array('hierarchical' => true,
@@ -40,7 +78,6 @@ function sigma_mt_taxonomies_news(){
 				'new_item_name' => __('New News Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'query_var' => true,
 			'rewrite' => array('slug' => 'latest-news')
 		)
 	);
@@ -110,7 +147,6 @@ function sigma_mt_events_categories(){
 			'new_item_name' => __('New Event Category', 'sigmaigaming')
 		),
 		'show_ui' => true,
-		'query_var' => false,
 		'rewrite' => array( 'slug' => 'event-category', 'hierarchical' => true ),
 	   )
 	);
@@ -135,7 +171,6 @@ function sigma_mt_events_years(){
 		),
 		'show_ui' => true,
 		'publicly_queryable' => false,
-		'query_var' => false,
 		'rewrite' => array( 'slug' => 'event-years', 'hierarchical' => true ),
 	   )
 	);
@@ -161,7 +196,6 @@ function sigma_mt_events_editions(){
 			'public' => true,
 			'show_ui' => true,
 			'publicly_queryable' => false,
-			'query_var' => false,
 			'rewrite' => array( 'slug' => 'event-editions', 'hierarchical' => true ),
 		)
 	);
@@ -213,7 +247,7 @@ function sigma_mt_videos_custom_posts() {
 	));
 }
 
-// create a Custom post texonomies for news post
+// create a Custom post taxonomy for news post
 add_action( 'init', 'sigma_mt_taxonomies_videos', 0 );
 function sigma_mt_taxonomies_videos(){
 	register_taxonomy('videos-cat', array('video-items'), array('hierarchical' => true,
@@ -230,7 +264,6 @@ function sigma_mt_taxonomies_videos(){
 				'new_item_name' => __('New Videos Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'query_var' => true,
 			'rewrite' => array('slug' => 'sm-videos')
 		)
 	);
@@ -259,7 +292,7 @@ function sigma_mt_testimonial_custom_posts() {
 	));
 }
 
-// create a Custom post texonomies for news post
+// create a Custom post taxonomy for news post
 add_action( 'init', 'sigma_mt_taxonomies_testimonial', 0 );
 function sigma_mt_taxonomies_testimonial(){
 	register_taxonomy('videos-cat', array('testimonial-items'), array('hierarchical' => true,
@@ -276,13 +309,12 @@ function sigma_mt_taxonomies_testimonial(){
 				'new_item_name' => __('New Testimonials Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'query_var' => true,
 			'rewrite' => array('slug' => 'sm-videos')
 		)
 	);
 }
 
-// create a Custom post type news
+// create a Custom post type magazines
 add_action('init', 'sigma_mt_magazine_custom_posts');
 function sigma_mt_magazine_custom_posts() {
 	register_post_type('magazine-items', array(
@@ -305,7 +337,7 @@ function sigma_mt_magazine_custom_posts() {
 	));
 }
 
-// create a Custom post texonomies for news post
+// create a Custom post taxonomy for magazines
 add_action( 'init', 'sigma_mt_taxonomies_magazines', 0 );
 function sigma_mt_taxonomies_magazines(){
 	register_taxonomy('magazines-cat', array('magazine-items'), array('hierarchical' => true,
@@ -322,7 +354,6 @@ function sigma_mt_taxonomies_magazines(){
 				'new_item_name' => __('New Magazine Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'query_var' => true,
 			'rewrite' => array('slug' => 'magazines-cat')
 		)
 	);

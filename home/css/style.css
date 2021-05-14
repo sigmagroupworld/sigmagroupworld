@@ -1188,6 +1188,10 @@ body {
     bottom: 10px;
 }
 /* Magezine slider css end */
+.autocomplete-suggestions .autocomplete-suggestion b {
+    font-weight: bold;
+    color: #787878;
+}
 /* Media screen css start */
 @media (max-width: 1600px) {
     /* World Gaming Festival Image css start */

@@ -38,7 +38,7 @@
 .search-pagination.alignLeft {
 	order: 2;
 }
-.search-pagination.alignLeft {
+.search-pagination.alignRight {
 	order: 1;
 }
 .search-pagination a {
@@ -52,4 +52,12 @@
     background-color: #ed1a3b;
     color: #fff;
     font-size: 14px;
+}
+.search-pagination a:hover,
+.search-pagination a:focus,
+.search-pagination a:active {
+	background-color: #ed1a3b !important;
+    color: #fff !important;
+    outline: none !important;
+    background: #ed1a3b !important;
 }

@@ -21,19 +21,19 @@ jQuery(document).ready(function($) {
 
 	/**** Testimonial Slider ***/
   	$(".testimonial-slide").slick({
-    	slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 1500,
-        arrows: true,
-        responsive: [{
-        	breakpoint: 850,
-        	settings: {
-        		slidesToShow: 1,
-        		slidesToScroll: 1,
-        		infinite: true,
-        	}
-    	}]
+    		slidesToShow: 1,
+        	slidesToScroll: 1,
+        	autoplay: false,
+        	autoplaySpeed: 1500,
+        	arrows: true,
+        	responsive: [{
+        		breakpoint: 850,
+        		settings: {
+        			slidesToShow: 1,
+        			slidesToScroll: 1,
+        			infinite: true,
+        		}
+    		}]
  	});
 	/**** Testimonial Slider end ***/
 
@@ -47,7 +47,8 @@ jQuery(document).ready(function($) {
 	/**** Video pop up end ***/
 	
 	/**** Search Autocomplete ***/
-	$('.search-form .search-field').autocomplete({
+	/*$('.search-form .search-field').autocomplete({
+		minChars: 4,
 		source: function(request, response) {
 			$.ajax({
 				dataType: 'json',
@@ -64,8 +65,28 @@ jQuery(document).ready(function($) {
 		},
 		select: function(event, ui) {
 			window.location.href = ui.item.link;
+		}
+	});*/
+
+
+	var searchRequest;
+	$('.search-autocomplete').autoComplete({
+		minChars: 4,
+		source: function(term, suggest){
+			try { 
+				searchRequest.abort(); 
+			} catch(e){}
+			searchRequest = $.post(global.ajax, { search: term, action: 'autocompleteSearch' }, function(res) {
+				suggest(res.data);
+			});
 		},
+		select: function(event, ui) {
+			alert('okkk');
+			console.log(ui);
+			window.location.href = ui.item.link;
+		}
 	});
+
 	/**** Search Autocomplete end ***/
 
 });
