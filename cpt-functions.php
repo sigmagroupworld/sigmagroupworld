@@ -3,7 +3,7 @@
 // Update posts slug
 add_action( 'init', 'sigma_mt_update_posts_slug' );
 function sigma_mt_update_posts_slug() {
-    $posts = get_posts( array (  'numberposts' => -1 ) );
+    $posts = get_posts( array (  'numberposts' => -1, 'post_type'   => array('news-items', 'post', 'page')) );
     foreach ( $posts as $post ) {
         // check the slug and run an update if necessary 
         $new_slug = sanitize_title( $post->post_title );
@@ -57,7 +57,7 @@ function sigma_mt_news_custom_posts() {
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'news'),		
-		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
 	));
 }
 
@@ -355,6 +355,51 @@ function sigma_mt_taxonomies_magazines(){
 			),
 			'show_ui' => true,
 			'rewrite' => array('slug' => 'magazines-cat')
+		)
+	);
+}
+
+// create a Custom post type casino
+add_action('init', 'sigma_mt_casinos_custom_posts');
+function sigma_mt_casinos_custom_posts() {
+	register_post_type('casinos-items', array(
+		'labels' => array(
+			'name' => __('Casinos', 'sigmaigaming'),
+			'singular_name' => __('Casinos', 'sigmaigaming'),
+			'menu_name' => __('Casino Provider', 'sigmaigaming'),
+			'add_new' => __('Add Casinos Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Casinos Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Casinos Item', 'sigmaigaming'),
+			'new_item' => __('Casinos Items', 'sigmaigaming'),
+			'view_item' => __('View Casinos Items', 'sigmaigaming'),
+			'search_items' => __('Search Casinos Items', 'sigmaigaming'),
+			'not_found' => __('No Casinos Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Casinos Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'casinos'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+	));
+}
+
+// create a Custom post taxonomy for casinos post
+add_action( 'init', 'sigma_mt_taxonomies_casinos', 0 );
+function sigma_mt_taxonomies_casinos(){
+	register_taxonomy('casinos-cat', array('casinos-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Casinos Categories', 'sigmaigaming'),
+				'singular_name' => __('Casinos Category', 'sigmaigaming'),
+				'search_items' => __('Search Casinos Category', 'sigmaigaming'),
+				'all_items' => __('All Casinos Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Casinos Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Casinos Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Casinos Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Casinos Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Casinos Category', 'sigmaigaming'),
+				'new_item_name' => __('New Casinos Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-casinos')
 		)
 	);
 }

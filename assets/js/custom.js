@@ -47,8 +47,21 @@ jQuery(document).ready(function($) {
 	/**** Video pop up end ***/
 	
 	/**** Search Autocomplete ***/
-	/*$('.search-form .search-field').autocomplete({
+	/*$(document).click(function(event){
+        if ($(event.target).hasClass('open')) {
+        	alert('okk');
+    		$('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+        }
+    });*/
+	var search_term = $('.search-field.search-autocomplete').val();
+	if(search_term == '') {
+    	$('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+    } else {
+    	$('.s-form.open .hs-search-field__suggestions').css('display', 'inline-block');
+    }
+	$('.search-form .search-field').autocomplete({
 		minChars: 4,
+		minLength: 4,
 		source: function(request, response) {
 			$.ajax({
 				dataType: 'json',
@@ -58,18 +71,55 @@ jQuery(document).ready(function($) {
 					action: 'autocompleteSearch',
 					security: AutocompleteSearch.ajax_nonce,
 				},
+				beforeSend: function() {
+			        $('.s-form.open .hs-search-field__suggestions').hide();
+			        $('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+			    },
 				success: function(data) {
-					response(data);
-				}
+					$('.hs-search-field__suggestions').show();
+					var content = '';
+					var len = data.length;
+					var search_term = $('.search-field.search-autocomplete').val();
+					if (data.length == 0){
+	                    content += 'No results';
+	                }
+	                else {
+						content += '<li class="highlight">Results for ' + search_term + '</li>';
+	                    $.each(data, function(i, post) {
+	                    	var result= post.label.split(' ');
+	                    	var string = $('jqueryselector').val(search_term.toLowerCase());
+	                    	var highlight_term = post.label.replace(search_term, '<span class="highlight"> ' + search_term + ' </span>');
+	                        content += '<li class="highlight-term"><a href=' + post.link + '>' + highlight_term + '</a></li>';
+	                    });
+	                    //$('#search-results').append(content);
+	                    if(search_term == '') {
+	                    	$('.s-form.open #search-results').empty();
+	                    	$('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+	                    } else {
+	                    	$('.s-form.open .hs-search-field__suggestions').css('display', 'inline-block');
+	                    	for(var i = 0; i < 1; i++) {
+								$('.s-form.open #search-results').append(content);
+							}
+	                    }
+	                }
+				},
+				error: function(xhr) { // if error occured
+			        $('.s-form.open .hs-search-field__suggestions').hide();
+			        $('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+			    },
+			    complete: function() {
+			    	//$('#search-results').html(content);
+			        $('.s-form.open .hs-search-field__suggestions').show();
+			    }
 			});
 		},
 		select: function(event, ui) {
 			window.location.href = ui.item.link;
 		}
-	});*/
+	});
 
 
-	var searchRequest;
+	/*var searchRequest;
 	$('.search-autocomplete').autoComplete({
 		minChars: 4,
 		source: function(term, suggest){
@@ -85,7 +135,7 @@ jQuery(document).ready(function($) {
 			console.log(ui);
 			window.location.href = ui.item.link;
 		}
-	});
+	});*/
 
 	/**** Search Autocomplete end ***/
 

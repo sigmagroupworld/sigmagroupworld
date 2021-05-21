@@ -29,7 +29,7 @@ function sigma_mt_scripts() {
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 
     /****Autocomplete script ****/
-    /*wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
+    wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
         ['jquery', 'jquery-ui-autocomplete'], null, true);
     wp_localize_script('autocomplete-search', 'AutocompleteSearch', [
         'ajax_url' => admin_url('admin-ajax.php'),
@@ -40,12 +40,12 @@ function sigma_mt_scripts() {
     wp_enqueue_style('jquery-ui-css',
         '//ajax.googleapis.com/ajax/libs/jqueryui/' . $wp_scripts->registered['jquery-ui-autocomplete']->ver . '/themes/smoothness/jquery-ui.css',
         false, null, false
-    );*/
+    );
 }
 // load js files in footer & style in header end
 
  //Autocomplete script
-add_action( 'wp_enqueue_scripts', 'ja_global_enqueues' );
+/*add_action( 'wp_enqueue_scripts', 'ja_global_enqueues' );
 function ja_global_enqueues() {
     wp_enqueue_style(
         'jquery-auto-complete',
@@ -75,7 +75,7 @@ function ja_global_enqueues() {
         )
     );
 }
-
+*/
 // Shortcode for search form
 add_shortcode('sigma-mt-wpbsearch', 'sigma_mt_wpbsearchform');
 function sigma_mt_wpbsearchform( $form ) {
@@ -87,6 +87,9 @@ function sigma_mt_wpbsearchform( $form ) {
                     </label>
                     <input type="text" class="search-field search-autocomplete" value="' . get_search_query() . '" name="s" id="s" />
                     <input type="submit" class="search-submit" id="searchsubmit" value="'. esc_attr__('Search') .'" />
+                    <div class="hs-search-field__suggestions">
+                        <ul id="search-results"></ul>
+                    </div>
                 </div>
             </form>';
     return $form;
@@ -96,12 +99,12 @@ function sigma_mt_wpbsearchform( $form ) {
 add_action('wp_ajax_nopriv_autocompleteSearch', 'sigmamt_autocomplete_search');
 add_action('wp_ajax_autocompleteSearch', 'sigmamt_autocomplete_search');
 function sigmamt_autocomplete_search() {
-    //check_ajax_referer('autocompleteSearchNonce', 'security');
+    /*check_ajax_referer('autocompleteSearchNonce', 'security');
 
     $results = new WP_Query( array(
         'post_type'     => 'news-items',
         'post_status'   => 'publish',
-        'posts_per_page'=> 3,
+        'posts_per_page'=> 10,
         's'             => stripslashes( $_POST['search'] ),
     ) );
 
@@ -109,16 +112,47 @@ function sigmamt_autocomplete_search() {
 
     if ( !empty( $results->posts ) ) {
         foreach ( $results->posts as $result ) {
-            $items[] = $result->post_title;
-            /*$suggestions = [
+            //$items[] = $result->post_title;
+            $suggestions = [
                 'id' => $result->ID,
                 'label' => $result->post_title,
                 'link' => get_the_permalink($result->ID)
-            ];*/
+            ];
         }
     }
 
-    wp_send_json_success( $items );
+    wp_send_json_success( $suggestions );*/
+
+    check_ajax_referer('autocompleteSearchNonce', 'security');
+    $search_term = $_REQUEST['term'];
+    if (!isset($_REQUEST['term'])) {
+        echo json_encode([]);
+    }
+    $suggestions = [];
+    $query = new WP_Query([
+        's' => $search_term,
+        'posts_per_page' => 3,
+        'order' => 'DESC',
+        'orderby' => 'ID',
+    ]);
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            /*$suggestions[] = [
+                'id' => get_the_ID(),
+                'label' => get_the_title(),
+                'link' => get_the_permalink()
+            ];*/
+            $suggestion['ID'] = get_the_ID();
+            $suggestion['label'] = get_the_title();
+            $suggestion['link'] = get_the_permalink();
+            $suggestions[]= $suggestion;
+        }
+        wp_reset_postdata();
+    }
+    echo json_encode($suggestions);
+    wp_die();
+
 }
 
 // For upcoming news
@@ -279,25 +313,72 @@ if( function_exists('acf_add_options_page') ) {
     
 }
 
-// PHP code to extract IP 
-function sigma_mt_get_ip_addr() {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    }
-    else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }
-    else {
-        return $_SERVER['REMOTE_ADDR'];
-    }
-}
-
 // PHP code to obtain country, city, etc using IP Address
-function sigma_mt_get_ip_info() {
-    $ip = sigma_mt_get_ip_addr();
-    $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-    //$ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=2.20.178.255"));
-    return $ip_data;
+function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
+    $output = NULL;
+    // PHP code to extract IP 
+    if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
+        $ip = $_SERVER["REMOTE_ADDR"];
+        if ($deep_detect) {
+            if (filter_var(@$_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP))
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            if (filter_var(@$_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP))
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }
+    }
+    $purpose    = str_replace(array("name", "\n", "\t", " ", "-", "_"), NULL, strtolower(trim($purpose)));
+    $support    = array("country", "countrycode", "state", "region", "city", "location", "address");
+    $continents = array(
+        "AF" => "Africa",
+        "AN" => "Antarctica",
+        "AS" => "Asia",
+        "EU" => "Europe",
+        "OC" => "Australia (Oceania)",
+        "NA" => "North America",
+        "SA" => "South America"
+    );
+    if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
+        $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+        //$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=5.101.108.255"));
+        if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
+            switch ($purpose) {
+                case "location":
+                    $output = array(
+                        "city"           => @$ipdat->geoplugin_city,
+                        "state"          => @$ipdat->geoplugin_regionName,
+                        "country"        => @$ipdat->geoplugin_countryName,
+                        "country_code"   => @$ipdat->geoplugin_countryCode,
+                        "continent"      => @$continents[strtoupper($ipdat->geoplugin_continentCode)],
+                        "continent_code" => @$ipdat->geoplugin_continentCode
+                    );
+                    break;
+                case "address":
+                    $address = array($ipdat->geoplugin_countryName);
+                    if (@strlen($ipdat->geoplugin_regionName) >= 1)
+                        $address[] = $ipdat->geoplugin_regionName;
+                    if (@strlen($ipdat->geoplugin_city) >= 1)
+                        $address[] = $ipdat->geoplugin_city;
+                    $output = implode(", ", array_reverse($address));
+                    break;
+                case "city":
+                    $output = @$ipdat->geoplugin_city;
+                    break;
+                case "state":
+                    $output = @$ipdat->geoplugin_regionName;
+                    break;
+                case "region":
+                    $output = @$ipdat->geoplugin_regionName;
+                    break;
+                case "country":
+                    $output = @$ipdat->geoplugin_countryName;
+                    break;
+                case "countrycode":
+                    $output = @$ipdat->geoplugin_countryCode;
+                    break;
+            }
+        }
+    }
+    return $output;
 }
 
 //function to get news tags.
@@ -337,27 +418,31 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
 function sigma_mt_get_country_order() {
     $taxonomy = 'news-tag';
     // Get the IP address
-    $visitors_ip_info = sigma_mt_get_ip_info();
-    $coutry_name = $visitors_ip_info->geoplugin_continentName;
-    $category = get_term_by('name', $coutry_name, $taxonomy);
-    $term_id = $category->term_id;
-    $term_name = $category->name;
+    $visitors_ip_info = ip_info();
+    //echo '<pre>'; print_r($visitors_ip_info); echo '</pre>';
+    $continents = isset($visitors_ip_info['continent']) ? $visitors_ip_info['continent'] : '';
+    if($continents === 'North America') {
+        $continents = 'Americas';
+    }
+    $category = get_term_by('name', $continents, $taxonomy);
+    $term_id = isset($category->term_id) ? $category->term_id : '';
+    $term_name = isset($category->name) ? $category->name : '';
 
     $asia = __( 'Asia', 'sigmaigaming' );
     $europe = __( 'Europe', 'sigmaigaming' );
     $americas =__( 'Americas', 'sigmaigaming' );
     $africa = __( 'Africa', 'sigmaigaming' );
 
-    if($coutry_name === $asia ) {
+    if($continents === $asia ) {
         $order = require_once get_stylesheet_directory().'/home/home-asia.php';
-    } elseif ($coutry_name === $europe ) {
+    } elseif ($continents === $europe ) {
         $order = require_once get_stylesheet_directory().'/home/home-europe.php';
-    } elseif ($coutry_name === $americas) {
+    } elseif ($continents === $americas) {
         $order = require_once get_stylesheet_directory().'/home/home-americas.php';
-    } elseif ($coutry_name === $africa) {
+    } elseif ($continents === $africa) {
         $order = require_once get_stylesheet_directory().'/home/home-africa.php';
     } else {
-        $order = require_once get_stylesheet_directory().'/home/home-asia.php';
+        $order = require_once get_stylesheet_directory().'/home/home-europe.php';
     }
     return $order;
 }
