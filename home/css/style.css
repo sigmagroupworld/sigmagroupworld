@@ -790,12 +790,6 @@ body {
     left: 11px;
 }
 /* watch spotify section end */
-/* News slider start */
-.all-news a {
-    display: block;
-    margin: 30px 0;
-}
-/* News slider end */
 /* news menu css start */
 .home-news-menu {
     display: -webkit-box;
@@ -1582,9 +1576,6 @@ body {
         top: 27px;
     }
     /* news menu css end */
-    .all-news a {
-        margin: 5px 0 10px 0;
-    }
     .ui-widget.ui-widget-content {
         max-width: 100% !important;
         width: calc(100% - 55%) !important;
@@ -1638,8 +1629,5 @@ body {
 	.all-country {
 		margin-top: 0px;
 	}
-    .all-news a {
-        margin: 0 0 5px 0;
-    }
 }
 /* Media screen css start */

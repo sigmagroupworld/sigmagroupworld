@@ -4,6 +4,8 @@ define( 'PARENT_DIR', get_stylesheet_directory_uri() );
 require_once get_stylesheet_directory().'/cpt-functions.php';
 require_once get_stylesheet_directory().'/class/class-custom-widget.php';
 
+require_once( ABSPATH . 'wp-admin/includes/template.php' );
+
 add_action( 'wp_enqueue_scripts', 'sigma_mt_enqueue_styles', PHP_INT_MAX);
 function sigma_mt_enqueue_styles() {
     $parent_style = 'adforest-style'; // This is 'adforest-style' for the AdForest theme.
@@ -19,14 +21,18 @@ function sigma_mt_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'sigma_mt_scripts');
 function sigma_mt_scripts() {
     wp_enqueue_script('jquery');
+    wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
-    wp_enqueue_style('sigmamt-home-style', CHILD_DIR .'/home/css/style.css');
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css'); 
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );
     wp_enqueue_script('sigmamt-home-script', CHILD_DIR .'/home/js/custom-home.js', array(), '1.0.0', true);
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
+
+    if (is_page('Online Casinos') || is_post_type('casinos-items')) {
+        wp_enqueue_style('directory', get_stylesheet_directory_uri().'/online-casinos/css/online-casinos.css');
+    }
 
     /****Autocomplete script ****/
     wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
@@ -42,40 +48,14 @@ function sigma_mt_scripts() {
         false, null, false
     );
 }
-// load js files in footer & style in header end
 
- //Autocomplete script
-/*add_action( 'wp_enqueue_scripts', 'ja_global_enqueues' );
-function ja_global_enqueues() {
-    wp_enqueue_style(
-        'jquery-auto-complete',
-        'https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css',
-        array(),
-        '1.0.7'
-    );
-    wp_enqueue_script(
-        'jquery-auto-complete',
-        'https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js',
-        array( 'jquery' ),
-        '1.0.7',
-        true
-    );
-    wp_enqueue_script(
-        'global',
-        get_template_directory_uri() . '/js/global.min.js',
-        array( 'jquery' ),
-        '1.0.0',
-        true
-    );
-    wp_localize_script(
-        'global',
-        'global',
-        array(
-            'ajax' => admin_url( 'admin-ajax.php' ),
-        )
-    );
+function is_post_type($type){
+    global $wp_query;
+    if($type == get_post_type($wp_query->post->ID)) 
+        return true;
+    return false;
 }
-*/
+
 // Shortcode for search form
 add_shortcode('sigma-mt-wpbsearch', 'sigma_mt_wpbsearchform');
 function sigma_mt_wpbsearchform( $form ) {
@@ -99,30 +79,6 @@ function sigma_mt_wpbsearchform( $form ) {
 add_action('wp_ajax_nopriv_autocompleteSearch', 'sigmamt_autocomplete_search');
 add_action('wp_ajax_autocompleteSearch', 'sigmamt_autocomplete_search');
 function sigmamt_autocomplete_search() {
-    /*check_ajax_referer('autocompleteSearchNonce', 'security');
-
-    $results = new WP_Query( array(
-        'post_type'     => 'news-items',
-        'post_status'   => 'publish',
-        'posts_per_page'=> 10,
-        's'             => stripslashes( $_POST['search'] ),
-    ) );
-
-    $items = array();
-
-    if ( !empty( $results->posts ) ) {
-        foreach ( $results->posts as $result ) {
-            //$items[] = $result->post_title;
-            $suggestions = [
-                'id' => $result->ID,
-                'label' => $result->post_title,
-                'link' => get_the_permalink($result->ID)
-            ];
-        }
-    }
-
-    wp_send_json_success( $suggestions );*/
-
     check_ajax_referer('autocompleteSearchNonce', 'security');
     $search_term = $_REQUEST['term'];
     if (!isset($_REQUEST['term'])) {
@@ -138,11 +94,6 @@ function sigmamt_autocomplete_search() {
     if ($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
-            /*$suggestions[] = [
-                'id' => get_the_ID(),
-                'label' => get_the_title(),
-                'link' => get_the_permalink()
-            ];*/
             $suggestion['ID'] = get_the_ID();
             $suggestion['label'] = get_the_title();
             $suggestion['link'] = get_the_permalink();
@@ -266,7 +217,8 @@ function get_image_id_by_url( $url ) {
 //Shortcode to display banner adds
 add_shortcode( 'sigma-mt-banner-adds', 'sigma_mt_banner_adds' );
 function sigma_mt_banner_adds( $atts ) {
-    $banner_image = $atts['banner_add'];
+    $banner_image = isset($atts['banner_add']) ? $atts['banner_add'] : '';
+    $banner_link = isset($atts['banner_url']) ? $atts['banner_url'] : '';
     $image_id = get_image_id_by_url($banner_image);
     $image_info = wp_get_attachment_metadata($image_id);
 
@@ -278,7 +230,7 @@ function sigma_mt_banner_adds( $atts ) {
                 <div class="container">
                     <div class="single-news">
                         <div class="all-news">
-                            <a href="#">
+                            <a href="'. $banner_link .'">
                                 <img src="'. $banner_image .'" alt="'. $image_title .'">
                             </a>
                         </div>
@@ -445,4 +397,15 @@ function sigma_mt_get_country_order() {
         $order = require_once get_stylesheet_directory().'/home/home-europe.php';
     }
     return $order;
+}
+
+//function to get news tags.
+function sigma_mt_get_casino_provider_data() {
+    $post_tag_args = array(
+      'posts_per_page' => 10,
+      'post_type' => 'casinos-items',
+      'orderby'        => 'ASC',
+    );
+    $get_posts = get_posts($post_tag_args);
+    return $get_posts;
 }

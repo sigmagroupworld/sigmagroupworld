@@ -21,19 +21,19 @@ jQuery(document).ready(function($) {
 
 	/**** Testimonial Slider ***/
   	$(".testimonial-slide").slick({
-    		slidesToShow: 1,
-        	slidesToScroll: 1,
-        	autoplay: false,
-        	autoplaySpeed: 1500,
-        	arrows: true,
-        	responsive: [{
-        		breakpoint: 850,
-        		settings: {
-        			slidesToShow: 1,
-        			slidesToScroll: 1,
-        			infinite: true,
-        		}
-    		}]
+		slidesToShow: 1,
+    	slidesToScroll: 1,
+    	autoplay: false,
+    	autoplaySpeed: 1500,
+    	arrows: true,
+    	responsive: [{
+    		breakpoint: 850,
+    		settings: {
+    			slidesToShow: 1,
+    			slidesToScroll: 1,
+    			infinite: true,
+    		}
+		}]
  	});
 	/**** Testimonial Slider end ***/
 
@@ -44,7 +44,6 @@ jQuery(document).ready(function($) {
 			nocookie: true
 		}
 	});
-	/**** Video pop up end ***/
 	
 	/**** Search Autocomplete ***/
 	/*$(document).click(function(event){

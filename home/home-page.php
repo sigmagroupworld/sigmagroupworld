@@ -5,6 +5,7 @@
  * Created at: 22 Apr 2021
  */
 /* Directory template css */
+wp_enqueue_style('sigmamt-modal-video-style', get_stylesheet_directory_uri().'/home/css/style.css'); 
 wp_enqueue_style('sigmamt-modal-video-style', get_stylesheet_directory_uri().'/home/css/modal-video.min.css'); 
 wp_enqueue_script('sigmamt-modal-video-script', get_stylesheet_directory_uri().'/home/js/jquery-modal-video.min.js', array(), '1.0.0', true);
 get_header();

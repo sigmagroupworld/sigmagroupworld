@@ -1,0 +1,175 @@
+<?php
+/**
+ * Template Name: SigmaMT About Page Layout
+ * Created By: Rinkal Petersen
+ * Created at: 22 May 2021
+ */
+/* About template css */
+wp_enqueue_style('directory', get_stylesheet_directory_uri().'/about/css/about.css'); 
+get_header();
+?>
+
+<?php ob_start(); $about_banner = get_field('banner');
+if ($about_banner){ ?>
+	<!-- About Banner Start -->
+	<section class="about-banner">
+		<div class="paral" id="parallax">
+	  		<div class="parallax-content">
+			    <div class="paraLogo">
+			    	<?php if( !empty( $about_banner['europe_logo'] ) ){ ?>
+				    	<img src="<?php echo $about_banner['europe_logo']['url']; ?>" alt="<?php echo $about_banner['europe_logo']['alt']; ?>">
+					<?php } ?>
+			    </div>
+	    		<div class="paraAbout">
+	      			<div class="paralocate">
+	      				<?php echo $about_banner['event_date']; ?>
+	      			</div>
+	      			<div class="parabtn">
+	        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['register_button_text']; ?></a>
+	      			</div>
+	    		</div>
+	  		</div>
+	  		<div class="paral_layer parallax" id="paral-0" data-speed="2" style="background-image: url(<?php echo $about_banner['banner_parellax_image_one']; ?>);"></div><!-- 00.0 -->
+	  		<div class="paral_layer parallax settor" id="paral-1" data-speed="11" style="background-image: url(<?php echo $about_banner['banner_parellax_image_two']; ?>);"></div><!-- 12.5 -->
+	  		<div class="paral_layer parallax settor" id="paral-2" data-speed="26" style="background-image: url(<?php echo $about_banner['banner_parellax_image_three']; ?>);"></div><!-- 25.0 -->
+	  		<div class="paral_layer parallax settor" id="paral-3" data-speed="49" style="background-image: url(<?php echo $about_banner['banner_parellax_image_four']; ?>);"></div><!-- 37.5 -->
+	  		<div class="paral_layer settor" id="paral-4" data-speed="100" style="background-image: url(<?php echo $about_banner['banner_parellax_image_five']; ?>);"></div><!-- 50.0 -->
+		</div>
+	</section>
+	<!-- About Banner End -->
+<?php
+}
+?>
+
+<?php ob_start(); $why_sigma = get_field('why_sigma');
+if ($why_sigma){ ?>
+	<!-- Why Sigma start -->
+	<section class="why-sigma" style="background-color: <?php echo $about_banner['register_color']; ?>;">
+	  	<div class="container">
+		    <div class="about-title">
+		      	<h2><?php echo $why_sigma['why_sigma_title']; ?></h2>
+		    </div>
+		    <div class="about-sigma-content">
+		      	<div class="sigma-about-txt">
+		      		<?php echo $why_sigma['why_sigma_sub_text']; ?>
+		      	</div>
+		      	<div class="sigma-about-video">
+		        
+		      	</div>
+		    </div>
+	  	</div>
+	</section>
+	<!-- Why Sigma End -->
+<?php
+}
+?>
+
+<?php ob_start(); $for_advertisement = get_field('add_banner');
+if ($for_advertisement){ ?>
+	<!-- News Image slider start -->
+	<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$for_advertisement["add_banner_image"].' banner_url = '.$for_advertisement["add_banner_link"].' ]' ); ?>
+	<!-- News Image slider end -->
+<?php
+}
+?>
+
+<?php ob_start(); $attendees = get_field('attendees');
+if ($attendees){ ?>
+	<!-- Attendees Section Start -->
+	<section class="attendees">
+	  	<div class="container">
+		    <div class="about-section-title">
+		      	<h2><?php echo $attendees['attendees_title']; ?></h2>
+		    </div>
+		    <div class="attendees-content">
+		    	<?php if( !empty( $attendees['attendees_image_for_desktop'] ) ){ ?>
+			    	<img src="<?php echo $attendees['attendees_image_for_desktop']['url']; ?>" alt="<?php echo $attendees['attendees_image_for_desktop']['alt']; ?>" class="for-desktop">
+				<?php } ?>
+				<?php if( !empty( $attendees['attendees_image_for_mobile'] ) ){ ?>
+			    	<img src="<?php echo $attendees['attendees_image_for_mobile']['url']; ?>" alt="<?php echo $attendees['attendees_image_for_mobile']['alt']; ?>" class="for-mobile">
+				<?php } ?>
+		    </div>
+	  	</div>
+	</section>
+	<!-- Attendees Section End -->
+<?php
+}
+?>
+
+<?php ob_start(); $floor_plan = get_field('floor_plan');
+if ($floor_plan){ ?>
+	<!-- Floor Plan Section Strat -->
+	<section class="floor-plan">
+	  	<div class="container">
+		    <div class="about-section-title">
+		    	<h2><?php echo $floor_plan['floor_plan_title']; ?></h2>
+		    </div>
+		    <div class="iframe-plan">
+		    	<?php echo $floor_plan['floor_plan_iframe']; ?>
+		    </div>
+		    <div class="some-explore"> 
+		    	<?php
+				foreach ($floor_plan['explore_some_pages'] as $key => $value) { ?>
+			      	<div class="single-explore">
+				        <?php if( !empty( $value['explore_logo'] ) ){ ?>
+			    			<div class="explore-img">
+				    			<img src="<?php echo $value['explore_logo']['url']; ?>" alt="<?php echo $value['explore_logo']['alt']; ?>" class="for-mobile">
+				    		</div>
+						<?php } ?>
+						<div class="about-section-title">
+					    	<h2><?php echo $value['explore_title']; ?></h2>
+					    </div>
+				        <div class="explore-sub-txt">
+				        	<?php echo $value['explore_sub_text']; ?>
+				        </div>
+				        <div class="explore-btns">
+				        	<span>
+					        	<a href="<?php echo $value['explore_button_one_link']; ?>"><?php echo $value['explore_button_one']; ?></a>
+					        </span>
+					        <span>
+					          	<a href="<?php echo $value['explore_button_two_link']; ?>"><?php echo $value['explore_button_two']; ?></a>
+					        </span>
+				        </div>
+			      	</div>
+		      	<?php } ?>
+		    </div>
+	  	</div>
+	</section>
+	<!-- Floor Plan Section End -->
+<?php
+}
+?>
+
+<?php ob_start(); $our_attendees = get_field('what_our_attendees');
+if ($our_attendees){ ?>
+	<!-- What Our Attendees section start -->
+	<section class="our-attendees">
+		<div class="container">
+			<div class="about-section-title">
+		    	<h2><?php echo $our_attendees['attendees_title']; ?></h2>
+		    </div>
+			<div class="attendees-video">
+				<?php echo $our_attendees['attendees_video']; ?>
+			</div>
+		</div>
+	</section>
+	<!-- What Our Attendees section end -->
+<?php
+}
+?>
+
+<div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
+	<div class="container">
+		<div class="newsletter-inner">
+			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
+			<div class="newsletter-form">
+				<?php
+					$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
+					echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
+                ?>
+			</div>
+			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>
+		</div>
+	</div>
+</div>
+<?php get_footer(); ?>

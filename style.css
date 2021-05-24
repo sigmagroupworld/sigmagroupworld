@@ -706,28 +706,28 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 /* Popup Home page end */
 
 /* texonomy archive css page start */
-.blog-listing-wrapper {
+.texonomy-page .blog-listing-wrapper {
     display: flex;
     flex-wrap: wrap;
 }
-.list-single-item {
+.texonomy-page .list-single-item {
     width: calc(50% - 10px);
     margin-bottom: 20px;
     height: 165px;
     overflow: hidden;
 }
-.list-single-item:nth-child(odd) {
+.texonomy-page .list-single-item:nth-child(odd) {
     margin-right: 10px;
 }
-.list-single-item:nth-child(even) {
+.texonomy-page .list-single-item:nth-child(even) {
     margin-left: 10px;
 }
-.list-single-item a {
+.texonomy-page .list-single-item a {
     display: block;
     position: relative;
     height: 100%;
 }
-.list-single-item a:before {
+.texonomy-page .list-single-item a:before {
     content: '';
     position: absolute;
     top: 0;
@@ -744,14 +744,14 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     transition: all .3s linear;
     background-color: rgba(255,255,255,0.6);
 }
-.list-single-item a:hover:before {
+.texonomy-page .list-single-item a:hover:before {
     opacity: 1;
     -webkit-transition: all .3s linear;
     -o-transition: all .3s linear;
     -moz-transition: all .3s linear;
     transition: all .3s linear;
 }
-.list-single-item a:after {
+.texonomy-page .list-single-item a:after {
     content: '\f022';
     position: absolute;
     font-family: "Font Awesome 5 Free";
@@ -783,7 +783,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     z-index: 16;
     background-color: #fff;
 }
-.list-single-item a:hover:after {
+.texonomy-page .list-single-item a:hover:after {
     opacity: 1;
     top: 50%;
     -webkit-transform: scale(1);
@@ -798,15 +798,15 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     transition: top 0s,opacity .4s,transform .4s;
     transition: top 0s,opacity .4s,transform .4s,-webkit-transform .4s,-moz-transform .4s,-o-transform .4s;
 }
-.post-desc {
+.texonomy-page .post-desc {
     height: 100%;
 }
-.post-desc img {
+.texonomy-page .post-desc img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
-.post-desc h3 {
+.texonomy-page .post-desc h3 {
     background-color: rgba(0,0,0,0.75);
     min-height: 56px;
     padding: 10px;
@@ -819,16 +819,28 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-weight: 400;
 }
 /* Pagination css start */
-.pagination ul {
+.texonomy-page .pagination ul {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.pagination ul li {
+.texonomy-page .pagination ul li {
     margin: 0 5px;
 }
 /* Pagination css end */
 /* texonomy archive css page end */
+
+/* News slider start */
+.all-news a {
+    display: block;
+}
+.sigma-news {
+    padding: 30px 0;
+}
+.all-news a img {
+    width: 100%;
+}
+/* News slider end */
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */
@@ -1104,7 +1116,16 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
         width: 22px;
         height: 22px;
     }
+    .sigma-news {
+        margin: 5px 0 10px 0;
+    }
 }
+@media (max-width: 580px) {
+    .sigma-news {
+        margin: 0 0 5px 0;
+    }  
+}
+
 @media (max-width: 530px) {
     /* Header Language dropdown Start */
     .ehf-header #masthead .custom-header .header-cmenu li.wpml-ls-item ul.sub-menu {

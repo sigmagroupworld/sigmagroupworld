@@ -5,12 +5,11 @@
  * Created at: 27 Apr 2021
  */
 /* Directory template css */
-wp_enqueue_style('directory', get_stylesheet_directory_uri().'/online-casinos/css/online-casinos.css'); 
 get_header();
 ?>
 
-<?php  ob_start(); $directory = get_field('directory_box'); ?>
-
+<?php  ob_start();
+$results = sigma_mt_get_casino_provider_data(); ?>
 
 <section>
 	<!-- Casino Content section start -->
@@ -47,234 +46,61 @@ get_header();
 					<p><?php the_content(); ?></p>
 				</div>
 				<div class="all-casinos">
-					<div class="single-casino">
-						<div class="casino-logo">
-							<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Logo/14%20red%20casino%20small%20banner.jpg" alt="">
-						</div>
-						<div class="casino-star-rating">
-							<div class="start-rating">
-								
+					<?php foreach($results as $k => $post) {
+						setup_postdata( $post );
+		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); 
+
+		        		$casino_provider = get_field('casino_details', $post->ID);
+		        		?>
+						<div class="single-casino">
+							<div class="casino-logo">
+								<img src="<?php if(isset($casino_provider['casino_logo'])) { echo $casino_provider['casino_logo']; } ?>" alt="">
+							</div>
+							<div class="casino-star-rating">
+								<div class="start-rating">
+									<?php wp_star_rating(); ?>
+								</div>
+							</div>
+							<div class="casino-bonus">
+								<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
+								<p><?php if(isset($casino_provider['exclusive_bonus'])) { echo $casino_provider['exclusive_bonus']; } ?></p>
+							</div>
+							<div class="casino-bonus-details">
+								<ul>
+									<?php if(isset($casino_provider['online_casino_bonus_detail'])) { 
+										foreach($casino_provider['online_casino_bonus_detail'] as $value) { ?>
+											<li><?php echo $value['bonus_details']; ?></li>
+									<?php }
+									} ?>
+								</ul>
+							</div>
+							<div class="casino-buttons">
+								<a href="#" class="play"><?php _e( 'Play', 'sigmaigaming' ); ?></a>
+								<a href="<?php echo get_permalink( $post->ID ); ?>" class="review"><?php _e( 'Review', 'sigmaigaming' ); ?></a>
+							</div>
+							<div class="payment-options">
+								<?php if(isset($casino_provider['payment_options'])) { 
+									foreach($casino_provider['payment_options'] as $value) {
+										$visa = __( 'Visa', 'sigmaigaming' );
+									    $mastercard = __( 'Mastercard', 'sigmaigaming' );
+									    $neteller =__( 'Neteller', 'sigmaigaming' );
+									    $skrill = __( 'Skrill', 'sigmaigaming' );
+									    $mestrocard = __( 'Mestrocard', 'sigmaigaming' );
+									    $paypal = __( 'Paypal', 'sigmaigaming' );
+									    $bitcoin =__( 'Bitcoin', 'sigmaigaming' );
+									    $ecopayz = __( 'Ecopayz', 'sigmaigaming' );
+										?>
+										<div class="single-option">
+											<?php if($value === $visa) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png">'; ?>
+											<?php if($value === $mastercard) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Payments%20Logo/Maestro-1.jpg">'; ?>
+											<?php if($value === $neteller) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg">'; ?>
+											<?php if($value === $skrill) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Skrill%20.jpg">'; ?>
+										</div>
+								<?php }
+								} ?>
 							</div>
 						</div>
-						<div class="casino-bonus">
-							<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-							<p>200% up to €600 + 50 Free Spins</p>
-						</div>
-						<div class="casino-bonus-details">
-							<ul>
-								<li>Four tier VIP system</li>
-								<li>Trusted payment methods</li>
-							</ul>
-						</div>
-						<div class="casino-buttons">
-							<a href="#" class="play">Play</a>
-							<a href="#" class="review">Review</a>
-						</div>
-						<div class="payment-options">
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Ecopayz.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/mastercard.jpg" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="single-casino">
-						<div class="casino-logo">
-							<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Logo/14%20red%20casino%20small%20banner.jpg" alt="">
-						</div>
-						<div class="casino-star-rating">
-							<div class="start-rating">
-								
-							</div>
-						</div>
-						<div class="casino-bonus">
-							<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-							<p>200% up to €600 + 50 Free Spins</p>
-						</div>
-						<div class="casino-bonus-details">
-							<ul>
-								<li>Four tier VIP system</li>
-								<li>Trusted payment methods</li>
-							</ul>
-						</div>
-						<div class="casino-buttons">
-							<a href="#" class="play">Play</a>
-							<a href="#" class="review">Review</a>
-						</div>
-						<div class="payment-options">
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Ecopayz.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/mastercard.jpg" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="single-casino">
-						<div class="casino-logo">
-							<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Logo/14%20red%20casino%20small%20banner.jpg" alt="">
-						</div>
-						<div class="casino-star-rating">
-							<div class="start-rating">
-								
-							</div>
-						</div>
-						<div class="casino-bonus">
-							<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-							<p>200% up to €600 + 50 Free Spins</p>
-						</div>
-						<div class="casino-bonus-details">
-							<ul>
-								<li>Four tier VIP system</li>
-								<li>Trusted payment methods</li>
-							</ul>
-						</div>
-						<div class="casino-buttons">
-							<a href="#" class="play">Play</a>
-							<a href="#" class="review">Review</a>
-						</div>
-						<div class="payment-options">
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Ecopayz.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/mastercard.jpg" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="single-casino">
-						<div class="casino-logo">
-							<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Logo/14%20red%20casino%20small%20banner.jpg" alt="">
-						</div>
-						<div class="casino-star-rating">
-							<div class="start-rating">
-								
-							</div>
-						</div>
-						<div class="casino-bonus">
-							<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-							<p>200% up to €600 + 50 Free Spins</p>
-						</div>
-						<div class="casino-bonus-details">
-							<ul>
-								<li>Four tier VIP system</li>
-								<li>Trusted payment methods</li>
-							</ul>
-						</div>
-						<div class="casino-buttons">
-							<a href="#" class="play">Play</a>
-							<a href="#" class="review">Review</a>
-						</div>
-						<div class="payment-options">
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Ecopayz.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/mastercard.jpg" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="single-casino">
-						<div class="casino-logo">
-							<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Logo/14%20red%20casino%20small%20banner.jpg" alt="">
-						</div>
-						<div class="casino-star-rating">
-							<div class="start-rating">
-								
-							</div>
-						</div>
-						<div class="casino-bonus">
-							<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-							<p>200% up to €600 + 50 Free Spins</p>
-						</div>
-						<div class="casino-bonus-details">
-							<ul>
-								<li>Four tier VIP system</li>
-								<li>Trusted payment methods</li>
-							</ul>
-						</div>
-						<div class="casino-buttons">
-							<a href="#" class="play">Play</a>
-							<a href="#" class="review">Review</a>
-						</div>
-						<div class="payment-options">
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Ecopayz.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/mastercard.jpg" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="single-casino">
-						<div class="casino-logo">
-							<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Logo/14%20red%20casino%20small%20banner.jpg" alt="">
-						</div>
-						<div class="casino-star-rating">
-							<div class="start-rating">
-								
-							</div>
-						</div>
-						<div class="casino-bonus">
-							<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-							<p>200% up to €600 + 50 Free Spins</p>
-						</div>
-						<div class="casino-bonus-details">
-							<ul>
-								<li>Four tier VIP system</li>
-								<li>Trusted payment methods</li>
-							</ul>
-						</div>
-						<div class="casino-buttons">
-							<a href="#" class="play">Play</a>
-							<a href="#" class="review">Review</a>
-						</div>
-						<div class="payment-options">
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Ecopayz.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/mastercard.jpg" alt="">
-							</div>
-							<div class="single-option">
-								<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg" alt="">
-							</div>
-						</div>
-					</div>
+					<?php } ?>
 				</div>
 			</div>
 			<!-- All Casinos Section end -->

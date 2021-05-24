@@ -460,24 +460,24 @@
     display: none;
     border-top: none;
 }
-.review,
-.details {
+.tab .review,
+.tab .details {
     position: relative;
 }
-.review:before,
-.details:before {
+.tab .review:before,
+.tab .details:before {
     content: "";
     width: 35px;
     height: 35px;
     margin-right: 5px;
 }
-.review:before {
-    background: url(../images/Casino-Review-Icon.png);
+.tab .review:before {
+    background: url(/wp-content/uploads/2021/05/Casino-Review-Icon.png);
     background-repeat: no-repeat;
     background-size: contain;
 }
-.details:before {
-    background: url(../images/Casino-details.png);
+.tab .details:before {
+    background: url(/wp-content/uploads/2021/05/Casino-details.png);
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -544,16 +544,16 @@
     margin: auto;
 }
 .casino-title.licences h2:before {
-    background-image: url(../images/licences.png);
+    background-image: url(/wp-content/uploads/2021/05/licences.png);
 }
 .casino-title.countries h2:before {
-    background-image: url(../images/player.png);
+    background-image: url(/wp-content/uploads/2021/05/player.png);
 }
 .casino-title.d-method h2:before {
-    background-image: url(../images/method.png);
+    background-image: url(/wp-content/uploads/2021/05/method.png);
 }
 .casino-title.limits h2:before {
-    background-image: url(../images/limit.png);
+    background-image: url(/wp-content/uploads/2021/05/limit.png);
 }
 .every-detail {
     flex-basis: 74%;

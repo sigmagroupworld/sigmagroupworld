@@ -28,7 +28,7 @@ if(isset($term_url) && !empty($term_url)) {
 }
 ?>
 
-<section>
+<section class="texonomy-page">
 	<!-- News Banner section start -->
 	<div class="blog-banner texonomy-banner">
 		<a href="<?php echo $term_url; ?>">
