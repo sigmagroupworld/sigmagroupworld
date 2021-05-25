@@ -26,10 +26,10 @@ $casino_provider = get_field('casino_details', $post_id);
 	    <div class="casino-detail">
 	    	<div class="tab">
   				<button class="tablinks active review" onclick="opendetails(event, 'casino-review')">
-  					CASINO REVIEW
+  					<?php _e( 'CASINO REVIEW', 'sigmaigaming' ); ?>
   				</button>
   				<button class="tablinks details" onclick="opendetails(event, 'casino-details')">
-  					casino details
+  					<?php _e( 'casino details', 'sigmaigaming' ); ?>
   				</button>
 			</div>
 			<div class="casino-all">
@@ -38,10 +38,9 @@ $casino_provider = get_field('casino_details', $post_id);
 		  				<?php the_content(); ?>
 					</div>
 					<div id="casino-details" class="tabcontent">
-						<?php #echo '<pre>'; print_r($casino_provider); ?>
 		  				<div class="every-casino-detail">
 		  					<div class="casino-title licences">
-		  						<h2>Licences</h2>
+		  						<h2><?php _e( 'Licences', 'sigmaigaming' ); ?></h2>
 		  					</div>
 		  					<div class="every-detail">
 		  						<p><?php if(isset($casino_provider['licences'])) { echo $casino_provider['licences']; } ?></p>
@@ -49,7 +48,7 @@ $casino_provider = get_field('casino_details', $post_id);
 		  				</div>
 		  				<div class="every-casino-detail">
 		  					<div class="casino-title countries">
-		  						<h2>Restricted Countries</h2>
+		  						<h2><?php _e( 'Restricted Countries', 'sigmaigaming' ); ?></h2>
 		  					</div>
 		  					<div class="every-detail">
 		  						<p><?php if(isset($casino_provider['restricted_countries'])) { echo $casino_provider['restricted_countries']; } ?></p>
@@ -57,7 +56,7 @@ $casino_provider = get_field('casino_details', $post_id);
 		  				</div>
 		  				<div class="every-casino-detail">
 		  					<div class="casino-title d-method">
-		  						<h2>Deposit Methods</h2>
+		  						<h2><?php _e( 'Deposit Methods', 'sigmaigaming' ); ?></h2>
 		  					</div>
 		  					<div class="every-detail">
 		  						<div class="method-all-imgs">
@@ -85,7 +84,7 @@ $casino_provider = get_field('casino_details', $post_id);
 		  				</div>
 		  				<div class="every-casino-detail">
 		  					<div class="casino-title d-method">
-		  						<h2>Withdrawal Methods</h2>
+		  						<h2><?php _e( 'Withdrawal Methods', 'sigmaigaming' ); ?></h2>
 		  					</div>
 		  					<div class="every-detail">
 		  						<div class="method-all-imgs">
@@ -113,7 +112,7 @@ $casino_provider = get_field('casino_details', $post_id);
 		  				</div>
 		  				<div class="every-casino-detail">
 		  					<div class="casino-title limits">
-		  						<h2>Withdrawal Limit</h2>
+		  						<h2><?php _e( 'Withdrawal Limit', 'sigmaigaming' ); ?></h2>
 		  					</div>
 		  					<div class="every-detail">
 		  						<p><?php if(isset($casino_provider['withdrawal_limit'])) { 
@@ -125,7 +124,7 @@ $casino_provider = get_field('casino_details', $post_id);
 		  				</div>
 		  				<div class="every-casino-detail">
 		  					<div class="casino-title limits">
-		  						<h2>Casino Games</h2>
+		  						<h2><?php _e( 'Casino Games', 'sigmaigaming' ); ?></h2>
 		  					</div>
 		  					<div class="every-detail">
 		  						<?php if(isset($casino_provider['casino_games'])) { 
@@ -141,36 +140,31 @@ $casino_provider = get_field('casino_details', $post_id);
 				</div>
 			</div>
 	    </div>
+	    <!-- Related Article Section -->
+	    <div class="related-articles">
+	    	<h3><?php _e( 'Related article', 'sigmaigaming' ); ?></h3>
+			<div class="articles-slide">
+				<?php foreach($casino_provider['news_articles'] as $k => $item) {
+					$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' ); ?>
+					<figure class="testimonial">
+						<img src="<?php echo $featured_image[0]; ?>" alt="<?php echo $item->post_title; ?>" />
+						<div class="post-title">
+							<h3><?php echo $item->post_title; ?></h3>
+						</div>
+					</figure>
+				<?php } ?>
+			</div>
+	    </div>
+	    <!-- Related Article Section end -->
 	    <div class="tab-bottom-links">
 	    	<div class="left">
-	    		<a href="javascript:void(0)" onclick="goBack()">Back</a>
+	    		<a href="<?php echo SITE_URL . '/online-casinos'; ?>" onclick="goBack()"><?php _e( 'Back', 'sigmaigaming' ); ?></a>
 	    	</div>
 	    	<div class="left">
-	    		<a href="<?php if(isset($casino_provider['play_link'])) { echo $casino_provider['play_link']; } ?>" target="_blank">Play</a>
+	    		<a href="<?php if(isset($casino_provider['play_link'])) { echo $casino_provider['play_link']; } ?>" target="_blank"><?php _e( 'Play', 'sigmaigaming' ); ?></a>
 	    	</div>
 	    </div>
 	</div>
 </section>
-
-<script type="text/javascript">
-	/** Casino Provider Details Tab ***/
-	function opendetails(evt, cityName) {
-		var i, tabcontent, tablinks;
-	  	tabcontent = document.getElementsByClassName("tabcontent");
-	  	for (i = 0; i < tabcontent.length; i++) {
-	    	tabcontent[i].style.display = "none";
-	  	}
-	  	tablinks = document.getElementsByClassName("tablinks");
-	  	for (i = 0; i < tablinks.length; i++) {
-	    	tablinks[i].className = tablinks[i].className.replace(" active", "");
-	  	}
-	  	document.getElementById(cityName).style.display = "block";
-	  	evt.currentTarget.className += " active";
-	}
-	function goBack() {
-		window.history.back();
-	}
-	/** Casino Provider Details Tab ***/
-</script>
 
 <?php get_footer(); ?>

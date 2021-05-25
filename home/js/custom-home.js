@@ -24,6 +24,9 @@
 		/* Serch form end */
 
 	});
+})(jQuery);
+
+jQuery(document).ready(function($) {
 	/**** Video pop up ***/
 	$(".js-video-button").modalVideo({
 		youtube:{
@@ -32,5 +35,4 @@
 		}
 	});
 	/**** Video pop up end ***/
-})(jQuery);
-
+});

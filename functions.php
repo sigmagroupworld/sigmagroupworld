@@ -1,10 +1,10 @@
 <?php
 define( 'CHILD_DIR', get_theme_file_uri() );
 define( 'PARENT_DIR', get_stylesheet_directory_uri() );
+define( 'SITE_URL', site_url() );
+
 require_once get_stylesheet_directory().'/cpt-functions.php';
 require_once get_stylesheet_directory().'/class/class-custom-widget.php';
-
-require_once( ABSPATH . 'wp-admin/includes/template.php' );
 
 add_action( 'wp_enqueue_scripts', 'sigma_mt_enqueue_styles', PHP_INT_MAX);
 function sigma_mt_enqueue_styles() {
@@ -26,8 +26,7 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css'); 
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
-    wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );
-    wp_enqueue_script('sigmamt-home-script', CHILD_DIR .'/home/js/custom-home.js', array(), '1.0.0', true);
+    wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 
     if (is_page('Online Casinos') || is_post_type('casinos-items')) {

@@ -37,13 +37,31 @@ jQuery(document).ready(function($) {
  	});
 	/**** Testimonial Slider end ***/
 
+	/**** Related Articles Slider ***/
+  	$(".articles-slide").slick({
+		slidesToShow: 2,
+    	slidesToScroll: 1,
+    	autoplay: false,
+    	autoplaySpeed: 1500,
+    	arrows: true,
+    	responsive: [{
+    		breakpoint: 850,
+    		settings: {
+    			slidesToShow: 1,
+    			slidesToScroll: 1,
+    			infinite: true,
+    		}
+		}]
+ 	});
+	/**** Related Articles Slider end ***/
+
 	/**** Video pop up ***/
-	$(".js-video-button").modalVideo({
+	/*$(".js-video-button").modalVideo({
 		youtube:{
 			controls:0,
 			nocookie: true
 		}
-	});
+	});*/
 	
 	/**** Search Autocomplete ***/
 	/*$(document).click(function(event){
@@ -117,25 +135,22 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-
-	/*var searchRequest;
-	$('.search-autocomplete').autoComplete({
-		minChars: 4,
-		source: function(term, suggest){
-			try { 
-				searchRequest.abort(); 
-			} catch(e){}
-			searchRequest = $.post(global.ajax, { search: term, action: 'autocompleteSearch' }, function(res) {
-				suggest(res.data);
-			});
-		},
-		select: function(event, ui) {
-			alert('okkk');
-			console.log(ui);
-			window.location.href = ui.item.link;
-		}
-	});*/
-
 	/**** Search Autocomplete end ***/
 
 });
+
+/** Casino Provider Details Tab ***/
+function opendetails(evt, cityName) {
+	var i, tabcontent, tablinks;
+  	tabcontent = document.getElementsByClassName("tabcontent");
+  	for (i = 0; i < tabcontent.length; i++) {
+    	tabcontent[i].style.display = "none";
+  	}
+  	tablinks = document.getElementsByClassName("tablinks");
+  	for (i = 0; i < tablinks.length; i++) {
+    	tablinks[i].className = tablinks[i].className.replace(" active", "");
+  	}
+  	document.getElementById(cityName).style.display = "block";
+  	evt.currentTarget.className += " active";
+}
+/** Casino Provider Details Tab end ***/

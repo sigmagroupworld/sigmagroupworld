@@ -5,9 +5,10 @@
  * Created at: 22 Apr 2021
  */
 /* Directory template css */
-wp_enqueue_style('sigmamt-modal-video-style', get_stylesheet_directory_uri().'/home/css/style.css'); 
-wp_enqueue_style('sigmamt-modal-video-style', get_stylesheet_directory_uri().'/home/css/modal-video.min.css'); 
-wp_enqueue_script('sigmamt-modal-video-script', get_stylesheet_directory_uri().'/home/js/jquery-modal-video.min.js', array(), '1.0.0', true);
+wp_enqueue_style('sigmamt-home-style', CHILD_DIR .'/home/css/style.css'); 
+wp_enqueue_style('sigmamt-modal-video-style', CHILD_DIR .'/home/css/modal-video.min.css'); 
+wp_enqueue_script('sigmamt-home-script', CHILD_DIR .'/home/js/custom-home.js', array(), '1.0.0', true);
+wp_enqueue_script('sigmamt-modal-video-script', CHILD_DIR .'/home/js/jquery-modal-video.min.js', array(), '1.0.0', true);
 get_header();
 ?>
 
@@ -241,7 +242,7 @@ if ($desktop_banner){ ?>
 											<div class="top" style="background-image: url('<?php echo $featured_image[0] ?>')">
 												<div class="play-btn"></div>
 												<div id="meta"></div>
-												<span>21.45</span>
+												<span><?php _e( '21.45', 'sigmaigaming' ); ?></span>
 											</div>
 			                    		</div>
 			                    		<h2 class="big"><?php echo $video->post_title; ?></h2>
@@ -269,7 +270,19 @@ if ($desktop_banner){ ?>
 	<!-- Latest blog section end -->
 
 	<!-- News Image slider start -->
-	<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_upcoming_add"].' ]' ); ?>
+	<section class="sigma-news">
+        <div class="container">
+        	<?php foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
+	            <div class="single-news">
+	                <div class="all-news">
+	                    <a href="#">
+	                        <img src="<?php echo $value['latest_news_bottom_image']; ?>" alt="">
+	                    </a>
+	                </div>
+	            </div>
+	        <?php } ?>
+        </div>
+    </section>
 	<!-- News Image slider end -->
 
 	<?php sigma_mt_get_country_order(); ?>
