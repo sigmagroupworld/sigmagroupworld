@@ -21,6 +21,7 @@ function sigma_mt_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'sigma_mt_scripts');
 function sigma_mt_scripts() {
     wp_enqueue_script('jquery');
+    wp_enqueue_style('dashicons');
     wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');

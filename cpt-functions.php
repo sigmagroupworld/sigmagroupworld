@@ -403,3 +403,103 @@ function sigma_mt_taxonomies_casinos(){
 		)
 	);
 }
+
+// create a Custom post type Peoples
+add_action('init', 'sigma_mt_people_custom_posts');
+function sigma_mt_people_custom_posts() {
+	register_post_type('people-items', array(
+		'labels' => array(
+			'name' => __('Peoples', 'sigmaigaming'),
+			'singular_name' => __('Peoples', 'sigmaigaming'),
+			'menu_name' => __('People', 'sigmaigaming'),
+			'add_new' => __('Add People Item', 'sigmaigaming'),
+			'add_new_item' => __('Add People Item', 'sigmaigaming'),
+			'edit_item' => __('Edit People Item', 'sigmaigaming'),
+			'new_item' => __('People Items', 'sigmaigaming'),
+			'view_item' => __('View People Items', 'sigmaigaming'),
+			'search_items' => __('Search People Items', 'sigmaigaming'),
+			'not_found' => __('No People Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No People Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'people'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+	));
+}
+
+// create a Custom post taxonomy for people post
+add_action( 'init', 'sigma_mt_taxonomies_peoples', 0 );
+function sigma_mt_taxonomies_peoples(){
+	register_taxonomy('people-cat', array('people-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('People Categories', 'sigmaigaming'),
+				'singular_name' => __('People Category', 'sigmaigaming'),
+				'search_items' => __('Search People Category', 'sigmaigaming'),
+				'all_items' => __('All People Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent People Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent People Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit People Category', 'sigmaigaming'),
+				'update_item' => __('Refresh People Category', 'sigmaigaming'),
+				'add_new_item' => __('Add People Category', 'sigmaigaming'),
+				'new_item_name' => __('New People Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-people'),
+			'hierarchical' => true,
+        	'capability_type'    => 'page',
+			'supports' => array(
+                        'title',
+                        'editor',
+                        'excerpt',
+                        'genesis-seo',
+                        'custom-fields',
+                        'page-attributes'
+                    )
+		)
+	);
+}
+
+// create a Custom post type Company
+add_action('init', 'sigma_mt_company_custom_posts');
+function sigma_mt_company_custom_posts() {
+	register_post_type('company-items', array(
+		'labels' => array(
+			'name' => __('Company', 'sigmaigaming'),
+			'singular_name' => __('Companies', 'sigmaigaming'),
+			'menu_name' => __('Company', 'sigmaigaming'),
+			'add_new' => __('Add Company Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Company Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Company Item', 'sigmaigaming'),
+			'new_item' => __('Company Items', 'sigmaigaming'),
+			'view_item' => __('View Company Items', 'sigmaigaming'),
+			'search_items' => __('Search Company Items', 'sigmaigaming'),
+			'not_found' => __('No Company Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Company Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'company'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+	));
+}
+
+// create a Custom post taxonomy for people post
+add_action( 'init', 'sigma_mt_taxonomies_company', 0 );
+function sigma_mt_taxonomies_company(){
+	register_taxonomy('company-cat', array('company-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Company Categories', 'sigmaigaming'),
+				'singular_name' => __('Company Category', 'sigmaigaming'),
+				'search_items' => __('Search Company Category', 'sigmaigaming'),
+				'all_items' => __('All Company Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Company Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Company Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Company Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Company Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Company Category', 'sigmaigaming'),
+				'new_item_name' => __('New Company Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-company')
+		)
+	);
+}

@@ -58,7 +58,18 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 							</div>
 							<div class="casino-star-rating">
 								<div class="start-rating">
-									<?php wp_star_rating(); ?>
+									<?php 
+									if(isset($casino_provider['star_rating_count']) && !empty($casino_provider['star_rating_count'])) {
+										$count = $casino_provider['star_rating_count'];
+									} else {
+										$count = '3';
+									}
+									$args = array(
+									   'rating' => $count,
+									   'type' => 'rating',
+									   'number' => 1234,
+									);
+									wp_star_rating( $args ); ?>
 								</div>
 							</div>
 							<div class="casino-bonus">
@@ -91,10 +102,14 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 									    $ecopayz = __( 'Ecopayz', 'sigmaigaming' );
 										?>
 										<div class="single-option">
-											<?php if($value === $visa) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/VISA-new-logo.png">'; ?>
-											<?php if($value === $mastercard) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/Payments%20Logo/Maestro-1.jpg">'; ?>
-											<?php if($value === $neteller) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Neteller.jpg">'; ?>
-											<?php if($value === $skrill) echo '<img src="https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/cards/Skrill%20.jpg">'; ?>
+											<?php if($value === $visa) echo '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">'; ?>
+											<?php if($value === $mastercard) echo '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">'; ?>
+											<?php if($value === $neteller) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">'; ?>
+											<?php if($value === $payeer) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">'; ?>
+											<?php if($value === $bitcoin) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">'; ?>
+											<?php if($value === $ecopays) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">'; ?>
+											<?php if($value === $webpay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">'; ?>
+											<?php if($value === $epay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">'; ?>
 										</div>
 								<?php }
 								} ?>

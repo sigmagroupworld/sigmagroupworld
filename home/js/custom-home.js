@@ -34,5 +34,17 @@ jQuery(document).ready(function($) {
 			nocookie: true
 		}
 	});
+	$('.single-news').slick({
+  		autoplay: true,
+    		autoplaySpeed: 2000,
+		prevArrow: false,
+    		nextArrow: false,
+    		dots: false,
+    		infinite: false,
+    		speed: 1000,
+    		fade: true,
+    		slide: 'div',
+    		cssEase: 'linear'
+	});
 	/**** Video pop up end ***/
 });

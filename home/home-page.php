@@ -272,15 +272,15 @@ if ($desktop_banner){ ?>
 	<!-- News Image slider start -->
 	<section class="sigma-news">
         <div class="container">
-        	<?php foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
-	            <div class="single-news">
+        	<div class="single-news">
+	        	<?php foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
 	                <div class="all-news">
 	                    <a href="#">
 	                        <img src="<?php echo $value['latest_news_bottom_image']; ?>" alt="">
 	                    </a>
 	                </div>
-	            </div>
-	        <?php } ?>
+		        <?php } ?>
+	    	</div>
         </div>
     </section>
 	<!-- News Image slider end -->

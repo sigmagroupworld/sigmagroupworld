@@ -1,12 +1,15 @@
 .container {
-  max-width: 1140px;
+  max-width: 1064px;
   padding: 0 20px;
   margin: 0 auto;
 }
-
+.about-template section:last-child {
+  padding-bottom: 50px;
+}
 /* Banner css start */
 section,
-.newsletter {
+.newsletter,
+.about-template {
 	position: relative;
 	z-index: 20;
   background-color: #fff;
@@ -70,9 +73,9 @@ section.about-banner {
   align-items: center;
   justify-content: space-around;
 }
-.paraAbout > div {
+/*.paraAbout > div {
   flex-basis: 48%;
-}
+}*/
 .paralocate p {
   width: 100%;
   font-size: 16px;
@@ -146,7 +149,6 @@ section.about-banner {
 	background-color: #fff;
 }
 .about-section-title h2 {
-	color: #2364ae;
 	font-size: 22px;
 	font-weight: 600;
 	line-height: 26px;
@@ -354,9 +356,6 @@ section.about-banner {
 /* Floor Plan Section Css end */
 
 /*What Our Attendees section css start*/
-.our-attendees {
-  padding-bottom: 50px;
-}
 .our-attendees .about-section-title {
   margin-bottom: 20px;
 }
