@@ -213,11 +213,21 @@
     margin: 10px;
     cursor: pointer;
 }
-.casino-buttons a.play {
-    background-color: #008c0f;
+.casino-buttons a.play,
+.casino-buttons a.play:hover,
+.casino-buttons a.play:focus,
+.casino-buttons a.play:active {
+    background-color: #008c0f !important;
+    color: #fff !important;
+    text-decoration: none !important;
 }
-.casino-buttons a.review {
-    background-color: #0082e0;
+.casino-buttons a.review,
+.casino-buttons a.review:hover,
+.casino-buttons a.review:focus,
+.casino-buttons a.review:active {
+    background-color: #0082e0 !important;
+    color: #fff !important;
+    text-decoration: none !important;
 }
 .payment-options {
     display: flex;
@@ -765,6 +775,13 @@
     border-radius: 20px;
     display: inline-block;
     min-width: 200px;
+}
+.tab-bottom-links .left a:hover,
+.tab-bottom-links .left a:focus,
+.tab-bottom-links .left a:active {
+    background: #1d71b7 !important;
+    color: #fff !important;
+    text-decoration: none !important;
 }
 .tab-bottom-links {
     display: flex;

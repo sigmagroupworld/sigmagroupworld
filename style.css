@@ -84,9 +84,10 @@ a {
     -o-transition: all .5s ease-in-out 0s;
 }
 a:focus {
-    background: none !important;
+    background: none;
     outline: none !important;
     color: inherit !important;
+    text-decoration: none;
 }
 .site a:focus:not(.wp-block-button__link):not(.wp-block-file__button) img {
     outline: none;

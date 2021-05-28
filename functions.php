@@ -409,3 +409,28 @@ function sigma_mt_get_casino_provider_data() {
     $get_posts = get_posts($post_tag_args);
     return $get_posts;
 }
+
+//function to get speakers.
+function sigma_mt_get_speakers_data($post_id) {
+    $taxonomy = 'people-cat';
+    $post_type = 'people-items';
+    $term_value = get_the_terms( $post_id, $taxonomy );
+    $get_posts = array();
+    foreach($term_value as $term) {
+        $post_args = array(
+          'posts_per_page' => 10,
+          'post_type' => $post_type,
+          'orderby'        => 'DESC',
+          'post_status'    => 'publish',
+          'tax_query' => array(
+                  array(
+                      'taxonomy' => $taxonomy,
+                      'field' => 'term_id',
+                      'terms' => $term->term_id,
+                  )
+              )
+        );
+        $get_posts = get_posts($post_args);
+    }
+    return $get_posts;
+}

@@ -2,7 +2,7 @@
 /**
  * Template Name: SigmaMT Online Casinos Page Layout
  * Created By: Rinkal Petersen
- * Created at: 27 Apr 2021
+ * Created at: 27 May 2021
  */
 /* Directory template css */
 get_header();

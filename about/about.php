@@ -104,6 +104,36 @@ if ($attendees){ ?>
 }
 ?>
 
+<!-- Speakers Section Start -->
+<?php
+$post_data = $wp_query->get_queried_object();
+$post_id = $post_data->ID;
+$post_results = sigma_mt_get_speakers_data($post_id);
+if(!empty($post_results)) { ?>
+	<section class="speakers">
+	  <div class="container">
+	    <div class="about-section-title">
+	      <h2><?php _e( 'Speakers', 'sigmaigaming' ); ?></h2>
+	      <p>Want to get involved as one of the speakers for either SiGMA Conferences, SiGMA Deep Tech or Affiliate Grand Slam Conference Reach out to <a href="mailto:jeremy.m@sigma.world" rel="noopener">Jeremy </a>.</p>
+	    </div>
+	    <div class="all-speakers">
+	    	<?php foreach($post_results as $k => $post) {
+	    		$people_icon = get_field('image_icon', $post->ID);
+	    		$people_designation = get_field('designation', $post->ID);
+	    		$people_company = get_field('company', $post->ID); ?>
+	     		<div class="single-speaker">
+	        		<img src="<?php echo $people_icon; ?>" alt="">
+	        		<h3><?php echo $post->post_title; ?></h3>
+	        		<h4><?php echo $people_designation; ?></h4>
+	        		<p><?php echo $people_company; ?></p>
+	      		</div>
+	      	<?php } ?>
+	    </div>
+	  </div>
+	</section>
+<?php } ?>
+<!-- Speakers Section End -->
+
 <?php ob_start(); $floor_plan = get_field('floor_plan');
 if ($floor_plan){ ?>
 	<?php if( !empty( $floor_plan['floor_plan_title'] ) ){ ?>

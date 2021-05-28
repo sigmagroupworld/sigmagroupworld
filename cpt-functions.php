@@ -404,7 +404,7 @@ function sigma_mt_taxonomies_casinos(){
 	);
 }
 
-// create a Custom post type Peoples
+//create a Custom post type Peoples
 add_action('init', 'sigma_mt_people_custom_posts');
 function sigma_mt_people_custom_posts() {
 	register_post_type('people-items', array(
@@ -423,14 +423,14 @@ function sigma_mt_people_custom_posts() {
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'people'),		
-		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+		
 	));
 }
-
 // create a Custom post taxonomy for people post
 add_action( 'init', 'sigma_mt_taxonomies_peoples', 0 );
 function sigma_mt_taxonomies_peoples(){
-	register_taxonomy('people-cat', array('people-items'), array('hierarchical' => true,
+	register_taxonomy('people-cat', array('people-items', 'page'), array(
+		'hierarchical' => true,
 			'labels' => array(
 				'name' => __('People Categories', 'sigmaigaming'),
 				'singular_name' => __('People Category', 'sigmaigaming'),
@@ -441,20 +441,12 @@ function sigma_mt_taxonomies_peoples(){
 				'edit_item' => __('Edit People Category', 'sigmaigaming'),
 				'update_item' => __('Refresh People Category', 'sigmaigaming'),
 				'add_new_item' => __('Add People Category', 'sigmaigaming'),
-				'new_item_name' => __('New People Category', 'sigmaigaming')
+				'new_item_name' => __('New People Category', 'sigmaigaming'),
 			),
 			'show_ui' => true,
-			'rewrite' => array('slug' => 'latest-people'),
-			'hierarchical' => true,
-        	'capability_type'    => 'page',
-			'supports' => array(
-                        'title',
-                        'editor',
-                        'excerpt',
-                        'genesis-seo',
-                        'custom-fields',
-                        'page-attributes'
-                    )
+			'show_in_nav_menus' => true,
+			'show_in_rest' => true,
+			'rewrite' => array('slug' => 'latest-people')
 		)
 	);
 }
@@ -485,7 +477,7 @@ function sigma_mt_company_custom_posts() {
 // create a Custom post taxonomy for people post
 add_action( 'init', 'sigma_mt_taxonomies_company', 0 );
 function sigma_mt_taxonomies_company(){
-	register_taxonomy('company-cat', array('company-items'), array('hierarchical' => true,
+	register_taxonomy('company-cat', array('company-items', 'page'), array('hierarchical' => true,
 			'labels' => array(
 				'name' => __('Company Categories', 'sigmaigaming'),
 				'singular_name' => __('Company Category', 'sigmaigaming'),
@@ -499,6 +491,8 @@ function sigma_mt_taxonomies_company(){
 				'new_item_name' => __('New Company Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_in_nav_menus' => true,
+			'show_in_rest' => true,
 			'rewrite' => array('slug' => 'latest-company')
 		)
 	);
