@@ -135,14 +135,15 @@ jQuery(document).ready(function($) {
 	    $('html, body').css("cursor", "wait");
 	    $('#loadmore').css("cursor", "wait");
         $.post(AjaxRequest.ajax_url, data, function(response) {
+        	console.log(response);
         	$('html, body').css("cursor", "auto");
 	        $('#loadmore').css("cursor", "pointer");
 	        if($.trim(response) != '') {
+	        	page++;
 	            $('.all-speakers').append(response);
 	        } else {
 	            $('.loadmore').hide();
 	        }
-	        page++;
 	    });
     });
 	/** Load more people ***/ 

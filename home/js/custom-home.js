@@ -23,11 +23,7 @@
 	    });
 		/* Serch form end */
 
-	});
-})(jQuery);
-
-jQuery(document).ready(function($) {
-	/**** Video pop up ***/
+		/**** Video pop up ***/
 	$(".js-video-button").modalVideo({
 		youtube:{
 			controls:0,
@@ -47,4 +43,6 @@ jQuery(document).ready(function($) {
     		cssEase: 'linear'
 	});
 	/**** Video pop up end ***/
-});
+
+	});
+})(jQuery);

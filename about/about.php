@@ -57,7 +57,19 @@ if ($why_sigma){ ?>
 			      		<?php echo $why_sigma['why_sigma_sub_text']; ?>
 			      	</div>
 			      	<div class="sigma-about-video">
-			        
+			        	<?php 
+			        	/*if(is_page('europe')) {
+			        		$term_id = '1161';
+			        	} else {
+			        		$term_id = '1161';
+			        	}
+			        	$videos = sigma_mt_get_videos(1161);
+			        	$youtube_video_title = get_field('video_title', $videos[0]->ID);
+			        	foreach($videos as $k => $video) {
+			        		$youtube_video_link = get_field('youtube_video_link',  $video->ID);
+			        	?>
+			        		<iframe src="<?php echo $youtube_video_link; ?>" width="560" height="315">
+			        	<?php }*/ ?>
 			      	</div>
 			    </div>
 		  	</div>
@@ -108,30 +120,9 @@ if ($attendees){ ?>
 <?php
 $post_data = $wp_query->get_queried_object();
 $post_id = $post_data->ID;
-$post_results = sigma_mt_get_speakers_data($post_id);
-if(!empty($post_results)) { ?>
-	<section class="speakers">
-	  <div class="container">
-	    <div class="about-section-title">
-	      <h2><?php _e( 'Speakers', 'sigmaigaming' ); ?></h2>
-	      <p>Want to get involved as one of the speakers for either SiGMA Conferences, SiGMA Deep Tech or Affiliate Grand Slam Conference Reach out to <a href="mailto:jeremy.m@sigma.world" rel="noopener">Jeremy </a>.</p>
-	    </div>
-	    <div class="all-speakers">
-	    	<?php foreach($post_results as $k => $post) {
-	    		$people_icon = get_field('image_icon', $post->ID);
-	    		$people_designation = get_field('designation', $post->ID);
-	    		$people_company = get_field('company', $post->ID); ?>
-	     		<div class="single-speaker">
-	        		<img src="<?php echo $people_icon; ?>" alt="">
-	        		<h3><?php echo $post->post_title; ?></h3>
-	        		<h4><?php echo $people_designation; ?></h4>
-	        		<p><?php echo $people_company; ?></p>
-	      		</div>
-	      	<?php } ?>
-	    </div>
-	  </div>
-	</section>
-<?php } ?>
+$people_list = do_shortcode( '[sigma-mt-people-lists post_id = '.$post_id.' person_lname = "pname" person_phone = "phone" person_image = "person_image" person_position = "designation" person_company = "company" person_language = ""]');
+echo $people_list ;
+?>
 <!-- Speakers Section End -->
 
 <?php ob_start(); $floor_plan = get_field('floor_plan');
@@ -233,6 +224,5 @@ if ($our_attendees){ ?>
 		</div>
 	</div>
 </div>
-
 
 <?php get_footer(); ?>

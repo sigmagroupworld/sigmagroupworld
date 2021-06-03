@@ -37,9 +37,10 @@ function sigma_mt_scripts() {
     /****Autocomplete script ****/
     wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
         ['jquery', 'jquery-ui-autocomplete'], null, true);
-    wp_localize_script('autocomplete-search', 'AutocompleteSearch', [
+    wp_localize_script('autocomplete-search', 'AjaxRequest', [
         'ajax_url' => admin_url('admin-ajax.php'),
-        'ajax_nonce' => wp_create_nonce('autocompleteSearchNonce')
+        'ajax_nonce' => wp_create_nonce('autocompleteSearchNonce'),
+        'security' => wp_create_nonce( 'load_more_people' ),
     ]);
  
     $wp_scripts = wp_scripts();
@@ -216,7 +217,7 @@ function get_image_id_by_url( $url ) {
 
 //Shortcode to display banner adds
 add_shortcode( 'sigma-mt-banner-adds', 'sigma_mt_banner_adds' );
-function sigma_mt_banner_adds( $atts ) {
+function sigma_mt_banner_adds($atts) {
     $banner_image = isset($atts['banner_add']) ? $atts['banner_add'] : '';
     $banner_link = isset($atts['banner_url']) ? $atts['banner_url'] : '';
     $image_id = get_image_id_by_url($banner_image);
@@ -291,7 +292,6 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     );
     if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
         $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-        //$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=5.101.108.255"));
         if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
             switch ($purpose) {
                 case "location":
@@ -366,12 +366,11 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
 }
 
 
-// function to display order based on their country
-function sigma_mt_get_country_order() {
+// function to display order based on their continent
+function sigma_mt_get_continent_order() {
     $taxonomy = 'news-tag';
     // Get the IP address
     $visitors_ip_info = ip_info();
-    //echo '<pre>'; print_r($visitors_ip_info); echo '</pre>';
     $continents = isset($visitors_ip_info['continent']) ? $visitors_ip_info['continent'] : '';
     if($continents === 'North America') {
         $continents = 'Americas';
@@ -410,18 +409,31 @@ function sigma_mt_get_casino_provider_data() {
     return $get_posts;
 }
 
-//function to get speakers.
-function sigma_mt_get_speakers_data($post_id) {
+//Shortcode to get people lists
+add_shortcode( 'sigma-mt-people-lists', 'sigma_mt_get_people_list' );
+function sigma_mt_get_people_list($atts) {
+    $content = '';
     $taxonomy = 'people-cat';
     $post_type = 'people-items';
+    $post_id = isset($atts['post_id']) ? $atts['post_id'] : '';
+    $speakers_text = get_field('speakers_text');
     $term_value = get_the_terms( $post_id, $taxonomy );
+    $person_lname = isset($atts['person_lname']) ? $atts['person_lname'] : '';
+    $person_phone = isset($atts['person_phone']) ? $atts['person_phone'] : '';
+    $person_email = isset($atts['person_email']) ? $atts['person_email'] : '';
+    $person_image = isset($atts['person_image']) ? $atts['person_image'] : '';
+    $person_position = isset($atts['person_position']) ? $atts['person_position'] : '';
+    $person_company = isset($atts['person_company']) ? $atts['person_company'] : '';
+    $person_language = isset($atts['person_language']) ? $atts['person_language'] : '';
+    $load_more = __( 'Load More', 'sigmaigaming' );
     $get_posts = array();
     foreach($term_value as $term) {
         $post_args = array(
-          'posts_per_page' => 10,
+          'posts_per_page' => 1,
           'post_type' => $post_type,
           'orderby'        => 'DESC',
           'post_status'    => 'publish',
+          'paged' => 1,
           'tax_query' => array(
                   array(
                       'taxonomy' => $taxonomy,
@@ -432,5 +444,120 @@ function sigma_mt_get_speakers_data($post_id) {
         );
         $get_posts = get_posts($post_args);
     }
+    if(!empty($get_posts)) {
+        $content .= '<section class="speakers">
+                        <div class="container">
+                            <div class="about-section-title">
+                                <h2>'. (isset($speakers_text['speaker_title']) ? $speakers_text['speaker_title'] : 'Speakers') .'</h2>
+                                <p>'. (isset($speakers_text['speaker_text']) ? $speakers_text['speaker_text'] : '') .'</p>
+                            </div>
+                            <div class="all-speakers">';
+                                foreach($get_posts as $k => $post) {
+                                    $title = $post->post_title;
+                                    $people_icon = get_field('image_icon', $post->ID);
+                                    $people_designation = get_field('designation', $post->ID);
+                                    $people_company = get_field('company', $post->ID);
+                                    $content .= '<div class="single-speaker">';
+                                        if(!empty($person_image)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                        if(!empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
+                                        if(!empty($person_position)) { $content .= '<h4>'. $people_designation .'</h4>'; }
+                                        if(!empty($person_company)) { $content .= '<p>'. $people_company->post_title .'</p>'; }
+                                    $content .= '</div>';
+                                }
+                            $content .= '</div>
+                            <input type="hidden" value="'.$post_id.'" id="postID">
+                            <div class="load-people"><button class="loadmore" id="loadmore">'.$load_more.'</button></div></div>
+                    </section>';
+    }
+    return $content;
+}
+
+add_action('wp_ajax_load_people_by_ajax', 'load_people_by_ajax_callback');
+add_action('wp_ajax_nopriv_load_people_by_ajax', 'load_people_by_ajax_callback');
+function load_people_by_ajax_callback() {
+    check_ajax_referer('load_more_people', 'security'); 
+    $content = '';
+    $taxonomy = 'people-cat';
+    $post_type = 'people-items';
+    $paged = $_POST['page'];
+    $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+    $term_value = get_the_terms( $post_id, $taxonomy );
+    $get_posts = array();
+    foreach($term_value as $term) {
+        $post_args = array(
+          'posts_per_page' => 1,
+          'post_type' => $post_type,
+          'orderby'        => 'DESC',
+          'post_status'    => 'publish',
+          'paged' => $paged,
+          'tax_query' => array(
+                  array(
+                      'taxonomy' => $taxonomy,
+                      'field' => 'term_id',
+                      'terms' => $term->term_id,
+                  )
+              )
+        );
+        $get_posts = get_posts($post_args);
+    }
+    if(!empty($get_posts)) {
+        foreach($get_posts as $k => $post) {
+            $title = $post->post_title;
+            $people_icon = get_field('image_icon', $post->ID);
+            $people_designation = get_field('designation', $post->ID);
+            $people_company = get_field('company', $post->ID);
+            $content .= '<div class="single-speaker">';
+                if(!empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                if(!empty($title)) { $content .= '<h3>'.$title.'</h3>'; }
+                if(!empty($people_designation)) { $content .= '<h4>'. $people_designation .'</h4>'; }
+                if(!empty($people_company)) { $content .= '<p>'. $people_company->post_title .'</p>'; }
+            $content .= '</div>';
+            echo $content;
+        }
+    } 
+    wp_die();
+}
+
+//function to get videos.
+function sigma_mt_get_videos($term_id) {
+    $taxonomy = 'videos-cat';
+    $post_type = 'video-items';
+    $post_args = array(
+      'posts_per_page' => 10,
+      'post_type' => $post_type,
+      'orderby'        => 'DESC',
+      'post_status'    => 'publish',
+      'paged' => 1,
+      'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+    );
+    $get_posts = get_posts($post_args);
+    return $get_posts;
+}
+
+//function to get company.
+function sigma_mt_get_company($term_id) {
+    $taxonomy = 'company-cat';
+    $post_type = 'company-items';
+    $post_args = array(
+      'posts_per_page' => 10,
+      'post_type' => $post_type,
+      'orderby'        => 'DESC',
+      'post_status'    => 'publish',
+      'paged' => 1,
+      'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+    );
+    $get_posts = get_posts($post_args);
     return $get_posts;
 }

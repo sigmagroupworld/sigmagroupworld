@@ -47,6 +47,7 @@ body {
     font-size: 14px; 
     color: #000000; 
     font-family: "Montserrat"; 
+    font-family: "Montserrat", Sans-serif;
     text-rendering: auto; 
     -webkit-font-smoothing: antialiased; 
     -moz-osx-font-smoothing: grayscale;
@@ -842,6 +843,78 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     width: 100%;
 }
 /* News slider end */
+/* General paragraph css start */
+.sub-txts p,
+.sub-txts h5 {
+    margin-bottom: 20px;
+}
+.sub-txts p:last-child {
+    margin-bottom: 0;
+}
+.sub-txts h5 {
+    font-weight: bold;
+}
+.sub-txts p a {
+    color: #ED1A3B;
+    font-weight: bold;
+}
+.sub-txts p a:hover {
+    color: #000;
+}
+.sub-txts ul {
+    padding: 0 0 0 30px;
+}
+.sub-txts ul,
+.sub-txts ul li {
+    list-style-type: disc;
+}
+.sub-txts ul li {
+    padding-bottom: 10px;
+    font-size: 14px;
+    line-height: 23px;
+    font-weight: 400;
+    font-family: "Montserrat", Sans-serif;
+}
+/* General paragraph css end */
+/* */
+.dm-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.dropbtn {    
+    color: #353434;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 5px;
+}
+.dropdown-content {
+  display: none;
+  overflow: auto;
+  padding-left: 20px;
+}
+
+.dropdown-content a {
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: .025em;
+    color: #353434;
+    font-family: 'Montserrat';
+    padding: 5px 16px 5px 0;
+    cursor: pointer;
+    font-weight: 400;
+    white-space: break-spaces;
+}
+
+.dropdown a:hover {
+    color: #ED1A3B;
+    font-weight: 600;
+}
+.show {display: block;}
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */

@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 // Update posts slug
 add_action( 'init', 'sigma_mt_update_posts_slug' );
 function sigma_mt_update_posts_slug() {
@@ -57,7 +56,7 @@ function sigma_mt_news_custom_posts() {
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'news'),		
-		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
 
@@ -247,7 +246,7 @@ function sigma_mt_videos_custom_posts() {
 	));
 }
 
-// create a Custom post taxonomy for news post
+// create a Custom post taxonomy for videos
 add_action( 'init', 'sigma_mt_taxonomies_videos', 0 );
 function sigma_mt_taxonomies_videos(){
 	register_taxonomy('videos-cat', array('video-items'), array('hierarchical' => true,
@@ -256,15 +255,15 @@ function sigma_mt_taxonomies_videos(){
 				'singular_name' => __('Video Category', 'sigmaigaming'),
 				'search_items' => __('Search Video Category', 'sigmaigaming'),
 				'all_items' => __('All Video Categories', 'sigmaigaming'),
-				'parent_item' => __('Parent Videos Category', 'sigmaigaming'),
-				'parent_item_colon' => __('Parent Videos Category:', 'sigmaigaming'),
-				'edit_item' => __('Edit Videos Category', 'sigmaigaming'),
-				'update_item' => __('Refresh Videos Category', 'sigmaigaming'),
-				'add_new_item' => __('Add Videos Category', 'sigmaigaming'),
-				'new_item_name' => __('New Videos Category', 'sigmaigaming')
+				'parent_item' => __('Parent Video Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Video Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Video Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Video Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Video Category', 'sigmaigaming'),
+				'new_item_name' => __('New Video Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'rewrite' => array('slug' => 'sm-videos')
+			'rewrite' => array('slug' => 'sm-Video')
 		)
 	);
 }
@@ -292,10 +291,10 @@ function sigma_mt_testimonial_custom_posts() {
 	));
 }
 
-// create a Custom post taxonomy for news post
+// create a Custom post taxonomy for testimonial
 add_action( 'init', 'sigma_mt_taxonomies_testimonial', 0 );
 function sigma_mt_taxonomies_testimonial(){
-	register_taxonomy('videos-cat', array('testimonial-items'), array('hierarchical' => true,
+	register_taxonomy('testimonial-cat', array('testimonial-items'), array('hierarchical' => true,
 			'labels' => array(
 				'name' => __('Testimonial Categories', 'sigmaigaming'),
 				'singular_name' => __('Testimonial Category', 'sigmaigaming'),
@@ -309,7 +308,7 @@ function sigma_mt_taxonomies_testimonial(){
 				'new_item_name' => __('New Testimonials Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'rewrite' => array('slug' => 'sm-videos')
+			'rewrite' => array('slug' => 'sm-testimonial')
 		)
 	);
 }
@@ -378,7 +377,7 @@ function sigma_mt_casinos_custom_posts() {
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'casinos'),		
-		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
 
@@ -404,13 +403,13 @@ function sigma_mt_taxonomies_casinos(){
 	);
 }
 
-//create a Custom post type Peoples
+//create a Custom post type People
 add_action('init', 'sigma_mt_people_custom_posts');
 function sigma_mt_people_custom_posts() {
 	register_post_type('people-items', array(
 		'labels' => array(
-			'name' => __('Peoples', 'sigmaigaming'),
-			'singular_name' => __('Peoples', 'sigmaigaming'),
+			'name' => __('People', 'sigmaigaming'),
+			'singular_name' => __('People', 'sigmaigaming'),
 			'menu_name' => __('People', 'sigmaigaming'),
 			'add_new' => __('Add People Item', 'sigmaigaming'),
 			'add_new_item' => __('Add People Item', 'sigmaigaming'),
@@ -427,8 +426,8 @@ function sigma_mt_people_custom_posts() {
 	));
 }
 // create a Custom post taxonomy for people post
-add_action( 'init', 'sigma_mt_taxonomies_peoples', 0 );
-function sigma_mt_taxonomies_peoples(){
+add_action( 'init', 'sigma_mt_taxonomies_people', 0 );
+function sigma_mt_taxonomies_people(){
 	register_taxonomy('people-cat', array('people-items', 'page'), array(
 		'hierarchical' => true,
 			'labels' => array(
@@ -470,11 +469,11 @@ function sigma_mt_company_custom_posts() {
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'company'),		
-		'supports' => array('title', 'thumbnail', 'editor', 'comments', 'page-attributes'),
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
 
-// create a Custom post taxonomy for people post
+// create a Custom post taxonomy for Company post
 add_action( 'init', 'sigma_mt_taxonomies_company', 0 );
 function sigma_mt_taxonomies_company(){
 	register_taxonomy('company-cat', array('company-items', 'page'), array('hierarchical' => true,

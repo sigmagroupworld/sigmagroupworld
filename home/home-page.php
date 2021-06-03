@@ -213,14 +213,8 @@ if ($desktop_banner){ ?>
 				</div>
 				<div class="spotify hp-right">
 					<?php
-					$post_args = array(
-			          'posts_per_page' => 10,
-			          'post_type' => 'video-items',
-			          'orderby'        => 'rand',
-			          'post_status'    => 'publish'
-			        );
-			        $get_videos = get_posts($post_args);
-			        $youtube_video_title = get_field('video_title', $get_videos[0]->ID);
+					$videos = sigma_mt_get_videos(1160);
+			        $youtube_video_title = get_field('video_title', $videos[0]->ID);
 			        $r = 0;
 					?>
 
@@ -230,7 +224,7 @@ if ($desktop_banner){ ?>
 						</a>
 					</div>
 					<div class="blog-listing-module">
-						<?php foreach ( $get_videos as $k => $video ) {
+						<?php foreach ( $videos as $k => $video ) {
 							$youtube_video_link = get_field('youtube_video_link',  $video->ID);
 							$split_link = explode("/",$youtube_video_link);
 							$split_video_ink = $split_link[4];
@@ -285,7 +279,7 @@ if ($desktop_banner){ ?>
     </section>
 	<!-- News Image slider end -->
 
-	<?php sigma_mt_get_country_order(); ?>
+	<?php sigma_mt_get_continent_order(); ?>
 
 <?php
 }
