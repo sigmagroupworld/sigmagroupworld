@@ -920,24 +920,30 @@ function sigma_mt_get_sponsors_bottom_tabs_data($atts) {
                             </div>
                         </div>
                         <div class="content">
-                            <div class="all-workshops">
-                                <div class="double-line">';
-                                    foreach($get_posts as $k => $sponsoring) {
-                                        $exhibit_details = get_field('exhibit_details', $sponsoring->ID);
-                                        $sponsors_logo = isset($exhibit_details['sponsers_icon']) ? $exhibit_details['sponsers_icon'] : '';
-                                        $sponsors_amount = isset($exhibit_details['amount']) ? $exhibit_details['amount'] : '';
-                                        $sponsors_count = isset($exhibit_details['sponsors_count']) ? $exhibit_details['sponsors_count'] : '';
-                                        $sponsors_gallery = isset($exhibit_details['sponsers_gallery']) ? $exhibit_details['sponsers_gallery'] : '';
-                                        $term_obj_list = get_the_terms( $sponsoring->ID, 'sponsoring-tag' );
-                                        $sponsors_status = $term_obj_list[0]->name;
-                                        $available = __( 'Available', 'sigmaigaming' );
-                                        $sold_out = __( 'Sold Out', 'sigmaigaming' );
-                                        if($sponsors_status === $sold_out) {
-                                            $class = 'disable';
-                                        } else {
-                                            $class = 'active';
-                                        }
-                                        $content .= '<div class="single-workshop" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
+                            <div class="all-workshops">';
+                                $counter = 0;
+                                $total_sponsors = count($get_posts);
+                                foreach($get_posts as $k => $sponsoring) {
+                                    $exhibit_details = get_field('exhibit_details', $sponsoring->ID);
+                                    $sponsors_logo = isset($exhibit_details['sponsers_icon']) ? $exhibit_details['sponsers_icon'] : '';
+                                    $sponsors_amount = isset($exhibit_details['amount']) ? $exhibit_details['amount'] : '';
+                                    $sponsors_count = isset($exhibit_details['sponsors_count']) ? $exhibit_details['sponsors_count'] : '';
+                                    $sponsors_gallery = isset($exhibit_details['sponsers_gallery']) ? $exhibit_details['sponsers_gallery'] : '';
+                                    $term_obj_list = get_the_terms( $sponsoring->ID, 'sponsoring-tag' );
+                                    $sponsors_status = isset($term_obj_list[0]->name) ? $term_obj_list[0]->name : '';
+                                    $available = __( 'Available', 'sigmaigaming' );
+                                    $sold_out = __( 'Sold Out', 'sigmaigaming' );
+                                    if($sponsors_status === $sold_out) {
+                                        $class = 'disable';
+                                    } else {
+                                        $class = 'active';
+                                    }
+                                    $counter++;
+                                    if ($total_sponsors % 2 == 0)  {
+                                        $class = 'double-line';
+                                    }
+                                    $content .= '<div class="double-line">
+                                                    <div class="single-workshop" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
                                                         <div class="label">
                                                             <span>'.$split_text[0].'</span>
                                                         </div>
@@ -957,35 +963,35 @@ function sigma_mt_get_sponsors_bottom_tabs_data($atts) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- The Modal -->
-                                                    <div id="sponsorContent'.$sponsoring->ID.'" class="modal">
-                                                        <!-- Modal content -->
-                                                        <div class="modal-content">
-                                                            <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>
-                                                            <h4>'.$sponsoring->post_title.'</h4>';
-                                                            if(!empty($sponsors_gallery)) {
-                                                                $content .= '<div class="sponsors_gallery">';
-                                                                    foreach($sponsors_gallery as $image) {
-                                                                        echo '<img src="'.$image.'">';
-                                                                    }
-                                                                $content .= '</div>';
-                                                            }
-                                                            if(!empty($sponsoring->post_content)) {
-                                                                $content .='<div class="post_content">'.$sponsoring->post_content.'</div>';
-                                                            }
-                                                            if(!empty($sponsors_amount)) {
-                                                                $content .='<div class="bottom '.$class.'">
-                                                                    <span class="prcie">'.$sponsors_amount.'</span>
-                                                                    <span class="status">'.$sponsors_count.'</span>
-                                                                </div>';
-                                                            }
-                                                        $content .='</div>
-                                                    </div>
-                                                    <!-- The Modal End -->';
+                                                </div>
+                                                <!-- The Modal -->
+                                                <div id="sponsorContent'.$sponsoring->ID.'" class="modal">
+                                                    <!-- Modal content -->
+                                                    <div class="modal-content">
+                                                        <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>
+                                                        <h4>'.$sponsoring->post_title.'</h4>';
+                                                        if(!empty($sponsors_gallery)) {
+                                                            $content .= '<div class="sponsors_gallery">';
+                                                                foreach($sponsors_gallery as $image) {
+                                                                    $content .= '<img src="'.$image.'">';
+                                                                }
+                                                            $content .= '</div>';
+                                                        }
+                                                        if(!empty($sponsoring->post_content)) {
+                                                            $content .='<div class="post_content">'.$sponsoring->post_content.'</div>';
+                                                        }
+                                                        if(!empty($sponsors_amount)) {
+                                                            $content .='<div class="bottom '.$class.'">
+                                                                <span class="prcie">'.$sponsors_amount.'</span>
+                                                                <span class="status">'.$sponsors_count.'</span>
+                                                            </div>';
+                                                        }
+                                                    $content .='</div>
+                                                </div>
+                                                <!-- The Modal End -->';
 
-                                    }
+                                }
                             $content .= '</div>
-                            </div>
                         </div>
                     </div>';
     }
