@@ -22,17 +22,17 @@ jQuery(document).ready(function($) {
 	/**** Testimonial Slider ***/
   	$(".testimonial-slide").slick({
 		slidesToShow: 1,
-    	slidesToScroll: 1,
-    	autoplay: false,
-    	autoplaySpeed: 1500,
-    	arrows: true,
-    	responsive: [{
-    		breakpoint: 850,
-    		settings: {
-    			slidesToShow: 1,
-    			slidesToScroll: 1,
-    			infinite: true,
-    		}
+		slidesToScroll: 1,
+		autoplay: false,
+		autoplaySpeed: 1500,
+		arrows: true,
+		responsive: [{
+			breakpoint: 850,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				infinite: true,
+			}
 		}]
  	});
 	/**** Testimonial Slider end ***/
@@ -40,28 +40,28 @@ jQuery(document).ready(function($) {
 	/**** Related Articles Slider ***/
   	$(".articles-slide").slick({
 		slidesToShow: 2,
-    	slidesToScroll: 1,
-    	autoplay: false,
-    	autoplaySpeed: 1500,
-    	arrows: true,
-    	responsive: [{
-    		breakpoint: 850,
-    		settings: {
-    			slidesToShow: 1,
-    			slidesToScroll: 1,
-    			infinite: true,
-    		}
+	    	slidesToScroll: 1,
+	    	autoplay: false,
+	    	autoplaySpeed: 1500,
+	    	arrows: true,
+	    	responsive: [{
+	    		breakpoint: 850,
+	    		settings: {
+	    			slidesToShow: 1,
+	    			slidesToScroll: 1,
+	    			infinite: true,
+	    		}
 		}]
- 	});
+	 });
 	/**** Related Articles Slider end ***/
 	
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
 	if(search_term == '') {
-    	$('.s-form.open .hs-search-field__suggestions').css('display', 'none');
-    } else {
-    	$('.s-form.open .hs-search-field__suggestions').css('display', 'inline-block');
-    }
+		$('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+	} else {
+		$('.s-form.open .hs-search-field__suggestions').css('display', 'inline-block');
+	}
 	$('.search-form .search-field').autocomplete({
 		minChars: 4,
 		minLength: 4,
@@ -124,28 +124,38 @@ jQuery(document).ready(function($) {
 
 	/** Load more people ***/
 	var page = 2;
-	$("#loadmore").click(function(){
-    	var post_id = $("#postID").val();
-        var data = {
-	        'action' : 'load_people_by_ajax',
-	        'page' : page,
-	        'post_id' : post_id,
-	        'security': AjaxRequest.security
-	    };
-	    $('html, body').css("cursor", "wait");
-	    $('#loadmore').css("cursor", "wait");
-        $.post(AjaxRequest.ajax_url, data, function(response) {
-        	$('html, body').css("cursor", "auto");
-	        $('#loadmore').css("cursor", "pointer");
-	        if($.trim(response) != '') {
-	            $('.all-speakers').append(response);
-	        } else {
-	            $('.loadmore').hide();
-	        }
-	        page++;
-	    });
-    });
-	/** Load more people ***/ 
+	$("#load-more").click(function(){
+	    	var post_id = $("#postID").val();
+	    	var posts_per_page = $("#posts_per_page").val();
+	    	var person_image = $("#person_image").val();
+	    	var person_name = $("#person_name").val();
+	    	var person_position = $("#person_position").val();
+	    	var person_company = $("#person_company").val();
+	        var data = {
+		        'action' : 'load_people_by_ajax',
+		        'page' : page,
+		        'post_id' : post_id,
+		        'posts_per_page' : posts_per_page,
+		        'person_image' : person_image,
+		        'person_name' : person_name,
+		        'person_position' : person_position,
+		        'person_company' : person_company,
+		        'security': AjaxRequest.security
+		};
+		$('html, body').css("cursor", "wait");
+		$('#load-more').css("cursor", "wait");
+	        $.post(AjaxRequest.ajax_url, data, function(response) {
+	        	page++;
+	        	$('html, body').css("cursor", "auto");
+	        	$('#load-more').css("cursor", "pointer");
+	        	if (response == "") {
+	        		$('#load-more').hide();
+	        	} else {
+	        		$('.all-speakers').append(response);
+	        	}
+		});
+	});
+	/** Load more people ***/
 
 });
 
@@ -164,3 +174,54 @@ function opendetails(evt, cityName) {
   	evt.currentTarget.className += " active";
 }
 /** Casino Provider Details Tab end ***/
+
+/** Sponsors modal popup Detail ***/
+
+let toggles = document.getElementsByClassName("toggle");
+let contentDiv = document.getElementsByClassName("content");
+let icons = document.getElementsByClassName("icon");
+let sell = document.getElementsByClassName("sell");
+
+for (let i = 0; i < toggles.length; i++) {
+toggles[i].addEventListener("click", () => {
+  if (parseInt(contentDiv[i].style.height) != contentDiv[i].scrollHeight) {
+    contentDiv[i].style.height = contentDiv[i].scrollHeight + "px";
+    icons[i].classList.remove("fa-plus");
+    icons[i].classList.add("fa-minus");
+    sell[i].style.display = "flex";
+  } else {
+    contentDiv[i].style.height = "0px";
+    icons[i].classList.remove("fa-minus");
+    icons[i].classList.add("fa-plus");
+    sell[i].style.display = "none";
+  }
+
+  for (let j = 0; j < contentDiv.length; j++) {
+    if (j !== i) {
+      contentDiv[j].style.height = 0;
+      icons[j].classList.remove("fa-minus");
+      icons[j].classList.add("fa-plus");
+    }
+  }
+});
+}
+
+  
+function openModal(elementId, modalId, closeId) {
+    var popup = document.getElementById(elementId);
+    var modal = document.getElementById(modalId);
+		var span = document.getElementById(closeId);
+		modal.style.display = "block";
+		/*popup.onclick = function() {
+		  modal.style.display = "block";
+		}*/
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		}
+}
+/** Sponsors modal popup Detail end ***/

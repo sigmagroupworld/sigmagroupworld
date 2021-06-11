@@ -7,6 +7,10 @@
 /* About template css */
 wp_enqueue_style('directory', get_stylesheet_directory_uri().'/about/css/about.css'); 
 get_header();
+
+$post_data = $wp_query->get_queried_object();
+$page_id = $post_data->ID;
+$company_term = sigma_mt_get_company_term($page_id);
 ?>
 <div class="about-template">
 <?php ob_start(); $about_banner = get_field('banner');
@@ -57,19 +61,11 @@ if ($why_sigma){ ?>
 			      		<?php echo $why_sigma['why_sigma_sub_text']; ?>
 			      	</div>
 			      	<div class="sigma-about-video">
-			        	<?php 
-			        	/*if(is_page('europe')) {
-			        		$term_id = '1161';
-			        	} else {
-			        		$term_id = '1161';
-			        	}
-			        	$videos = sigma_mt_get_videos(1161);
-			        	$youtube_video_title = get_field('video_title', $videos[0]->ID);
-			        	foreach($videos as $k => $video) {
-			        		$youtube_video_link = get_field('youtube_video_link',  $video->ID);
-			        	?>
-			        		<iframe src="<?php echo $youtube_video_link; ?>" width="560" height="315">
-			        	<?php }*/ ?>
+			      		<?php 
+			      		$video_cat = sigma_mt_get_video_term($page_id);
+			      		$term_id = $video_cat[0]->term_id
+			      		?>
+			      		<?php echo do_shortcode('[sigma-mt-about-videos video_id="'.$term_id.'" posts_per_page = "2"]'); ?>
 			      	</div>
 			    </div>
 		  	</div>
@@ -79,6 +75,12 @@ if ($why_sigma){ ?>
 <?php
 }
 ?>
+
+<!-- SUPPORTED BY Section Start -->
+<?php 
+$supported_term_id = $company_term['Supported']['supported_by_category'][0];
+echo do_shortcode('[sigma-mt-company-lists term_id = "'.$supported_term_id.'" posts_per_page = "1"]'); ?>
+<!-- SUPPORTED BY Section end -->
 
 <?php ob_start(); $for_advertisement = get_field('add_banner');
 if ($for_advertisement){ ?>
@@ -118,12 +120,17 @@ if ($attendees){ ?>
 
 <!-- Speakers Section Start -->
 <?php
-$post_data = $wp_query->get_queried_object();
-$post_id = $post_data->ID;
-$people_list = do_shortcode( '[sigma-mt-people-lists post_id = '.$post_id.' person_lname = "pname" person_phone = "phone" person_image = "person_image" person_position = "designation" person_company = "company" person_language = ""]');
+$people_list = do_shortcode( '[sigma-mt-people-lists post_id = '.$page_id.' person_name = "yes" person_image = "yes" person_position = "yes" person_company = "yes" person_language = "no" person_email= "no" person_phone= "no" person_skype= "no" posts_per_page = "1"]');
 echo $people_list ;
 ?>
 <!-- Speakers Section End -->
+
+<!-- Exhibitors & Partners Section Start -->
+<?php
+$exhibits_term_id = $company_term['Exabits']['our_exhibitors_partners_category'][0];
+echo do_shortcode('[sigma-mt-company-lists term_id = "'.$exhibits_term_id.'" posts_per_page = "1"]');
+?>
+<!-- Exhibitors & Partners Section End -->
 
 <?php ob_start(); $floor_plan = get_field('floor_plan');
 if ($floor_plan){ ?>

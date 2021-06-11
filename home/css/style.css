@@ -1205,6 +1205,10 @@ body {
     top: 36px;
     background: #fff;
     z-index: 99;
+    display: none;
+}
+.s-form.open .hs-search-field__suggestions {
+    display: block;
 }
 .hs-search-field__suggestions .highlight {
     font-weight: bold;

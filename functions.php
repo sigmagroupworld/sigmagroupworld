@@ -25,6 +25,7 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
+    wp_enqueue_style('sigmamt-exhibits', CHILD_DIR .'/exhibit/css/exhibit.css'); 
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css'); 
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
@@ -409,64 +410,120 @@ function sigma_mt_get_casino_provider_data() {
     return $get_posts;
 }
 
+//function to get videos term name by page ID
+function sigma_mt_get_video_term($page_id) {
+    $taxonomy = 'videos-cat';
+    $term_value = get_the_terms( $page_id, $taxonomy );
+    return $term_value;
+}
+
 //Shortcode to get people lists
 add_shortcode( 'sigma-mt-people-lists', 'sigma_mt_get_people_list' );
 function sigma_mt_get_people_list($atts) {
     $content = '';
     $taxonomy = 'people-cat';
     $post_type = 'people-items';
-    $post_id = isset($atts['post_id']) ? $atts['post_id'] : '';
+    $post_id = $atts['post_id'];
+    $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '1';
     $speakers_text = get_field('speakers_text');
     $term_value = get_the_terms( $post_id, $taxonomy );
-    $person_lname = isset($atts['person_lname']) ? $atts['person_lname'] : '';
-    $person_phone = isset($atts['person_phone']) ? $atts['person_phone'] : '';
-    $person_email = isset($atts['person_email']) ? $atts['person_email'] : '';
-    $person_image = isset($atts['person_image']) ? $atts['person_image'] : '';
-    $person_position = isset($atts['person_position']) ? $atts['person_position'] : '';
-    $person_company = isset($atts['person_company']) ? $atts['person_company'] : '';
-    $person_language = isset($atts['person_language']) ? $atts['person_language'] : '';
+    $person_name       = $atts['person_name'];
+    $person_image       = $atts['person_image'];
+    $person_position    = $atts['person_position'];
+    $person_company     = $atts['person_company'];
+    $person_language     = $atts['person_language'];
+    $person_email    = $atts['person_email'];
+    $person_phone     = $atts['person_phone'];
+    $person_skype     = $atts['person_skype'];
     $load_more = __( 'Load More', 'sigmaigaming' );
+    $exhibit_text = __( 'Exhibit', 'sigmaigaming' );
+    if($term_value[0]->name === $exhibit_text) {
+        $main_class = 'contact-us';
+        $sub_class = 'all-person';
+        $single_class = 'single-person';
+        $heading = __( 'CONTACT US', 'sigmaigaming' );
+        $button = '';
+    } else {
+        $main_class = 'speakers';
+        $sub_class = 'all-speakers';
+        $single_class = 'single-speaker';
+        $heading = $speakers_text['speaker_title'];
+        $button = '<div class="load-people"><button class="load-more" id="load-more">'.$load_more.'</button></div></div>';
+    }
     $get_posts = array();
-    foreach($term_value as $term) {
-        $post_args = array(
-          'posts_per_page' => 1,
-          'post_type' => $post_type,
-          'orderby'        => 'DESC',
-          'post_status'    => 'publish',
-          'paged' => 1,
-          'tax_query' => array(
-                  array(
+    if(!empty($term_value)) {
+        foreach($term_value as $term) {
+            $post_args = array(
+              'posts_per_page' => $posts_per_page,
+              'post_type' => $post_type,
+              'orderby'        => 'DESC',
+              'post_status'    => 'publish',
+              'paged' => 1,
+              'tax_query' => array(
+                    'relation' => 'OR',
+                    array(
                       'taxonomy' => $taxonomy,
                       'field' => 'term_id',
                       'terms' => $term->term_id,
-                  )
-              )
+                    )
+                )
+            );
+            $get_posts = get_posts($post_args);
+        }
+    } else {
+        $post_args = array(
+          'posts_per_page' => $posts_per_page,
+          'post_type' => $post_type,
+          'orderby'        => 'DESC',
+          'post_status'    => 'publish',
+          'paged' => 1
         );
         $get_posts = get_posts($post_args);
     }
     if(!empty($get_posts)) {
-        $content .= '<section class="speakers">
+        $content .= '<section class="'.$main_class.'">
                         <div class="container">
                             <div class="about-section-title">
-                                <h2>'. (isset($speakers_text['speaker_title']) ? $speakers_text['speaker_title'] : 'Speakers') .'</h2>
+                                <h2>'.$heading.'</h2>
                                 <p>'. (isset($speakers_text['speaker_text']) ? $speakers_text['speaker_text'] : '') .'</p>
                             </div>
-                            <div class="all-speakers">';
+                            <div class="'.$sub_class.'">';
                                 foreach($get_posts as $k => $post) {
                                     $title = $post->post_title;
                                     $people_icon = get_field('image_icon', $post->ID);
                                     $people_designation = get_field('designation', $post->ID);
                                     $people_company = get_field('company', $post->ID);
-                                    $content .= '<div class="single-speaker">';
-                                        if(!empty($person_image)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                        if(!empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
-                                        if(!empty($person_position)) { $content .= '<h4>'. $people_designation .'</h4>'; }
-                                        if(!empty($person_company)) { $content .= '<p>'. $people_company->post_title .'</p>'; }
+                                    $person_email_val = get_field('email', $post->ID);
+                                    $person_phone_no = get_field('telephone_number', $post->ID);
+                                    $person_skype_id = get_field('skype_id', $post->ID);
+                                    $language_icon = get_field('language_icon', $post->ID);
+                                    $content .= '<div class="'.$single_class.'">';
+                                        if($person_image === 'yes' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                        if($person_name === 'yes' && !empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
+                                        if($person_position === 'yes' && !empty($people_designation)) { $content .= '<p>'. $people_designation .'</p>'; }
+                                        if($person_company === 'yes' && !empty($people_company)) { $content .= '<p>'. $people_company->post_title .'</p>'; }
+                                        if($person_language === 'yes' && !empty($language_icon)) { 
+                                            $content .= '<div class="lang">';
+                                                            foreach($language_icon as $icon) {
+                                                                $content .= '<img src="'.$icon.'" alt="">';
+                                                            }
+                                                        $content .= '</div>'; 
+                                        }
+                                        $content .= '<div class="person-social">';
+                                                        if($person_email === 'yes' && !empty($person_email_val)) { $content .= '<p>E: <a href="mailto:'.$person_email_val.'">'.$person_email_val.'</a></p>'; }
+                                                        if($person_phone === 'yes' && !empty($person_phone_no)) { $content .= '<p>T: <a href="tel:'.$person_phone_no.'">'.$person_phone_no.'</a></p>'; }
+                                                        if($person_skype === 'yes' && !empty($person_skype_id)) { $content .= '<p>S: <a href="skype:'.$person_skype_id.'?call">'.$person_skype_id.'</a></p>'; }
+                                                    $content .= '</div>';
                                     $content .= '</div>';
                                 }
                             $content .= '</div>
                             <input type="hidden" value="'.$post_id.'" id="postID">
-                            <div class="load-people"><button class="loadmore" id="loadmore">'.$load_more.'</button></div></div>
+                            <input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
+                            <input type="hidden" value="'.$person_image.'" id="person_image">
+                            <input type="hidden" value="'.$person_name.'" id="person_name">
+                            <input type="hidden" value="'.$person_position.'" id="person_position">
+                            <input type="hidden" value="'.$person_company.'" id="person_company">
+                            '.$button.'
                     </section>';
     }
     return $content;
@@ -480,12 +537,17 @@ function load_people_by_ajax_callback() {
     $taxonomy = 'people-cat';
     $post_type = 'people-items';
     $paged = $_POST['page'];
-    $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+    $post_id            = $_POST['post_id'];
+    $posts_per_page     = $_POST['posts_per_page'];
+    $person_name        = $_POST['person_name'];
+    $person_image       = $_POST['person_image'];
+    $person_position    = $_POST['person_position'];
+    $person_company     = $_POST['person_company'];
     $term_value = get_the_terms( $post_id, $taxonomy );
     $get_posts = array();
     foreach($term_value as $term) {
         $post_args = array(
-          'posts_per_page' => 1,
+          'posts_per_page' => $posts_per_page,
           'post_type' => $post_type,
           'orderby'        => 'DESC',
           'post_status'    => 'publish',
@@ -507,27 +569,26 @@ function load_people_by_ajax_callback() {
             $people_designation = get_field('designation', $post->ID);
             $people_company = get_field('company', $post->ID);
             $content .= '<div class="single-speaker">';
-                if(!empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                if(!empty($title)) { $content .= '<h3>'.$title.'</h3>'; }
-                if(!empty($people_designation)) { $content .= '<h4>'. $people_designation .'</h4>'; }
-                if(!empty($people_company)) { $content .= '<p>'. $people_company->post_title .'</p>'; }
+                if($person_image === 'yes') { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                if($person_name === 'yes') { $content .= '<h3>'.$post->post_title.'</h3>'; }
+                if($person_position === 'yes') { $content .= '<h4>'. $people_designation .'</h4>'; }
+                if($person_company === 'yes') { $content .= '<p>'. $people_company->post_title .'</p>'; }
             $content .= '</div>';
             echo $content;
         }
-    } 
+    }
     wp_die();
 }
 
 //function to get videos.
-function sigma_mt_get_videos($term_id) {
+function sigma_mt_get_videos($term_id, $posts_per_page) {
     $taxonomy = 'videos-cat';
     $post_type = 'video-items';
     $post_args = array(
-      'posts_per_page' => 10,
+      'posts_per_page' => $posts_per_page,
       'post_type' => $post_type,
-      'orderby'        => 'DESC',
+      'orderby'        => 'ASC',
       'post_status'    => 'publish',
-      'paged' => 1,
       'tax_query' => array(
               array(
                   'taxonomy' => $taxonomy,
@@ -540,16 +601,83 @@ function sigma_mt_get_videos($term_id) {
     return $get_posts;
 }
 
-//function to get company.
-function sigma_mt_get_company($term_id) {
+//Shortcode to get videos.
+add_shortcode( 'sigma-mt-about-videos', 'sigma_mt_get_about_videos' );
+function sigma_mt_get_about_videos($atts) {
+    $value = shortcode_atts( array(
+        'video_id'       => $atts['video_id'],
+        'posts_per_page' => $atts['posts_per_page']
+    ), $atts );
+    $content = '';
+    $term_id = $value['video_id'];
+    $posts_per_page = $value['posts_per_page'];
+    $get_videos = sigma_mt_get_videos($term_id, $posts_per_page);
+    if(!empty($get_videos)) {
+        foreach($get_videos as $k => $video) {
+            $youtube_video_link = get_field('youtube_video_link',  $video->ID);
+            if(!empty($youtube_video_link)) {
+                $content .= '<iframe src="'.$youtube_video_link.'"></iframe>';
+            }            
+        }
+    }
+    return $content;
+}
+
+//function to get company term name
+function sigma_mt_get_company_term($page_id) {
+    $supported_by = array();
+    $our_exhibitors_partners = array();
+    $supported_by['Supported'] = get_field('supported_by', $page_id);
+    $our_exhibitors_partners['Exabits'] = get_field('our_exhibitors_partners', $page_id);
+    $result_array = array_merge($supported_by, $our_exhibitors_partners);
+    /*$taxonomy = 'company-cat';
+    $term_value = get_the_terms( $page_id, $taxonomy );*/
+    return $result_array;
+}
+
+//Shortcode to get company.
+add_shortcode( 'sigma-mt-company-lists', 'sigma_mt_get_company' );
+function sigma_mt_get_company($atts) {
+    $value = shortcode_atts( array(
+        'term_id' => $atts
+    ), $atts );
+    $content = '';
     $taxonomy = 'company-cat';
     $post_type = 'company-items';
+    $term_id = $value['term_id'];
+    // Get term by id (''term_id'')
+    $term_name = get_term_by('id', $term_id, $taxonomy);
+    $supported_cat = __( 'Europe SUPPORTED', 'sigmaigaming' );
+    $exibitors_cat = __( 'Exhibitors and Partners', 'sigmaigaming' );
+    $sponsors_and_exhibitors = __( 'SPONSORS And EXHIBITORS', 'sigmaigaming' );
+    $our_trusted_suppliers = get_field('our_trusted_suppliers');
+    $our_trusted_suppliers_text = __( 'OUR TRUSTED SUPPLIERS', 'sigmaigaming' );
+    if($term_name->name === $supported_cat) {
+        $main_class = 'supported';
+        $sub_class = 'supported-logo';
+        $single_class = 'supported-single';
+        $category_title = __( 'SUPPORTED BY', 'sigmaigaming' );
+    } else if($term_name->name === $exibitors_cat) {
+        $main_class = 'exhibitors';
+        $sub_class = 'all-exhibitors';
+        $single_class = 'single-exhibitor';
+        $category_title = __( 'OUR EXHIBITORS & PARTNERS', 'sigmaigaming' );
+    } else if($term_name->name === $sponsors_and_exhibitors) {
+        $main_class = 'exhibitors';
+        $sub_class = 'all-exhibitors';
+        $single_class = 'single-exhibitor';
+        $category_title = __( 'OUR SPONSORS & EXHIBITORS', 'sigmaigaming' );
+    } else {
+        $main_class = 'suppliers';
+        $sub_class = 'supplier-logo';
+        $single_class = 'supplier-single';
+        $category_title = __( 'OUR TRUSTED SUPPLIERS', 'sigmaigaming' );
+    }
     $post_args = array(
       'posts_per_page' => 10,
       'post_type' => $post_type,
       'orderby'        => 'DESC',
       'post_status'    => 'publish',
-      'paged' => 1,
       'tax_query' => array(
               array(
                   'taxonomy' => $taxonomy,
@@ -559,5 +687,308 @@ function sigma_mt_get_company($term_id) {
           )
     );
     $get_posts = get_posts($post_args);
-    return $get_posts;
+    if(!empty($get_posts)) {
+        $content .= '<section class="'.$main_class.'">
+                        <div class="container">
+                            <div class="about-section-title">
+                                <h2>'. $category_title .'</h2>
+                            </div>';
+                            if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
+                                $content .= '<div class="suplier-txt">
+                                    <p>'.$our_trusted_suppliers['trusted_splliers_text'].'</p>
+                                </div>';
+                            }
+                            $content .= '<div class="'.$sub_class.'">';
+                                foreach($get_posts as $k => $post) {
+                                    $company_details = get_field('company_details', $post->ID);
+                                    $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                    $description = isset($company_details['description']) ? $company_details['description'] : '';
+                                    //echo '<pre>'; print_r($company_details['description']); echo '</pre>';
+                                    if(empty($description)) {
+                                        $content .= '<div class="'.$single_class.'">';
+                                            if(!empty($company_details)) { $content .= '<a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>'; }
+                                        $content .= '</div>';
+                                    }
+                                }
+                            $content .= '</div>';
+                            if($term_name->name === $our_trusted_suppliers_text ) {
+                                $content .= '<div class="single-logo-supply">';
+                                    foreach($get_posts as $k => $post) {
+                                        $company_details = get_field('company_details', $post->ID);
+                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                        $description = isset($company_details['description']) ? $company_details['description'] : '';
+                                        if(!empty($description)) {
+                                            $content .= '<div class="single-logo-supply">
+                                                            <div class="single-supply">
+                                                                <div class="supply-txt">
+                                                                    <p>'.$description.'</p>
+                                                                </div>
+                                                                <div class="supplier-single">
+                                                                    <a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                        }
+                                    }
+                                $content .= '</div>';
+                            }
+                    $content .= '</section>';
+    }
+    return $content;
+}
+
+//function to get sponsoring-items tags.
+function sigma_mt_get_sponsoring_tags_data($tag_id, $taxonomy, $count) {
+    $tag_data = array();
+    $post_data = array();
+    $tag_category = get_term_by('id', $tag_id, $taxonomy);
+    if(isset($tag_id) && !empty($tag_id)) {
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'sponsoring-items',
+          'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $tag_id,
+              )
+          )
+        );
+    } else {
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'sponsoring-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish'
+        );
+    }
+    $tag_data['term_value'] = $tag_category;
+    $get_posts = get_posts($post_tag_args);
+    $post_data['term_data'] = $get_posts;
+    $result_array = array_merge($tag_data, $post_data);
+    return $result_array;
+}
+
+//Shortcode to get sponsoring-items top tab.
+add_shortcode( 'sigma-mt-sponsors-top-tabs', 'sigma_mt_get_sponsors_top_tabs_data' );
+function sigma_mt_get_sponsors_top_tabs_data($atts) {
+    $content = '';
+    $tag_data = array();
+    $post_data = array();
+    $tag_id = isset($atts['tag_id']) ? $atts['tag_id'] : '';
+    $taxonomy = isset($atts['taxonomy']) ? $atts['taxonomy'] : '';
+    $count = isset($atts['count']) ? $atts['count'] : '';
+    $tag_category = get_term_by('id', $tag_id, $taxonomy);
+    if(isset($tag_id) && !empty($tag_id)) {
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'sponsoring-items',
+          'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $tag_id,
+              )
+          )
+        );
+    } else {
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'sponsoring-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish'
+        );
+    }
+    $get_posts = get_posts($post_tag_args);
+    if(!empty($get_posts)) {
+        $content .= '<div class="wrapper">
+                        <div class="toggle">
+                            <h3>'.$tag_category->name.'</h3>
+                            <div class="all-sell">
+                                <p class="sell">
+                                    <span style="color:#44c156;"><i class="fa fa-bookmark" aria-hidden="true"></i> '. __( 'Available', 'sigmaigaming' ).'</span>
+                                    <span style="color:#ed1a3b;"><i class="fa fa-bookmark" aria-hidden="true"></i>  '.__( 'Sold Out', 'sigmaigaming' ).'</span>
+                                </p>
+                                <i class="fas fa-plus icon"></i>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="sponsor-boxes">';
+                                foreach($get_posts as $k => $sponsoring) {
+                                    $exhibit_details = get_field('exhibit_details', $sponsoring->ID);
+                                    $sponsors_logo = isset($exhibit_details['sponsers_icon']) ? $exhibit_details['sponsers_icon'] : '';
+                                    $sponsors_amount = isset($exhibit_details['amount']) ? $exhibit_details['amount'] : '';
+                                    $sponsors_count = isset($exhibit_details['sponsors_count']) ? $exhibit_details['sponsors_count'] : '';
+                                    $term_obj_list = get_the_terms( $sponsoring->ID, 'sponsoring-tag' );
+                                    $sponsors_status = $term_obj_list[0]->name;                                    
+                                    $available = __( 'Available', 'sigmaigaming' );
+                                    $sold_out = __( 'Sold Out', 'sigmaigaming' );
+                                    if($sponsors_status === $sold_out) {
+                                        $class = 'sold';
+                                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/SOLD-OUTv1.png" alt="" class="soldout">';
+                                    } else {
+                                        $image = '';
+                                        $class = '';
+                                    }
+                                    $content .= '<div class="single-sponsor" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
+                                                      <div class="top">
+                                                        <img src='.$sponsors_logo.' alt="">
+                                                        '.$image.'
+                                                        <h4>'.$sponsoring->post_title.'</h4>
+                                                      </div>
+                                                      <div class="bottom '.$class.'">
+                                                        <span class="prcie">'.$sponsors_amount.'</span>
+                                                        <span class="status">'.$sponsors_count.'</span>
+                                                      </div>
+                                                </div>
+                                                <!-- The Modal -->
+                                                <div id="sponsorContent'.$sponsoring->ID.'" class="modal">
+                                                    <!-- Modal content -->
+                                                    <div class="modal-content">
+                                                        <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>
+                                                        <h4>'.$sponsoring->post_title.'</h4>';
+                                                        $sponsors_gallery = $exhibit_details['sponsers_gallery'];
+                                                        if(!empty($sponsors_gallery)) {
+                                                            $content .= '<div class="sponsors_gallery">';
+                                                                foreach($sponsors_gallery as $image) {
+                                                                    $content .= '<img src="'.$image.'">';
+                                                                }
+                                                            $content .= '</div>';
+                                                        }
+                                                        if(!empty($sponsoring->post_content)) {
+                                                            $content .='<div class="post_content">'.$sponsoring->post_content.'</div>';
+                                                        }
+                                                        if(!empty($sponsors_amount)) {
+                                                            $content .='<div class="bottom '.$class.'">
+                                                                <span class="prcie">'.$sponsors_amount.'</span>
+                                                                <span class="status">'.$sponsors_count.'</span>
+                                                            </div>';
+                                                        }
+                                                    $content .= '</div>
+                                                </div>';
+                                }
+                            $content .= '</div>
+                        </div>
+                    </div>';
+    }
+    return $content;
+}
+
+//Shortcode to get sponsoring-items bottom tab.
+add_shortcode( 'sigma-mt-sponsors-bottom-tabs', 'sigma_mt_get_sponsors_bottom_tabs_data' );
+function sigma_mt_get_sponsors_bottom_tabs_data($atts) {
+    ob_start();
+    $content = '';
+    $tag_data = array();
+    $post_data = array();
+    $tag_id = isset($atts['tag_id']) ? $atts['tag_id'] : '';
+    $taxonomy = isset($atts['taxonomy']) ? $atts['taxonomy'] : '';
+    $count = isset($atts['count']) ? $atts['count'] : '';
+    $tag_category = get_term_by('id', $tag_id, $taxonomy);
+    $split_text = explode(" ", $tag_category->name);
+    if(isset($tag_id) && !empty($tag_id)) {
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'sponsoring-items',
+          'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $tag_id,
+              )
+          )
+        );
+    } else {
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'sponsoring-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish'
+        );
+    }
+    $get_posts = get_posts($post_tag_args);
+    if(!empty($get_posts)) {
+        $content .= '<div class="wrapper">
+                        <div class="toggle">
+                            <h3>'.$tag_category->name.'</h3>
+                            <div class="all-sell">
+                                <p class="sell">
+                                    <span style="color:#44c156;"><i class="fa fa-bookmark" aria-hidden="true"></i> '. __( 'Available', 'sigmaigaming' ).'</span>
+                                    <span style="color:#ed1a3b;"><i class="fa fa-bookmark" aria-hidden="true"></i>  '.__( 'Sold Out', 'sigmaigaming' ).'</span>
+                                </p>
+                                <i class="fas fa-plus icon"></i>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="all-workshops">
+                                <div class="double-line">';
+                                    foreach($get_posts as $k => $sponsoring) {
+                                        $exhibit_details = get_field('exhibit_details', $sponsoring->ID);
+                                        $sponsors_logo = isset($exhibit_details['sponsers_icon']) ? $exhibit_details['sponsers_icon'] : '';
+                                        $sponsors_amount = isset($exhibit_details['amount']) ? $exhibit_details['amount'] : '';
+                                        $sponsors_count = isset($exhibit_details['sponsors_count']) ? $exhibit_details['sponsors_count'] : '';
+                                        $sponsors_gallery = isset($exhibit_details['sponsers_gallery']) ? $exhibit_details['sponsers_gallery'] : '';
+                                        $term_obj_list = get_the_terms( $sponsoring->ID, 'sponsoring-tag' );
+                                        $sponsors_status = $term_obj_list[0]->name;
+                                        $available = __( 'Available', 'sigmaigaming' );
+                                        $sold_out = __( 'Sold Out', 'sigmaigaming' );
+                                        if($sponsors_status === $sold_out) {
+                                            $class = 'disable';
+                                        } else {
+                                            $class = 'active';
+                                        }
+                                        $content .= '<div class="single-workshop" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
+                                                        <div class="label">
+                                                            <span>'.$split_text[0].'</span>
+                                                        </div>
+                                                        <div class="work-content">
+                                                            <h5>'.$sponsoring->post_title.'</h5>
+                                                            <div class="amount">
+                                                                <h3>'.$sponsors_amount.'</h3>
+                                                                <span class="status">'.$sponsors_count.'</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop-icons">
+                                                            <div class="ribbon '.$class.'">
+                                                                <i class="fa fa-bookmark" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="open-arrow">
+                                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- The Modal -->
+                                                    <div id="sponsorContent'.$sponsoring->ID.'" class="modal">
+                                                        <!-- Modal content -->
+                                                        <div class="modal-content">
+                                                            <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>
+                                                            <h4>'.$sponsoring->post_title.'</h4>';
+                                                            if(!empty($sponsors_gallery)) {
+                                                                $content .= '<div class="sponsors_gallery">';
+                                                                    foreach($sponsors_gallery as $image) {
+                                                                        echo '<img src="'.$image.'">';
+                                                                    }
+                                                                $content .= '</div>';
+                                                            }
+                                                            if(!empty($sponsoring->post_content)) {
+                                                                $content .='<div class="post_content">'.$sponsoring->post_content.'</div>';
+                                                            }
+                                                            if(!empty($sponsors_amount)) {
+                                                                $content .='<div class="bottom '.$class.'">
+                                                                    <span class="prcie">'.$sponsors_amount.'</span>
+                                                                    <span class="status">'.$sponsors_count.'</span>
+                                                                </div>';
+                                                            }
+                                                        $content .='</div>
+                                                    </div>
+                                                    <!-- The Modal End -->';
+
+                                    }
+                            $content .= '</div>
+                            </div>
+                        </div>
+                    </div>';
+    }
+    $content .= ob_get_clean();
+    return $content;
 }

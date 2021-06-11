@@ -15,6 +15,8 @@ get_header();
 <?php ob_start(); $desktop_banner = get_field('desktop_banner');
 $taxonomy = __( 'news-tag', 'sigmaigaming' );
 $row = 0;
+$post_data = $wp_query->get_queried_object();
+$page_id = $post_data->ID;
 
 if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
@@ -213,7 +215,9 @@ if ($desktop_banner){ ?>
 				</div>
 				<div class="spotify hp-right">
 					<?php
-					$videos = sigma_mt_get_videos(1160);
+					$video_cat = sigma_mt_get_video_term($page_id);
+			      	$term_id = $video_cat[0]->term_id;
+					$videos = sigma_mt_get_videos($term_id, '10');
 			        $youtube_video_title = get_field('video_title', $videos[0]->ID);
 			        $r = 0;
 					?>

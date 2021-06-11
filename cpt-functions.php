@@ -249,7 +249,7 @@ function sigma_mt_videos_custom_posts() {
 // create a Custom post taxonomy for videos
 add_action( 'init', 'sigma_mt_taxonomies_videos', 0 );
 function sigma_mt_taxonomies_videos(){
-	register_taxonomy('videos-cat', array('video-items'), array('hierarchical' => true,
+	register_taxonomy('videos-cat', array('video-items', 'page'), array('hierarchical' => true,
 			'labels' => array(
 				'name' => __('Video Categories', 'sigmaigaming'),
 				'singular_name' => __('Video Category', 'sigmaigaming'),
@@ -263,6 +263,8 @@ function sigma_mt_taxonomies_videos(){
 				'new_item_name' => __('New Video Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_in_nav_menus' => true,
+			'show_in_rest' => true,
 			'rewrite' => array('slug' => 'sm-Video')
 		)
 	);
@@ -476,7 +478,7 @@ function sigma_mt_company_custom_posts() {
 // create a Custom post taxonomy for Company post
 add_action( 'init', 'sigma_mt_taxonomies_company', 0 );
 function sigma_mt_taxonomies_company(){
-	register_taxonomy('company-cat', array('company-items', 'page'), array('hierarchical' => true,
+	register_taxonomy('company-cat', array('company-items'), array('hierarchical' => true,
 			'labels' => array(
 				'name' => __('Company Categories', 'sigmaigaming'),
 				'singular_name' => __('Company Category', 'sigmaigaming'),
@@ -493,6 +495,73 @@ function sigma_mt_taxonomies_company(){
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
 			'rewrite' => array('slug' => 'latest-company')
+		)
+	);
+}
+
+// create a Custom post type Sponsoring
+add_action('init', 'sigma_mt_sponsoring_custom_posts');
+function sigma_mt_sponsoring_custom_posts() {
+	register_post_type('sponsoring-items', array(
+		'labels' => array(
+			'name' => __('Sponsoring', 'sigmaigaming'),
+			'singular_name' => __('Sponsoring', 'sigmaigaming'),
+			'menu_name' => __('Sponsoring', 'sigmaigaming'),
+			'add_new' => __('Add Sponsoring Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Sponsoring Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Sponsoring Item', 'sigmaigaming'),
+			'new_item' => __('Sponsoring Items', 'sigmaigaming'),
+			'view_item' => __('View Sponsoring Items', 'sigmaigaming'),
+			'search_items' => __('Search Sponsoring Items', 'sigmaigaming'),
+			'not_found' => __('No Sponsoring Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Sponsoring Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'sponsoring'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post taxonomy for Sponsoring post
+add_action( 'init', 'sigma_mt_taxonomies_sponsoring', 0 );
+function sigma_mt_taxonomies_sponsoring(){
+	register_taxonomy('sponsoring-cat', array('sponsoring-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Sponsoring Categories', 'sigmaigaming'),
+				'singular_name' => __('Sponsoring Category', 'sigmaigaming'),
+				'search_items' => __('Search Sponsoring Category', 'sigmaigaming'),
+				'all_items' => __('All Sponsoring Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Sponsoring Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Sponsoring Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Sponsoring Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Sponsoring Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Sponsoring Category', 'sigmaigaming'),
+				'new_item_name' => __('New Sponsoring Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-sponsoring')
+		)
+	);
+}
+
+// create a Custom post tags for sponsoring post
+add_action( 'init', 'sigma_mt_tags_sponsoring', 0 );
+function sigma_mt_tags_sponsoring(){
+	register_taxonomy('sponsoring-tag','sponsoring-items',
+		array(
+			'hierarchical'  => true,
+			'labels' => array(
+				'add_new_item' => __('Add Sponsoring Tag', 'sigmaigaming'),
+				'new_item_name' => __('Sponsoring Tag', 'sigmaigaming')
+			),
+			'label'         => __('Sponsoring Tags', 'sigmaigaming'),
+			'singular_name' => __('Sponsoring Tag', 'sigmaigaming'),
+			'rewrite'       => [
+				'slug' => 'tags',
+				'with_front' => false
+			],
+			'show_tagcloud' => true,
+			'query_var'     => true
 		)
 	);
 }
