@@ -8,9 +8,7 @@
 wp_enqueue_style('directory', get_stylesheet_directory_uri().'/about/css/about.css'); 
 get_header();
 
-$post_data = $wp_query->get_queried_object();
-$page_id = $post_data->ID;
-$company_term = sigma_mt_get_company_term($page_id);
+$page_id = $wp_query->get_queried_object()->ID;
 ?>
 <div class="about-template">
 <?php ob_start(); $about_banner = get_field('banner');
@@ -63,9 +61,9 @@ if ($why_sigma){ ?>
 			      	<div class="sigma-about-video">
 			      		<?php 
 			      		$video_cat = sigma_mt_get_video_term($page_id);
-			      		$term_id = $video_cat[0]->term_id
+			      		$term_id = $video_cat[0]->term_id;
 			      		?>
-			      		<?php echo do_shortcode('[sigma-mt-about-videos video_id="'.$term_id.'" posts_per_page = "2"]'); ?>
+			      		<?php echo do_shortcode('[sigma-mt-about-videos term_id="'.$term_id.'" posts_per_page = "2"]'); ?>
 			      	</div>
 			    </div>
 		  	</div>
@@ -78,8 +76,8 @@ if ($why_sigma){ ?>
 
 <!-- SUPPORTED BY Section Start -->
 <?php 
-$supported_term_id = $company_term['Supported']['supported_by_category'][0];
-echo do_shortcode('[sigma-mt-company-lists term_id = "'.$supported_term_id.'" posts_per_page = "1"]'); ?>
+$field = get_field('supported_by', $page_id);
+echo do_shortcode($field['suppored_by_shortcode']); ?>
 <!-- SUPPORTED BY Section end -->
 
 <?php ob_start(); $for_advertisement = get_field('add_banner');
@@ -120,15 +118,15 @@ if ($attendees){ ?>
 
 <!-- Speakers Section Start -->
 <?php
-$people_list = do_shortcode( '[sigma-mt-people-lists post_id = '.$page_id.' person_name = "yes" person_image = "yes" person_position = "yes" person_company = "yes" person_language = "no" person_email= "no" person_phone= "no" person_skype= "no" posts_per_page = "1"]');
-echo $people_list ;
+$field = get_field('speakers_text', $page_id);
+echo do_shortcode($field['speaker_shortcode']);
 ?>
 <!-- Speakers Section End -->
 
 <!-- Exhibitors & Partners Section Start -->
 <?php
-$exhibits_term_id = $company_term['Exabits']['our_exhibitors_partners_category'][0];
-echo do_shortcode('[sigma-mt-company-lists term_id = "'.$exhibits_term_id.'" posts_per_page = "1"]');
+$field = get_field('our_exhibitors_partners', $page_id);
+echo do_shortcode($field['exhibitors_and_partners_shortcode']);
 ?>
 <!-- Exhibitors & Partners Section End -->
 
@@ -217,19 +215,6 @@ if ($our_attendees){ ?>
 ?>
 </div>
 
-<div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
-	<div class="container">
-		<div class="newsletter-inner">
-			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
-			<div class="newsletter-form">
-				<?php
-					$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
-					echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
-                ?>
-			</div>
-			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>
-		</div>
-	</div>
-</div>
+<?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
 
 <?php get_footer(); ?>

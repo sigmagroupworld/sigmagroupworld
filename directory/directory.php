@@ -39,18 +39,7 @@ if ($directory){
 <?php
 }
 ?>
-<div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
-	<div class="container">
-		<div class="newsletter-inner">
-			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
-			<div class="newsletter-form">
-				<?php
-					$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
-					echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
-                ?>
-			</div>
-			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>
-		</div>
-	</div>
-</div>
+
+<?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
+
 <?php get_footer(); ?>

@@ -1,8 +1,3 @@
-.container {
-    max-width: 1064px;
-    padding: 0 20px;
-    margin: 0 auto;
-}
 .floor-plan-page {
 	margin-top: 40px;
 }
@@ -191,9 +186,11 @@
     text-transform: uppercase;
     font-family: "Montserrat";
 }
-.explore-btns a:hover {
-	background: #ed1a3b;
-    color: #fff;
+.explore-btns a:hover,
+.explore-btns a:focus,
+.explore-btns a:active {
+	background: #ed1a3b !important;
+    color: #fff !important;
 }
 /* Become Sponsor Section End */
 

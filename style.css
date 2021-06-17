@@ -93,6 +93,11 @@ a:focus {
 .site a:focus:not(.wp-block-button__link):not(.wp-block-file__button) img {
     outline: none;
 }
+.container {
+    max-width: 1064px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
 /* Custom CSS End */
 
 /* Footer Styling */

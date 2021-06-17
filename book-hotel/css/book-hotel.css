@@ -1,0 +1,306 @@
+/* Flights & accomodation start */
+.flights {
+	margin-bottom: 30px;
+}
+.book-hotel-page {
+	margin-top: 30px;
+}
+.page-title {
+	margin: 10px 0;
+}
+.page-title h2 {
+	text-transform: uppercase;
+	font-size: 22px;
+	font-weight: 600;
+	line-height: 30px;
+	color: #ed1a3b;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #fbd640;
+}
+.book-txt-all {
+	padding-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.book-txt {
+	width: 65%;
+}
+.book-txt p,
+.hotels-sub p,
+.hotel-detail p {
+	margin-bottom: 20px;
+	line-height: 19px;
+	font-size: 14px;
+	font-weight: 400;
+	color: #5e5e5e;
+}
+.book-txt p:last-child,
+.hotels-sub p:last-child {
+	margin-bottom: 0;
+}
+.book-video {
+	width: calc(35% - 20px);
+	margin-left: 20px;
+}
+/* Flights & accomodation end */
+/* Flights Booking form start */
+
+/* Flights Booking form end */
+
+/* Sigma official hotel start */
+.hotels-sub {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+.hotels-sub img {
+	width: 69px;
+	margin-right: 10px;
+}
+.hotels-sub p {
+	font-size: 15px;
+}
+.hotel-imgs {
+	margin: 0 -10px;
+	display: flex;
+	justify-content: center;
+}
+.single-img {
+	width: 20%;
+	padding: 10px;
+}
+.single-img img {
+	border: 2px solid #ed1a3b;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+/* hotel reviews start */
+.hotel-reviews {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -20px;
+}
+.single-hotel {
+    width: calc(25% - 20px * 2);
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid #c4c4c4;
+    padding: 25px 20px;
+    border-radius: 15px;
+}
+.single-hotel.full {
+	width: 100%;
+}.single-hotel.full .show-more {
+	display: none;
+}
+.hotel-reviews .short {
+    text-align: center;
+    min-width: 185px;
+    margin: 0 auto;
+    max-width: 185px;
+}
+.hotel-reviews .short .logo {
+    width: 80%;
+    margin: 0 auto;
+}
+.hotel-reviews .short .logo img {
+    max-width: 98px;
+    max-height: 70px;
+}
+.hotel-reviews .short .rate {
+    margin: 15px auto;
+}
+.hotel-reviews .short .rate i {
+    color: #e9e9e9;
+    font-size: 20px;
+}
+.hotel-reviews .short .rate i.active {
+    color: #f8cc25;
+}
+.hotel-reviews button,
+.hotel-reviews a.more {
+    appearance: none;
+    border: 0;
+    background-color: #6fd13b !important;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 50px;
+    padding: 12px 0;
+    font-size: 16px;
+    color: #fff !important;
+    width: 100%;
+    max-width: 175px;
+    -webkit-transition: all .5s linear;
+    -o-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    transition: all .5s linear;
+    cursor: pointer;
+}
+.hotel-reviews button:hover,
+.hotel-reviews a.more:hover {
+	background-color: #ed1a3b !important;
+	color: #fff !important;
+}
+.hotel-reviews .long {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    position: relative;
+    -webkit-transition: .3s opacity ease;
+    -o-transition: .3s opacity ease;
+    -moz-transition: .3s opacity ease;
+    transition: .3s opacity ease;
+}
+.hotel-reviews .long.open {
+    width: calc(100% - 205px);
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+}
+.hotel-reviews .long .close {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    cursor: pointer;
+    background-color: #b7b7b7;
+    border-radius: 50%;
+    opacity: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hotel-reviews .long .close:before {
+    font-family: "slick";
+    font-size: 30px;
+    line-height: 1;
+    color: #fff;
+    content: '×';
+    line-height: 28px;
+}
+.hotel-detail h3 {
+	color: #ed1a3b;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 19px;
+	text-transform: uppercase;
+	margin: 10px 0;
+}
+.img-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.img-gallery>a {
+    width: calc(32.33% - 15px);
+    margin-right: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.img-gallery>a img {
+    height: 160px !important;
+    max-width: 100%;
+    object-fit: cover;
+}
+.hotel-reviews .long .buttons-wrapper {
+    text-align: right;
+}
+.hotel-reviews .long .buttons-wrapper a.more {
+    font-family: "Montserrat";
+    display: inline-block;
+    margin: 20px 0px 0px auto;
+}
+/* hotel reviews end */
+/* Sigma official hotel end */
+
+/** Star Rating **/
+.sigma-hotels .star-rating {
+	display:  none;
+}
+.sigma-hotels .rate .star-rating {
+	display:  block;
+}
+.star-rating .star-full::before {
+    content: "\f155";
+}
+.star-rating .star-empty::before {
+    content: "\f154";
+}
+.star-rating .star-half::before {
+    content: "\f459";
+}
+.star-rating .star {
+    color: #f8cc25;
+    display: inline-block;
+    font-family: dashicons;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    height: 20px;
+    line-height: 1;
+    text-align: center;
+    text-decoration: inherit;
+    vertical-align: top;
+    width: 20px;
+}
+
+/* Responsive Css Start */
+@media(max-width:1024px) {
+    .single-hotel {
+        width: calc(33.33% - 20px * 2);
+    }
+}
+@media(max-width:767px) {
+	.book-txt-all {
+		flex-wrap: wrap;
+	}
+	.book-txt,
+	.book-video {
+		width: 100%;
+	}
+	.book-video {
+		margin-top: 20px;
+	}
+	.hotel-imgs {
+		flex-wrap: wrap;
+	}
+	.single-img {
+		width: 25%;
+	}
+    .single-hotel {
+        width: calc(50% - 10px * 2);
+        margin: 10px;
+    }
+}
+@media(max-width:650px) {
+	.single-img {
+		width: 50%;
+	}
+    .single-hotel,
+    .hotel-reviews .short,
+    .hotel-reviews .long.open,
+    .img-gallery>a {
+        width: 100%;
+    }
+    .hotel-reviews .long .buttons-wrapper {
+        text-align: center;
+    }
+    .img-gallery>a {
+        margin-right: 0;
+    }
+    .hotel-reviews .long .close {
+        right: -10px;
+        top: -50px;
+    }
+    .img-gallery>a img {
+        width: 100%;
+    }
+}
+/* Responsive Css End */

@@ -8,9 +8,7 @@
 wp_enqueue_style('directory', get_stylesheet_directory_uri().'/floor-plan/css/floor-plan.css'); 
 get_header();
 
-$post_data = $wp_query->get_queried_object();
-$page_id = $post_data->ID;
-
+$page_id = $wp_query->get_queried_object()->ID;
 ?>
 
 <!-- Main floor plan section start -->
@@ -69,10 +67,8 @@ $page_id = $post_data->ID;
 
   <!-- Exhibitors & Partners Section Start -->
   <?php
-  $sponsors_exhibits_term_id = get_field('our_sponsors_exhibitors', $page_id);
-  if(!empty($sponsors_exhibits_term_id)) {
-    echo do_shortcode('[sigma-mt-company-lists term_id = "'.$sponsors_exhibits_term_id[0].'" posts_per_page = "1"]');
-  }
+  $field = get_field('our_sponsors_and_exhibitors', $page_id);
+  echo do_shortcode($field['sponsors_shortcode']);
   ?>
   <!-- Exhibitors & Partners Section End -->
 
@@ -117,21 +113,7 @@ $page_id = $post_data->ID;
   ?>
   <!-- Become Sponsor Section End -->
 
-
-  <div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
-    <div class="container">
-      <div class="newsletter-inner">
-        <h4><?php the_field('newsletter_title', 'option'); ?></h4>
-        <div class="newsletter-form">
-          <?php
-            $newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
-            echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
-                  ?>
-        </div>
-        <p><?php the_field('newsletter_sub_text', 'option'); ?></p>
-      </div>
-    </div>
-  </div>
+  <?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
 
 </div>
 <?php get_footer(); ?>

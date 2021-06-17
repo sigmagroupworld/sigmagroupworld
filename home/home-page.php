@@ -15,8 +15,8 @@ get_header();
 <?php ob_start(); $desktop_banner = get_field('desktop_banner');
 $taxonomy = __( 'news-tag', 'sigmaigaming' );
 $row = 0;
-$post_data = $wp_query->get_queried_object();
-$page_id = $post_data->ID;
+$page_id = $wp_query->get_queried_object()->ID;
+$post_count = '10';
 
 if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
@@ -217,7 +217,7 @@ if ($desktop_banner){ ?>
 					<?php
 					$video_cat = sigma_mt_get_video_term($page_id);
 			      	$term_id = $video_cat[0]->term_id;
-					$videos = sigma_mt_get_videos($term_id, '10');
+					$videos = sigma_mt_get_videos($term_id, $post_count);
 			        $youtube_video_title = get_field('video_title', $videos[0]->ID);
 			        $r = 0;
 					?>
@@ -288,18 +288,7 @@ if ($desktop_banner){ ?>
 <?php
 }
 ?>
-<div class="newsletter" style="background: url(<?php the_field('newsletter_background_image', 'option'); ?>);">
-	<div class="container">
-		<div class="newsletter-inner">
-			<h4><?php the_field('newsletter_title', 'option'); ?></h4>
-			<div class="newsletter-form">
-				<?php
-					$newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
-					echo do_shortcode( '[wpforms id="'.$newsletter_form_id.'"]' );     
-                ?>
-			</div>
-			<p><?php the_field('newsletter_sub_text', 'option'); ?></p>
-		</div>
-	</div>
-</div>
+
+<?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
+
 <?php get_footer(); ?>

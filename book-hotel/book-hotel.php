@@ -1,0 +1,98 @@
+<?php
+/**
+ * Template Name: SigmaMT Book Hotel Page Layout
+ * Created By: Rinkal Petersen
+ * Created at: 22 May 2021
+ */
+/* Book Hotel template css */
+wp_enqueue_style('directory', get_stylesheet_directory_uri().'/book-hotel/css/book-hotel.css');
+get_header();
+
+$page_id = $wp_query->get_queried_object()->ID;
+$flights_accommodation = get_field('flights_and_accommodation');
+$sigma_offical_hotels = get_field('sigma_offical_hotels');
+$hotel_listing = get_field('hotel_listing', $page_id);
+?>
+
+<div class="book-hotel-template">
+	<!-- book hotel page start -->
+	<section class="book-hotel-page">
+	  <div class="container">
+	    <!-- Flights & accomodation start -->
+	    <div class="flights">
+	      <div class="page-title">
+	        <h2><?php echo $flights_accommodation['title']; ?></h2>
+	      </div>
+	      <div class="book-txt-all">
+	        <div class="book-txt">
+	          <p><?php echo $flights_accommodation['description']; ?></p>
+	        </div>
+	        <div class="book-video">
+	          <?php echo $flights_accommodation['video_iframe']; ?>
+	        </div>
+	      </div>
+	    </div>
+	    <!-- Flights & accomodation end -->
+
+	    <!-- Flights Booking form start -->
+	    <div></div>
+	    <!-- Flights Booking form end -->
+
+	    <!-- Sigma official hotel start -->
+	    <div class="sigma-hotels">
+	      <div class="page-title">
+	        <h2><?php echo $sigma_offical_hotels['title']; ?></h2>
+	      </div>
+	      <div class="hotels-sub">
+	        <img src="<?php echo $sigma_offical_hotels['icon']; ?>" alt="">
+	        <p><?php echo $sigma_offical_hotels['text']; ?>.</p>
+	      </div>
+	      <div class="hotel-imgs">
+	      	<?php if(!empty($sigma_offical_hotels['official_photo_gallery'])) {
+	      		foreach($sigma_offical_hotels['official_photo_gallery'] as $image) { ?>
+			        <div class="single-img">
+			          <img src="<?php echo $image['image']; ?>" alt="">
+			        </div>
+		    <?php }
+		    } ?>
+	      </div>	      
+	      <?php echo do_shortcode($sigma_offical_hotels['official_hotel_shortcode']); ?>
+	    </div>
+	    <!-- Sigma official hotel end -->
+
+	    <!-- 5 STAR HOTELS -->
+	    <div class="sigma-hotels">
+			<div class="page-title">
+				<h2><?php echo $hotel_listing['5_star_hotels']['title']; ?></h2>
+			</div>
+		    <?php echo do_shortcode($hotel_listing['5_star_hotels']['shortcode']); ?>
+		</div>
+		<!-- 5 STAR HOTELS end -->
+
+		<!-- 4 STAR HOTELS -->
+	    <div class="sigma-hotels">
+			<div class="page-title">
+				<h2><?php echo $hotel_listing['4_star_hotels']['title']; ?></h2>
+			</div>
+		    <?php echo do_shortcode($hotel_listing['4_star_hotels']['shortcode']); ?>
+		</div>
+		<!-- 4 STAR HOTELS end -->
+
+		<!-- 3 STAR HOTELS -->
+	    <div class="sigma-hotels">
+			<div class="page-title">
+				<h2><?php echo $hotel_listing['3_star_hotels']['title']; ?></h2>
+			</div>
+		    <?php echo do_shortcode($hotel_listing['3_star_hotels']['shortcode']); ?>
+		</div>
+		<!-- 3 STAR HOTELS end -->
+
+	  </div>
+	</section>
+	<!-- book hotel page end -->
+
+</div>
+
+<?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
+
+<?php get_footer(); ?>

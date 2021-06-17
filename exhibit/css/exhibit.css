@@ -1,24 +1,18 @@
-.container {
-    max-width: 1064px;
-    padding: 0 20px;
-    margin: 0 auto;
-}
-
 /* Banner section css start */
-.banner {
+.exhibit-banner {
     min-height: 125px;
     padding: 20px 0;
     position: relative;
     overflow: hidden;
     margin-bottom: 40px;
 }
-.banner.europe {
+.exhibit-banner.europe {
     background: -webkit-linear-gradient(left,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
     background: -moz-linear-gradient(left,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
     background: -o-linear-gradient(left,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
     background: linear-gradient(90deg,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
 }
-.banner:before {
+.exhibit-banner:before {
 	content: "";
     display: inline-block;
     position: absolute;
@@ -32,7 +26,7 @@
     -o-transform: rotate(-25deg);
     transform: rotate(-25deg);
 }
-.banner.europe:before {
+.exhibit-banner.europe:before {
 	background-color: #2364ae;
 }
 .banner-txts {
@@ -66,19 +60,19 @@
 /* Banner section css end */
 
 /* FAQ section css start */
-.faq-sub p,
+.accordion-sub p,
 .suplier-txt p {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 19px;
 	margin-bottom: 20px;
 }
-.faq-sub p a,
+.accordion-sub p a,
 .suplier-txt p a {
 	color: #ed1a3b;
 	text-decoration: underline;
 }
-.box {
+.exhibit .box {
 	width: 92vw;
 	min-width: 300px;
 	position: absolute;
@@ -283,10 +277,10 @@
 .single-package .mid {
 	background-color: #eee;
 }
-.price-wrapper {
+.prize-wrapper {
 	padding: 32px 19px 13px;
 }
-.price-wrapper h3 {
+.prize-wrapper h3 {
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
@@ -635,12 +629,12 @@
 	}
 }
 @media(max-width:570px) {
-	.banner.europe {
+	.exhibit-banner.europe {
 		background: -moz-linear-gradient(left,#2364ae 0%,#ed1a3a 48%,#2364ae 48%,#2364ae 100%) !important;
     	background: -o-linear-gradient(left,#2364ae 0%,#ed1a3a 48%,#2364ae 48%,#2364ae 100%) !important;
     	background: linear-gradient(90deg,#2364ae 0%,#2364ae 48%,#2364ae 48%,#2364ae 100%) !important;
 	}
-	.banner:before {
+	.exhibit-banner:before {
 		display: none;
 	}
 	.banner-txts {

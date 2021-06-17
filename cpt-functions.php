@@ -565,3 +565,93 @@ function sigma_mt_tags_sponsoring(){
 		)
 	);
 }
+
+// create a Custom post type Hotel
+add_action('init', 'sigma_mt_hotel_custom_posts');
+function sigma_mt_hotel_custom_posts() {
+	register_post_type('hotel-items', array(
+		'labels' => array(
+			'name' => __('Hotel', 'sigmaigaming'),
+			'singular_name' => __('Hotel', 'sigmaigaming'),
+			'menu_name' => __('Hotel', 'sigmaigaming'),
+			'add_new' => __('Add Hotel Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Hotel Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Hotel Item', 'sigmaigaming'),
+			'new_item' => __('Hotel Items', 'sigmaigaming'),
+			'view_item' => __('View Hotel Items', 'sigmaigaming'),
+			'search_items' => __('Search Hotel Items', 'sigmaigaming'),
+			'not_found' => __('No Hotel Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Hotel Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'hotels'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post taxonomy for Hotel post
+add_action( 'init', 'sigma_mt_taxonomies_hotel', 0 );
+function sigma_mt_taxonomies_hotel(){
+	register_taxonomy('hotel-cat', array('hotel-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Hotel Categories', 'sigmaigaming'),
+				'singular_name' => __('Hotel Category', 'sigmaigaming'),
+				'search_items' => __('Search Hotel Category', 'sigmaigaming'),
+				'all_items' => __('All Hotel Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Hotel Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Hotel Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Hotel Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Hotel Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Hotel Category', 'sigmaigaming'),
+				'new_item_name' => __('New Hotel Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-hotel')
+		)
+	);
+}
+
+// create a Custom post type Awards
+add_action('init', 'sigma_mt_awards_custom_posts');
+function sigma_mt_awards_custom_posts() {
+	register_post_type('award-items', array(
+		'labels' => array(
+			'name' => __('Awards', 'sigmaigaming'),
+			'singular_name' => __('Award', 'sigmaigaming'),
+			'menu_name' => __('Awards', 'sigmaigaming'),
+			'add_new' => __('Add Award Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Award Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Award Item', 'sigmaigaming'),
+			'new_item' => __('Award Items', 'sigmaigaming'),
+			'view_item' => __('View Award Items', 'sigmaigaming'),
+			'search_items' => __('Search Award Items', 'sigmaigaming'),
+			'not_found' => __('No Award Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Award Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'awards'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post taxonomy for Awards post
+add_action( 'init', 'sigma_mt_taxonomies_award', 0 );
+function sigma_mt_taxonomies_award(){
+	register_taxonomy('award-cat', array('award-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Award Categories', 'sigmaigaming'),
+				'singular_name' => __('Award Category', 'sigmaigaming'),
+				'search_items' => __('Search Award Category', 'sigmaigaming'),
+				'all_items' => __('All Award Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Award Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Award Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Award Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Award Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Award Category', 'sigmaigaming'),
+				'new_item_name' => __('New Award Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-award')
+		)
+	);
+}
