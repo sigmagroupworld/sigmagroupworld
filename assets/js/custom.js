@@ -67,6 +67,8 @@ jQuery(document).ready(function($) {
 			if (e.target.class != "s-form") {
 				$('.search-field').val('');
 				$('.s-form.open #search-results li').remove();
+				$('.s-form.open .hs-search-field__suggestions').hide();
+			    $('.s-form.open .hs-search-field__suggestions').css('display', 'none');
 			}
 		});
 	})
@@ -171,6 +173,43 @@ jQuery(document).ready(function($) {
 	});
 	/** Load more people ***/
 
+	//testimonial slider start
+	$('.europe-gaming-awards-template .testimonial-slider').slick({
+	  	infinite: true,
+	});
+	//testimonial slider end
+
+	/** Book Hotel Toggle ***/
+	openHotel = (elementId, expandDivId) => {
+		$('#'+expandDivId).addClass('open');
+	    $('#'+elementId).addClass('full');
+	}
+	closeHotel = (elementId, expandDivId) => {
+		$('#'+expandDivId).removeClass('open');
+	    $('#'+elementId).removeClass('full');
+	}
+	/** Book Hotel Toggle end ***/
+
+
+	/** Hosts script start **/
+	openHostsDiv = (elementId) => {
+		$('#'+elementId).toggleClass('person-open');
+	}
+	/** Hosts script start end **/
+	// charity auction script start
+	openCharityDiv = (elementId) => {
+		$('#'+elementId).toggleClass('full');
+	}
+	// charity auction script end 
+
+	// Awards script start
+	openAward = (elementId) => {
+		$('#'+elementId).addClass('open');
+	}
+	closeAward = (elementId) => {
+		$('#'+elementId).removeClass('open');
+	}
+  // Awards script end
 });
 
 /** Casino Provider Details Tab ***/
@@ -239,28 +278,7 @@ function openModal(elementId, modalId, closeId) {
 }
 /** Sponsors modal popup Detail end ***/
 
-/** Book Hotel Toggle ***/
-function openHotel(elementId, expandDivId) {
-	jQuery('#'+expandDivId).addClass('open');
-    jQuery('#'+elementId).addClass('full');
-}
-function closeHotel(elementId, expandDivId) {
-	jQuery('#'+expandDivId).removeClass('open');
-    jQuery('#'+elementId).removeClass('full');
-}
-/** Book Hotel Toggle end ***/
-
 /** Europe Gaming Page **/
-	/** Hosts script start **/
-	function openHostsDiv(elementId) {
-		jQuery('#'+elementId).toggleClass('person-open');
-	}
-	/** Hosts script start end **/
-	// charity auction script start
-	function openCharityDiv(elementId) {
-		jQuery('#'+elementId).toggleClass('full');
-	}
-	// charity auction script end 
 	// sitting down script start
 	  function tabArrangments(evt, down) {
 	    var i, itemcontent, iconbtn;

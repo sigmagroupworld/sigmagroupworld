@@ -16,6 +16,7 @@ $judges = get_field('judges', $page_id);
 $charity_auction_items = get_field('charity_auction_items', $page_id);
 $faq = get_field('faq', $page_id);
 $meet_the_past_winners = get_field('meet_the_past_winners', $page_id);
+$testimonials = get_field('testimonials', $page_id);
 ?>
 <div class="europe-gaming-awards-template">
 	<!-- banner section start -->
@@ -177,21 +178,20 @@ $meet_the_past_winners = get_field('meet_the_past_winners', $page_id);
 	  </div>
 	</section>
 	<!-- Past winner section start -->
+
+	<!-- Testimonial section start --> 
+	<section class="testimonial">
+	  <div class="container">
+	    <div class="page-title">
+	      <h2 style="color: #13375b;"><?php echo $testimonials['title']; ?></h2>
+	    </div>
+	    <?php echo do_shortcode($testimonials['shortcode']); ?>
+	  </div>
+	</section>
+	<!-- Testimonial section end --> 
+
 </div>
 
 <?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
-
-<script>
-  // Awards script start
-  jQuery(function() {
-    jQuery('span.more').on('click',function () {
-      jQuery('div.award-box').addClass('open');
-    });
-    jQuery('span.less').on('click',function () {
-      jQuery  ('div.award-box').removeClass('open');   
-    });
-  });
-  // Awards script end
-</script>
 
 <?php get_footer(); ?>

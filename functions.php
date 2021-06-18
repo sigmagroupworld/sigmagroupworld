@@ -720,6 +720,7 @@ function sigma_mt_get_company($atts) {
     $sponsors_and_exhibitors = __( 'SPONSORS And EXHIBITORS', 'sigmaigaming' );
     $our_trusted_suppliers = get_field('our_trusted_suppliers');
     $our_trusted_suppliers_text = __( 'OUR TRUSTED SUPPLIERS', 'sigmaigaming' );
+    $meet_the_past_winners = get_field('meet_the_past_winners');
     if($term_name->name === $supported_cat) {
         $main_class = 'supported';
         $sub_class = 'supported-logo';
@@ -756,32 +757,76 @@ function sigma_mt_get_company($atts) {
     );
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
-        $content .= '<section class="'.$main_class.'">
-                        <div class="container">
-                            <div class="about-section-title">
-                                <h2>'. $category_title .'</h2>
-                            </div>';
-                            if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
-                                $content .= '<div class="suplier-txt">
-                                    <p>'.$our_trusted_suppliers['trusted_splliers_text'].'</p>
-                                </div>';
-                            }
-                            $content .= '<div class="'.$sub_class.'">';
+        if($meet_the_past_winners['category_title'] === $term_name->name) {
+            $year = $atts['year'];
+            //echo '<pre>'; print_r(); 
+            $args = array( 
+                    //'date_query' => array( array( 'before' => '-1 year' ) ),    
+                    'posts_per_page' => $posts_per_page,
+                    'post_type' => $post_type,
+                    'orderby'        => 'DESC',
+                    'post_status'    => 'publish',
+                    'tax_query' => array(
+                          array(
+                              'taxonomy' => $taxonomy,
+                              'field' => 'term_id',
+                              'terms' => $term_id,
+                          )
+                    ),
+                    'date_query' => array(
+                        array(
+                            'after'     => 'January 1st, '.$year.'',
+                            'before'    => 'December 31st, '.$year.'',
+                            'inclusive' => true,
+                        ),
+                    ),
+            );
+            $get_posts = get_posts($args);
+            if(!empty($get_posts)) {
+                $content .= '<div class="all-winners">';
                                 foreach($get_posts as $k => $post) {
                                     $company_details = get_field('company_details', $post->ID);
-                                    $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
-                                    $content .= '<div class="'.$single_class.'">';
-                                        if(!empty($company_details)) { $content .= '<a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>'; }
-                                    $content .= '</div>';
+                                    $content .= '<div class="single-winner">
+                                                    <h3>'.$post->post_title.'</h3>
+                                                    <div class="winner-img">
+                                                        <img src="'.$company_details['company_logo'] .'" alt="nomination logo">
+                                                    </div>
+                                                </div>';
                                 }
                             $content .= '</div>';
-                            if(!empty($our_trusted_suppliers['single_company_shortcode'])) {
-                                foreach($our_trusted_suppliers['single_company_shortcode'] as $k => $value) {
-                                    $shortcode = do_shortcode($value['shortcode']);
-                                    $content .= $shortcode;
+            } else {
+                $content .= '';
+            }
+        } else {
+            $content .= '<section class="'.$main_class.'">
+                            <div class="container">
+                                <div class="about-section-title">
+                                    <h2>'. $category_title .'</h2>
+                                </div>';
+                                if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
+                                    $content .= '<div class="suplier-txt">
+                                        <p>'.$our_trusted_suppliers['trusted_splliers_text'].'</p>
+                                    </div>';
                                 }
-                            }
-                    $content .= '</section>';
+                                $content .= '<div class="'.$sub_class.'">';
+                                    foreach($get_posts as $k => $post) {
+                                        $company_details = get_field('company_details', $post->ID);
+                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                        $content .= '<div class="'.$single_class.'">';
+                                            if(!empty($company_details)) { $content .= '<a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>'; }
+                                        $content .= '</div>';
+                                    }
+                                $content .= '</div>';
+                                if(!empty($our_trusted_suppliers['single_company_shortcode'])) {
+                                    foreach($our_trusted_suppliers['single_company_shortcode'] as $k => $value) {
+                                        $shortcode = do_shortcode($value['shortcode']);
+                                        $content .= $shortcode;
+                                    }
+                                }
+                        $content .= '</section>';            
+        }
+
+
     }
     return $content;
 }
@@ -1153,7 +1198,7 @@ function sigma_mt_get_awards($atts) {
                             $award_logo = get_field('award_logo', $post->ID);
                             $sponsored_logo = get_field('sponsored_logo', $post->ID);
                             $description = get_field('description', $post->ID);
-                            $content .= '<div class="award-box">
+                            $content .= '<div class="award-box" id="award-box'.$post->ID.'">
                                             <div class="box">
                                                 <div class="top">
                                                     <img src="'.$award_logo.'" alt="">
@@ -1164,8 +1209,8 @@ function sigma_mt_get_awards($atts) {
                                                     </div>
                                                 </div>
                                                 <div class="bottom">
-                                                    <span class="more">'. __( 'Read More', 'sigmaigaming' ).'</span>
-                                                    <span class="less">'. __( 'Read Less', 'sigmaigaming' ).'</span>
+                                                    <span class="more" onclick="openAward(\'award-box'.$post->ID.'\')">'. __( 'Read More', 'sigmaigaming' ).'</span>
+                                                    <span class="less" onclick="closeAward(\'award-box'.$post->ID.'\')">'. __( 'Read Less', 'sigmaigaming' ).'</span>
                                                 </div>
                                             </div>
                                             <div class="discription">
@@ -1179,7 +1224,7 @@ function sigma_mt_get_awards($atts) {
 }
 
 
-//Shortcode to get videos.
+//Shortcode to get seating arrangments.
 add_shortcode( 'sigma-mt-seating-arrangments', 'sigma_mt_seating_arrangments' );
 function sigma_mt_seating_arrangments($atts) {
     $content = '';
@@ -1233,6 +1278,49 @@ function sigma_mt_seating_arrangments($atts) {
                           <p>'.$are_you_sitting_down_info['arrangements']['title_sponsor']['description'].'</p>
                         </div>
                       </div>';
+    }
+    return $content;
+}
+
+//shortcode to get Testimonial
+add_shortcode( 'sigma-mt-get-testimonials', 'sigma_mt_get_testimonials' );
+function sigma_mt_get_testimonials($atts) {
+    $content = '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $post_args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'testimonial-items',
+      'orderby'        => 'rand',
+      'post_status'    => 'publish'
+    );
+    $testimonials = get_posts($post_args);
+    if(!empty($testimonials)) {
+        $content .= '<div class="testimonial-slider">';
+                        foreach($testimonials as $k => $testimonial) {
+                            $company = get_field('testimonial_company', $testimonial->ID);
+                            $people = get_field('people_relationship', $testimonial->ID);
+                            //echo '<pre>'; print_r($people);
+                            $content .= '<div class="testi-slide">
+                                            <div class="testimonial-inner">
+                                              <div class="client-image">';
+                                                foreach($people as $id) {
+                                                    $people_icon = get_field('image_icon', $id);
+                                                    $content .= '<img src="'.$people_icon.'" alt="">';
+                                                }
+                                              $content .= '</div>
+                                              <div class="client-txt">';
+                                                foreach($people as $id) {
+                                                    $content .= '<h4 class="testimonial-title">'.get_the_title($id).'</h4>';
+                                                }
+                                                $content .= '<div class="testimonial-info">
+                                                  <h4 class="testimonial-company">'.$company.'</h4>
+                                                  <p>'.$testimonial->post_content.'</p>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>';
+                        }
+                    $content .= '</div>';
     }
     return $content;
 }

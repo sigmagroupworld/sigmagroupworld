@@ -16,20 +16,23 @@
 }
 .search-content ul li {
 	border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
+    padding: 20px 0;
 }
 .search-content ul li a {
 	font-size: 21px;
-	font-weight: 400;
-	line-height: 29px;
-	color: #ed1a3b;
+    font-weight: 400;
+    line-height: 0px;
+    color: #ed1a3b !important;
+    font-family: 'Montserrat';
 }
 .search-content ul li p {
 	font-size: 16px;
 	font-weight: 400;
 	color: #000;
 	line-height: 22px;
-	margin-bottom: 20px;
+	font-family: 'Montserrat';
+	/*margin-bottom: 20px;*/
 }
 .pagination {
 	display: flex;
@@ -60,4 +63,14 @@
     color: #fff !important;
     outline: none !important;
     background: #ed1a3b !important;
+}
+
+.has-background-white .site #search-results li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
+.has-background-white .site .search-content li a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	background: none !important;
+}
+.site #search-results li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
+.site .search-content li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
+.site .pagination .search-pagination a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	text-decoration: none !important;
 }
