@@ -186,19 +186,19 @@ $casino_provider = get_field('casino_details', $post_id);
 			</div>
 			<!-- Related Article Section -->
 			<?php if(isset($casino_provider['news_articles']) && !empty($casino_provider['news_articles'])) { ?>
-			    <div class="related-articles">
+			    <div class="casino related-articles">
 			    	<h3 class="related-title"><?php _e( 'Related article', 'sigmaigaming' ); ?></h3>
 					<div class="articles-slide">
 						<?php foreach($casino_provider['news_articles'] as $k => $item) {
 							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' ); ?>
-							<div class="testimonial">
+							<a href="<?php echo get_permalink($item->ID); ?>"><div class="testimonial">
 								<div class="testi-details">
 									<img src="<?php echo $featured_image[0]; ?>" alt="<?php echo $item->post_title; ?>" />
 									<div class="post-title">
 										<h3><?php echo $item->post_title; ?></h3>
 									</div>
 								</div>
-							</div>
+							</div></a>
 						<?php } ?>
 					</div>
 			    </div>

@@ -3,6 +3,9 @@
     padding: 0 20px;
     margin: 0 auto;
 }
+.search-page-title {
+	margin-bottom: 30px;
+}
 .search-page-title h2 {
 	font-size: 22px;
 	font-weight: 600;
@@ -73,4 +76,7 @@
 .site .search-content li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
 .site .pagination .search-pagination a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
 	text-decoration: none !important;
+}
+.pagination {
+	border: none !important;
 }

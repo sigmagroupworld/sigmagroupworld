@@ -655,3 +655,26 @@ function sigma_mt_taxonomies_award(){
 		)
 	);
 }
+
+// create a Custom post type Logos
+add_action('init', 'sigma_mt_logos_custom_posts');
+function sigma_mt_logos_custom_posts() {
+	register_post_type('logo-items', array(
+		'labels' => array(
+			'name' => __('Logos', 'sigmaigaming'),
+			'singular_name' => __('Logo', 'sigmaigaming'),
+			'menu_name' => __('Logos', 'sigmaigaming'),
+			'add_new' => __('Add Logo Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Logo Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Logo Item', 'sigmaigaming'),
+			'new_item' => __('Logo Items', 'sigmaigaming'),
+			'view_item' => __('View Logo Items', 'sigmaigaming'),
+			'search_items' => __('Search Logo Items', 'sigmaigaming'),
+			'not_found' => __('No Logo Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Logo Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'logos'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}

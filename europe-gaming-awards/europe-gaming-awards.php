@@ -2,7 +2,7 @@
 /**
  * Template Name: SigmaMT Europe Gaming Awards Page Layout
  * Created By: Rinkal Petersen
- * Created at: 22 May 2021
+ * Created at: 16 June 2021
  */
 /* Europe Gaming Awards template css */
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/europe-gaming-awards/css/europe-gaming-awards.css'); 

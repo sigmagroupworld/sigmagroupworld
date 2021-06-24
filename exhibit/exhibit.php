@@ -5,6 +5,7 @@
  * Created at: 22 May 2021
  */
 /* Exhibit template css */
+wp_enqueue_style('home', get_stylesheet_directory_uri().'/exhibit/css/exhibit.css'); 
 get_header();
 
 $page_id = $wp_query->get_queried_object()->ID;

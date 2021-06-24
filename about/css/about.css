@@ -305,6 +305,9 @@ section.about-banner {
 	align-items: center;
 	display: flex;
 } 
+.single-exhibitor a:focus {
+	background: transparent !important;
+}
 /* Exhibitors & Partners section css End */
 
 /* Floor Plan Section Css start */

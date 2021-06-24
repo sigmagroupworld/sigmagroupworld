@@ -77,7 +77,7 @@ if ($why_sigma){ ?>
 <!-- SUPPORTED BY Section Start -->
 <?php 
 $field = get_field('supported_by', $page_id);
-echo do_shortcode($field['suppored_by_shortcode']); ?>
+echo do_shortcode($field['supported_by_shortcode']); ?>
 <!-- SUPPORTED BY Section end -->
 
 <?php ob_start(); $for_advertisement = get_field('add_banner');

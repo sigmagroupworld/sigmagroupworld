@@ -9,12 +9,13 @@ require_once get_stylesheet_directory().'/class/class-custom-widget.php';
 add_action( 'wp_enqueue_scripts', 'sigma_mt_enqueue_styles', PHP_INT_MAX);
 function sigma_mt_enqueue_styles() {
     $parent_style = 'adforest-style'; // This is 'adforest-style' for the AdForest theme.
-    wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array( $parent_style ),
         wp_get_theme()->get('Version')
-    );
+    );   
+    wp_enqueue_style('sigmamt-responcive', CHILD_DIR . '/assets/css/responsive.css');
+    wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
 }
 
 // load js files in footer & style in header start
@@ -25,13 +26,14 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
-    wp_enqueue_style('sigmamt-exhibits', CHILD_DIR .'/exhibit/css/exhibit.css'); 
-    wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css'); 
+    wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css');
+    wp_enqueue_style('sigmamt-slick-style', CHILD_DIR . '/assets/css/slick-theme.css');
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
+    
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 
-    if (is_page('Online Casinos') || is_post_type('casinos-items')) {
+    if (is_page('Online Casinos') || is_post_type('casinos-items') || is_page('sigma-pitch-2021') || is_page('sigma-foundation') || is_page('affiliate-grand-slam') ) {
         wp_enqueue_style('directory', get_stylesheet_directory_uri().'/online-casinos/css/online-casinos.css');
     }
 
@@ -457,11 +459,16 @@ function sigma_mt_get_people_list($atts) {
     $person_email       = isset($atts['person_email']) ? $atts['person_email'] : 'no';
     $person_phone       = isset($atts['person_phone']) ? $atts['person_phone'] : 'no';
     $person_skype       = isset($atts['person_skype']) ? $atts['person_skype'] : 'no';
+    $telegram       = isset($atts['telegram']) ? $atts['telegram'] : 'no';
     $load_more = __( 'Load More', 'sigmaigaming' );
     $tag_category = get_term_by('id', $term_id, $taxonomy);
     $term_name = $tag_category->name;
     $hosts = get_field('hosts');
     $judges = get_field('judges');
+    $our_experts = get_field('our_experts');
+    $appearanceVal = __( 'Regular', 'sigmaigaming' );
+    $appearanceHJVal = __( 'Host and Judge', 'sigmaigaming' );
+    //echo '<pre>'; print_r($our_experts);
     if ( is_page( array( 'exhibit') ) ) {
         $main_class = 'contact-us';
         $sub_class = 'all-person';
@@ -469,40 +476,53 @@ function sigma_mt_get_people_list($atts) {
         $heading = __( 'CONTACT US', 'sigmaigaming' );
         $button = '';
         $desc = '';
-    } else if ( !is_page( array( 'europe-gaming-awards') ) ) {
+    } else if($appearance === $appearanceVal) {
         $main_class = 'speakers';
         $sub_class = 'all-speakers';
         $single_class = 'single-speaker';
         $heading = isset($speakers_text['speaker_title']) ? $speakers_text['speaker_title'] : '';
         $button = '<div class="load-people"><button class="load-more" id="load-more">'.$load_more.'</button></div></div>';
-        $desc = $speakers_text['speaker_text'];
-    } else if ($term_name === $hosts['title']) {
+        $desc = isset($speakers_text['speaker_text']) ? $speakers_text['speaker_text'] : '';
+    } else if (!empty($hosts['title']) && $term_name === $hosts['title'] || $appearance === $appearanceHJVal) {
         $main_class = 'hosts';        
-        $heading = $hosts['title'];
+        $heading = isset($hosts['title']) ? $hosts['title'] : '';
         $sub_class = 'person-item';
+        $button = '';
+        $desc = '';
+    } else if (!empty($our_experts['title']) && $term_name === $our_experts['title']) {
+        $main_class = 'our-experts';        
+        $heading = $our_experts['title'];
+        $sub_class = 'all-experts expert-slider';
+        $button = '';
+        $desc = '';
+    } else if($term_id === '1191') {
+        $main_class = 'meet-investor';        
+        $heading = '';
+        $sub_class = 'all-experts investor-slider';
+        $single_class = 'investor-slide';
         $button = '';
         $desc = '';
     } else {
         $main_class = 'judges';        
-        $heading = $judges['title'];
+        $heading = isset($judges['title']) ? $judges['title'] : '';
         $sub_class = 'all-judges';
         $button = '';
-        $desc = $judges['description'];
+        $desc = isset($judges['description']) ? $judges['description'] : '';
     }
     $get_posts = array();
+    //$term_id = explode(',', $term_id);
     if(!empty($term_id)) {
         $post_args = array(
-          'posts_per_page' => $posts_per_page,
-          'post_type' => $post_type,
-          'orderby'        => 'DESC',
-          'post_status'    => 'publish',
-          'paged' => 1,
-          'tax_query' => array(
-                'relation' => 'OR',
+            'posts_per_page' => $posts_per_page,
+            'post_type' => $post_type,
+            'orderby'        => 'DESC',
+            'post_status'    => '',
+            'paged'          => 1,
+            'tax_query' => array(
                 array(
                   'taxonomy' => $taxonomy,
                   'field' => 'term_id',
-                  'terms' => $term_id,
+                  'terms' => explode(',', $term_id),
                 )
             )
         );
@@ -515,8 +535,9 @@ function sigma_mt_get_people_list($atts) {
           'post_status'    => 'publish',
           'paged' => 1
         );
-        $get_posts = get_posts($post_args);
+        $get_posts = get_posts($get_posts);
     }
+    //echo '<pre>'; print_r($post_args); echo '</pre>';
     if(!empty($get_posts)) {
         $content .= '<section class="'.$main_class.'">
                         <div class="container">
@@ -529,18 +550,24 @@ function sigma_mt_get_people_list($atts) {
                                     $title = $post->post_title;
                                     $people_icon = get_field('image_icon', $post->ID);
                                     $people_designation = get_field('designation', $post->ID);
-                                    $people_company = get_field('company', $post->ID);
                                     $person_email_val = get_field('email', $post->ID);
                                     $person_phone_no = get_field('telephone_number', $post->ID);
                                     $person_skype_id = get_field('skype_id', $post->ID);
+                                    $person_telgram = get_field('telegram', $post->ID);
                                     $language_icon = get_field('language_icon', $post->ID);
-                                    $apperenceVal = __( 'Normal', 'sigmaigaming' );
-                                    if($appearance === $apperenceVal) {
+                                    $people_company = $companyObjectID = get_field('company', $post->ID);
+                                    $companyLogo = get_field('company_details', $companyObjectID);
+                                    if(!empty($companyLogo)) {
+                                        $companyLogo = $companyLogo['company_logo'];
+                                    } else {
+                                        $companyLogo = '';
+                                    }
+                                    if($appearance === $appearanceVal) {
                                         $content .= '<div class="'.$single_class.'">';
                                             if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
                                             if($person_name === 'YES' && !empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
                                             if($person_position === 'YES' && !empty($people_designation)) { $content .= '<p>'. $people_designation .'</p>'; }
-                                            if($person_company === 'YES' && !empty($people_company)) { $content .= '<p>'. $people_company->post_title .'</p>'; }
+                                            if($person_company === 'YES' && !empty($people_company)) { $content .= '<p>'. get_the_title($companyObjectID) .'</p>'; }
                                             if($person_language === 'YES' && !empty($language_icon)) { 
                                                 $content .= '<div class="lang">';
                                                                 foreach($language_icon as $icon) {
@@ -549,12 +576,13 @@ function sigma_mt_get_people_list($atts) {
                                                             $content .= '</div>'; 
                                             }
                                             $content .= '<div class="person-social">';
-                                                            if($person_email === 'YES' && !empty($person_email_val)) { $content .= '<p>E: <a href="mailto:'.$person_email_val.'">'.$person_email_val.'</a></p>'; }
-                                                            if($person_phone === 'YES' && !empty($person_phone_no)) { $content .= '<p>T: <a href="tel:'.$person_phone_no.'">'.$person_phone_no.'</a></p>'; }
-                                                            if($person_skype === 'YES' && !empty($person_skype_id)) { $content .= '<p>S: <a href="skype:'.$person_skype_id.'?call">'.$person_skype_id.'</a></p>'; }
+                                                            if($person_email === 'YES' && !empty($person_email_val)) { $content .= '<p><span>E:</span> <a href="mailto:'.$person_email_val.'"><i class="fa fa-envelope" aria-hidden="true"></i>'.$person_email_val.'</a></p>'; }
+                                                            if($person_phone === 'YES' && !empty($person_phone_no)) { $content .= '<p><span>T:</span> <a href="tel:'.$person_phone_no.'"><i class="fa fa-phone" aria-hidden="true"></i>'.$person_phone_no.'</a></p>'; }
+                                                            if($person_skype === 'YES' && !empty($person_skype_id)) { $content .= '<p><span>S:</span> <a href="skype:'.$person_skype_id.'?call"><i class="fab fa-skype"></i>'.$person_skype_id.'</a></p>'; }
+                                                            if($telegram === 'YES' && !empty($person_telgram)) { $content .= '<p><span>Telegram:</span> <a href="skype:'.$person_telgram.'?call"><i class="fab fa-telegram" aria-hidden="true"></i>'.$person_telgram.'</a></p>'; }
                                                         $content .= '</div>';
                                         $content .= '</div>';
-                                    } else if ($term_name === $hosts['title']) {
+                                    } else if (!empty($hosts['title']) && $term_name === $hosts['title'] ) {
                                         $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
                                                         <div class="person-left">
                                                              <div class="person-avatar-img">';
@@ -574,17 +602,82 @@ function sigma_mt_get_people_list($atts) {
                                                             <p>'.$post->post_content.'</p>
                                                         </div>
                                                     </div>';
+                                    } else if(!empty($our_experts['title']) && $term_name === $our_experts['title']) {
+                                        $content .= '<div class="expert-slide">
+                                                        <div class="expert-box">
+                                                            <div class="expert-img">';
+                                                                if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                                            $content .= '</div>
+                                                            <div class="expert-info">
+                                                                <div class="expert-info">';
+                                                                    if(!empty($companyLogo)) {
+                                                                        $content .= '<div class="expert-logo">
+                                                                            <img src="'.$companyLogo.'" alt="">
+                                                                        </div>';
+                                                                    }
+                                                                    $content .= '<h2>'.$post->post_title.'</h2>
+                                                                    <h3>'.$people_designation.'</h3>
+                                                                </div>';
+                                                            $content .= '</div>
+                                                        </div>
+                                                    </div>';
+                                    } else if($appearance === $appearanceHJVal) {
+                                        $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
+                                                        <div class="person-left">
+                                                             <div class="person-avatar-img">';
+                                                                if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                                                if(!empty($post->post_content)) {
+                                                                    $content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
+                                                                                    <div></div>
+                                                                                </div>';
+                                                                }
+                                                            $content .= '</div>
+                                                            <div class="person-detail">
+                                                                <h3>'.$post->post_title.'</h3>
+                                                                <h4>'.$people_designation.'</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="person-right">
+                                                            <p>'.$post->post_content.'</p>
+                                                        </div>
+                                                    </div>';
+                                    } else if($term_id === '1191') {
+                                        $content .= '<div class="investor-slide"><div class="investor-box">
+                                                        <div class="investor-img">';
+                                                            if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                                        $content .= '</div>
+                                                        <div class="investor-info">';
+                                                            if(!empty($companyLogo)) {
+                                                                $content .= '<div class="investor-logo">
+                                                                    <img src="'.$companyLogo.'" alt="">
+                                                                </div>';
+                                                            }
+                                                            $content .= '<h2>'.$post->post_title.'</h2>';
+                                                            if($person_position === 'YES' && !empty($people_designation)) { 
+                                                                $content .= '<div class="desc"><h3>'. $people_designation .'</h3></div>'; 
+                                                            }
+                                                        $content .= '</div></div>
+                                                    </div>';
                                     } else {
                                         $content .= '<div class="judge-box">
                                                         <div class="judge-img">';
                                                             if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
                                                         $content .= '</div>
-                                                        <div class="judge-info">
-                                                            <h2>'.$post->post_title.'</h2>';
+                                                        <div class="judge-info">';
+                                                            if(!empty($companyLogo)) {
+                                                                $content .= '<div class="expert-logo">
+                                                                    <img src="'.$companyLogo.'" alt="">
+                                                                </div>';
+                                                            }
+                                                            $content .= '<h2>'.$post->post_title.'</h2>';
                                                             if($person_company === 'YES' && !empty($people_company)) { 
-                                                                $content .= '<div class="desc"><p>'. $people_company->post_title .'</div></p>'; }
-                                                            if($person_position === 'YES' && !empty($people_designation)) { $content .= '<h3>'. $people_designation .'</h3>'; }
-                                                        $content .= '</div>
+                                                                $content .= '<div class="desc">
+                                                                <p>'. get_the_title($companyObjectID) .'</p>'; 
+                                                            }
+                                                            if($person_position === 'YES' && !empty($people_designation)) { 
+                                                                $content .= '<h3>'. $people_designation .'</h3>'; 
+                                                            }
+                                                        $content .= '</div></div>
                                                     </div>';
                                     }
                                 }
@@ -594,9 +687,11 @@ function sigma_mt_get_people_list($atts) {
                             <input type="hidden" value="'.$person_image.'" id="person_image">
                             <input type="hidden" value="'.$person_name.'" id="person_name">
                             <input type="hidden" value="'.$person_position.'" id="person_position">
-                            <input type="hidden" value="'.$person_company.'" id="person_company">
-                            '.$button.'
-                    </section>';
+                            <input type="hidden" value="'.$person_company.'" id="person_company">';
+                            if ( is_page( array( 'europe') ) ) {
+                                $content .= ''.$button.'';
+                            }
+                    $content .= '</section>';
     }
     return $content;
 }
@@ -641,7 +736,7 @@ function load_people_by_ajax_callback() {
                 if($person_image === 'YES') { $content .= '<img src="'. $people_icon .'" alt="">'; }
                 if($person_name === 'YES') { $content .= '<h3>'.$post->post_title.'</h3>'; }
                 if($person_position === 'YES') { $content .= '<h4>'. $people_designation .'</h4>'; }
-                if($person_company === 'YES') { $content .= '<p>'. $people_company->post_title .'</p>'; }
+                if($person_company === 'YES') { $content .= '<p>'. get_the_title($people_company) .'</p>'; }
             $content .= '</div>';
             echo $content;
         }
@@ -650,23 +745,33 @@ function load_people_by_ajax_callback() {
 }
 
 //function to get videos.
-function sigma_mt_get_videos($term_id, $posts_per_page) {
+function sigma_mt_get_videos($term_id, $posts_per_page, $appearance = '', $year = '') {
     $taxonomy = 'videos-cat';
     $post_type = 'video-items';
-    $post_args = array(
-      'posts_per_page' => $posts_per_page,
-      'post_type' => $post_type,
-      'orderby'        => 'ASC',
-      'post_status'    => 'publish',
-      'tax_query' => array(
-              array(
-                  'taxonomy' => $taxonomy,
-                  'field' => 'term_id',
-                  'terms' => $term_id,
+    if(!empty($appearance) && empty($term_id)) {
+        $post_args = array( 
+            'posts_per_page' => $posts_per_page,
+            'post_type' => $post_type,
+            'orderby'        => 'DESC',
+            'post_status'    => 'publish',
+        );
+        $get_posts = new WP_Query($post_args);
+    } else {
+         $post_args = array(
+          'posts_per_page' => $posts_per_page,
+          'post_type' => $post_type,
+          'orderby'        => 'ASC',
+          'post_status'    => 'publish',
+          'tax_query' => array(
+                  array(
+                      'taxonomy' => $taxonomy,
+                      'field' => 'term_id',
+                      'terms' => $term_id,
+                  )
               )
-          )
-    );
-    $get_posts = get_posts($post_args);
+        );
+        $get_posts = get_posts($post_args);
+    }
     return $get_posts;
 }
 
@@ -674,19 +779,57 @@ function sigma_mt_get_videos($term_id, $posts_per_page) {
 add_shortcode( 'sigma-mt-about-videos', 'sigma_mt_get_about_videos' );
 function sigma_mt_get_about_videos($atts) {
     $value = shortcode_atts( array(
-        'term_id'       => $atts['term_id'],
-        'posts_per_page' => $atts['posts_per_page']
+        'term_id'       => isset($atts['term_id']) ? $atts['term_id'] : '',
+        'posts_per_page' => $atts['posts_per_page'],
+        'year' => isset($atts['year']) ? $atts['year'] : '',
+        'appearance' => isset($atts['appearance']) ? $atts['appearance'] : '',
     ), $atts );
     $content = '';
+    $appearanceVal = __( 'Grid', 'sigmaigaming' );
     $term_id = $value['term_id'];
     $posts_per_page = $value['posts_per_page'];
-    $get_videos = sigma_mt_get_videos($term_id, $posts_per_page);
+    $year = $value['year'];
+    $posts_by_year = [];
+    $get_videos = sigma_mt_get_videos($term_id, $posts_per_page, $value['appearance'], $year);
+
     if(!empty($get_videos)) {
-        foreach($get_videos as $k => $video) {
-            $youtube_video_link = get_field('youtube_video_link',  $video->ID);
-            if(!empty($youtube_video_link)) {
-                $content .= '<iframe src="'.$youtube_video_link.'"></iframe>';
-            }            
+
+        if ($get_videos->have_posts()) {
+            while ($get_videos->have_posts()) {
+                $get_videos->the_post();
+                $year = get_the_date('Y');
+                $youtube_video_link = get_field('youtube_video_link',  get_the_ID());
+
+                $year = get_the_date('Y');
+                $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+            }
+            foreach($posts_by_year as $posts) {
+                $content .= '<h2 class="elementor-heading-title sigma-tv-page">SIGMA TV '.$posts[0]['Year'].'</h2>';
+                foreach($posts as $post) {
+                    //echo '<pre>'; print_r($post); echo '</pre>';
+                    $youtube_video_link = get_field('youtube_video_link',  $post['ID']);
+                    $content .= '<div class="video-grid">
+                                    <h3 class="">'.$post['title'].'</h3>
+                                    <iframe src="'.$youtube_video_link.'"></iframe>
+                                </div>';
+                }
+            }
+            //echo '<pre>'; print_r($posts_by_year); echo '</pre>';
+        } else {
+            foreach($get_videos as $k => $video) {
+                $youtube_video_link = get_field('youtube_video_link',  $video->ID);
+                if(!empty($value['appearance']) && $value['appearance'] === $appearanceVal) {
+                    
+                    $content .= '<div class="video-grid">
+                                    <h3 class="">'.$video->post_title.'</h3>
+                                    <iframe src="'.$youtube_video_link.'"></iframe>
+                                </div>';
+                } else {
+                    if(!empty($youtube_video_link)) {
+                        $content .= '<iframe src="'.$youtube_video_link.'"></iframe>';
+                    }
+                }      
+            }
         }
     }
     return $content;
@@ -714,33 +857,37 @@ function sigma_mt_get_company($atts) {
     $posts_per_page = $atts['posts_per_page'];
     $term_name = get_term_by('id', $term_id, $taxonomy);
     $supported_cat = get_field('supported_by');
-    $supported_cat = isset($supported_cat['supported_by_title']) ? $supported_cat['supported_by_title'] : '';
     $exibitors_cat = get_field('our_exhibitors_partners');
-    $exibitors_cat = isset($exibitors_cat['our_exhibitors_partners_title']) ? $exibitors_cat['our_exhibitors_partners_title'] : '';
-    $sponsors_and_exhibitors = __( 'SPONSORS And EXHIBITORS', 'sigmaigaming' );
+    $sponsors_and_exhibitors = get_field('our_sponsors_and_exhibitors');
     $our_trusted_suppliers = get_field('our_trusted_suppliers');
-    $our_trusted_suppliers_text = __( 'OUR TRUSTED SUPPLIERS', 'sigmaigaming' );
     $meet_the_past_winners = get_field('meet_the_past_winners');
-    if($term_name->name === $supported_cat) {
+    $partners = get_field('our_partners');
+    //echo '<pre>'; print_r($partners);
+    if(!empty($supported_cat['category_name'][0]) && $term_name->name === $supported_cat['category_name'][0]) {
         $main_class = 'supported';
         $sub_class = 'supported-logo';
         $single_class = 'supported-single';
-        $category_title = $supported_cat;
-    } else if($term_name->name === $exibitors_cat) {
+        $category_title = $supported_cat['supported_by_title'];
+    } else if(!empty($exibitors_cat['category_name'][0]) && $term_name->name === $exibitors_cat['category_name'][0]) {
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
-        $category_title = __( 'OUR EXHIBITORS & PARTNERS', 'sigmaigaming' );
-    } else if($term_name->name === $sponsors_and_exhibitors) {
+        $category_title = $exibitors_cat['our_exhibitors_partners_title'];
+    } else if(!empty($sponsors_and_exhibitors['category_name'][0]) && $term_name->name === $sponsors_and_exhibitors['category_name'][0]) {
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
-        $category_title = __( 'OUR SPONSORS & EXHIBITORS', 'sigmaigaming' );
+        $category_title = $sponsors_and_exhibitors['title'];
+    } else if(!empty($partners['category_name'][0]) && $term_name->name === $partners['category_name'][0]) {
+        $main_class = 'our-partner';
+        $sub_class = 'all-partners';
+        $single_class = 'single-partner';
+        $category_title = $partners['title'];
     } else {
         $main_class = 'suppliers';
         $sub_class = 'supplier-logo';
         $single_class = 'supplier-single';
-        $category_title = __( 'OUR TRUSTED SUPPLIERS', 'sigmaigaming' );
+        $category_title = isset($our_trusted_suppliers['title']) ? $our_trusted_suppliers['title'] : '';
     }
     $post_args = array(
       'posts_per_page' => $posts_per_page,
@@ -757,7 +904,7 @@ function sigma_mt_get_company($atts) {
     );
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
-        if($meet_the_past_winners['category_title'] === $term_name->name) {
+        if(!empty($meet_the_past_winners['category_title']) && $meet_the_past_winners['category_title'] === $term_name->name) {
             $year = $atts['year'];
             //echo '<pre>'; print_r(); 
             $args = array( 
@@ -797,14 +944,36 @@ function sigma_mt_get_company($atts) {
             } else {
                 $content .= '';
             }
-        } else {
-            $content .= '<section class="'.$main_class.'">
+        } else if($term_id === '1189') {
+            $content .= '<section class="all-winner">
                             <div class="container">
-                                <div class="about-section-title">
-                                    <h2>'. $category_title .'</h2>
-                                </div>';
+                                <div class="winner-slider">';
+                                    foreach($get_posts as $k => $post) {
+                                        $post_date = explode('-', $post->post_date);
+                                        $year = $post_date[0];
+                                        $company_details = get_field('company_details', $post->ID);
+                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                        $content .= '<div class="winer-slide"><div class="winner-single-slide">
+                                                        <div class="winner-label">WINNER '.$year.'</div>
+                                                        <div class="winner-content">';
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-disc"><p>'.$post->post_content.'</p></div>'; }
+                                                    $content .= '</div></div>
+                                                </div>';
+                                    }
+                                $content .= '</div>
+                            </div>
+                        </section>';
+        }  else {
+            $content .= '<section class="'.$main_class.'">
+                            <div class="container">';
+                                if(!empty($category_title)) {
+                                    $content .= '<div class="about-section-title">
+                                                    <h2>'. $category_title .'</h2>
+                                                </div>';
+                                }
                                 if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
-                                    $content .= '<div class="suplier-txt">
+                                    $content .= '<div class="supplier-txt">
                                         <p>'.$our_trusted_suppliers['trusted_splliers_text'].'</p>
                                     </div>';
                                 }
@@ -852,19 +1021,17 @@ function sigma_mt_get_single_company_row($atts) {
                             $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
                             $description = isset($company_details['description']) ? $company_details['description'] : '';
                             if(!empty($description)) {
-                                $content .= '<div class="single-logo-supply">
-                                                <div class="single-supply">
-                                                    <div class="supply-txt">
-                                                        <p>'.$description.'</p>
+                                $content .= '<div class="every-single-supply">
+                                                <div class="supply-txt">
+                                                    <p>'.$description.'</p>
+                                                </div>';
+                                                foreach($logos as $k => $logoID) {
+                                                    $company_details = get_field('company_details', $logoID);
+                                                    $content .= '<div class="supplier-single">
+                                                        <a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>
                                                     </div>';
-                                                    foreach($logos as $k => $logoID) {
-                                                        $company_details = get_field('company_details', $logoID);
-                                                        $content .= '<div class="supplier-single">
-                                                            <a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>
-                                                        </div>';
-                                                    }
-                                                $content .= '</div>
-                                            </div>';
+                                                }
+                                            $content .= '</div>';
                             }
             $content .= '</div>';
     }
@@ -929,10 +1096,14 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     $tag_category = get_term_by('id', $tag_id, $taxonomy);
     $split_text = explode(" ", $tag_category->name);
     $field = get_field('accordian_section');
-    $exhibit_category = $field['exhibiting_opportunities']['title'];
-    $roadshow_category = $field['roadshow_opportunities']['title'];
-    $sponsorship_category = $field['sponsorship_opportunities']['title'];
-    $workshop_category = $field['workshop_opportunities']['title'];
+    $exhibit_category = isset($field['exhibiting_opportunities']['title']) ? $field['exhibiting_opportunities']['title'] : '';
+    $roadshow_category = isset($field['roadshow_opportunities']['title']) ? $field['roadshow_opportunities']['title'] : '';
+    $sponsorship_category = isset($field['sponsorship_opportunities']['title']) ? $field['sponsorship_opportunities']['title'] : '';
+    $workshop_category = isset($field['workshop_opportunities']['title']) ? $field['workshop_opportunities']['title'] : '';
+    $appearance = $atts['appearance'];
+    $appearanceName = __( 'ColorPackage', 'sigmaigaming' );
+    $appearanceReg = __( 'Regular', 'sigmaigaming' );
+    $appearanceWork = __( 'Workshop', 'sigmaigaming' );
     if($tag_category->name === $workshop_category) {
         $main_class = 'all-workshops';
     } else if($tag_category->name === $exhibit_category) {
@@ -1001,7 +1172,7 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                                     if ($total_sponsors-1 % 4  == 0)  {
                                         $sec_division = 'double-line';
                                     }
-                                    if($tag_category->name !== $workshop_category && $tag_category->name !== $exhibit_category) {
+                                    if($appearance === $appearanceReg ) {
                                         $content .= '<div class="single-sponsor" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
                                                           <div class="top">
                                                             <img src='.$sponsors_logo.' alt="">
@@ -1015,7 +1186,7 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                                                     </div>';
 
                                     }
-                                    if($tag_category->name === $workshop_category) {
+                                    if($appearance === $appearanceWork) {
                                         if($sponsors_status === $sold_out) {
                                             $class = 'disable';
                                         } else {
@@ -1044,7 +1215,7 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                                                         </div>
                                                     </div>';
                                     }
-                                    if($tag_category->name === $exhibit_category) {
+                                    if($appearance === $appearanceName ) {
                                         if($package === $gold_pkg) {
                                             $class = 'gold';
                                             $image = '<img src="'.CHILD_DIR.'/exhibit/images/gold-package-icon.png" alt="" class="soldout">';
@@ -1288,7 +1459,7 @@ function sigma_mt_get_testimonials($atts) {
     $content = '';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
     $post_args = array(
-      'posts_per_page' => -1,
+      'posts_per_page' => $count,
       'post_type' => 'testimonial-items',
       'orderby'        => 'rand',
       'post_status'    => 'publish'
@@ -1322,5 +1493,103 @@ function sigma_mt_get_testimonials($atts) {
                         }
                     $content .= '</div>';
     }
+    return $content;
+}
+
+// Shortcode for related articles
+add_shortcode( 'sigma-mt-related-articles', 'sigma_mt_related_articles' );
+function sigma_mt_related_articles($atts) {
+    $content = '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $post_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'news-items',
+      'orderby'        => 'rand',
+      'post_status'    => 'publish'
+    );
+    $relatedArticles = get_posts($post_args);
+    if(!empty($relatedArticles)) {
+        $content .= '<!-- Related Article Section -->
+                        <div class="pitch-articles related-articles">
+                            <div class="articles-slide">';
+                                foreach($relatedArticles as $k => $item) {
+                                    $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
+                                    $content .= '<a href="'.get_permalink($item->ID).'"><div class="testimonial">
+                                                    <div class="testi-details">
+                                                        <img src="'.$featured_image[0].'" alt="'.$item->post_title.'" />
+                                                        <div class="post-title">
+                                                            <h3>'.$item->post_title.'</h3>
+                                                        </div>
+                                                    </div>
+                                                </div></a>';
+                                }
+                            $content .= '</div>
+                        </div>
+                    <!-- Related Article Section end -->';
+    }
+    return $content;
+}
+
+// Shortcode for related articles
+add_shortcode( 'sigma-mt-logos', 'sigma_mt_get_logos' );
+function sigma_mt_get_logos($atts) {
+    $content = '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $post_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'logo-items',
+      'orderby'        => 'title',
+      'order'       => 'ASC',
+      'post_status'    => 'publish'
+    );
+    $relatedArticles = get_posts($post_args);
+    if(!empty($relatedArticles)) {
+        $content .= '<div class="charity-items">';
+                            foreach($relatedArticles as $k => $item) {
+                                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
+                                $content .= '<div class="single-item" id="single-item'.$k.'" data-title="'.$item->post_title.'">
+                                    <div class="btn" onclick="openCharityDiv(\'single-item'.$k.'\')">
+                                        <div></div>
+                                    </div>
+                                    <div class="left">
+                                        <div class="img-wrapper">
+                                            <img src="'.$featured_image[0].'" alt="thumb-1">
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>'.$item->post_content.'</p>
+                                    </div>
+                                </div>';
+                            }  
+                    $content .= '</div>';
+    }
+    return $content;
+}
+
+// Startup pitch slider shortcode
+add_shortcode( 'sigma-mt-pitch-logo-slider', 'sigma_mt_pitch_logo_slider' );
+function sigma_mt_pitch_logo_slider() {
+    $content = '';
+    $content .= '<div class="elementor-year-slider">
+                    <ul>
+                        <li id="slider_btn_2019" class="active">2019</li>
+                        <li id="slider_btn_2018">2018</li>
+                        <li id="slider_btn_2017">2017</li>
+                    </ul>
+                </div>';
+    return $content;
+}
+
+// 2020 Startups filter shortcode
+add_shortcode( 'sigma-mt-2020-startups-filter', 'sigma_mt_2020_startups_filter' );
+function sigma_mt_2020_startups_filter() {
+    $content = '';
+    $content .= '<div class="startup-filter-2020">
+                    <ul>
+                        <li id="" class="active" data-regex="^[0-9a-gA-G].*">A - G</li>
+                        <li id="" data-regex="^[h-nH-N].*">H - N</li>
+                        <li id="" data-regex="^[o-zO-Z].*">O - Z</li>
+                    </ul>
+                </div>';
     return $content;
 }

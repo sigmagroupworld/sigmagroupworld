@@ -60,33 +60,16 @@ $hotel_listing = get_field('hotel_listing', $page_id);
 	    </div>
 	    <!-- Sigma official hotel end -->
 
-	    <!-- 5 STAR HOTELS -->
-	    <div class="sigma-hotels">
-			<div class="page-title">
-				<h2><?php echo $hotel_listing['5_star_hotels']['title']; ?></h2>
+	    <!-- STAR HOTELS Listing -->
+	    <?php foreach($hotel_listing as $list) { ?>
+		    <div class="sigma-hotels">
+				<div class="page-title">
+					<h2><?php echo $list['title']; ?></h2>
+				</div>
+			    <?php echo do_shortcode($list['shortcode']); ?>
 			</div>
-		    <?php echo do_shortcode($hotel_listing['5_star_hotels']['shortcode']); ?>
-		</div>
-		<!-- 5 STAR HOTELS end -->
-
-		<!-- 4 STAR HOTELS -->
-	    <div class="sigma-hotels">
-			<div class="page-title">
-				<h2><?php echo $hotel_listing['4_star_hotels']['title']; ?></h2>
-			</div>
-		    <?php echo do_shortcode($hotel_listing['4_star_hotels']['shortcode']); ?>
-		</div>
-		<!-- 4 STAR HOTELS end -->
-
-		<!-- 3 STAR HOTELS -->
-	    <div class="sigma-hotels">
-			<div class="page-title">
-				<h2><?php echo $hotel_listing['3_star_hotels']['title']; ?></h2>
-			</div>
-		    <?php echo do_shortcode($hotel_listing['3_star_hotels']['shortcode']); ?>
-		</div>
-		<!-- 3 STAR HOTELS end -->
-
+		<?php } ?>
+		<!-- STAR HOTELS Listing end -->
 	  </div>
 	</section>
 	<!-- book hotel page end -->

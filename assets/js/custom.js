@@ -37,8 +37,14 @@ jQuery(document).ready(function($) {
  	});
 	/**** Testimonial Slider end ***/
 
+	$('.winner-slider').slick({
+      		infinite: true,
+      		slidesToShow: 1,
+      		slidesToScroll: 1,
+  	});
+
 	/**** Related Articles Slider ***/
-  	$(".articles-slide").slick({
+  	$(".casino .articles-slide").slick({
 		slidesToShow: 2,
 	    	slidesToScroll: 1,
 	    	autoplay: false,
@@ -53,7 +59,56 @@ jQuery(document).ready(function($) {
 	    		}
 		}]
 	 });
+	$(".pitch-articles .articles-slide").slick({
+		slidesToShow: 3,
+	    	slidesToScroll: 1,
+	    	autoplay: false,
+	    	autoplaySpeed: 1500,
+	    	arrows: true,
+	    	responsive: [{
+	    		breakpoint: 850,
+	    		settings: {
+	    			slidesToShow: 1,
+	    			slidesToScroll: 1,
+	    			infinite: true,
+	    		}
+		}]
+	 });
 	/**** Related Articles Slider end ***/
+
+	//investor-slider slider start
+	  $('.investor-slider').slick({
+	      infinite: true,
+	      slidesToShow: 4,
+	      slidesToScroll: 1,
+	      dots: false,
+	      responsive: [
+	        {
+	          breakpoint: 1025,
+	          settings: {
+	            slidesToShow: 3,
+	            slidesToScroll: 1,
+	            infinite: true,
+	          }
+	        },
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 2,
+	            slidesToScroll: 1,
+	            infinite: true,
+	          }
+	        },
+	        {
+	          breakpoint: 581,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1
+	          }
+	        }
+	      ]
+	  });
+	  //investor-slider slider end
 	
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
@@ -62,16 +117,14 @@ jQuery(document).ready(function($) {
 	} else {
 		$('.s-form.open .hs-search-field__suggestions').css('display', 'inline-block');
 	}
-	$(function() {
-		$("body").click(function(e) {
-			if (e.target.class != "s-form") {
-				$('.search-field').val('');
-				$('.s-form.open #search-results li').remove();
-				$('.s-form.open .hs-search-field__suggestions').hide();
-			    $('.s-form.open .hs-search-field__suggestions').css('display', 'none');
-			}
-		});
-	})
+	$("body").click(function(e) {
+		if (e.target.class != "s-form") {
+			$('.search-field').val('');
+			$('.s-form.open #search-results li').remove();
+			$('.s-form.open .hs-search-field__suggestions').hide();
+		    $('.s-form.open .hs-search-field__suggestions').css('display', 'none');
+		}
+	});
 	$('.search-form .search-field').keyup( function(){
 		if( $(this).val().length < 1 ) {
 			$('.s-form.open #search-results li').remove();
@@ -173,8 +226,120 @@ jQuery(document).ready(function($) {
 	});
 	/** Load more people ***/
 
+	// Elementor Year Slider
+	if( window.elementorFrontend.config.environmentMode.edit == false ) {
+		setTimeout( function(){
+			$( '#slider_2018' ).hide();
+			$( '#slider_2017' ).hide();
+			$( '#slider_btn_2017' ).click( function(){
+				$( '#slider_btn_2017' ).addClass( 'active' );
+				$( '#slider_2017' ).show();
+
+				$( '#slider_btn_2018' ).removeClass( 'active' );
+				$( '#slider_2018' ).hide();
+
+				$( '#slider_btn_2019' ).removeClass( 'active' );
+				$( '#slider_2019' ).hide();
+			} );
+
+			$( '#slider_btn_2018' ).click( function(){
+				$( '#slider_btn_2017' ).removeClass( 'active' );
+				$( '#slider_2017' ).hide();
+
+				$( '#slider_btn_2018' ).addClass( 'active' );
+				$( '#slider_2018' ).show();
+
+				$( '#slider_btn_2019' ).removeClass( 'active' );
+				$( '#slider_2019' ).hide();
+			} );
+
+			$( '#slider_btn_2019' ).click( function(){
+				$( '#slider_btn_2017' ).removeClass( 'active' );
+				$( '#slider_2017' ).hide();
+
+				$( '#slider_btn_2018' ).removeClass( 'active' );
+				$( '#slider_2018' ).hide();
+
+				$( '#slider_btn_2019' ).addClass( 'active' );
+				$( '#slider_2019' ).show();
+			} );
+		} , 500);
+	}
+	// 2020 Startup filter start
+	var numToDisplay = 3;
+	$( '.startup-filter-2020 ul li' ).click( function(){
+		if( $(this).hasClass( 'active' ) ) {
+			return;
+		} else {
+			var load_time_total_displayed = $( '.charity-items > div.displayed:visible' );
+			var load_time_total = $( '.charity-items > div.displayed' );
+			if( load_time_total_displayed.length == load_time_total.length ) {
+				$( '#startup-filter-load-more-btn' ).hide();
+			} else {
+				$( '#startup-filter-load-more-btn' ).show();
+			}
+		}
+		$( '.startup-filter-2020 ul li.active' ).removeClass( 'active' );
+		var i = 0;
+		$( this ).addClass( 'active ');
+		var regex_data = $(this).data('regex');
+		$( '.charity-items > div' ).each(function () {
+			if ( $( this ).data( 'title' ).search( regex_data ) > -1) {
+				$(this).addClass( 'displayed' );
+				if( i < numToDisplay ) {
+					$(this).show();
+					i = i + 1;
+				} else {
+					$( '#startup-filter-load-more-btn' ).show();
+				}
+			} else {
+				$(this).removeClass( 'displayed' );
+				$(this).hide();
+			}
+		});
+	} );
+
+	var j = 0;
+	$( '.charity-items > div' ).each(function () {
+		if ( $( this ).data( 'title' ).search( '^[0-9a-gA-G].*' ) > -1) {
+			$(this).addClass( 'displayed' );
+			if( j < numToDisplay ) {
+				$(this).show();
+				j = j + 1;
+			} else {
+				$(this).hide();
+			}
+		} else {
+			$(this).hide();
+		}
+	});
+
+	var load_time_total_displayed = $( '.charity-items > div.displayed:visible' );
+	var load_time_total = $( '.charity-items > div.displayed' );
+	if( load_time_total_displayed.length == load_time_total.length ) {
+		$( '#startup-filter-load-more-btn' ).hide();
+	}
+
+	$( '#startup-filter-load-more-btn' ).click( function(e) {
+		e.preventDefault();
+		var loop = 0;
+		var total_displayed = $( '.charity-items > div.displayed:visible' );
+		var total = $( '.charity-items > div.displayed' );
+		var total_hidden = $( '.charity-items > div.displayed:hidden' );
+		$( total_hidden ).each( function(){
+			if( loop < numToDisplay ) {
+				$( this ).show();
+				loop = loop + 1;
+				if( ( total_displayed.length ) + 1 == total.length ) {
+					$( '#startup-filter-load-more-btn' ).hide();
+				}
+			}
+		} );
+	} );
+	// 2020 Startup filter end
+
 	//testimonial slider start
-	$('.europe-gaming-awards-template .testimonial-slider').slick({
+	$('.testimonial-slider').slick({
 	  	infinite: true,
 	});
 	//testimonial slider end
@@ -209,7 +374,84 @@ jQuery(document).ready(function($) {
 	closeAward = (elementId) => {
 		$('#'+elementId).removeClass('open');
 	}
-  // Awards script end
+  	//Awards script end
+
+  	// sitting down script start
+	tabArrangments = (evt, down) => {
+		var i, itemcontent, iconbtn;
+		itemcontent = document.getElementsByClassName("itemcontent");
+		for (i = 0; i < itemcontent.length; i++) {
+			itemcontent[i].style.display = "none";
+		}
+		iconbtn = document.getElementsByClassName("iconbtn");
+		for (i = 0; i < iconbtn.length; i++) {
+			iconbtn[i].className = iconbtn[i].className.replace(" active", "");
+		}
+		document.getElementById(down).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	// sitting down script end
+
+  	//deep tech insights slider start
+	  $('.deep-insights-slider').slick({
+	      infinite: true,
+	      slidesToShow: 3,
+	      slidesToScroll: 3,
+	      dots: true,
+	      responsive: [
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 2,
+	            slidesToScroll: 2,
+	            infinite: true,
+	          }
+	        },
+	        {
+	          breakpoint: 581,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1
+	          }
+	        }
+	      ]
+	  });
+	  //deep tech insights slider end
+	  //expert slider start
+	  $('.expert-slider').slick({
+	      infinite: true,
+	      slidesToShow: 4,
+	      autoplay: false,
+	      autoplaySpeed: 2000,
+	      slidesToScroll: 1,
+	      responsive: [
+	        {
+	          breakpoint: 1024,
+	          settings: {
+	            slidesToShow: 3,
+	            slidesToScroll: 3,
+	            infinite: true,
+	          }
+	        },
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 2,
+	            slidesToScroll: 2
+	          }
+	        },
+	        {
+	          breakpoint: 581,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1
+	          }
+	        }
+	      ]
+	  });
+	  //expert slider end
+
+
 });
 
 /** Casino Provider Details Tab ***/
@@ -277,21 +519,3 @@ function openModal(elementId, modalId, closeId) {
 	}
 }
 /** Sponsors modal popup Detail end ***/
-
-/** Europe Gaming Page **/
-	// sitting down script start
-	  function tabArrangments(evt, down) {
-	    var i, itemcontent, iconbtn;
-	    itemcontent = document.getElementsByClassName("itemcontent");
-	    for (i = 0; i < itemcontent.length; i++) {
-	      itemcontent[i].style.display = "none";
-	    }
-	    iconbtn = document.getElementsByClassName("iconbtn");
-	    for (i = 0; i < iconbtn.length; i++) {
-	      iconbtn[i].className = iconbtn[i].className.replace(" active", "");
-	    }
-	    document.getElementById(down).style.display = "block";
-	    evt.currentTarget.className += " active";
-	  }
-	  // sitting down script end
-/** Europe Gaming Page end **/

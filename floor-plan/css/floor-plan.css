@@ -192,6 +192,30 @@
 	background: #ed1a3b !important;
     color: #fff !important;
 }
+.about-section-title h2 {
+    color: #2364ae;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    padding: 10px 0;
+    border-bottom: 2px solid #585c59;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+.supplier-logo {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -7px;
+    padding: 30px 0;
+}
+.supplier-single {
+    width: calc(20% - 15px);
+    margin: 7px;
+    padding: 15px 10px;
+    height: 86px;
+    align-items: center;
+	display: flex;
+}
 /* Become Sponsor Section End */
 
 /* Responsive Css Start */

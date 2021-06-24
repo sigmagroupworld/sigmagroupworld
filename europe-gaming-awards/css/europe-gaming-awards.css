@@ -14,7 +14,7 @@
 }
 /* banner section end */
 /* Sitting Down section start */
-.page-title h2 {
+.page-title h2, .europe-gaming-awards-template .about-section-title h2 {
     font-size: 22px;
     font-weight: 600;
     line-height: 27px;
@@ -231,11 +231,11 @@
 .award-box .bottom::after {
     content: '\f101';
     color: #fff;
-    font-family: 'FontAwesome';
+    font-family: 'Font Awesome 5 Free';
     color: #fff;
     position: absolute;
     right: 18px;
-    top: 10px;
+    top: 5px;
     font-size: 18px;
 }
 .award-box .bottom span.less,
