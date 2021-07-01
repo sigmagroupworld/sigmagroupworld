@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
 	/**** Scroll To Top ***/
 
 	/**** Testimonial Slider ***/
-  	$(".testimonial-slide").slick({
+  	$(".testimonial-slider").slick({
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		autoplay: false,
@@ -36,6 +36,77 @@ jQuery(document).ready(function($) {
 		}]
  	});
 	/**** Testimonial Slider end ***/
+
+//deep tech insights slider start
+	  $('.deep-insights-slider').slick({
+	      infinite: true,
+	      slidesToShow: 3,
+	      slidesToScroll: 3,
+	      dots: true,
+	      responsive: [
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1,
+	            infinite: true,
+	          }
+	        },
+	      ]
+	  });
+	  //deep tech insights slider end
+	  //expert slider start
+	  $('.expert-slider').slick({
+	      infinite: true,
+	      slidesToShow: 4,
+	      autoplay: true,
+	      autoplaySpeed: 2000,
+	      slidesToScroll: 1,
+	      responsive: [
+	        {
+	          breakpoint: 1024,
+	          settings: {
+	            slidesToShow: 3,
+	            slidesToScroll: 3,
+	            infinite: true,
+	          }
+	        },
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1
+	          }
+	        },
+	      ]
+	  });
+	  //expert slider end
+
+	  $('.video-slider').slick({
+	      infinite: true,
+	      slidesToShow: 3,
+	      slidesToScroll: 1,
+	      autoplay: true,
+	      centerPadding: 10,
+	      responsive: [
+	        {
+	          breakpoint: 1025,
+	          settings: {
+	            slidesToShow: 2,
+	            slidesToScroll: 1,
+	            infinite: true,
+	          }
+	        },
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1,
+	            infinite: true,
+	          }
+	        }
+	      ]
+	  });
 
 	$('.winner-slider').slick({
       		infinite: true,
@@ -94,21 +165,45 @@ jQuery(document).ready(function($) {
 	        {
 	          breakpoint: 768,
 	          settings: {
-	            slidesToShow: 2,
+	            slidesToShow: 1,
 	            slidesToScroll: 1,
 	            infinite: true,
 	          }
 	        },
-	        {
-	          breakpoint: 581,
-	          settings: {
-	            slidesToShow: 1,
-	            slidesToScroll: 1
-	          }
-	        }
 	      ]
 	  });
 	  //investor-slider slider end
+
+	/** Book Hotel Toggle ***/
+	openHotel = (elementId, expandDivId) => {
+		$('#'+expandDivId).addClass('open');
+	    $('#'+elementId).addClass('full');
+	}
+	closeHotel = (elementId, expandDivId) => {
+		$('#'+expandDivId).removeClass('open');
+	    $('#'+elementId).removeClass('full');
+	}
+	/** Book Hotel Toggle end ***/
+
+	/** Hosts script start **/
+	openHostsDiv = (elementId) => {
+		$('#'+elementId).toggleClass('person-open');
+	}
+	/** Hosts script start end **/
+	// charity auction script start
+	openCharityDiv = (elementId) => {
+		$('#'+elementId).toggleClass('full');
+	}
+	// charity auction script end 
+
+	// Awards script start
+	openAward = (elementId) => {
+		$('#'+elementId).addClass('open');
+	}
+	closeAward = (elementId) => {
+		$('#'+elementId).removeClass('open');
+	}
+  	//Awards script end
 	
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
@@ -155,12 +250,16 @@ jQuery(document).ready(function($) {
 	                    content += 'No results';
 	                }
 	                else {
-						content += '<li class="highlight">Results for ' + search_term + '</li>';
+						content += '<li class="highlight">Results for <span>"' + search_term + '"</span></li>';
 	                    $.each(data, function(i, post) {
 	                    	var result= post.label.split(' ');
-	                    	var string = $('jqueryselector').val(search_term.toLowerCase());
-	                    	var highlight_term = post.label.replace(search_term, '<span class="highlight"> ' + search_term + ' </span>');
-	                        content += '<li class="highlight-term"><a href=' + post.link + '>' + highlight_term + '</a></li>';
+	                    	//var string = $('jqueryselector').val(search_term.toLowerCase());
+
+	                    	var newText = String(post.label).replace(
+					                new RegExp(search_term, "gi"),
+					                "<span class='ui-state-highlight'>$&</span>");
+
+			                content += '<li class="highlight-term"><a href=' + post.link + '>' + newText + '</a></li>';
 	                    });
 	                    if(search_term == '') {
 	                    	$('.s-form.open #search-results').empty();
@@ -194,22 +293,22 @@ jQuery(document).ready(function($) {
 	/** Load more people ***/
 	let page = 2;
 	$("#load-more").click(function(){
-				let term_id = typeof $("#termID").val() !== undefined ? $("#termID").val() : '';
-				let posts_per_page = typeof $("#posts_per_page").val() !== undefined ? $("#posts_per_page").val() : '';
-				let person_image = typeof $("#person_image").val() !== undefined ? $("#person_image").val() : '';
-				let person_position = typeof $("#person_position").val() !== undefined ? $("#person_position").val() : '';
-				let person_name = typeof $("#person_name").val() !== undefined ? $("#person_name").val() : '';
-				let person_company = typeof $("#person_company").val() !== undefined ? $("#person_company").val() : '';
-	      let data = {
-		        'action' : 'load_people_by_ajax',
-		        'page' : page,
-		        'term_id' : term_id,
-		        'posts_per_page' : posts_per_page,
-		        'person_image' : person_image,
-		        'person_name' : person_name,
-		        'person_position' : person_position,
-		        'person_company' : person_company,
-		        'security': AjaxRequest.security
+		let term_id = typeof $("#termID").val() !== undefined ? $("#termID").val() : '';
+		let posts_per_page = typeof $("#posts_per_page").val() !== undefined ? $("#posts_per_page").val() : '';
+		let person_image = typeof $("#person_image").val() !== undefined ? $("#person_image").val() : '';
+		let person_position = typeof $("#person_position").val() !== undefined ? $("#person_position").val() : '';
+		let person_name = typeof $("#person_name").val() !== undefined ? $("#person_name").val() : '';
+		let person_company = typeof $("#person_company").val() !== undefined ? $("#person_company").val() : '';
+	    let data = {
+	        'action' : 'load_people_by_ajax',
+	        'page' : page,
+	        'term_id' : term_id,
+	        'posts_per_page' : posts_per_page,
+	        'person_image' : person_image,
+	        'person_name' : person_name,
+	        'person_position' : person_position,
+	        'person_company' : person_company,
+	        'security': AjaxRequest.security
 		};
 		$('html, body').css("cursor", "wait");
 		$('#load-more').css("cursor", "wait");
@@ -266,7 +365,7 @@ jQuery(document).ready(function($) {
 		} , 500);
 	}
 	// 2020 Startup filter start
-	var numToDisplay = 3;
+	var numToDisplay = $("#meet_startup_2020").val();
 	$( '.startup-filter-2020 ul li' ).click( function(){
 		if( $(this).hasClass( 'active' ) ) {
 			return;
@@ -338,44 +437,6 @@ jQuery(document).ready(function($) {
 	} );
 	// 2020 Startup filter end
 
-	//testimonial slider start
-	$('.testimonial-slider').slick({
-	  	infinite: true,
-	});
-	//testimonial slider end
-
-	/** Book Hotel Toggle ***/
-	openHotel = (elementId, expandDivId) => {
-		$('#'+expandDivId).addClass('open');
-	    $('#'+elementId).addClass('full');
-	}
-	closeHotel = (elementId, expandDivId) => {
-		$('#'+expandDivId).removeClass('open');
-	    $('#'+elementId).removeClass('full');
-	}
-	/** Book Hotel Toggle end ***/
-
-
-	/** Hosts script start **/
-	openHostsDiv = (elementId) => {
-		$('#'+elementId).toggleClass('person-open');
-	}
-	/** Hosts script start end **/
-	// charity auction script start
-	openCharityDiv = (elementId) => {
-		$('#'+elementId).toggleClass('full');
-	}
-	// charity auction script end 
-
-	// Awards script start
-	openAward = (elementId) => {
-		$('#'+elementId).addClass('open');
-	}
-	closeAward = (elementId) => {
-		$('#'+elementId).removeClass('open');
-	}
-  	//Awards script end
-
   	// sitting down script start
 	tabArrangments = (evt, down) => {
 		var i, itemcontent, iconbtn;
@@ -391,65 +452,6 @@ jQuery(document).ready(function($) {
 		evt.currentTarget.className += " active";
 	}
 	// sitting down script end
-
-  	//deep tech insights slider start
-	  $('.deep-insights-slider').slick({
-	      infinite: true,
-	      slidesToShow: 3,
-	      slidesToScroll: 3,
-	      dots: true,
-	      responsive: [
-	        {
-	          breakpoint: 768,
-	          settings: {
-	            slidesToShow: 2,
-	            slidesToScroll: 2,
-	            infinite: true,
-	          }
-	        },
-	        {
-	          breakpoint: 581,
-	          settings: {
-	            slidesToShow: 1,
-	            slidesToScroll: 1
-	          }
-	        }
-	      ]
-	  });
-	  //deep tech insights slider end
-	  //expert slider start
-	  $('.expert-slider').slick({
-	      infinite: true,
-	      slidesToShow: 4,
-	      autoplay: false,
-	      autoplaySpeed: 2000,
-	      slidesToScroll: 1,
-	      responsive: [
-	        {
-	          breakpoint: 1024,
-	          settings: {
-	            slidesToShow: 3,
-	            slidesToScroll: 3,
-	            infinite: true,
-	          }
-	        },
-	        {
-	          breakpoint: 768,
-	          settings: {
-	            slidesToShow: 2,
-	            slidesToScroll: 2
-	          }
-	        },
-	        {
-	          breakpoint: 581,
-	          settings: {
-	            slidesToShow: 1,
-	            slidesToScroll: 1
-	          }
-	        }
-	      ]
-	  });
-	  //expert slider end
 
 
 });

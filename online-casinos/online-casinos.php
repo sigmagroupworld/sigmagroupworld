@@ -5,6 +5,7 @@
  * Created at: 27 May 2021
  */
 /* Directory template css */
+wp_enqueue_style('directory', get_stylesheet_directory_uri().'/online-casinos/css/online-casinos.css');
 get_header();
 ?>
 
@@ -45,78 +46,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 				<div class="casinos-txt">
 					<p><?php the_content(); ?></p>
 				</div>
-				<div class="all-casinos">
-					<?php foreach($results as $k => $post) {
-						setup_postdata( $post );
-		        		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); 
-
-		        		$casino_provider = get_field('casino_details', $post->ID);
-		        		?>
-						<div class="single-casino">
-							<div class="casino-logo">
-								<img src="<?php if(isset($casino_provider['casino_logo'])) { echo $casino_provider['casino_logo']; } ?>" alt="">
-							</div>
-							<div class="casino-star-rating">
-								<div class="start-rating">
-									<?php 
-									if(isset($casino_provider['star_rating_count']) && !empty($casino_provider['star_rating_count'])) {
-										$count = $casino_provider['star_rating_count'];
-									} else {
-										$count = '3';
-									}
-									$args = array(
-									   'rating' => $count,
-									   'type' => 'rating',
-									   'number' => 12345,
-									);
-									wp_star_rating( $args ); ?>
-								</div>
-							</div>
-							<div class="casino-bonus">
-								<img src="https://www.sigma.com.mt/hubfs/Icon-Present.png" alt="">
-								<p><?php if(isset($casino_provider['exclusive_bonus'])) { echo $casino_provider['exclusive_bonus']; } ?></p>
-							</div>
-							<div class="casino-bonus-details">
-								<ul>
-									<?php if(isset($casino_provider['online_casino_bonus_detail'])) { 
-										foreach($casino_provider['online_casino_bonus_detail'] as $value) { ?>
-											<li><?php echo $value['bonus_details']; ?></li>
-									<?php }
-									} ?>
-								</ul>
-							</div>
-							<div class="casino-buttons">
-								<a href="#" class="play"><?php _e( 'Play', 'sigmaigaming' ); ?></a>
-								<a href="<?php echo get_permalink( $post->ID ); ?>" class="review"><?php _e( 'Review', 'sigmaigaming' ); ?></a>
-							</div>
-							<div class="payment-options">
-								<?php if(isset($casino_provider['payment_options'])) { 
-									foreach($casino_provider['payment_options'] as $value) {
-										$visa = __( 'Visa', 'sigmaigaming' );
-									    $mastercard = __( 'Mastercard', 'sigmaigaming' );
-									    $neteller =__( 'Neteller', 'sigmaigaming' );
-									    $skrill = __( 'Skrill', 'sigmaigaming' );
-									    $mestrocard = __( 'Mestrocard', 'sigmaigaming' );
-									    $paypal = __( 'Paypal', 'sigmaigaming' );
-									    $bitcoin =__( 'Bitcoin', 'sigmaigaming' );
-									    $ecopayz = __( 'Ecopayz', 'sigmaigaming' );
-										?>
-										<div class="single-option">
-											<?php if($value === $visa) echo '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">'; ?>
-											<?php if($value === $mastercard) echo '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">'; ?>
-											<?php if($value === $neteller) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">'; ?>
-											<?php //if($value === $payeer) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">'; ?>
-											<?php if($value === $bitcoin) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">'; ?>
-											<?php //if($value === $ecopays) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">'; ?>
-											<?php //if($value === $webpay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">'; ?>
-											<?php //if($value === $epay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">'; ?>
-										</div>
-								<?php }
-								} ?>
-							</div>
-						</div>
-					<?php } ?>
-				</div>
+				<?php echo do_shortcode('[sigma-mt-casino-providers]'); ?>
 			</div>
 			<!-- All Casinos Section end -->
 
@@ -214,5 +144,6 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 	<!-- Casino Content section End -->
 </section>
 
+<?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
 
 <?php get_footer(); ?>

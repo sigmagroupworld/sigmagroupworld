@@ -10,7 +10,6 @@
  */
 
 get_header();
-echo 1; exit;
 $description = get_the_archive_description();
 // get the current taxonomy term
 $term = get_queried_object();

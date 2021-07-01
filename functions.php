@@ -14,7 +14,9 @@ function sigma_mt_enqueue_styles() {
         array( $parent_style ),
         wp_get_theme()->get('Version')
     );   
-    wp_enqueue_style('sigmamt-responcive', CHILD_DIR . '/assets/css/responsive.css');
+    wp_enqueue_style('sigmamt-responsive', CHILD_DIR . '/assets/css/responsive.css');
+    wp_enqueue_style('sigmamt-slick', CHILD_DIR . '/assets/css/slick.css');
+    wp_enqueue_style('sigmamt-slick-theme', CHILD_DIR . '/assets/css/slick-theme.css');
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
 }
 
@@ -27,15 +29,10 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css');
-    wp_enqueue_style('sigmamt-slick-style', CHILD_DIR . '/assets/css/slick-theme.css');
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
-
-    if (is_page('Online Casinos') || is_post_type('casinos-items') || is_page('sigma-pitch-2021') || is_page('sigma-foundation') || is_page('affiliate-grand-slam') ) {
-        wp_enqueue_style('directory', get_stylesheet_directory_uri().'/online-casinos/css/online-casinos.css');
-    }
 
     /****Autocomplete script ****/
     wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
@@ -424,14 +421,113 @@ function sigma_mt_get_continent_order() {
 }
 
 //function to get news tags.
-function sigma_mt_get_casino_provider_data() {
-    $post_tag_args = array(
-      'posts_per_page' => 10,
-      'post_type' => 'casinos-items',
-      'orderby'        => 'ASC',
-    );
+function sigma_mt_get_casino_provider_data($term_id = "", $posts_per_page = "") {
+    if(!empty($term_id)) {
+        $post_tag_args = array(
+            'posts_per_page' => $posts_per_page,
+            'post_type' => 'casinos-items',
+            'orderby'        => 'DESC',
+            'post_status'    => '',
+            'paged'          => 1,
+            'tax_query' => array(
+                array(
+                  'taxonomy' => 'casinos-cat',
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+                )
+            )
+        );
+    } else {
+        $post_tag_args = array(
+          'posts_per_page' => 10,
+          'post_type' => 'casinos-items',
+          'orderby'        => 'ASC',
+        );
+    }
     $get_posts = get_posts($post_tag_args);
     return $get_posts;
+}
+
+// Shortcode for 2020 Startup
+add_shortcode( 'sigma-mt-casino-providers', 'sigma_mt_casino_providers' );
+function sigma_mt_casino_providers($atts) {
+    $content = '';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
+    $results =  sigma_mt_get_casino_provider_data($term_id, $count);
+    if(!empty($results)) {
+        $content .= '<div class="all-casinos '.$appearance.'">';
+                        foreach($results as $k => $post) {
+                            setup_postdata( $post );
+                            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                            $casino_provider = get_field('casino_details', $post->ID);
+                            $content .= '<div class="single-casino">
+                                            <div class="casino-logo">
+                                                <img src="'.$casino_provider['casino_logo'].'" alt="">
+                                            </div>
+                                            <div class="casino-star-rating">
+                                                <div class="start-rating">';
+                                                    if(isset($casino_provider['star_rating_count']) && !empty($casino_provider['star_rating_count'])) {
+                                                        $count = $casino_provider['star_rating_count'];
+                                                    } else {
+                                                        $count = '3';
+                                                    }
+                                                    $args = array(
+                                                       'rating' => $count,
+                                                       'type' => 'rating',
+                                                       'number' => 12345,
+                                                    );
+                                                    $rating = wp_star_rating($args);
+                                                    $content .= $rating;
+                                    $content .= '</div>
+                                            </div>
+                                            <div class="casino-bonus">
+                                                <img src="'. CHILD_DIR . '/online-casinos/images/Icon-Present.png" alt="">
+                                                <p>'.$casino_provider['exclusive_bonus'].'</p>
+                                            </div>
+                                            <div class="casino-bonus-details">
+                                                <ul>';
+                                                    if(isset($casino_provider['online_casino_bonus_detail'])) { 
+                                                        foreach($casino_provider['online_casino_bonus_detail'] as $value) {
+                                                            $content .= '<li>'.$value['bonus_details'].'</li>';
+                                                        }
+                                                    }
+                                                $content .= '</ul>
+                                            </div>
+                                            <div class="casino-buttons">
+                                                <a href="#" class="play">'.__( 'Play', 'sigmaigaming' ).'</a>
+                                                <a href="'.get_permalink( $post->ID ).'" class="review">'. __( 'Review', 'sigmaigaming' ).'</a>
+                                            </div>
+                                            <div class="payment-options">';
+                                                if(isset($casino_provider['payment_options'])) { 
+                                                    foreach($casino_provider['payment_options'] as $value) {
+                                                        $visa = __( 'Visa', 'sigmaigaming' );
+                                                        $mastercard = __( 'Mastercard', 'sigmaigaming' );
+                                                        $neteller =__( 'Neteller', 'sigmaigaming' );
+                                                        $skrill = __( 'Skrill', 'sigmaigaming' );
+                                                        $mestrocard = __( 'Mestrocard', 'sigmaigaming' );
+                                                        $paypal = __( 'Paypal', 'sigmaigaming' );
+                                                        $bitcoin =__( 'Bitcoin', 'sigmaigaming' );
+                                                        $ecopayz = __( 'Ecopayz', 'sigmaigaming' );
+                                                        $content .= '<div class="single-option">';
+                                                            if($value === $visa) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">';
+                                                            if($value === $mastercard) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">';
+                                                            if($value === $neteller) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">';
+                                                            //if($value === $payeer) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">';
+                                                            if($value === $bitcoin) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">';
+                                                            //if($value === $ecopays) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">';
+                                                            //if($value === $webpay) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">';
+                                                            //if($value === $epay) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">';
+                                                        $content .= '</div>';
+                                                    }
+                                                }
+                                            $content .= '</div>
+                                        </div>';
+                        }
+                    $content .= '</div>';
+    }
+    return $content;
 }
 
 //function to get videos term name by page ID
@@ -451,14 +547,14 @@ function sigma_mt_get_people_list($atts) {
     $appearance = $atts['appearance'];
     $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '1';
     $speakers_text = get_field('speakers_text');
-    $person_name        = isset($atts['person_name']) ? $atts['person_name'] : 'no';
-    $person_image       = isset($atts['person_image']) ? $atts['person_image'] : 'no';
-    $person_position    = isset($atts['person_position']) ? $atts['person_position'] : 'no';
-    $person_company     = isset($atts['person_company']) ? $atts['person_company'] : 'no';
-    $person_language    = isset($atts['person_language']) ? $atts['person_language'] : 'no';
-    $person_email       = isset($atts['person_email']) ? $atts['person_email'] : 'no';
-    $person_phone       = isset($atts['person_phone']) ? $atts['person_phone'] : 'no';
-    $person_skype       = isset($atts['person_skype']) ? $atts['person_skype'] : 'no';
+    $person_name        = isset($atts['person_name']) ? $atts['person_name'] : NULL;
+    $person_image       = isset($atts['person_image']) ? $atts['person_image'] : NULL;
+    $person_position    = isset($atts['person_position']) ? $atts['person_position'] : NULL;
+    $person_company     = isset($atts['person_company']) ? $atts['person_company'] : NULL;
+    $person_language    = isset($atts['person_language']) ? $atts['person_language'] : NULL;
+    $person_email       = isset($atts['person_email']) ? $atts['person_email'] : NULL;
+    $person_phone       = isset($atts['person_phone']) ? $atts['person_phone'] : NULL;
+    $person_skype       = isset($atts['person_skype']) ? $atts['person_skype'] : NULL;
     $telegram       = isset($atts['telegram']) ? $atts['telegram'] : 'no';
     $load_more = __( 'Load More', 'sigmaigaming' );
     $tag_category = get_term_by('id', $term_id, $taxonomy);
@@ -745,10 +841,10 @@ function load_people_by_ajax_callback() {
 }
 
 //function to get videos.
-function sigma_mt_get_videos($term_id, $posts_per_page, $appearance = '', $year = '') {
+function sigma_mt_get_videos($term_id, $posts_per_page, $appearance = '') {
     $taxonomy = 'videos-cat';
     $post_type = 'video-items';
-    if(!empty($appearance) && empty($term_id)) {
+    if(!empty($appearance) && empty($term_id) && $appearance !== 'slider' ) {
         $post_args = array( 
             'posts_per_page' => $posts_per_page,
             'post_type' => $post_type,
@@ -780,33 +876,29 @@ add_shortcode( 'sigma-mt-about-videos', 'sigma_mt_get_about_videos' );
 function sigma_mt_get_about_videos($atts) {
     $value = shortcode_atts( array(
         'term_id'       => isset($atts['term_id']) ? $atts['term_id'] : '',
-        'posts_per_page' => $atts['posts_per_page'],
-        'year' => isset($atts['year']) ? $atts['year'] : '',
+        'posts_per_page' => isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '5',
         'appearance' => isset($atts['appearance']) ? $atts['appearance'] : '',
     ), $atts );
     $content = '';
     $appearanceVal = __( 'Grid', 'sigmaigaming' );
     $term_id = $value['term_id'];
     $posts_per_page = $value['posts_per_page'];
-    $year = $value['year'];
     $posts_by_year = [];
-    $get_videos = sigma_mt_get_videos($term_id, $posts_per_page, $value['appearance'], $year);
-
+    $get_videos = sigma_mt_get_videos($term_id, $posts_per_page, $value['appearance']);
     if(!empty($get_videos)) {
-
-        if ($get_videos->have_posts()) {
-            while ($get_videos->have_posts()) {
-                $get_videos->the_post();
-                $year = get_the_date('Y');
-                $youtube_video_link = get_field('youtube_video_link',  get_the_ID());
-
-                $year = get_the_date('Y');
-                $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+        if($value['appearance'] !== 'slider' && $value['appearance'] !== 'List') {
+            if ($get_videos->have_posts()) {
+                while ($get_videos->have_posts()) {
+                    $get_videos->the_post();
+                    $year = get_the_date('Y');
+                    $youtube_video_link = get_field('youtube_video_link',  get_the_ID());
+                    $year = get_the_date('Y');
+                    $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+                }
             }
             foreach($posts_by_year as $posts) {
                 $content .= '<h2 class="elementor-heading-title sigma-tv-page">SIGMA TV '.$posts[0]['Year'].'</h2>';
                 foreach($posts as $post) {
-                    //echo '<pre>'; print_r($post); echo '</pre>';
                     $youtube_video_link = get_field('youtube_video_link',  $post['ID']);
                     $content .= '<div class="video-grid">
                                     <h3 class="">'.$post['title'].'</h3>
@@ -814,7 +906,19 @@ function sigma_mt_get_about_videos($atts) {
                                 </div>';
                 }
             }
-            //echo '<pre>'; print_r($posts_by_year); echo '</pre>';
+        } else if($value['appearance'] === 'slider') {
+            $content .= '<section class="video slider">
+                            <div class="container">
+                                <div class="video-slider">';
+                                    foreach($get_videos as $k => $video) {
+                                        $youtube_video_link = get_field('youtube_video_link',  $video->ID);
+                                         $content .= '<div class="video-single">
+                                                        <iframe src="'.$youtube_video_link.'" width="560" height="315" data-service="youtube" allowfullscreen="1"></iframe>
+                                                      </div>';     
+                                    }
+                                $content .= '</div>
+                            </div>
+                        </section>';
         } else {
             foreach($get_videos as $k => $video) {
                 $youtube_video_link = get_field('youtube_video_link',  $video->ID);
@@ -854,6 +958,7 @@ function sigma_mt_get_company($atts) {
     $taxonomy = 'company-cat';
     $post_type = 'company-items';
     $term_id = $atts['term_id'];
+    $appearance = $atts['appearance'];
     $posts_per_page = $atts['posts_per_page'];
     $term_name = get_term_by('id', $term_id, $taxonomy);
     $supported_cat = get_field('supported_by');
@@ -936,7 +1041,7 @@ function sigma_mt_get_company($atts) {
                                     $content .= '<div class="single-winner">
                                                     <h3>'.$post->post_title.'</h3>
                                                     <div class="winner-img">
-                                                        <img src="'.$company_details['company_logo'] .'" alt="nomination logo">
+                                                        <img src="'.$company_details['company_logo'].'" alt="nomination logo">
                                                     </div>
                                                 </div>';
                                 }
@@ -944,7 +1049,7 @@ function sigma_mt_get_company($atts) {
             } else {
                 $content .= '';
             }
-        } else if($term_id === '1189') {
+        } else if($term_id === '1189' && $appearance !== 'Logos' ) {
             $content .= '<section class="all-winner">
                             <div class="container">
                                 <div class="winner-slider">';
@@ -964,7 +1069,7 @@ function sigma_mt_get_company($atts) {
                                 $content .= '</div>
                             </div>
                         </section>';
-        }  else {
+        } else {
             $content .= '<section class="'.$main_class.'">
                             <div class="container">';
                                 if(!empty($category_title)) {
@@ -1277,6 +1382,12 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     return $content;
 }
 
+//shortcode to generate Air Malta Mask
+add_shortcode( 'sigma-mt-air-malta-mask', 'sigma_mt_air_malta_mask' );
+function sigma_mt_air_malta_mask() {
+	return '<div>test</div>';
+}
+
 //shortcode to get hotels
 add_shortcode( 'sigma-mt-get-hotels', 'sigma_mt_get_hotels' );
 function sigma_mt_get_hotels($atts) {
@@ -1458,15 +1569,32 @@ add_shortcode( 'sigma-mt-get-testimonials', 'sigma_mt_get_testimonials' );
 function sigma_mt_get_testimonials($atts) {
     $content = '';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
-    $post_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'testimonial-items',
-      'orderby'        => 'rand',
-      'post_status'    => 'publish'
-    );
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
+    $colorClass = isset($atts['color']) ? $atts['color'] : '';
+    if(isset($term_id) && !empty($term_id)) {
+        $post_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'testimonial-items',
+          'tax_query' => array(
+              array(
+                  'taxonomy' => 'testimonial-cat',
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+        );
+    } else {
+        $post_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'testimonial-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish'
+        );
+    }
     $testimonials = get_posts($post_args);
     if(!empty($testimonials)) {
-        $content .= '<div class="testimonial-slider">';
+        $content .= '<div class="testimonial-slider '.$colorClass.'">';
                         foreach($testimonials as $k => $testimonial) {
                             $company = get_field('testimonial_company', $testimonial->ID);
                             $people = get_field('people_relationship', $testimonial->ID);
@@ -1501,12 +1629,27 @@ add_shortcode( 'sigma-mt-related-articles', 'sigma_mt_related_articles' );
 function sigma_mt_related_articles($atts) {
     $content = '';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
-    $post_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'news-items',
-      'orderby'        => 'rand',
-      'post_status'    => 'publish'
-    );
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    if(isset($term_id) && !empty($term_id)) {
+        $post_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'news-items',
+          'tax_query' => array(
+              array(
+                  'taxonomy' => 'news-cat',
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+        );
+    } else {
+        $post_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'news-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish'
+        );
+    }
     $relatedArticles = get_posts($post_args);
     if(!empty($relatedArticles)) {
         $content .= '<!-- Related Article Section -->
@@ -1530,36 +1673,79 @@ function sigma_mt_related_articles($atts) {
     return $content;
 }
 
-// Shortcode for related articles
+// Function to get casino 
+function sigma_mt_get_all_company_lists_array($term_id, $count) {
+    $taxonomy = 'company-cat';
+    $post_type = 'company-items';
+    if(!empty($term_id)) {
+        $post_args = array(
+          'posts_per_page' => $count,
+          'post_type' => $post_type,
+          'orderby'        => 'DESC',
+          'post_status'    => 'publish',
+          'tax_query' => array(
+                  array(
+                      'taxonomy' => $taxonomy,
+                      'field' => 'term_id',
+                      'terms' => $term_id,
+                  )
+              )
+        );
+    } else {
+        $post_args = array(
+          'posts_per_page' => $count,
+          'post_type' => $post_type,
+          'orderby'        => 'title',
+          'order'       => 'ASC',
+          'post_status'    => 'publish'
+        );
+    }
+    $company = get_posts($post_args);
+    return $company;
+}
+
+// Shortcode for 2020 Startup
 add_shortcode( 'sigma-mt-logos', 'sigma_mt_get_logos' );
 function sigma_mt_get_logos($atts) {
     $content = '';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
-    $post_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'logo-items',
-      'orderby'        => 'title',
-      'order'       => 'ASC',
-      'post_status'    => 'publish'
-    );
-    $relatedArticles = get_posts($post_args);
-    if(!empty($relatedArticles)) {
-        $content .= '<div class="charity-items">';
-                            foreach($relatedArticles as $k => $item) {
+    $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
+    $colorClass = isset($atts['color']) ? $atts['color'] : '';
+    $companyLists =  sigma_mt_get_all_company_lists_array($term_id, $count);
+    if(!empty($companyLists)) {
+        $content .= '<div class="charity-items '.$colorClass.'">
+                            <input type="hidden" value="'.$count.'" id="meet_startup_2020">';
+                            foreach($companyLists as $k => $item) {
+                                if(!empty($company_details['company_logo'])) {
+                                    $alt = $item->post_title;
+                                } else {
+                                    $alt = 'No Image';
+                                }
                                 $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
-                                $content .= '<div class="single-item" id="single-item'.$k.'" data-title="'.$item->post_title.'">
-                                    <div class="btn" onclick="openCharityDiv(\'single-item'.$k.'\')">
-                                        <div></div>
-                                    </div>
-                                    <div class="left">
-                                        <div class="img-wrapper">
-                                            <img src="'.$featured_image[0].'" alt="thumb-1">
-                                        </div>
-                                    </div>
-                                    <div class="right">
-                                        <p>'.$item->post_content.'</p>
-                                    </div>
-                                </div>';
+                                $company_details = get_field('company_details', $item->ID);
+                                $content .= '<div class="single-item" id="single-item'.$k.'" data-title="'.$item->post_title.'">';
+                                if($appearance === 'link' ) {
+                                    $content .= '<a href="'.get_permalink($item->ID).'" target="_blank"> 
+                                                    <div class="btn">
+                                                        <div></div>
+                                                    </div>
+                                                </a>';
+                                } else {
+                                    if(!empty($item->post_content)) {
+                                        $content .= '<div class="btn" onclick="openCharityDiv(\'single-item'.$k.'\')">
+                                                        <div></div>
+                                                    </div>';
+                                    }
+                                }
+                                $content .= '<div class="left">
+                                                <div class="img-wrapper">
+                                                    <img src="'.$company_details['company_logo'].'" alt="'.$alt.'">
+                                                </div>
+                                            </div>';
+                                if(!empty($item->post_content)) { $content .= '<div class="right"><p>'.$item->post_content.'</p></div>'; }
+                                    
+                                $content .= '</div>';
                             }  
                     $content .= '</div>';
     }
@@ -1582,14 +1768,71 @@ function sigma_mt_pitch_logo_slider() {
 
 // 2020 Startups filter shortcode
 add_shortcode( 'sigma-mt-2020-startups-filter', 'sigma_mt_2020_startups_filter' );
-function sigma_mt_2020_startups_filter() {
+function sigma_mt_2020_startups_filter($atts) {
     $content = '';
-    $content .= '<div class="startup-filter-2020">
+    $colorClass = isset($atts['color']) ? $atts['color'] : '';
+    $content .= '<div class="startup-filter-2020 align-center '.$colorClass.'">
                     <ul>
                         <li id="" class="active" data-regex="^[0-9a-gA-G].*">A - G</li>
                         <li id="" data-regex="^[h-nH-N].*">H - N</li>
                         <li id="" data-regex="^[o-zO-Z].*">O - Z</li>
                     </ul>
                 </div>';
+    return $content;
+}
+
+// Shortcode for game providers
+add_shortcode( 'sigma-mt-game-providers', 'sigma_mt_game_providers' );
+function sigma_mt_game_providers($atts) {
+    global $wp_query;
+    $content = '';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
+    $image = isset($atts['logo']) ? $atts['logo'] : NULL;
+    $game_title = isset($atts['game_title']) ? $atts['game_title'] : NULL;
+    $discover = isset($atts['discover']) ? $atts['discover'] : NULL;
+    $page_id = $wp_query->get_queried_object()->ID;
+    $post_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'company-items',
+      'orderby'        => 'DESC',
+      'post_status'    => 'publish',
+      'tax_query' => array(
+              array(
+                  'taxonomy' => 'company-cat',
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+    );
+    $gameLists = get_posts($post_args);
+    if(!empty($gameLists)) {
+        $content .= '<div class="directory '.$appearance.'">
+                        <div class="all-directory">';
+                            foreach($gameLists as $game) {
+                                $game_provider = get_field('company_details', $game->ID);
+                                $link = esc_url( add_query_arg( 'page_id', $page_id, get_permalink($game->ID) ) );
+                                $content .= '<div class="single-directory">
+                                                <a href="'.$link.'" target="_blank">';
+                                                    if(!empty($game_provider['company_logo']) && $image === 'YES') {
+                                                        $content .= '<img src="'.$game_provider['company_logo'].'" alt="">';
+                                                    }
+                                                    if(!empty($game->post_title) && $game_title === 'YES' ) {
+                                                        $content .= '<div class="provider-name">
+                                                                        <h3>'.$game->post_title.'</h3>
+                                                                    </div>';
+                                                    }
+                                                    if($discover === 'YES' ) {
+                                                        $content .= '<div class="provider-btn">
+                                                            <p>'.__( 'Discover Games', 'sigmaigaming' ).'</p>
+                                                        </div>';
+                                                    }
+                                                $content .= '</a>
+                                            </div>';
+                            }
+                        $content .= '</div>
+                    </div>';
+    }
     return $content;
 }

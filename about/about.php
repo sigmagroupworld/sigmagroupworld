@@ -63,7 +63,7 @@ if ($why_sigma){ ?>
 			      		$video_cat = sigma_mt_get_video_term($page_id);
 			      		$term_id = $video_cat[0]->term_id;
 			      		?>
-			      		<?php echo do_shortcode('[sigma-mt-about-videos term_id="'.$term_id.'" posts_per_page = "2"]'); ?>
+			      		<?php echo do_shortcode('[sigma-mt-about-videos term_id="'.$term_id.'" appearance = "List" posts_per_page = "2"]'); ?>
 			      	</div>
 			    </div>
 		  	</div>

@@ -63,7 +63,7 @@ function sigma_mt_news_custom_posts() {
 // create a Custom post taxonomy for news post
 add_action( 'init', 'sigma_mt_taxonomies_news', 0 );
 function sigma_mt_taxonomies_news(){
-	register_taxonomy('news-cat', array('news-items'), array('hierarchical' => true,
+	register_taxonomy('news-cat', array('news-items', 'page'), array('hierarchical' => true,
 			'labels' => array(
 				'name' => __('News Categories', 'sigmaigaming'),
 				'singular_name' => __('News Category', 'sigmaigaming'),
@@ -77,6 +77,8 @@ function sigma_mt_taxonomies_news(){
 				'new_item_name' => __('New News Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_in_nav_menus' => true,
+			'show_in_rest' => true,
 			'rewrite' => array('slug' => 'latest-news')
 		)
 	);
@@ -105,7 +107,7 @@ function sigma_mt_tags_news(){
 }
 
 // create a Custom post type events
-add_action('init', 'sigma_mt_events_custom_posts');
+/*add_action('init', 'sigma_mt_events_custom_posts');
 function sigma_mt_events_custom_posts(){
 	register_post_type('event-items', array(
 		'labels' => array(
@@ -199,7 +201,7 @@ function sigma_mt_events_editions(){
 		)
 	);
 }
-
+*/
 // Create CPT for authors
 add_action('init', 'sigma_mt_author_custom_posts');
 function sigma_mt_author_custom_posts(){
@@ -430,7 +432,7 @@ function sigma_mt_people_custom_posts() {
 // create a Custom post taxonomy for people post
 add_action( 'init', 'sigma_mt_taxonomies_people', 0 );
 function sigma_mt_taxonomies_people(){
-	register_taxonomy('people-cat', array('people-items', 'page'), array(
+	register_taxonomy('people-cat', array('people-items'), array(
 		'hierarchical' => true,
 			'labels' => array(
 				'name' => __('People Categories', 'sigmaigaming'),
@@ -654,27 +656,4 @@ function sigma_mt_taxonomies_award(){
 			'rewrite' => array('slug' => 'latest-award')
 		)
 	);
-}
-
-// create a Custom post type Logos
-add_action('init', 'sigma_mt_logos_custom_posts');
-function sigma_mt_logos_custom_posts() {
-	register_post_type('logo-items', array(
-		'labels' => array(
-			'name' => __('Logos', 'sigmaigaming'),
-			'singular_name' => __('Logo', 'sigmaigaming'),
-			'menu_name' => __('Logos', 'sigmaigaming'),
-			'add_new' => __('Add Logo Item', 'sigmaigaming'),
-			'add_new_item' => __('Add Logo Item', 'sigmaigaming'),
-			'edit_item' => __('Edit Logo Item', 'sigmaigaming'),
-			'new_item' => __('Logo Items', 'sigmaigaming'),
-			'view_item' => __('View Logo Items', 'sigmaigaming'),
-			'search_items' => __('Search Logo Items', 'sigmaigaming'),
-			'not_found' => __('No Logo Items found', 'sigmaigaming'),
-			'not_found_in_trash' => __('No Logo Items found in Trash', 'sigmaigaming'),
-		),
-		'public' => TRUE,
-		'rewrite' => array('slug' => 'logos'),		
-		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
-	));
 }

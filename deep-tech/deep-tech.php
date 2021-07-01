@@ -6,8 +6,6 @@
  */
 /* Europe Gaming Awards template css */
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/deep-tech/css/deep-tech.css');
-wp_enqueue_style('sigmamt-slick-style', get_stylesheet_directory_uri() . '/assets/css/slick.css', array(), '1.0.0', true);
-wp_enqueue_style('sigmamt-slick-theme', get_stylesheet_directory_uri() . '/assets/css/slick-theme.css', array(), '1.0.0', true);
 get_header();
 $page_id = $wp_query->get_queried_object()->ID;
 $deep_tech_banner = get_field('banner', $page_id);

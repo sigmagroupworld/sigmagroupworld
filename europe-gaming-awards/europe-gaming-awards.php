@@ -5,7 +5,8 @@
  * Created at: 16 June 2021
  */
 /* Europe Gaming Awards template css */
-wp_enqueue_style('home', get_stylesheet_directory_uri().'/europe-gaming-awards/css/europe-gaming-awards.css'); 
+wp_enqueue_style('home', get_stylesheet_directory_uri().'/europe-gaming-awards/css/europe-gaming-awards.css');
+wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true ); 
 get_header();
 $page_id = $wp_query->get_queried_object()->ID;
 $gaming_awards_banner = get_field('banner', $page_id);
@@ -158,12 +159,12 @@ $testimonials = get_field('testimonials', $page_id);
 	<section class="past-winner">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2 style="color: #13375b;"><?php echo $meet_the_past_winners['title']; ?></h2>
+	      <h2><?php echo $meet_the_past_winners['title']; ?></h2>
 	    </div>
 	    <?php if(!empty($meet_the_past_winners['winners_tab']['winners'])) {
 	    	foreach($meet_the_past_winners['winners_tab']['winners'] as $winner) { ?>
 			    <div class="wrapper">
-			      <div class="toggle" style="background: #13375b;">
+			      <div class="toggle">
 			        <h3><?php echo $winner['title']; ?></h3>
 			        <div class="all-sell">
 			          <i class="fas fa-plus icon"></i>

@@ -697,7 +697,6 @@ body {
 .hp-center .thumb-img img,
 .hp-right .thumb-img img {
     width: 100%;
-    https://sigmauat.xyz/
 }
 /* watch spotify section start */
 .modal-video-body {
@@ -1216,7 +1215,7 @@ body {
     font-weight: bold;
 }
 .hs-search-field__suggestions li {
-    padding: 5px 20px 5px 20px;
+    padding: 5px 15px 5px 15px;
 }
 .hs-search-field__suggestions li:hover {
     background-color: rgba(0,0,0,0.1);
@@ -1225,9 +1224,15 @@ body {
 .hs-search-field__suggestions li a {
     display: block;
     line-height: 22px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     color: #787878;
+}
+.hs-search-field__suggestions li a span.ui-state-highlight {
+    border: none;
+    color: #787878;
+    font-weight: bold;
+    background: transparent;
 }
 #search-results .highlight-term .highlight {
     color: #787878;
