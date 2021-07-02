@@ -1,3 +1,49 @@
+@media (max-width: 1300px) {
+    .page-container {
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    /* Left bar css Start */
+    .blog-leftbar {
+        max-width: 49%;
+        width: 50%;
+        -webkit-box-ordinal-group: 3;
+        -webkit-order: 2;
+        -moz-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+    /* Left bar css End */
+    /* Middle Detail News css start */
+    .blog-details {
+        max-width: 100%;
+        width: 100%;
+        -webkit-box-ordinal-group: 2;
+        -webkit-order: 1;
+        -moz-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px);
+        margin-bottom: 0px;
+    }
+    /* Middle Detail News css end */
+    /* Rightbar css Start */
+    .blog-rightbar {
+        max-width: 49%;
+        width: 50%;
+        -webkit-box-ordinal-group: 4;
+        -webkit-order: 3;
+        -moz-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+        order: 3;
+    }
+    /* Rightbar css End */
+}
 @media(max-width:1024px) {
     /* testimonial start */
     .testimonial-slider .slick-arrow.slick-prev, 
@@ -70,8 +116,19 @@
         width: 110px;
     }
     /* Get In Touch Section end */
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(25% - 10px * 2);
+    }
+    /* All Casinos Section end */ 
 }
-
+@media (max-width: 850px) {
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(33.33% - 10px * 2);
+    }
+    /* All Casinos Section end */ 
+}
 @media(max-width:767px) {
     /* Host & judges section start */
     .person-item-inner {
@@ -243,4 +300,42 @@
         top: 10px;
     }
     /* Get In Touch Section end */
+    .blog-leftbar,
+    .blog-rightbar {
+        max-width: 100%;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .single-banner-advert a {
+        text-align: center;
+    }
+    .offers-wrapper {
+        max-width: 100%;
+    }
+    .calendar-event {
+        margin-bottom: 20px;
+    }
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(50% - 10px * 2);
+    }
+    /* All Casinos Section end */ 
+}
+@media (max-width: 650px) {
+    .tab-bottom-links .left a {
+        min-width: auto;
+        font-size: 12px;
+        padding: 10px 30px;
+    }
+    .tab-bottom-links {
+        padding-top: 10px;
+    }
+}
+@media (max-width: 580px) {
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(100% - 10px * 2);
+    }
+    /* All Casinos Section end */
 }

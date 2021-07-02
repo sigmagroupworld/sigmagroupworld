@@ -549,7 +549,7 @@ body {
 }
 /* Mobile banner end */
 /* Home page main content strat */
-.container {
+.home .container {
     max-width: 1140px;
     padding: 0 20px;
     margin: 0 auto;
@@ -1027,6 +1027,9 @@ body {
 }
 .news-search .search-form .s-form.open .search-field {
     display: block;
+    font-size: 16px;
+    letter-spacing: normal;
+    font-family: Arial;
 }
 .news-search .search-form .s-form.open .search-label {
     display: none;
@@ -1038,14 +1041,14 @@ body {
 /* Search css end */
 /* news menu css end */
 /* Testimonial css start */
-.testimonial-slide {
+.testimonial-slide-home {
 	background-color: #f1f1f2;
 	margin-top: 10px;
 }
-.testimonial-slide .testimonial {
+.testimonial-slide-home .testimonial {
 	padding-top: 20px;
 }
-.testimonial-slide .testimonial img {
+.testimonial-slide-home .testimonial img {
 	height: 120px;
     width: 120px;
     border-radius: 100%;
@@ -1109,8 +1112,8 @@ body {
     font-family: "Montserrat";
     display: block;
 }
-.testimonial-slide .slick-prev,
-.testimonial-slide .slick-arrow.slick-next {
+.testimonial-slide-home .slick-prev,
+.testimonial-slide-home .slick-arrow.slick-next {
 	transform: unset;
     top: 80px;
     z-index: 1;
@@ -1128,15 +1131,15 @@ body {
     background: transparent;
     background-color: transparent !important;
 }
-.testimonial-slide .slick-prev {
+.testimonial-slide-home .slick-prev {
     left: 6%;
 }
-.testimonial-slide .slick-arrow.slick-next {
+.testimonial-slide-home .slick-arrow.slick-next {
     right: 6%;
     left: unset;
 }
-.testimonial-slide .slick-prev:before, 
-.testimonial-slide .slick-arrow.slick-next:before {
+.testimonial-slide-home .slick-prev:before, 
+.testimonial-slide-home .slick-arrow.slick-next:before {
     font-size: 22px;
     line-height: 24px;
     opacity: 1;
@@ -1149,11 +1152,11 @@ body {
     font-family: "Font Awesome 5 Free";
     display: block;
 }
-.testimonial-slide .slick-prev:before {
+.testimonial-slide-home .slick-prev:before {
     content: '\f104';
     padding: 2px 3px 3px 2px;
 }
-.testimonial-slide .slick-arrow.slick-next:before {
+.testimonial-slide-home .slick-arrow.slick-next:before {
     content: '\f105';
     padding: 2px 2px 3px 3px;
 }
@@ -1167,17 +1170,17 @@ body {
 .block-magazines {
     width: 47%;
 }
-.magazine-section .testimonial-slide .testimonial {
+.magazine-section .testimonial-slide-home .testimonial {
     padding-top: 0;
 }
-.magazine-section .testimonial-slide .testimonial img {
+.magazine-section .testimonial-slide-home .testimonial img {
     height: 142px;
     width: auto;
     border-radius: 0;
     margin: 0 auto;
 }
-.magazine-section .testimonial-slide .slick-prev, 
-.magazine-section .testimonial-slide .slick-arrow.slick-next {
+.magazine-section .testimonial-slide-home .slick-prev, 
+.magazine-section .testimonial-slide-home .slick-arrow.slick-next {
     top: unset;
     bottom: 10px;
 }
@@ -1213,9 +1216,10 @@ body {
 }
 .hs-search-field__suggestions .highlight {
     font-weight: bold;
+    padding: 5px 15px 5px 15px;
 }
 .hs-search-field__suggestions li {
-    padding: 5px 15px 5px 15px;
+    padding: 0;
 }
 .hs-search-field__suggestions li:hover {
     background-color: rgba(0,0,0,0.1);
@@ -1224,9 +1228,11 @@ body {
 .hs-search-field__suggestions li a {
     display: block;
     line-height: 22px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     color: #787878;
+    font-family: "Montserrat";
+    padding: 5px 15px 5px 15px;
 }
 .hs-search-field__suggestions li a span.ui-state-highlight {
     border: none;
@@ -1493,13 +1499,13 @@ body {
         width: -moz-calc(50% - 40px);
         width: calc(50% - 40px);
     }
-    .magazine-section .testimonial-slide .testimonial img {
+    .magazine-section .testimonial-slide-home .testimonial img {
         height: 100%;
         width: 100%;
         object-fit: cover;
     }
-    .magazine-section .testimonial-slide .slick-list,
-    .magazine-section .testimonial-slide .slick-track {
+    .magazine-section .testimonial-slide-home .slick-list,
+    .magazine-section .testimonial-slide-home .slick-track {
         height: 100%;
     }
 }

@@ -70,7 +70,7 @@
 				</div>
 				<!-- Testomonial Magazine -->
 				<div class="magazine-section">
-					<div class="sigma-magazines testimonial-slide">
+					<div class="sigma-magazines testimonial-slide-home">
 						<?php $sigma_magazines = sigma_mt_get_magazines(1149);
 						foreach($sigma_magazines as $k => $item) {
 							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' ); ?>
@@ -79,7 +79,7 @@
 							</figure>
 						<?php } ?>
 					</div>
-					<div class="block-magazines testimonial-slide">
+					<div class="block-magazines testimonial-slide-home">
 						<?php $sigma_magazines = sigma_mt_get_magazines(1148);
 						foreach($sigma_magazines as $k => $item) {
 							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' ); ?>
@@ -202,7 +202,7 @@
 						<?php } ?>
 					<?php $row++; } ?>
 					<!-- Testomonial Section -->
-					<div class="testimonial-slide">
+					<div class="testimonial-slide-home">
 						<?php $testimonials = sigma_mt_get_testimonial_data();
 						$r = 1;
 						$total = count($testimonials);

@@ -448,7 +448,7 @@ function sigma_mt_get_casino_provider_data($term_id = "", $posts_per_page = "") 
     return $get_posts;
 }
 
-// Shortcode for 2020 Startup
+// Shortcode for casino providers
 add_shortcode( 'sigma-mt-casino-providers', 'sigma_mt_casino_providers' );
 function sigma_mt_casino_providers($atts) {
     $content = '';
@@ -844,29 +844,51 @@ function load_people_by_ajax_callback() {
 function sigma_mt_get_videos($term_id, $posts_per_page, $appearance = '') {
     $taxonomy = 'videos-cat';
     $post_type = 'video-items';
-    if(!empty($appearance) && empty($term_id) && $appearance !== 'slider' ) {
-        $post_args = array( 
-            'posts_per_page' => $posts_per_page,
-            'post_type' => $post_type,
-            'orderby'        => 'DESC',
-            'post_status'    => 'publish',
-        );
-        $get_posts = new WP_Query($post_args);
+    if(!empty($term_id)){
+        if(!empty($appearance)) {
+            $post_args = array(
+                'posts_per_page' => $posts_per_page,
+                'post_type' => $post_type,
+                'orderby'        => 'ASC',
+                'post_status'    => 'publish',
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => $taxonomy,
+                        'field' => 'term_id',
+                        'terms' => $term_id,
+                    )
+                )
+            );
+            $get_posts = get_posts($post_args);
+        } else {
+            $post_args = array( 
+                'posts_per_page' => $posts_per_page,
+                'post_type' => $post_type,
+                'orderby'        => 'DESC',
+                'post_status'    => 'publish',
+            );
+            $get_posts = get_posts($post_args);
+        }
     } else {
-         $post_args = array(
-          'posts_per_page' => $posts_per_page,
-          'post_type' => $post_type,
-          'orderby'        => 'ASC',
-          'post_status'    => 'publish',
-          'tax_query' => array(
-                  array(
-                      'taxonomy' => $taxonomy,
-                      'field' => 'term_id',
-                      'terms' => $term_id,
-                  )
-              )
-        );
-        $get_posts = get_posts($post_args);
+        if(!empty($appearance)) {
+            if($appearance === 'SIGMATV' ) {
+                $post_args = array( 
+                    'posts_per_page' => $posts_per_page,
+                    'post_type' => $post_type,
+                    'orderby'        => 'DESC',
+                    'post_status'    => 'publish',
+                );
+                $get_posts = new WP_Query($post_args);
+            } else {
+                $post_args = array( 
+                    'posts_per_page' => $posts_per_page,
+                    'post_type' => $post_type,
+                    'orderby'        => 'DESC',
+                    'post_status'    => 'publish',
+                );
+                $get_posts = get_posts($post_args);
+            }
+        }
     }
     return $get_posts;
 }
@@ -876,7 +898,7 @@ add_shortcode( 'sigma-mt-about-videos', 'sigma_mt_get_about_videos' );
 function sigma_mt_get_about_videos($atts) {
     $value = shortcode_atts( array(
         'term_id'       => isset($atts['term_id']) ? $atts['term_id'] : '',
-        'posts_per_page' => isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '5',
+        'posts_per_page' => isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '10',
         'appearance' => isset($atts['appearance']) ? $atts['appearance'] : '',
     ), $atts );
     $content = '';
@@ -886,7 +908,7 @@ function sigma_mt_get_about_videos($atts) {
     $posts_by_year = [];
     $get_videos = sigma_mt_get_videos($term_id, $posts_per_page, $value['appearance']);
     if(!empty($get_videos)) {
-        if($value['appearance'] !== 'slider' && $value['appearance'] !== 'List') {
+        if($value['appearance'] === 'SIGMATV') {
             if ($get_videos->have_posts()) {
                 while ($get_videos->have_posts()) {
                     $get_videos->the_post();
@@ -958,7 +980,7 @@ function sigma_mt_get_company($atts) {
     $taxonomy = 'company-cat';
     $post_type = 'company-items';
     $term_id = $atts['term_id'];
-    $appearance = $atts['appearance'];
+    $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $posts_per_page = $atts['posts_per_page'];
     $term_name = get_term_by('id', $term_id, $taxonomy);
     $supported_cat = get_field('supported_by');
@@ -1049,26 +1071,28 @@ function sigma_mt_get_company($atts) {
             } else {
                 $content .= '';
             }
-        } else if($term_id === '1189' && $appearance !== 'Logos' ) {
-            $content .= '<section class="all-winner">
-                            <div class="container">
-                                <div class="winner-slider">';
-                                    foreach($get_posts as $k => $post) {
-                                        $post_date = explode('-', $post->post_date);
-                                        $year = $post_date[0];
-                                        $company_details = get_field('company_details', $post->ID);
-                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
-                                        $content .= '<div class="winer-slide"><div class="winner-single-slide">
-                                                        <div class="winner-label">WINNER '.$year.'</div>
-                                                        <div class="winner-content">';
-                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
-                                                            if(!empty($company_details)) { $content .= '<div class="winner-disc"><p>'.$post->post_content.'</p></div>'; }
-                                                    $content .= '</div></div>
-                                                </div>';
-                                    }
-                                $content .= '</div>
-                            </div>
-                        </section>';
+        } else if(!empty($term_id)) {
+            if($appearance === 'PARTNER' ) {
+                $content .= '<section class="all-winner">
+                                <div class="container">
+                                    <div class="winner-slider">';
+                                        foreach($get_posts as $k => $post) {
+                                            $post_date = explode('-', $post->post_date);
+                                            $year = $post_date[0];
+                                            $company_details = get_field('company_details', $post->ID);
+                                            $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                            $content .= '<div class="winer-slide"><div class="winner-single-slide">
+                                                            <div class="winner-label">WINNER '.$year.'</div>
+                                                            <div class="winner-content">';
+                                                                if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
+                                                                if(!empty($company_details)) { $content .= '<div class="winner-disc"><p>'.$post->post_content.'</p></div>'; }
+                                                        $content .= '</div></div>
+                                                    </div>';
+                                        }
+                                    $content .= '</div>
+                                </div>
+                            </section>';
+            }
         } else {
             $content .= '<section class="'.$main_class.'">
                             <div class="container">';
@@ -1715,12 +1739,14 @@ function sigma_mt_get_logos($atts) {
     $companyLists =  sigma_mt_get_all_company_lists_array($term_id, $count);
     if(!empty($companyLists)) {
         $content .= '<div class="charity-items '.$colorClass.'">
-                            <input type="hidden" value="'.$count.'" id="meet_startup_2020">';
+                            <input type="hidden" value="'.$count.'" id="meet_startup_last_year">';
                             foreach($companyLists as $k => $item) {
                                 if(!empty($company_details['company_logo'])) {
                                     $alt = $item->post_title;
+                                    $logo = $company_details['company_logo'];
                                 } else {
                                     $alt = 'No Image';
+                                    $logo = '';
                                 }
                                 $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
                                 $company_details = get_field('company_details', $item->ID);
@@ -1740,7 +1766,7 @@ function sigma_mt_get_logos($atts) {
                                 }
                                 $content .= '<div class="left">
                                                 <div class="img-wrapper">
-                                                    <img src="'.$company_details['company_logo'].'" alt="'.$alt.'">
+                                                    <img src="'.$logo.'" alt="'.$alt.'">
                                                 </div>
                                             </div>';
                                 if(!empty($item->post_content)) { $content .= '<div class="right"><p>'.$item->post_content.'</p></div>'; }
@@ -1767,11 +1793,11 @@ function sigma_mt_pitch_logo_slider() {
 }
 
 // 2020 Startups filter shortcode
-add_shortcode( 'sigma-mt-2020-startups-filter', 'sigma_mt_2020_startups_filter' );
-function sigma_mt_2020_startups_filter($atts) {
+add_shortcode( 'sigma-mt-last-year-startups-filter', 'sigma_mt_last_year_startups_filter' );
+function sigma_mt_last_year_startups_filter($atts) {
     $content = '';
     $colorClass = isset($atts['color']) ? $atts['color'] : '';
-    $content .= '<div class="startup-filter-2020 align-center '.$colorClass.'">
+    $content .= '<div class="startup-filter-last-year align-center '.$colorClass.'">
                     <ul>
                         <li id="" class="active" data-regex="^[0-9a-gA-G].*">A - G</li>
                         <li id="" data-regex="^[h-nH-N].*">H - N</li>

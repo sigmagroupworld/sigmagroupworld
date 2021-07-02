@@ -35,6 +35,21 @@ jQuery(document).ready(function($) {
 			}
 		}]
  	});
+ 	$(".testimonial-slide-home").slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		autoplay: false,
+		autoplaySpeed: 1500,
+		arrows: true,
+		responsive: [{
+			breakpoint: 850,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				infinite: true,
+			}
+		}]
+ 	});
 	/**** Testimonial Slider end ***/
 
 //deep tech insights slider start
@@ -44,6 +59,14 @@ jQuery(document).ready(function($) {
 	      slidesToScroll: 3,
 	      dots: true,
 	      responsive: [
+	      	{
+	          breakpoint: 1024,
+	          settings: {
+	            slidesToShow: 2,
+	            slidesToScroll: 2,
+	            infinite: true,
+	          }
+	        },
 	        {
 	          breakpoint: 768,
 	          settings: {
@@ -90,7 +113,7 @@ jQuery(document).ready(function($) {
 	      centerPadding: 10,
 	      responsive: [
 	        {
-	          breakpoint: 1025,
+	          breakpoint: 1024,
 	          settings: {
 	            slidesToShow: 2,
 	            slidesToScroll: 1,
@@ -365,8 +388,8 @@ jQuery(document).ready(function($) {
 		} , 500);
 	}
 	// 2020 Startup filter start
-	var numToDisplay = $("#meet_startup_2020").val();
-	$( '.startup-filter-2020 ul li' ).click( function(){
+	var numToDisplay = $("#meet_startup_last_year").val();
+	$( '.startup-filter-last-year ul li' ).click( function(){
 		if( $(this).hasClass( 'active' ) ) {
 			return;
 		} else {
@@ -378,7 +401,7 @@ jQuery(document).ready(function($) {
 				$( '#startup-filter-load-more-btn' ).show();
 			}
 		}
-		$( '.startup-filter-2020 ul li.active' ).removeClass( 'active' );
+		$( '.startup-filter-last-year ul li.active' ).removeClass( 'active' );
 		var i = 0;
 		$( this ).addClass( 'active ');
 		var regex_data = $(this).data('regex');

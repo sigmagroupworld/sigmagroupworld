@@ -9,13 +9,13 @@
 
 get_header();
 
-$show_article_id = $_GET['page_id'];
+$page_id = $_GET['page_id'];
 $featured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 $image_id = get_image_id_by_url($featured_image_url[0]);
 $image_info = wp_get_attachment_metadata($image_id);
 $image_title = get_the_title($image_id);
 $taxonomy = 'news-cat';
-$term_value = get_the_terms( $show_article_id, $taxonomy );
+$term_value = get_the_terms( $page_id, $taxonomy );
 $related_article_term = isset($term_value[0]->term_id) ? $term_value[0]->term_id : '';
 $key_metrics = get_field('key_metrics', get_the_ID());
 $game_provider_review = get_field('game_provider_review', get_the_ID());
