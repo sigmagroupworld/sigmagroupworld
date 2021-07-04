@@ -545,7 +545,7 @@ function sigma_mt_get_people_list($atts) {
     $post_type = 'people-items';
     $term_id = $atts['term_id'];
     $appearance = $atts['appearance'];
-    $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '1';
+    $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
     $speakers_text = get_field('speakers_text');
     $person_name        = isset($atts['person_name']) ? $atts['person_name'] : NULL;
     $person_image       = isset($atts['person_image']) ? $atts['person_image'] : NULL;
@@ -981,26 +981,31 @@ function sigma_mt_get_company($atts) {
     $post_type = 'company-items';
     $term_id = $atts['term_id'];
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
-    $posts_per_page = $atts['posts_per_page'];
+    $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : -1;
     $term_name = get_term_by('id', $term_id, $taxonomy);
     $supported_cat = get_field('supported_by');
+    $supported_asia_cat = get_field('supported_by_asia');
     $exibitors_cat = get_field('our_exhibitors_partners');
     $sponsors_and_exhibitors = get_field('our_sponsors_and_exhibitors');
     $our_trusted_suppliers = get_field('our_trusted_suppliers');
     $meet_the_past_winners = get_field('meet_the_past_winners');
     $partners = get_field('our_partners');
-    //echo '<pre>'; print_r($partners);
-    if(!empty($supported_cat['category_name'][0]) && $term_name->name === $supported_cat['category_name'][0]) {
+	$fallback = false;
+	/*
+	$content .= $exibitors_cat['category_name'][0] . "<br />";
+	$content .= $term_name->name;
+	*/
+    if( !empty($supported_cat['category_name'][0]) && str_starts_with($term_name->name, $supported_cat['category_name'][0]) ) {
         $main_class = 'supported';
         $sub_class = 'supported-logo';
         $single_class = 'supported-single';
         $category_title = $supported_cat['supported_by_title'];
-    } else if(!empty($exibitors_cat['category_name'][0]) && $term_name->name === $exibitors_cat['category_name'][0]) {
+    } else if(!empty($exibitors_cat['category_name'][0]) && str_starts_with($term_name->name, $exibitors_cat['category_name'][0])) {
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
         $category_title = $exibitors_cat['our_exhibitors_partners_title'];
-    } else if(!empty($sponsors_and_exhibitors['category_name'][0]) && $term_name->name === $sponsors_and_exhibitors['category_name'][0]) {
+    } else if(!empty($sponsors_and_exhibitors['category_name'][0]) && str_starts_with($term_name->name, $sponsors_and_exhibitors['category_name'][0])) {
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
@@ -1092,8 +1097,13 @@ function sigma_mt_get_company($atts) {
                                     $content .= '</div>
                                 </div>
                             </section>';
-            }
+            } else {
+				$fallback = true;
+			}
         } else {
+			$fallback = true;
+		}
+		if($fallback){
             $content .= '<section class="'.$main_class.'">
                             <div class="container">';
                                 if(!empty($category_title)) {
@@ -1121,7 +1131,7 @@ function sigma_mt_get_company($atts) {
                                         $content .= $shortcode;
                                     }
                                 }
-                        $content .= '</section>';            
+			$content .= '</section>';            
         }
 
 
@@ -1775,6 +1785,293 @@ function sigma_mt_get_logos($atts) {
                             }  
                     $content .= '</div>';
     }
+    return $content;
+}
+
+// Startup pitch slider shortcode
+add_shortcode( 'sigma-mt-book-flight-form', 'sigma_mt_book_flight_form' );
+function sigma_mt_book_flight_form() {
+    $content = '';
+    $content .= '<div class="airline_reg_form_row" id="register">
+      
+        <div class="airline_reg_form_fields">
+            <form name="airlineRegistrationForm" id="airlineRegForm" method="post" action="">
+           
+                <div class="airline_form_field_rows">
+                    <div class="airline_form_field_row">
+                        <div class="airline_title_row_left">
+                            <h4>Flights</h4>
+                        </div>
+                        <div class="airline_title_row_right">
+                        
+                        </div>
+                    </div>
+                    <div class="airline_form_field_row">
+                        <div class="airline_dropdown_row take_off_source">
+                            <select name="origin" class="journeyPlace1" required="">
+                              <option value="select"> --Select Origin-- </option>
+                              <option value="AUH"> Abu Dhabi International </option>
+                              <option value="AMS"> Amsterdam </option>
+                              <option value="AOI"> Ancona </option>
+                              <option value="ATH"> Athens Eleftherios Venizelos </option>
+                              <option value="BCN"> Barcelona</option>
+                              <option value="BRI"> Bari </option>
+                              <option value="BSL"> Bari </option>
+                              <option value="BEG"> Belgrade </option>
+                              <option value="BGO"> Bergen </option>
+                              <option value="TXL"> Berlin Tegel </option>
+                              <option value="BLQ"> Bologna </option>
+                              <option value="KBP"> Kiev Borispol </option>
+                              <option value="BTS"> Bratislava </option>
+                              <option value="BRE"> Bremen </option>
+                              <option value="BDS"> Brindisi </option>
+                              <option value="BRU"> Brussels National </option>
+                              <option value="OTP"> Bucharest Otopeni </option>
+                              <option value="BUD"> Budapest Ferihegy </option>
+                              <option value="CAG"> Cagliari elmas Mario Mameli </option>
+                              <option value="CAI"> Cario International </option>
+                              <option value="CMN"> Casablanca Mohammed V Int. Airport </option>
+                              <option value="CTA"> Catania Fontanarossa </option>
+                              <option value="CGN"> Cologne </option>
+                              <option value="CPH"> CologneCopenhagen Airport Kastrup </option>
+                              <option value="DOH"> Doha </option>
+                              <option value="DTM"> Dortmund </option>
+                              <option value="DRS"> Dresden </option>
+                              <option value="DUB"> Dublin </option>
+                              <option value="DBV"> Dubrovnik </option>
+                              <option value="DUS"> Dusseldorf </option>
+                              <option value="EDI"> Edinburgh </option>
+                              <option value="FLR"> Florence </option>
+                              <option value="FRA"> Frankfurt International </option>
+                              <option value="GDN"> Gdansk </option>
+                              <option value="GVA"> Geneva International </option>
+                              <option value="GOA"> Genoa </option>
+                              <option value="GOT"> Gothenburg </option>
+                              <option value="GRZ"> Graz </option>
+                              <option value="HAM"> Hamburg </option>
+                              <option value="HAJ"> Hannover </option>
+                              <option value="HEL"> Helsinki </option>
+                              <option value="IBZ"> Ibiza </option>
+                              <option value="IST"> Istanbul Airport </option>
+                              <option value="KTW"> Katowice </option>
+                              <option value="KRK"> Krakow </option>
+                              <option value="SUF"> Lamezia Terme </option>
+                              <option value="LCA"> Larnaca </option>
+                              <option value="LEJ"> Leipzig </option>
+                              <option value="LIS"> Lisbon </option>
+                              <option value="LON"> London </option>
+                              <option value="LGW"> London Gatwick </option>
+                              <option value="LHR"> London Heathrow </option>
+                              <option value="LUG"> Lugano </option>
+                              <option value="LUX"> Luxembourg </option>
+                              <option value="LYS"> Lyon Saint Exupery </option>
+                              <option value="MAD"> Madrid </option>
+                              <option value="AGP"> Malaga </option>
+                              <option value="MLA"> Malta International Airport </option>
+                              <option value="MAN"> Manchester </option>
+                              <option value="MRS"> Marseille Provence </option>
+                              <option value="LIN"> Milan Linate </option>
+                              <option value="MXP"> Milan Malpensa </option>
+                              <option value="SVO"> Moscow Sheremetyevo </option>
+                              <option value="MUC"> Munich International </option>
+                              <option value="NCE"> Nice </option>
+                              <option value="OSL"> Oslo </option>
+                              <option value="PMO"> Palermo </option>
+                              <option value="PAR"> Paris </option>
+                              <option value="CDG"> Paris Charles De Gaulle </option>
+                              <option value="ORY"> Paris Orly </option>
+                              <option value="OPO"> Porto </option>
+                              <option value="PRG"> Prague Ruzyne </option>
+                              <option value="REK"> Reykjavik </option>
+                              <option value="RIX"> Riga </option>
+                              <option value="FCO"> Rome Leonardo Da Vinci Fiumicino </option>
+                              <option value="SZG"> Salzburg </option>
+                              <option value="SOF"> Sofia International </option>
+                              <option value="ARN"> Stockholm Arlanda </option>
+                              <option value="STR"> Stuttgart </option>
+                              <option value="TLL"> Tallinn </option>
+                              <option value="TBS"> Tbilisi </option>
+                              <option value="TLV"> Tel Aviv </option>
+                              <option value="TUN"> Tunis Carthage International Airport </option>
+                              <option value="VCE"> Venice </option>
+                              <option value="VIE"> RiVienna Internationalga </option>
+                              <option value="WAW"> Warsaw </option>
+                              <option value="ZRH"> Zurich </option>
+                          </select>                          
+                        </div>
+                    </div>
+                    <div class="airline_form_field_row">
+                        <div class="airline_dropdown_row take_off_destination">
+                          <select name="destination" class="journeyPlace2" required="">
+                              <option value="select"> --Select Destination-- </option>
+                              <option value="AUH"> Abu Dhabi International </option>
+                              <option value="AMS"> Amsterdam </option>
+                              <option value="AOI"> Ancona </option>
+                              <option value="ATH"> Athens Eleftherios Venizelos </option>
+                              <option value="BCN"> Barcelona</option>
+                              <option value="BRI"> Bari </option>
+                              <option value="BSL"> Bari </option>
+                              <option value="BEG"> Belgrade </option>
+                              <option value="BGO"> Bergen </option>
+                              <option value="TXL"> Berlin Tegel </option>
+                              <option value="BLQ"> Bologna </option>
+                              <option value="KBP"> Kiev Borispol </option>
+                              <option value="BTS"> Bratislava </option>
+                              <option value="BRE"> Bremen </option>
+                              <option value="BDS"> Brindisi </option>
+                              <option value="BRU"> Brussels National </option>
+                              <option value="OTP"> Bucharest Otopeni </option>
+                              <option value="BUD"> Budapest Ferihegy </option>
+                              <option value="CAG"> Cagliari elmas Mario Mameli </option>
+                              <option value="CAI"> Cario International </option>
+                              <option value="CMN"> Casablanca Mohammed V Int. Airport </option>
+                              <option value="CTA"> Catania Fontanarossa </option>
+                              <option value="CGN"> Cologne </option>
+                              <option value="CPH"> CologneCopenhagen Airport Kastrup </option>
+                              <option value="DOH"> Doha </option>
+                              <option value="DTM"> Dortmund </option>
+                              <option value="DRS"> Dresden </option>
+                              <option value="DUB"> Dublin </option>
+                              <option value="DBV"> Dubrovnik </option>
+                              <option value="DUS"> Dusseldorf </option>
+                              <option value="EDI"> Edinburgh </option>
+                              <option value="FLR"> Florence </option>
+                              <option value="FRA"> Frankfurt International </option>
+                              <option value="GDN"> Gdansk </option>
+                              <option value="GVA"> Geneva International </option>
+                              <option value="GOA"> Genoa </option>
+                              <option value="GOT"> Gothenburg </option>
+                              <option value="GRZ"> Graz </option>
+                              <option value="HAM"> Hamburg </option>
+                              <option value="HAJ"> Hannover </option>
+                              <option value="HEL"> Helsinki </option>
+                              <option value="IBZ"> Ibiza </option>
+                              <option value="IST"> Istanbul Airport </option>
+                              <option value="KTW"> Katowice </option>
+                              <option value="KRK"> Krakow </option>
+                              <option value="SUF"> Lamezia Terme </option>
+                              <option value="LCA"> Larnaca </option>
+                              <option value="LEJ"> Leipzig </option>
+                              <option value="LIS"> Lisbon </option>
+                              <option value="LON"> London </option>
+                              <option value="LGW"> London Gatwick </option>
+                              <option value="LHR"> London Heathrow </option>
+                              <option value="LUG"> Lugano </option>
+                              <option value="LUX"> Luxembourg </option>
+                              <option value="LYS"> Lyon Saint Exupery </option>
+                              <option value="MAD"> Madrid </option>
+                              <option value="AGP"> Malaga </option>
+                              <option value="MLA"> Malta International Airport </option>
+                              <option value="MAN"> Manchester </option>
+                              <option value="MRS"> Marseille Provence </option>
+                              <option value="LIN"> Milan Linate </option>
+                              <option value="MXP"> Milan Malpensa </option>
+                              <option value="SVO"> Moscow Sheremetyevo </option>
+                              <option value="MUC"> Munich International </option>
+                              <option value="NCE"> Nice </option>
+                              <option value="OSL"> Oslo </option>
+                              <option value="PMO"> Palermo </option>
+                              <option value="PAR"> Paris </option>
+                              <option value="CDG"> Paris Charles De Gaulle </option>
+                              <option value="ORY"> Paris Orly </option>
+                              <option value="OPO"> Porto </option>
+                              <option value="PRG"> Prague Ruzyne </option>
+                              <option value="REK"> Reykjavik </option>
+                              <option value="RIX"> Riga </option>
+                              <option value="FCO"> Rome Leonardo Da Vinci Fiumicino </option>
+                              <option value="SZG"> Salzburg </option>
+                              <option value="SOF"> Sofia International </option>
+                              <option value="ARN"> Stockholm Arlanda </option>
+                              <option value="STR"> Stuttgart </option>
+                              <option value="TLL"> Tallinn </option>
+                              <option value="TBS"> Tbilisi </option>
+                              <option value="TLV"> Tel Aviv </option>
+                              <option value="TUN"> Tunis Carthage International Airport </option>
+                              <option value="VCE"> Venice </option>
+                              <option value="VIE"> RiVienna Internationalga </option>
+                              <option value="WAW"> Warsaw </option>
+                              <option value="ZRH"> Zurich </option>
+                                 
+                                </select>
+                        </div>
+                    </div>
+                    <div class="airline_form_field_row">
+                        <div class="airline_radiobtns_row">
+                            <div class="user_way_option">
+                                <input type="radio" name="journeyType" id="returnWay" value="round-trip" checked="" required=""> 
+                                <label for="returnWay">Return</label>
+                            </div>
+                            <div class="user_way_option">
+                                <input type="radio" name="journeyType" id="onw_wy" value="one-way"> 
+                                <label for="onw_wy">One way</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="airline_form_field_row">
+                        <div class="airline_datepicker_left">
+                            <div class="take_off_datepicker">
+                                <input type="text" name="date" id="despaturedate" placeholder="Departure Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                            </div>
+                        </div>
+                        <div class="airline_datepicker_right">
+                            <div class="return_datepicker">
+                                <input type="text" name="date1" id="returndate" placeholder="Return Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="airline_form_field_row">
+                        <div class="airline_radiobtns_row_left">
+                            <div class="airline_flexible_check">
+                                <input type="checkbox" name="flexible_date_check" id="flexible_date_check" checked="">
+                                <label for="flexible_date_check">Flexible Dates</label>
+                            </div>
+                        </div>
+                    
+                        <div class="airline_radiobtns_row_right">
+                            <div class="traveling_class">
+                                <input type="radio" name="class" id="travellingClass" value="Economy" > 
+                                <label for="travellingClass1">Economy</label>
+                            </div>
+                            <div class="traveling_class">
+                                <input type="radio" name="class" id="travellingClass" value="Business" checked> 
+                                <label for="travellingClass2">Business</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="airline_form_field_row">
+                            <div class="airline_person_selection">
+                                <div class="person_age_select">
+                                    <label>Adults</label>
+                                    <input type="number" name="ADT" id="adult" value="1">
+                                </div>
+                            </div>
+                            <div class="airline_person_selection">
+                                <div class="person_age_select">
+                                    <label>Children(2-11yrs)</label>
+                                    <input type="number" name="CHD" id="child" value="0">
+                                </div>
+                            </div>
+                            <div class="airline_person_selection">
+                                <div class="person_age_select">
+                                    <label>Infants(0-2yrs)</label>
+                                    <input type="number" name="INF" id="infan">
+                                </div>
+                            </div>
+                                    <input type="hidden" name="promoCode" value="MKMSIGMA20" id="promoCode">
+                    </div>
+                    <div class="airline_form_field_row">
+                        <div class="hiddenFeilds"><input type="hidden" name="locale" value="en-GB" class="lang"><input type="hidden" name="origin1" value="select" class="temp_origin"><input type="hidden" name="destination1" value="select" class="temp_destination"></div>
+                    </div>
+                </div>
+                <div class="airline_reg_action_btns">
+                    <div class="airline_form_action_btn">
+                        <input type="submit" name="airlineRegFormProceedBtn" class="airlineRegFormProceedBtn" id="airlineRegFormProceedBtn" value="SUBMIT">
+                    </div>
+                </div>
+                <div class="data_box"></div>
+            </form>
+        </div>
+    </div>';
     return $content;
 }
 
