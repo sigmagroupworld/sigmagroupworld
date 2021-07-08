@@ -2498,7 +2498,55 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     border: 1px solid #d1d1d1 !important;
 	height: 50px;
 }
+.coming_soon {
+    text-align: center;
+    font-size: 3rem !important;
+    color: #1a76fc;
+}
+.coming_soon > div {
+    font-weight: 700;
+}
+
+.college-form #wpforms-form-18805 input[type=radio]:after {
+    left: unset;
+    top: unset;
+    background: #ed1a3b;
+    border: #ed1a3b;
+}
+
+.college-form #wpforms-form-18805 input[type=checkbox]:after {
+    left: unset;
+    top: unset;
+}
+.full_time_fields {
+    display: none;
+}
 /* Sigma college page contact form end */
+
+/* Vacancies Filter Start */
+.vacancies-filter {
+    padding: 20px;
+    margin-left: 35px;
+}
+.vacancies-filter h3 {
+    float: left;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 10px;
+    font-family: 'Montserrat';
+    margin-right: 20px;
+}
+.vacancies-filter select {
+    padding: 10px;
+    margin: 0 10px;
+    -moz-appearance: auto !important;
+    border: 2px solid #ed1a3b !important;
+    border-radius: 0px;
+    font-weight: 700;
+    width: 20%;
+}
+/* Vacancies Filter End */
+
 /* game providers start */
 .all-directory {
     display: flex;
@@ -2520,7 +2568,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .single-directory img {
     width: 100%;
     height: 102px;
-    object-fit: cover;
+    object-fit: contain;
     padding: 15px;
 }
 .provider-name {
@@ -3048,11 +3096,405 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 /* Casino details tab end */
 /* Style the tab end */
 /* Single Casino Page end */
+
 /* Game provider single start */
-.key-metrics-content h3 {
+.single-desc {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+.key-metrics-content h3,
+.game-provider-review-content h3 {
     font-size: 22px;
+    text-transform: uppercase;
+    margin: 20px 0;
+    padding: 0 0 6px 0;
+    color: #e76124;
+    line-height: 26px;
+    border-bottom: 1px solid #42637f;
+}
+.game-types span,
+.operators-integrated span,
+.years-in-business span {
+    color: #e76124;
+    text-transform: uppercase;
+    margin: 0 8px 10px 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    font-family: 'Montserrat';
+    display: block;
+}
+.licences span,
+.number-of-games span {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #000;
+    text-transform: unset;
+}
+.licences span.licences-title,
+.number-of-games span.games-title {
+    color: #e76124;
+    text-transform: uppercase;
+    margin-right: 8px;
+}
+.gametypes p,
+.casino-qt p,
+.year-est p {
+    position: relative;
+    color: #000;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-left: 25px;
+}
+.gametypes p:before,
+.casino-qt p:before,
+.year-est p:before {
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 1px solid #e76124;
+    top: 0;
+    left: 0;
+}
+.gametypes p.selected:after,
+.casino-qt p.selected:after,
+.year-est p.selected:after {
+    position: absolute;
+    content: '\2714';
+    color: #509647;
+    top: 0;
+    left: -5px;
+    font-size: 32px;
+    transform: rotate(18deg);
+}
+.game-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.game-left,
+.game-right {
+    width: 50%;
+}
+.certified-images,
+.awards-images {
+    display: flex;
+    flex-wrap: wrap;
+}
+.certified-single,
+.awards-single {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.certified-single img,
+.awards-single img {
+    max-width: 120px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+.game-provider-review-content {
+    margin-bottom: 30px;
 }
 /* Game provider single end */
+
+/* press pack css start */
+.logo-gallery .gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+.gallery-icon,
+.gallery-icon a {
+    height: 100%;
+}
+.gallery-icon a img {
+    height: 100% !important;
+    object-fit: contain;
+    padding: 10px;
+}
+/* press pack css end */
+
+/*** Job Listing css*/
+.job-listing .single-jobs {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 20px 0 20px 20px;
+}
+.job-listing .single-jobs img.featured-image {
+    vertical-align: bottom;
+    height: 130px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.job-listing .single-jobs img.lang-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 13%;
+    margin-top: 20px;
+}
+.job-listing .job-detail h3 {
+    display: inline;
+    width: 80%;
+    float: left;
+    text-align: left;
+    font-size: 16px;
+    color: black;
+    font-weight: 700;
+    margin: 0;
+}
+.job-listing .descriptionSection {
+    display: inline;
+    width: 80%;
+    font-family: 'Montserrat';
+    font-size: 13px;
+    font-style: italic;
+    color: black;
+    float: left;
+}
+.job-listing .short-descritpion {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4c4c4c;
+    float: left;
+    width: 100%;
+}
+.job-listing .buttons-wrapper a {
+    background-color: red;
+    background-image: linear-gradient(to bottom right,#ee5725,#c72e2c);
+    text-decoration: none;
+    color: white;
+    float: left;
+    width: 40%;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 20px;
+    padding: 5px;
+}
+.igaming-single {
+    width: -webkit-calc(25% - 20px * 2);
+    width: -moz-calc(25% - 20px * 2);
+    width: calc(25% - 20px * 2);
+        border: 1px solid #c4c4c4;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 30px 25px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right:  30px;
+    min-height: 200px;
+}
+.igaming-single .expert-info h2 {
+    font-size: 14px;
+    color: #ed1a3b;
+    text-align: center;
+}
+.igaming-single .expert-info a:hover {
+    background: #ed1a3b;
+    color: #fff;
+}
+.igaming-single .expert-info a {
+    width: 100%;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 7px 0;
+    font-size: 12px;
+    color: #ed1a3b;
+    border: 1px solid #ed1a3b;
+    -webkit-transition: all .5s linear;
+    -o-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    transition: all .5s linear;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    max-width: 300px;
+}
+.magazine-widget {
+    width: -webkit-calc(25% - 20px * 2);
+    width: -moz-calc(25% - 20px * 2);
+    width: calc(25% - 20px * 2);
+    display: inline-block;
+    margin-right: 40px;
+}
+.magazine-widget a:hover::after {
+    background-color: rgba(237,26,59,0.75);
+}
+.requirenments {
+    margin-top:  20px;
+}
+.requirenments h3 {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 16px;
+}
+.requirenments .require-content p {
+    text-decoration: underline;
+    font-weight: 400;
+    font-size: 16px;
+}
+.requirenments ul li {
+    list-style-type: disc;
+}
+.vacancy-application {
+    margin-top: 40px;
+}
+.vacancy-application h3 {
+    text-align: center;
+}
+.post-content .vacancy-application form .wpforms-field-email input {
+    border: 1px solid #ccc !important;
+}
+
+/*** Job Listing css end*/
+
+/*** Gallery Page ***/
+
+#gallery-page-tab .elementor-tabs .elementor-tabs-wrapper .elementor-tab-title {
+    display: inline-block;
+    padding: 12px 33px 12px 22px;
+    color: #636363;
+    cursor: pointer;
+    font-weight: 400;
+    font-family: "Montserrat";
+    position: relative;
+    background: #DEDEDE;
+    margin-top: 40px;
+}
+#gallery-page-tab .elementor-tabs .elementor-tabs-wrapper .elementor-tab-title.elementor-active::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 37px solid transparent;
+    border-left: 22px solid #ed1a3b;
+    background: #dedede;
+}
+#gallery-page-tab .elementor-tabs .elementor-tabs-wrapper .elementor-tab-title.elementor-active {
+    background-color: #ed1a3b;
+    color: #FFFFFF;
+}
+#gallery-page-tab .elementor-tabs .elementor-tabs-wrapper .elementor-tab-title:first-child {
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    padding-right: 32px;
+}
+#gallery-page-tab .elementor-tabs .elementor-tabs-wrapper .elementor-tab-title:last-child {
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+}
+#gallery-page-tab .elementor-tabs .elementor-tabs-wrapper .elementor-tab-title.elementor-active:last-child::before {
+    content: "";
+    left: -22px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 33px solid transparent;
+    border-right: 22px solid #ed1a3b;
+    background: #dedede;
+    border-top: none;
+    border-left: none;
+}
+
+.directory-gallery .single-gallery {
+    width: 30%;
+    display: inline-block;
+    margin: 15px;
+}
+.directory-gallery .single-gallery h3 {
+    margin-top: 0px;
+    color: #3a3a3a;
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+.gt3_gallery-template-default .entry-header h1.entry-title {
+    color: #3a3a3a;
+    font-size: 20px;
+    margin-bottom: 0px;
+    font-weight:  600;
+}
+.gt3_gallery-template-default .entry-header h1.entry-title::after {
+    content: '';
+    height: 1px;
+    background-color: #dedede;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -moz-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    display: block;
+}
+.gt3_gallery-template-default .entry-header {
+    padding-bottom: 0;
+    max-width: 1024px;
+}
+.gt3_gallery-template-default .entry-header .post-thumbnail, .gt3-photo-gallery-pro--isotope_gallery, .gt3_gallery-template-default .wp-block-code {
+    display:  none;
+}
+.gt3_gallery-template-default .entry-content .gt3-photo-gallery-pro--isotope_gallery {
+    max-width: 1024px !important;
+}
+.gallery-directories h2 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    color: #b8b8b8;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -moz-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    margin: 0;
+        margin-bottom: 0px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    font-size: 16px;
+    padding: 20px;
+    margin-top: 20px;
+}
+.gallery-directories h2::after {
+    content: '';
+    display: block;
+    height: 1px;
+    border-bottom: 1px dotted #b8b8b8;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -moz-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    margin: 0 0 0 10px;
+}
+/*** Gallery Page end ***/
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */

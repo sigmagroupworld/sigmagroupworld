@@ -121,6 +121,13 @@
         width: calc(25% - 10px * 2);
     }
     /* All Casinos Section end */ 
+    .single-directory {
+        width: 50%;
+    }
+    .certified-single, 
+    .awards-single {
+        width: 50%;
+    }
 }
 @media (max-width: 850px) {
     /* All Casinos Section start */ 
@@ -321,6 +328,14 @@
         width: calc(50% - 10px * 2);
     }
     /* All Casinos Section end */ 
+    .single-directory,
+    .game-left, 
+    .game-right,
+    .certified-single, 
+    .awards-single {
+        width: 100%;
+    }
+
 }
 @media (max-width: 650px) {
     .tab-bottom-links .left a {

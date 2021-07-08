@@ -190,6 +190,46 @@ function sigma_mt_get_magazines($term_id) {
     return $get_posts;
 }
 
+//Shortcode to display banner adds
+add_shortcode( 'sigma-mt-magazines', 'sigma_mt_magazines' );
+function sigma_mt_magazines($atts) {
+    $content = '';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '5';
+    $post_per_page = isset($atts['post_per_page']) ? $atts['post_per_page'] : '10';
+    $taxonomy = 'magazines-cat';
+    $post_per_page = isset($post_per_page) ? $post_per_page : '';
+    $category = get_term_by('id', $term_id, $taxonomy);
+    $post_args = array(
+      'posts_per_page' => $post_per_page,
+      'post_type' => 'magazine-items',
+      'orderby'        => 'rand',
+      'post_status'    => 'publish',
+      'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $category->term_id,
+              )
+          )
+    );
+    $getMagazines = get_posts($post_args);
+    $content .='<section class="sigma-news">
+                    <div class="container">';
+                        foreach($getMagazines as $magazine) {
+                            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $magazine->ID ), 'full' );
+                            $magazineLink = get_field('link', $magazine->ID);
+                            $magazineLink = isset($magazineLink) ? $magazineLink : '#';
+                            $content .= '<div class="magazine-widget">
+                                            <a href="'.$magazineLink.'">
+                                                <img src="'.$featured_image[0].'">
+                                            </a>
+                                        </div>';
+                        }
+                    $content .= '</div>
+            </section>';
+    return $content;
+}
+
 //Get tags menus
 function sigma_mt_get_tags_menu() {
     $menu = '963';
@@ -370,14 +410,36 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
                   'field' => 'term_id',
                   'terms' => $tag_category->term_id,
               )
-          )
+          ),
+          /*'meta_query' => array(
+            'relation' => 'OR',
+              array(
+                'key' => '_custom_post_order',
+                'compare' => 'EXISTS',
+              ),
+          ),
+          'orderby' => 'meta_value',
+          'order' => 'ASC'*/
         );
     } else {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'news-items',
           'orderby'        => 'rand',
-          'post_status'    => 'publish'
+          'post_status'    => 'publish',
+          /*'meta_query' => array(
+            'relation' => 'OR',
+              array(
+                'key' => '_custom_post_order',
+                'compare' => 'EXISTS',
+              ),
+              array(
+                'key' => '_custom_post_order',
+                'compare' => 'NOT EXISTS',
+              ),
+          ),
+          'orderby' => 'meta_value',
+          'order' => 'ASC'*/
         );
     }
     $tag_data['term_value'] = $tag_category;
@@ -407,16 +469,22 @@ function sigma_mt_get_continent_order() {
     $africa = __( 'Africa', 'sigmaigaming' );
 
     if($continents === $asia ) {
+        // $sort = 'asia';
         $order = require_once get_stylesheet_directory().'/home/home-asia.php';
     } elseif ($continents === $europe ) {
+        // $sort = 'europe';
         $order = require_once get_stylesheet_directory().'/home/home-europe.php';
     } elseif ($continents === $americas) {
+        // $sort = 'americas';
         $order = require_once get_stylesheet_directory().'/home/home-americas.php';
     } elseif ($continents === $africa) {
+        // $sort = 'africa';
         $order = require_once get_stylesheet_directory().'/home/home-africa.php';
     } else {
+        // $sort = 'europe';
         $order = require_once get_stylesheet_directory().'/home/home-europe.php';
     }
+    // $order = require_once get_stylesheet_directory().'/home/sorted-home.php';
     return $order;
 }
 
@@ -546,6 +614,8 @@ function sigma_mt_get_people_list($atts) {
     $term_id = $atts['term_id'];
     $appearance = $atts['appearance'];
     $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
+    $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
+    $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
     $speakers_text = get_field('speakers_text');
     $person_name        = isset($atts['person_name']) ? $atts['person_name'] : NULL;
     $person_image       = isset($atts['person_image']) ? $atts['person_image'] : NULL;
@@ -620,7 +690,9 @@ function sigma_mt_get_people_list($atts) {
                   'field' => 'term_id',
                   'terms' => explode(',', $term_id),
                 )
-            )
+            ),
+            'order'   => $sort_order,
+            'orderby'        => $orderby,
         );
         $get_posts = get_posts($post_args);
     } else {
@@ -629,7 +701,9 @@ function sigma_mt_get_people_list($atts) {
           'post_type' => $post_type,
           'orderby'        => 'DESC',
           'post_status'    => 'publish',
-          'paged' => 1
+          'paged' => 1,
+          'order'   => $sort_order,
+          'orderby'        => $orderby,
         );
         $get_posts = get_posts($get_posts);
     }
@@ -914,7 +988,6 @@ function sigma_mt_get_about_videos($atts) {
                     $get_videos->the_post();
                     $year = get_the_date('Y');
                     $youtube_video_link = get_field('youtube_video_link',  get_the_ID());
-                    $year = get_the_date('Y');
                     $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
                 }
             }
@@ -982,6 +1055,8 @@ function sigma_mt_get_company($atts) {
     $term_id = $atts['term_id'];
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : -1;
+    $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
+    $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
     $term_name = get_term_by('id', $term_id, $taxonomy);
     $supported_cat = get_field('supported_by');
     $supported_asia_cat = get_field('supported_by_asia');
@@ -1024,7 +1099,8 @@ function sigma_mt_get_company($atts) {
     $post_args = array(
       'posts_per_page' => $posts_per_page,
       'post_type' => $post_type,
-      'orderby'        => 'DESC',
+      'order'   => $sort_order,
+      'orderby'        => $orderby,
       'post_status'    => 'publish',
       'tax_query' => array(
               array(
@@ -1096,6 +1172,26 @@ function sigma_mt_get_company($atts) {
                                         }
                                     $content .= '</div>
                                 </div>
+                            </section>';
+            } else if($appearance === 'IGAMING' ) {
+                $content .= '<section class="igaming-lists">
+                                <div class="container">';
+                                    foreach($get_posts as $k => $post) {
+                                        $company_details = get_field('company_details', $post->ID);
+                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                        $content .= '<div class="igaming-single">
+                                                        <div class="igaming-box">
+                                                            <div class="expert-img">';
+                                                                if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
+                                                            $content .= '</div>
+                                                            <div class="expert-info">';
+                                                                $content .= '<h2>'.$post->post_title.'</h2>';
+                                                                $content .= '<a href="'.$url.'">'.__( 'Visit Website', 'sigmaigaming' ).'</a>';
+                                                            $content .= '</div>
+                                                        </div>
+                                                    </div>';
+                                    }
+                                $content .= '</div>
                             </section>';
             } else {
 				$fallback = true;
@@ -2156,6 +2252,188 @@ function sigma_mt_game_providers($atts) {
                             }
                         $content .= '</div>
                     </div>';
+    }
+    return $content;
+}
+
+// Shortcode for 
+add_shortcode( 'sigma-mt-igaming-gallery', 'sigma_mt_igaming_gallery' );
+function sigma_mt_igaming_gallery($atts) {
+    global $wp_query;
+    $content = '';
+    $posts_by_year = [];
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '5';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $page_id = $wp_query->get_queried_object()->ID;
+    $post_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'gt3_gallery',
+      'orderby'        => 'DESC',
+      'post_status'    => 'publish',
+      'tax_query' => array(
+                array(
+                    'taxonomy' => 'gt3_gallery_category',
+                    'field'    => 'term_id',
+                    'terms'    => $term_id,
+                    'operator' => 'IN'
+                ),
+            ),
+    );
+    $gallery = new WP_Query($post_args);
+    if(!empty($gallery)) {
+        if ($gallery->have_posts()) {
+        while ($gallery->have_posts()) {
+            $gallery->the_post();
+            $year = get_the_date('Y');
+            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+        }
+    }
+    $content .= '<div class="directory-gallery">
+                    <div class="all-gallery gallery-directories">';
+                        foreach($posts_by_year as $posts) {
+                            $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
+                            foreach($posts as $post) {
+                                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
+                                $content .= '<div class="single-gallery">
+                                                <a href="'.get_permalink($post['ID']).'" target="_blank">
+                                                    <h3>'.$post['title'].'</h3>
+                                                    <div class="featured-image">
+                                                        <img src="'.$featured_image[0].'" alt="">
+                                                    </div>
+                                                </a>
+                                            </div>';
+                            }
+                        }
+                    $content .= '</div>
+                </div>';
+    }
+    return $content;
+}
+
+//shortcode to get jobs
+add_shortcode( 'sigma-mt-get-jobs', 'sigma_mt_get_jobs' );
+function sigma_mt_get_jobs($atts) {
+    $content = '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '10';
+
+    $category = array();
+    if( isset( $_GET['country'] ) ):
+        if( $_GET['country'] != 'country' ):
+            $category[] = $_GET['country'];
+        endif;
+    endif;
+    if( isset( $_GET['department'] ) ):
+        if( $_GET['department'] != 'department' ):
+            $category[] = $_GET['department'];
+        endif;
+    endif;
+    if( isset( $_GET['job-type'] ) ):
+        if( $_GET['job-type'] != 'job-type' ):
+            $category[] = $_GET['job-type'];
+        endif;
+    endif;
+
+    if( !empty( $category ) ):
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'job-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish',
+          'tax_query' => array(
+                array(
+                    'taxonomy' => 'job-cat',
+                    'field'    => 'slug',
+                    'terms'    => $category,
+                    'operator' => 'IN'
+                ),
+            ),
+        );
+    else:
+        $post_tag_args = array(
+          'posts_per_page' => $count,
+          'post_type' => 'job-items',
+          'orderby'        => 'rand',
+          'post_status'    => 'publish',
+        );
+    endif;
+    $get_posts = get_posts($post_tag_args);
+
+    $terms = get_terms( array(
+        'taxonomy' => 'job-cat', // to make it simple I use default categories
+        'orderby' => 'name',
+        'post_type' => 'job-items',
+        'parent' => 0,
+        'hide_empty' => false,
+    ) );
+
+    if(!empty($get_posts)) {
+        if( $terms ):
+            $content .= '<div class="vacancies-filter"><h3>All Vacancies</h3>';
+            foreach( $terms as $cat ):
+                $parent_category_id = $cat->term_id;
+                $parent_category_name = $cat->name;
+                $parent_category_slug = $cat->slug;
+
+                $child_arg = array( 'hide_empty' => false, 'parent' => $parent_category_id );
+                $child_cat = get_terms( array(
+                    'taxonomy' => 'job-cat', // to make it simple I use default categories
+                    'orderby' => 'name',
+                    'post_type' => 'job-items',
+                    'parent' => $parent_category_id,
+                    'hide_empty' => false,
+                ) );
+                
+                $content .= '
+                    <select id="filter-'.$parent_category_slug.'">
+                        <option value="'.$parent_category_slug.'">'.$parent_category_name.'</option>';
+                        if( $child_cat ):
+                            foreach( $child_cat as $child ):
+                                $child_cat_name = $child->name;
+                                $child_cat_slug = $child->slug;
+                                if( isset( $_GET[$parent_category_slug] ) ):
+                                    if( $_GET[$parent_category_slug] == $child_cat_slug ):
+                                        $selected = 'selected';
+                                    else:
+                                        $selected = '';
+                                    endif;
+                                else:
+                                    $selected = '';
+                                endif;
+                                $content .= '<option value="'.$child_cat_slug.'" '.$selected.'>'.$child_cat_name.'</option>';
+                            endforeach;
+                        endif;
+                $content .= '</select>';
+            endforeach;
+            $content .= '</div>';
+        endif;
+        $content .= '<div class="job-listing">';
+                        foreach($get_posts as $k => $post) {
+                            $job_desc = get_field('job_description', $post->ID);
+                            $lang_logo = get_field('language_icon', $post->ID);
+                            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                            if(!empty($featured_image[0])) {
+                                $image = $featured_image[0];
+                            } else {
+                                $image = ''.SITE_URL.'/wp-content/uploads/2021/07/frame-with-office-equipment-white-desk.png';
+                            }
+                            $content .= '<div id="" class="single-jobs">
+                                            <div class="logo">
+                                                <img src="'.$image.'" alt="" class="featured-image">
+                                                <img src="'.$lang_logo.'" alt="" class="lang-image">
+                                            </div>
+                                            <div class="long">
+                                                <div class="job-detail">
+                                                    <h3>'.$post->post_title.'</h3>
+                                                    <p class="descriptionSection">'.$job_desc.'</p>
+                                                    <p class="short-descritpion">'.$post->post_content.'</p>
+                                                </div>
+                                                <div class="buttons-wrapper">
+                                                    <a class="more" target="_blank" href="'.get_permalink( $post->ID ).'">'.__( 'Learn More', 'sigmaigaming' ).'</a>
+                                                </div>
+                                            </div>
+                                        </div>';
+                        }
+                    $content .= '</div>';
     }
     return $content;
 }
