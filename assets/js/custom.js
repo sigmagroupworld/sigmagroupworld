@@ -207,6 +207,27 @@ jQuery(document).ready(function($) {
 	    $('#'+elementId).removeClass('full');
 	}
 	/** Book Hotel Toggle end ***/
+	
+	/** Air Malta Form ***/
+	$("#airlineRegForm").submit(function(event) {
+		event.preventDefault();
+		let values = {};
+		$("#airlineRegForm :input").each(function() {
+			values[this.name] = $(this).val().toString();
+		});
+		
+		let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/matrix?journeyType=' + values['journeyType'] 
+								+ '&locale=en-GB&awardBooking=false&searchType=BRANDED&class=' + values['class']  
+								+ '&ADT=' + (values['ADT'] == '' ? '0' : values['ADT']) + '&CHD=' + (values['CHD'] == '' ? '0' : values['CHD']) + '&INF=' + (values['INF'] == '' ? '0' : values['INF']) 
+								+ '&YTH=0&origin=' + values['origin'] 
+								+ '&destination=' + values['destination'] + '&date=' + values['date'];
+		let finalUrlPartTwo = 	values['journeyType'] == 'round-trip'
+								? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&direction=0&execution=e1s1'
+								: '&promoCode=MKMSIGMA20&direction=0&execution=e1s1';
+		let finalUrl = finalUrlPartOne + finalUrlPartTwo;
+		window.open(finalUrl);
+	});
+	/** Air Malta Form End ***/
 
 	/** Hosts script start **/
 	openHostsDiv = (elementId) => {

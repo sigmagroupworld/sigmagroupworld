@@ -11,66 +11,82 @@ get_header();
 $page_id = $wp_query->get_queried_object()->ID;
 $flights_accommodation = get_field('flights_and_accommodation');
 $sigma_offical_hotels = get_field('sigma_offical_hotels');
+$show_flight_form = get_field('show_flight_form');
 $hotel_listing = get_field('hotel_listing', $page_id);
 ?>
 
 <div class="book-hotel-template">
 	<!-- book hotel page start -->
 	<section class="book-hotel-page">
-	  <div class="container">
-	    <!-- Flights & accomodation start -->
-	    <div class="flights">
-	      <div class="page-title">
-	        <h2><?php echo $flights_accommodation['title']; ?></h2>
-	      </div>
-	      <div class="book-txt-all">
-	        <div class="book-txt">
-	          <p><?php echo $flights_accommodation['description']; ?></p>
-	        </div>
-	        <div class="book-video">
-	          <?php echo $flights_accommodation['video_iframe']; ?>
-	        </div>
-	      </div>
-	    </div>
-	    <!-- Flights & accomodation end -->
+	<div class="container">
+		<?php if(!empty($flights_accommodation['title'])){ ?>
+			<!-- Flights & accomodation start -->
+			<div class="flights">
+				<div class="page-title">
+					<h2><?php echo $flights_accommodation['title']; ?></h2>
+				</div>
+				<div class="book-txt-all">
+					<div class="book-txt">
+						<p><?php echo $flights_accommodation['description']; ?></p>
+					</div>
+					<div class="book-video">
+						<?php echo $flights_accommodation['video_iframe']; ?>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
+		<!-- Flights & accomodation end -->
+		
 
 	    <!-- Flights Booking form start -->
-	    <div class="airline-wrapper">
-			<?php echo do_shortcode('[sigma-mt-book-flight-form]'); ?>
-		</div>
+		<?php if($show_flight_form == 1){ ?>
+	    	<div class="airline-wrapper">
+				<?php echo do_shortcode('[sigma-mt-book-flight-form]'); ?>
+			</div>
+		<?php } ?>
 	    <!-- Flights Booking form end -->
 
 	    <!-- Sigma official hotel start -->
 	    <div class="sigma-hotels">
-	      <div class="page-title">
-	        <h2><?php echo $sigma_offical_hotels['title']; ?></h2>
-	      </div>
-	      <div class="hotels-sub">
-	        <img src="<?php echo $sigma_offical_hotels['icon']; ?>" alt="">
-	        <p><?php echo $sigma_offical_hotels['text']; ?>.</p>
-	      </div>
-	      <div class="hotel-imgs">
-	      	<?php if(!empty($sigma_offical_hotels['official_photo_gallery'])) {
-	      		foreach($sigma_offical_hotels['official_photo_gallery'] as $image) { ?>
-			        <div class="single-img">
-			          <img src="<?php echo $image['image']; ?>" alt="">
-			        </div>
-		    <?php }
-		    } ?>
-	      </div>	      
-	      <?php echo do_shortcode($sigma_offical_hotels['official_hotel_shortcode']); ?>
+		  <?php if(!empty($sigma_offical_hotels['title'])){ ?>
+			  <div class="page-title">
+				<h2><?php echo $sigma_offical_hotels['title']; ?></h2>
+			  </div>
+		  <?php } ?>
+		  <?php if(!empty($sigma_offical_hotels['icon'])){ ?>
+			  <div class="hotels-sub">
+				<img src="<?php echo $sigma_offical_hotels['icon']; ?>" alt="">
+				<p><?php echo $sigma_offical_hotels['text']; ?>.</p>
+			  </div>
+		  <?php } ?>
+		  <?php if(!empty($sigma_offical_hotels['official_photo_gallery'])){ ?>
+			  <div class="hotel-imgs">
+				<?php if(!empty($sigma_offical_hotels['official_photo_gallery'])) {
+					foreach($sigma_offical_hotels['official_photo_gallery'] as $image) { ?>
+						<div class="single-img">
+						  <img src="<?php echo $image['image']; ?>" alt="">
+						</div>
+				<?php }
+				} ?>
+			  </div>
+		  <?php } ?>	  
+		  <?php if(!empty($sigma_offical_hotels['official_hotel_shortcode'])){ ?>    
+	      	<?php echo do_shortcode($sigma_offical_hotels['official_hotel_shortcode']); ?>
+		  <?php } ?>	  
 	    </div>
 	    <!-- Sigma official hotel end -->
 
 	    <!-- STAR HOTELS Listing -->
-	    <?php foreach($hotel_listing as $list) { ?>
-		    <div class="sigma-hotels">
-				<div class="page-title">
-					<h2><?php echo $list['title']; ?></h2>
+	    <?php if(!empty($hotel_listing)){
+			foreach($hotel_listing as $list) { ?>
+				<div class="sigma-hotels">
+					<div class="page-title">
+						<h2><?php echo $list['title']; ?></h2>
+					</div>
+					<?php echo do_shortcode($list['shortcode']); ?>
 				</div>
-			    <?php echo do_shortcode($list['shortcode']); ?>
-			</div>
-		<?php } ?>
+			<?php }
+		} ?>
 		<!-- STAR HOTELS Listing end -->
 	  </div>
 	</section>

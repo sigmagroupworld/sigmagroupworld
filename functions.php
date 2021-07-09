@@ -469,23 +469,15 @@ function sigma_mt_get_continent_order() {
     $africa = __( 'Africa', 'sigmaigaming' );
 
     if($continents === $asia ) {
-        // $sort = 'asia';
-        $order = require_once get_stylesheet_directory().'/home/home-asia.php';
-    } elseif ($continents === $europe ) {
-        // $sort = 'europe';
-        $order = require_once get_stylesheet_directory().'/home/home-europe.php';
+        $_GET['front_page_sort'] = 'asia';
     } elseif ($continents === $americas) {
-        // $sort = 'americas';
-        $order = require_once get_stylesheet_directory().'/home/home-americas.php';
+        $_GET['front_page_sort'] = 'americas';
     } elseif ($continents === $africa) {
-        // $sort = 'africa';
-        $order = require_once get_stylesheet_directory().'/home/home-africa.php';
+        $_GET['front_page_sort'] = 'africa';
     } else {
-        // $sort = 'europe';
-        $order = require_once get_stylesheet_directory().'/home/home-europe.php';
+        $_GET['front_page_sort'] = 'europe';
     }
-    // $order = require_once get_stylesheet_directory().'/home/sorted-home.php';
-    return $order;
+    return require_once get_stylesheet_directory().'/home/home-news.php';
 }
 
 //function to get news tags.
@@ -649,7 +641,7 @@ function sigma_mt_get_people_list($atts) {
         $heading = isset($speakers_text['speaker_title']) ? $speakers_text['speaker_title'] : '';
         $button = '<div class="load-people"><button class="load-more" id="load-more">'.$load_more.'</button></div></div>';
         $desc = isset($speakers_text['speaker_text']) ? $speakers_text['speaker_text'] : '';
-    } else if (!empty($hosts['title']) && $term_name === $hosts['title'] || $appearance === $appearanceHJVal) {
+    } else if ((!empty($hosts['title']) && str_starts_with($term_name, $hosts['title'])) || $appearance === $appearanceHJVal) {
         $main_class = 'hosts';        
         $heading = isset($hosts['title']) ? $hosts['title'] : '';
         $sub_class = 'person-item';
@@ -752,7 +744,7 @@ function sigma_mt_get_people_list($atts) {
                                                             if($telegram === 'YES' && !empty($person_telgram)) { $content .= '<p><span>Telegram:</span> <a href="skype:'.$person_telgram.'?call"><i class="fab fa-telegram" aria-hidden="true"></i>'.$person_telgram.'</a></p>'; }
                                                         $content .= '</div>';
                                         $content .= '</div>';
-                                    } else if (!empty($hosts['title']) && $term_name === $hosts['title'] ) {
+                                    } else if (!empty($hosts['title']) && str_starts_with($term_name, $hosts['title']) ) {
                                         $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
                                                         <div class="person-left">
                                                              <div class="person-avatar-img">';
@@ -1512,12 +1504,6 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     return $content;
 }
 
-//shortcode to generate Air Malta Mask
-add_shortcode( 'sigma-mt-air-malta-mask', 'sigma_mt_air_malta_mask' );
-function sigma_mt_air_malta_mask() {
-	return '<div>test</div>';
-}
-
 //shortcode to get hotels
 add_shortcode( 'sigma-mt-get-hotels', 'sigma_mt_get_hotels' );
 function sigma_mt_get_hotels($atts) {
@@ -1598,11 +1584,27 @@ function sigma_mt_get_hotels($atts) {
 add_shortcode( 'sigma-mt-get-awards', 'sigma_mt_get_awards' );
 function sigma_mt_get_awards($atts) {
     $content = '';
+    $taxonomy = 'award-cat';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
-    $post_tag_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'award-items',
-    );
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    if(isset($term_id) && !empty($term_id)) {
+		$post_tag_args = array(
+		  'posts_per_page' => $count,
+		  'post_type' => 'award-items',
+          'tax_query' => array(
+              array(
+                  'taxonomy' => $taxonomy,
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+		);
+    } else {
+		$post_tag_args = array(
+		  'posts_per_page' => $count,
+		  'post_type' => 'award-items'
+		);
+    }
     $get_posts = get_posts($post_tag_args);
     if(!empty($get_posts)) {
         $content .= '<div class="awards-wrapper">';
@@ -1904,7 +1906,7 @@ function sigma_mt_book_flight_form() {
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_dropdown_row take_off_source">
-                            <select name="origin" class="journeyPlace1" required="">
+                            <select id="airlineRegFormOrigin" name="origin" class="journeyPlace1" required="">
                               <option value="select"> --Select Origin-- </option>
                               <option value="AUH"> Abu Dhabi International </option>
                               <option value="AMS"> Amsterdam </option>
@@ -1998,7 +2000,7 @@ function sigma_mt_book_flight_form() {
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_dropdown_row take_off_destination">
-                          <select name="destination" class="journeyPlace2" required="">
+                          <select id="airlineRegFormDestination" name="destination" class="journeyPlace2" required="">
                               <option value="select"> --Select Destination-- </option>
                               <option value="AUH"> Abu Dhabi International </option>
                               <option value="AMS"> Amsterdam </option>
@@ -2094,11 +2096,11 @@ function sigma_mt_book_flight_form() {
                     <div class="airline_form_field_row">
                         <div class="airline_radiobtns_row">
                             <div class="user_way_option">
-                                <input type="radio" name="journeyType" id="returnWay" value="round-trip" checked="" required=""> 
+                                <input type="radio" name="journeyType" value="round-trip" checked="" required=""> 
                                 <label for="returnWay">Return</label>
                             </div>
                             <div class="user_way_option">
-                                <input type="radio" name="journeyType" id="onw_wy" value="one-way"> 
+                                <input type="radio" name="journeyType" value="one-way"> 
                                 <label for="onw_wy">One way</label>
                             </div>
                         </div>
@@ -2106,30 +2108,30 @@ function sigma_mt_book_flight_form() {
                     <div class="airline_form_field_row">
                         <div class="airline_datepicker_left">
                             <div class="take_off_datepicker">
-                                <input type="text" name="date" id="despaturedate" placeholder="Departure Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                                <input type="text" name="date" placeholder="Departure Date" value="" autocomplete="off" required="" class="hasDatepicker">
                             </div>
                         </div>
                         <div class="airline_datepicker_right">
                             <div class="return_datepicker">
-                                <input type="text" name="date1" id="returndate" placeholder="Return Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                                <input type="text" name="date1" laceholder="Return Date" value="" autocomplete="off" required="" class="hasDatepicker">
                             </div>
                         </div>
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_radiobtns_row_left">
                             <div class="airline_flexible_check">
-                                <input type="checkbox" name="flexible_date_check" id="flexible_date_check" checked="">
+                                <input type="checkbox" name="flexible_date_check" checked="">
                                 <label for="flexible_date_check">Flexible Dates</label>
                             </div>
                         </div>
                     
                         <div class="airline_radiobtns_row_right">
                             <div class="traveling_class">
-                                <input type="radio" name="class" id="travellingClass" value="Economy" > 
+                                <input type="radio" name="class" value="Economy" > 
                                 <label for="travellingClass1">Economy</label>
                             </div>
                             <div class="traveling_class">
-                                <input type="radio" name="class" id="travellingClass" value="Business" checked> 
+                                <input type="radio" name="class" value="Business" checked> 
                                 <label for="travellingClass2">Business</label>
                             </div>
                         </div>

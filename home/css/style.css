@@ -1006,7 +1006,7 @@ body {
 }
 .news-search .search-form .search-field {
     display: none;
-    max-width: 245px;
+    /* max-width: 245px; */
     width: 100%;
     -webkit-transition-delay: 0s;
     -moz-transition-delay: 0s;
@@ -1203,10 +1203,10 @@ body {
 .hs-search-field__suggestions {
     width: 100%;
     border: solid 1px rgba(151,151,151,0.3);
-    border-top: 1px solid #ed1a3b;
+    border-top: 0;
     font-size: 16px;
     position: absolute;
-    top: 36px;
+    top: 39.5px;
     background: #fff;
     z-index: 99;
     display: none;
@@ -1217,6 +1217,8 @@ body {
 .hs-search-field__suggestions .highlight {
     font-weight: bold;
     padding: 5px 15px 5px 15px;
+    font-size: 14px;
+    font-family: "Montserrat";
 }
 .hs-search-field__suggestions li {
     padding: 0;
