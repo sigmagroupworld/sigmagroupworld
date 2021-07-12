@@ -181,16 +181,14 @@ $testimonials = get_field('testimonials', $page_id);
 	<!-- Past winner section start -->
 
 	<!-- Testimonial section start --> 
-	<?php if(!empty($testimonials['shortcode'])){ ?>
-		<section class="testimonial">
-		  <div class="container">
-			<div class="page-title">
-			  <h2 style="color: #13375b;"><?php echo $testimonials['title']; ?></h2>
-			</div>
-			<?php echo do_shortcode($testimonials['shortcode']); ?>
-		  </div>
-		</section>
-	<?php } ?>
+	<section class="testimonial">
+	  <div class="container">
+	    <div class="page-title">
+	      <h2 style="color: #13375b;"><?php echo $testimonials['title']; ?></h2>
+	    </div>
+	    <?php echo do_shortcode($testimonials['shortcode']); ?>
+	  </div>
+	</section>
 	<!-- Testimonial section end --> 
 
 </div>

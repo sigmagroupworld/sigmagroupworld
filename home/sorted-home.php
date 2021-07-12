@@ -1,10 +1,12 @@
 <?php global $desktop_banner, $taxonomy, $row; ?>
 
+<div class="lds-ellipsis-spinner"><div></div><div></div><div></div><div></div></div>
+
 <section id="sorted-data"></section>
 
-<!-- America news section -->
 <div id='unsorted-data' style="display: none;">
-	<section class="home-blog" <?php echo ( $sort == 'america' ) ? 'data-sort=0' : 'data-sort=""'; ?>>
+	<!-- America news section -->
+	<section class="home-blog" data-sort="<?php echo $sorting_order_americas; ?>" >
 		<div class="container">
 			<div class="home-news">
 				<?php
@@ -111,15 +113,14 @@
 				</div>
 			</div>
 		</div>
+		<!-- News Image slider start -->
+		<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' ); ?>
+		<!-- News Image slider end -->
 	</section>
 	<!-- America news section end-->
 
-	<!-- News Image slider start -->
-	<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' ); ?>
-	<!-- News Image slider end -->
-
 	<!-- Europe news section -->
-	<section class="home-blog" <?php echo ( $sort == 'europe' ) ? 'data-sort=0' : 'data-sort=""'; ?>>
+	<section class="home-blog" data-sort="<?php echo $sorting_order_europe; ?>" >
 		<div class="container">
 			<div class="home-news">
 				<?php
@@ -247,16 +248,15 @@
 				</div>
 			</div>
 		</div>
+		<!-- News Image slider start -->
+		<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ); ?>
+		<!-- News Image slider end -->
 	</section>
 	<!-- Europe news section end-->
 
-	<!-- News Image slider start -->
-	<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ); ?>
-	<!-- News Image slider end -->
-
 	<!-- Asia news section -->
 	<?php $news_tags = sigma_mt_get_news_tags_data(1061, $taxonomy, 6); ?>
-	<section class="home-blog" <?php echo ( $sort == 'asia' ) ? 'data-sort=0' : 'data-sort=""'; ?>>
+	<section class="home-blog" data-sort="<?php echo $sorting_order_asia; ?>" >
 		<div class="container">
 			<div class="home-news">				
 				<div class="latest-news hp-left">
@@ -382,15 +382,14 @@
 				</div>
 			</div>
 		</div>
+		<!-- News Image slider start -->
+		<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ); ?>
+		<!-- News Image slider end -->
 	</section>
 	<!-- Asia news section end-->
 
-	<!-- News Image slider start -->
-	<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ); ?>
-	<!-- News Image slider end -->
-
 	<!-- Africa news section -->
-	<section class="home-blog" <?php echo ( $sort == 'africa' ) ? 'data-sort=0' : 'data-sort=""'; ?>>
+	<section class="home-blog" data-sort="<?php echo $sorting_order_africa; ?>" >
 		<div class="container">
 			<div class="home-news">
 				<?php
@@ -496,10 +495,9 @@
 				</div>
 			</div>
 		</div>
+		<!-- News Image slider start -->
+		<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' ); ?>
+		<!-- News Image slider end -->
 	</section>
 	<!-- Africa news section end-->
-
-	<!-- News Image slider start -->
-	<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' ); ?>
-	<!-- News Image slider end -->
 </div>

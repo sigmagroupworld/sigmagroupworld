@@ -135,6 +135,7 @@ jQuery(document).ready(function($) {
       		infinite: true,
       		slidesToShow: 1,
       		slidesToScroll: 1,
+		autoplay: true,
   	});
 
 	/**** Related Articles Slider ***/
@@ -209,26 +210,58 @@ jQuery(document).ready(function($) {
 	/** Book Hotel Toggle end ***/
 	
 	/** Air Malta Form ***/
+	$(".hasDatepicker").datepicker();
+	$("#returnWay").click(function(event){
+		console.log('prop: ' + $(this).prop('checked'));
+		if($(this).prop('checked')){
+			$("#returndate").prop('disabled', false);
+		}
+	})
+	$("#oneWay").click(function(event){
+		console.log('prop oneway: ' + $(this).prop('checked'));
+		if($(this).prop('checked')){
+			$("#returndate").prop('disabled', true);
+		}
+	})
+	
 	$("#airlineRegForm").submit(function(event) {
 		event.preventDefault();
 		let values = {};
 		$("#airlineRegForm :input").each(function() {
+			let thisType = $(this).attr('type');
+			if(thisType && (typeof $(this).prop('disabled') == 'undefined' || $(this).prop('disabled') !== true) && ( (thisType !== 'radio' && thisType !== 'checkbox' ) ||  $(this).prop('checked') === true) ){
+				values[this.name] = $(this).val().toString();
+			}
+		});
+		
+		$("#airlineRegForm select").each(function() {
 			values[this.name] = $(this).val().toString();
 		});
 		
-		let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/matrix?journeyType=' + values['journeyType'] 
-								+ '&locale=en-GB&awardBooking=false&searchType=BRANDED&class=' + values['class']  
-								+ '&ADT=' + (values['ADT'] == '' ? '0' : values['ADT']) + '&CHD=' + (values['CHD'] == '' ? '0' : values['CHD']) + '&INF=' + (values['INF'] == '' ? '0' : values['INF']) 
-								+ '&YTH=0&origin=' + values['origin'] 
-								+ '&destination=' + values['destination'] + '&date=' + values['date'];
-		let finalUrlPartTwo = 	values['journeyType'] == 'round-trip'
-								? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&direction=0&execution=e1s1'
-								: '&promoCode=MKMSIGMA20&direction=0&execution=e1s1';
-		let finalUrl = finalUrlPartOne + finalUrlPartTwo;
-		window.open(finalUrl);
+		let adt = 'ADT' in values && values['ADT'] != '' ? values['ADT'] : 0;
+		let chd = 'CHD' in values && values['CHD'] != '' ? values['CHD'] : 0;
+		let inf = 'INF' in values && values['INF'] != '' ? values['INF'] : 0;
+		let totalPersons = parseInt(adt) + parseInt(chd) + parseInt(inf);
+		console.log(totalPersons);
+		console.log(values);
+		// Note: "Flexible Dates" parameter is not working in the old page - the URLs generated with / without Flexible Dates are identical
+		if( totalPersons > 0 && 'journeyType' in values  && values['journeyType'] != '' && 'travellingClass' in values  && values['travellingClass'] != '' && 'origin' in values  && values['origin'] != 'select' && 'destination' in values  && values['destination'] != 'select' && 'date' in values  && values['date'] != '' && (values['journeyType'] != 'round-trip' || (values['journeyType'] == 'round-trip'  && values['date1'] != '' && 'date1' in values) ) ) {
+			let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/matrix?journeyType=' + values['journeyType'] 
+									+ '&locale=en-GB&awardBooking=false&searchType=BRANDED&class=' + values['travellingClass']  
+									+ '&ADT=' + adt + '&CHD=' + chd + '&INF=' + inf 
+									+ '&YTH=0&origin=' + values['origin'] 
+									+ '&destination=' + values['destination'] + '&date=' + values['date'];
+			let finalUrlPartTwo = 	values['journeyType'] == 'round-trip'
+									? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&direction=0&execution=e1s1'
+									: '&promoCode=MKMSIGMA20&direction=0&execution=e1s1';
+			let finalUrl = finalUrlPartOne + finalUrlPartTwo;
+			window.open(finalUrl);
+		} else {
+			alert('Please complete required fields!');
+		}
 	});
 	/** Air Malta Form End ***/
-
+	
 	/** Hosts script start **/
 	openHostsDiv = (elementId) => {
 		$('#'+elementId).toggleClass('person-open');
@@ -242,12 +275,29 @@ jQuery(document).ready(function($) {
 
 	// Awards script start
 	openAward = (elementId) => {
+		$( '.awards-wrapper .award-box' ).removeClass('open');
 		$('#'+elementId).addClass('open');
 	}
 	closeAward = (elementId) => {
 		$('#'+elementId).removeClass('open');
 	}
   	//Awards script end
+
+	// sitting down script start
+	tabArrangments = (evt, down) => {
+		var i, itemcontent, iconbtn;
+		itemcontent = document.getElementsByClassName("itemcontent");
+		for (i = 0; i < itemcontent.length; i++) {
+			itemcontent[i].style.display = "none";
+		}
+		iconbtn = document.getElementsByClassName("iconbtn");
+		for (i = 0; i < iconbtn.length; i++) {
+			iconbtn[i].className = iconbtn[i].className.replace(" active", "");
+		}
+		document.getElementById(down).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	// sitting down script end
 	
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
@@ -424,7 +474,8 @@ jQuery(document).ready(function($) {
 		}
 		$( '.startup-filter-last-year ul li.active' ).removeClass( 'active' );
 		var i = 0;
-		$( this ).addClass( 'active ');
+		var li_class = $( this ).attr( 'class' );
+		$( '.'+li_class ).addClass( 'active ');
 		var regex_data = $(this).data('regex');
 		$( '.charity-items > div' ).each(function () {
 			if ( $( this ).data( 'title' ).search( regex_data ) > -1) {
@@ -500,7 +551,6 @@ jQuery(document).ready(function($) {
 	/** Job Filter **/
 	$('#filter').submit(function(){
 		var filter = $('#filter');
-		alert(filter);
 		$.ajax({
 			url:filter.attr('action'),
 			data:filter.serialize(), // form data

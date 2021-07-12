@@ -602,6 +602,7 @@
 .newsletter.exhibit-news {
     background-size: 178px 150px !important;
 }
+
 @media (max-width: 1600px) {
 	.label-wrap-map span {
 	    width: 1000px;

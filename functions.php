@@ -18,12 +18,20 @@ function sigma_mt_enqueue_styles() {
     wp_enqueue_style('sigmamt-slick', CHILD_DIR . '/assets/css/slick.css');
     wp_enqueue_style('sigmamt-slick-theme', CHILD_DIR . '/assets/css/slick-theme.css');
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
+    // You need styling for the datepicker. For simplicity I've linked to the jQuery UI CSS on a CDN.
+    wp_register_style( 'jquery-ui', '/assets/css/jquery-ui.css' );
+    wp_enqueue_style( 'jquery-ui' );  
 }
+function wpse_enqueue_datepicker() {
+
+}
+add_action( 'wp_enqueue_scripts', 'wpse_enqueue_datepicker' );
 
 // load js files in footer & style in header start
 add_action('wp_enqueue_scripts', 'sigma_mt_scripts');
 function sigma_mt_scripts() {
     wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui-datepicker');
     wp_enqueue_style('dashicons');
     wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
@@ -469,15 +477,38 @@ function sigma_mt_get_continent_order() {
     $africa = __( 'Africa', 'sigmaigaming' );
 
     if($continents === $asia ) {
-        $_GET['front_page_sort'] = 'asia';
+        $sorting_order_asia     = 0;
+        $sorting_order_europe   = 1;
+        $sorting_order_americas = 2;
+        $sorting_order_africa   = 3;
+        // $order = require_once get_stylesheet_directory().'/home/home-asia.php';
+    } elseif ($continents === $europe ) {
+        $sorting_order_europe   = 0;
+        $sorting_order_asia     = 1;
+        $sorting_order_americas = 2;
+        $sorting_order_africa   = 3;
+        // $order = require_once get_stylesheet_directory().'/home/home-europe.php';
     } elseif ($continents === $americas) {
-        $_GET['front_page_sort'] = 'americas';
+        $sorting_order_americas = 0;
+        $sorting_order_europe   = 1;
+        $sorting_order_asia     = 2;
+        $sorting_order_africa   = 3;
+        // $order = require_once get_stylesheet_directory().'/home/home-americas.php';
     } elseif ($continents === $africa) {
-        $_GET['front_page_sort'] = 'africa';
+        $sorting_order_africa   = 0;
+        $sorting_order_americas = 1;
+        $sorting_order_europe   = 2;
+        $sorting_order_asia     = 3;
+        // $order = require_once get_stylesheet_directory().'/home/home-africa.php';
     } else {
-        $_GET['front_page_sort'] = 'europe';
+        $sorting_order_europe   = 0;
+        $sorting_order_asia     = 1;
+        $sorting_order_americas = 2;
+        $sorting_order_africa   = 3;
+        // $order = require_once get_stylesheet_directory().'/home/home-europe.php';
     }
-    return require_once get_stylesheet_directory().'/home/home-news.php';
+    $order = require_once get_stylesheet_directory().'/home/sorted-home.php';
+    return $order;
 }
 
 //function to get news tags.
@@ -606,9 +637,11 @@ function sigma_mt_get_people_list($atts) {
     $term_id = $atts['term_id'];
     $appearance = $atts['appearance'];
     $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
+    $colorClass = isset($atts['color']) ? $atts['color'] : '';
     $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
     $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
     $speakers_text = get_field('speakers_text');
+    $appearance 		= isset($atts['appearance']) ? $atts['appearance'] : __( 'Default', 'sigmaigaming' );
     $person_name        = isset($atts['person_name']) ? $atts['person_name'] : NULL;
     $person_image       = isset($atts['person_image']) ? $atts['person_image'] : NULL;
     $person_position    = isset($atts['person_position']) ? $atts['person_position'] : NULL;
@@ -624,43 +657,64 @@ function sigma_mt_get_people_list($atts) {
     $hosts = get_field('hosts');
     $judges = get_field('judges');
     $our_experts = get_field('our_experts');
-    $appearanceVal = __( 'Regular', 'sigmaigaming' );
-    $appearanceHJVal = __( 'Host and Judge', 'sigmaigaming' );
+	
+    $appearanceExhibit = __( 'Exhibit', 'sigmaigaming' );
+    $appearanceRegular = __( 'Regular', 'sigmaigaming' );
+    $appearanceHost = __( 'Host', 'sigmaigaming' );
+    $appearanceHostJudge = __( 'Hosts and Judges', 'sigmaigaming' );
+    $appearanceExperts = __( 'Experts', 'sigmaigaming' );
+    $appearanceInvestors = __( 'Investors', 'sigmaigaming' );
+    $appearanceDefault = __( 'Default', 'sigmaigaming' );
+	
     //echo '<pre>'; print_r($our_experts);
-    if ( is_page( array( 'exhibit') ) ) {
+    //if ( is_page( array( 'exhibit') ) ) {
+		
+	// Exhibit Appearance
+	if($appearance == $appearanceExhibit){
         $main_class = 'contact-us';
         $sub_class = 'all-person';
         $single_class = 'single-person';
         $heading = __( 'CONTACT US', 'sigmaigaming' );
         $button = '';
         $desc = '';
-    } else if($appearance === $appearanceVal) {
+		
+    //} else if($appearance === $appearanceVal) {
+	// Regular Appearance
+	} else if($appearance == $appearanceRegular){
         $main_class = 'speakers';
         $sub_class = 'all-speakers';
         $single_class = 'single-speaker';
         $heading = isset($speakers_text['speaker_title']) ? $speakers_text['speaker_title'] : '';
         $button = '<div class="load-people"><button class="load-more" id="load-more">'.$load_more.'</button></div></div>';
         $desc = isset($speakers_text['speaker_text']) ? $speakers_text['speaker_text'] : '';
-    } else if ((!empty($hosts['title']) && str_starts_with($term_name, $hosts['title'])) || $appearance === $appearanceHJVal) {
+    //} else if (!empty($hosts['title']) && $term_name === $hosts['title'] || $appearance === $appearanceHJVal) {
+	// Host Appearance
+	} else if($appearance == $appearanceHost ||$appearance == $appearanceHostJudge){
         $main_class = 'hosts';        
         $heading = isset($hosts['title']) ? $hosts['title'] : '';
         $sub_class = 'person-item';
         $button = '';
         $desc = '';
-    } else if (!empty($our_experts['title']) && $term_name === $our_experts['title']) {
+    //} else if (!empty($our_experts['title']) && $term_name === $our_experts['title']) {
+	// Experts Appearance
+	} else if($appearance == $appearanceExperts){
         $main_class = 'our-experts';        
         $heading = $our_experts['title'];
         $sub_class = 'all-experts expert-slider';
         $button = '';
         $desc = '';
-    } else if($term_id === '1191') {
+    // } else if($term_id === '1191') {
+	// Investors Appearance
+	} else if($appearance == $appearanceInvestors){
         $main_class = 'meet-investor';        
         $heading = '';
         $sub_class = 'all-experts investor-slider';
         $single_class = 'investor-slide';
         $button = '';
         $desc = '';
-    } else {
+    // } else {
+	// Default Appearance
+	} else if($appearance == $appearanceDefault){
         $main_class = 'judges';        
         $heading = isset($judges['title']) ? $judges['title'] : '';
         $sub_class = 'all-judges';
@@ -701,159 +755,159 @@ function sigma_mt_get_people_list($atts) {
     }
     //echo '<pre>'; print_r($post_args); echo '</pre>';
     if(!empty($get_posts)) {
-        $content .= '<section class="'.$main_class.'">
+        $content .= '<section class="'.$main_class.' '.$colorClass.'"">
                         <div class="container">
                             <div class="about-section-title">
                                 <h2>'.$heading.'</h2>
                                 <p>'.$desc.'</p>
                             </div>
                             <div class="'.$sub_class.'">';
-                                foreach($get_posts as $k => $post) {
-                                    $title = $post->post_title;
-                                    $people_icon = get_field('image_icon', $post->ID);
-                                    $people_designation = get_field('designation', $post->ID);
-                                    $person_email_val = get_field('email', $post->ID);
-                                    $person_phone_no = get_field('telephone_number', $post->ID);
-                                    $person_skype_id = get_field('skype_id', $post->ID);
-                                    $person_telgram = get_field('telegram', $post->ID);
-                                    $language_icon = get_field('language_icon', $post->ID);
-                                    $people_company = $companyObjectID = get_field('company', $post->ID);
-                                    $companyLogo = get_field('company_details', $companyObjectID);
-                                    if(!empty($companyLogo)) {
-                                        $companyLogo = $companyLogo['company_logo'];
-                                    } else {
-                                        $companyLogo = '';
-                                    }
-                                    if($appearance === $appearanceVal) {
-                                        $content .= '<div class="'.$single_class.'">';
-                                            if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                            if($person_name === 'YES' && !empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
-                                            if($person_position === 'YES' && !empty($people_designation)) { $content .= '<p>'. $people_designation .'</p>'; }
-                                            if($person_company === 'YES' && !empty($people_company)) { $content .= '<p>'. get_the_title($companyObjectID) .'</p>'; }
-                                            if($person_language === 'YES' && !empty($language_icon)) { 
-                                                $content .= '<div class="lang">';
-                                                                foreach($language_icon as $icon) {
-                                                                    $content .= '<img src="'.$icon.'" alt="">';
-                                                                }
-                                                            $content .= '</div>'; 
-                                            }
-                                            $content .= '<div class="person-social">';
-                                                            if($person_email === 'YES' && !empty($person_email_val)) { $content .= '<p><span>E:</span> <a href="mailto:'.$person_email_val.'"><i class="fa fa-envelope" aria-hidden="true"></i>'.$person_email_val.'</a></p>'; }
-                                                            if($person_phone === 'YES' && !empty($person_phone_no)) { $content .= '<p><span>T:</span> <a href="tel:'.$person_phone_no.'"><i class="fa fa-phone" aria-hidden="true"></i>'.$person_phone_no.'</a></p>'; }
-                                                            if($person_skype === 'YES' && !empty($person_skype_id)) { $content .= '<p><span>S:</span> <a href="skype:'.$person_skype_id.'?call"><i class="fab fa-skype"></i>'.$person_skype_id.'</a></p>'; }
-                                                            if($telegram === 'YES' && !empty($person_telgram)) { $content .= '<p><span>Telegram:</span> <a href="skype:'.$person_telgram.'?call"><i class="fab fa-telegram" aria-hidden="true"></i>'.$person_telgram.'</a></p>'; }
-                                                        $content .= '</div>';
-                                        $content .= '</div>';
-                                    } else if (!empty($hosts['title']) && str_starts_with($term_name, $hosts['title']) ) {
-                                        $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
-                                                        <div class="person-left">
-                                                             <div class="person-avatar-img">';
-                                                                if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                                                if(!empty($post->post_content)) {
-                                                                    $content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
-                                                                                    <div></div>
-                                                                                </div>';
-                                                                }
-                                                            $content .= '</div>
-                                                            <div class="person-detail">
-                                                                <h3>'.$post->post_title.'</h3>
-                                                                <h4>'.$people_designation.'</h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="person-right">
-                                                            <p>'.$post->post_content.'</p>
-                                                        </div>
-                                                    </div>';
-                                    } else if(!empty($our_experts['title']) && $term_name === $our_experts['title']) {
-                                        $content .= '<div class="expert-slide">
-                                                        <div class="expert-box">
-                                                            <div class="expert-img">';
-                                                                if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                                            $content .= '</div>
-                                                            <div class="expert-info">
-                                                                <div class="expert-info">';
-                                                                    if(!empty($companyLogo)) {
-                                                                        $content .= '<div class="expert-logo">
-                                                                            <img src="'.$companyLogo.'" alt="">
-                                                                        </div>';
-                                                                    }
-                                                                    $content .= '<h2>'.$post->post_title.'</h2>
-                                                                    <h3>'.$people_designation.'</h3>
-                                                                </div>';
-                                                            $content .= '</div>
-                                                        </div>
-                                                    </div>';
-                                    } else if($appearance === $appearanceHJVal) {
-                                        $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
-                                                        <div class="person-left">
-                                                             <div class="person-avatar-img">';
-                                                                if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                                                if(!empty($post->post_content)) {
-                                                                    $content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
-                                                                                    <div></div>
-                                                                                </div>';
-                                                                }
-                                                            $content .= '</div>
-                                                            <div class="person-detail">
-                                                                <h3>'.$post->post_title.'</h3>
-                                                                <h4>'.$people_designation.'</h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="person-right">
-                                                            <p>'.$post->post_content.'</p>
-                                                        </div>
-                                                    </div>';
-                                    } else if($term_id === '1191') {
-                                        $content .= '<div class="investor-slide"><div class="investor-box">
-                                                        <div class="investor-img">';
-                                                            if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                                        $content .= '</div>
-                                                        <div class="investor-info">';
-                                                            if(!empty($companyLogo)) {
-                                                                $content .= '<div class="investor-logo">
-                                                                    <img src="'.$companyLogo.'" alt="">
-                                                                </div>';
-                                                            }
-                                                            $content .= '<h2>'.$post->post_title.'</h2>';
-                                                            if($person_position === 'YES' && !empty($people_designation)) { 
-                                                                $content .= '<div class="desc"><h3>'. $people_designation .'</h3></div>'; 
-                                                            }
-                                                        $content .= '</div></div>
-                                                    </div>';
-                                    } else {
-                                        $content .= '<div class="judge-box">
-                                                        <div class="judge-img">';
-                                                            if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-                                                        $content .= '</div>
-                                                        <div class="judge-info">';
-                                                            if(!empty($companyLogo)) {
-                                                                $content .= '<div class="expert-logo">
-                                                                    <img src="'.$companyLogo.'" alt="">
-                                                                </div>';
-                                                            }
-                                                            $content .= '<h2>'.$post->post_title.'</h2>';
-                                                            if($person_company === 'YES' && !empty($people_company)) { 
-                                                                $content .= '<div class="desc">
-                                                                <p>'. get_the_title($companyObjectID) .'</p>'; 
-                                                            }
-                                                            if($person_position === 'YES' && !empty($people_designation)) { 
-                                                                $content .= '<h3>'. $people_designation .'</h3>'; 
-                                                            }
-                                                        $content .= '</div></div>
-                                                    </div>';
-                                    }
-                                }
-                            $content .= '</div>
-                            <input type="hidden" value="'.$term_id.'" id="termID">
-                            <input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
-                            <input type="hidden" value="'.$person_image.'" id="person_image">
-                            <input type="hidden" value="'.$person_name.'" id="person_name">
-                            <input type="hidden" value="'.$person_position.'" id="person_position">
-                            <input type="hidden" value="'.$person_company.'" id="person_company">';
-                            if ( is_page( array( 'europe') ) ) {
-                                $content .= ''.$button.'';
-                            }
-                    $content .= '</section>';
+		foreach($get_posts as $k => $post) {
+			$title = $post->post_title;
+			$people_icon = get_field('image_icon', $post->ID);
+			$people_designation = get_field('designation', $post->ID);
+			$person_email_val = get_field('email', $post->ID);
+			$person_phone_no = get_field('telephone_number', $post->ID);
+			$person_skype_id = get_field('skype_id', $post->ID);
+			$person_telgram = get_field('telegram', $post->ID);
+			$language_icon = get_field('language_icon', $post->ID);
+			$people_company = $companyObjectID = get_field('company', $post->ID);
+			$companyLogo = get_field('company_details', $companyObjectID);
+			if(!empty($companyLogo)) {
+				$companyLogo = $companyLogo['company_logo'];
+			} else {
+				$companyLogo = '';
+			}
+			if($appearance === $appearanceRegular) {
+				$content .= '<div class="'.$single_class.'">';
+					if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+					if($person_name === 'YES' && !empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
+					if($person_position === 'YES' && !empty($people_designation)) { $content .= '<p class="designation">'. $people_designation .'</p>'; }
+					if($person_company === 'YES' && !empty($people_company)) { $content .= '<p>'. get_the_title($companyObjectID) .'</p>'; }
+					if($person_language === 'YES' && !empty($language_icon)) { 
+						$content .= '<div class="lang">';
+										foreach($language_icon as $icon) {
+											$content .= '<img src="'.$icon.'" alt="">';
+										}
+									$content .= '</div>'; 
+					}
+					$content .= '<div class="person-social">';
+									if($person_email === 'YES' && !empty($person_email_val)) { $content .= '<p><span>E:</span> <a href="mailto:'.$person_email_val.'"><i class="fa fa-envelope" aria-hidden="true"></i>'.$person_email_val.'</a></p>'; }
+									if($person_phone === 'YES' && !empty($person_phone_no)) { $content .= '<p><span>T:</span> <a href="tel:'.$person_phone_no.'"><i class="fa fa-phone" aria-hidden="true"></i>'.$person_phone_no.'</a></p>'; }
+									if($person_skype === 'YES' && !empty($person_skype_id)) { $content .= '<p><span>S:</span> <a href="skype:'.$person_skype_id.'?call"><i class="fab fa-skype"></i>'.$person_skype_id.'</a></p>'; }
+									if($telegram === 'YES' && !empty($person_telgram)) { $content .= '<p><span>Telegram:</span> <a href="skype:'.$person_telgram.'?call"><i class="fab fa-telegram" aria-hidden="true"></i>'.$person_telgram.'</a></p>'; }
+								$content .= '</div>';
+				$content .= '</div>';
+			} else if ($appearance === $appearanceHost) {
+				$content .= '<div id="item'.$post->ID.'" class="person-item-inner">
+								<div class="person-left">
+									 <div class="person-avatar-img">';
+										if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+										if(!empty($post->post_content)) {
+											$content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
+															<div></div>
+														</div>';
+										}
+									$content .= '</div>
+									<div class="person-detail">
+										<h3>'.$post->post_title.'</h3>
+										<h4>'.$people_designation.'</h4>
+									</div>
+								</div>
+								<div class="person-right">
+									<p>'.$post->post_content.'</p>
+								</div>
+							</div>';
+			} else if ($appearance === $appearanceExperts) {
+				$content .= '<div class="expert-slide">
+								<div class="expert-box">
+									<div class="expert-img">';
+										if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+									$content .= '</div>
+									<div class="expert-info">
+										<div class="expert-info">';
+											if(!empty($companyLogo)) {
+												$content .= '<div class="expert-logo">
+													<img src="'.$companyLogo.'" alt="">
+												</div>';
+											}
+											$content .= '<h2>'.$post->post_title.'</h2>
+											<h3>'.$people_designation.'</h3>
+										</div>';
+									$content .= '</div>
+								</div>
+							</div>';
+			} else if($appearance === $appearanceHostJudge) {
+				$content .= '<div id="item'.$post->ID.'" class="person-item-inner">
+								<div class="person-left">
+									 <div class="person-avatar-img">';
+										if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+										if(!empty($post->post_content)) {
+											$content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
+															<div></div>
+														</div>';
+										}
+									$content .= '</div>
+									<div class="person-detail">
+										<h3>'.$post->post_title.'</h3>
+										<h4>'.$people_designation.'</h4>
+									</div>
+								</div>
+								<div class="person-right">
+									<p>'.$post->post_content.'</p>
+								</div>
+							</div>';
+			} else if($appearance == $appearanceInvestors) {
+				$content .= '<div class="investor-slide"><div class="investor-box">
+								<div class="investor-img">';
+									if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+								$content .= '</div>
+								<div class="investor-info">';
+									if(!empty($companyLogo)) {
+										$content .= '<div class="investor-logo">
+											<img src="'.$companyLogo.'" alt="">
+										</div>';
+									}
+									$content .= '<h2>'.$post->post_title.'</h2>';
+									if($person_position === 'YES' && !empty($people_designation)) { 
+										$content .= '<div class="desc"><h3>'. $people_designation .'</h3></div>'; 
+									}
+								$content .= '</div></div>
+							</div>';
+			} else if($appearance == $appearanceDefault || $appearance == $appearanceExhibit) {
+				$content .= '<div class="judge-box">
+								<div class="judge-img">';
+									if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+								$content .= '</div>
+								<div class="judge-info">';
+									if(!empty($companyLogo)) {
+										$content .= '<div class="expert-logo">
+											<img src="'.$companyLogo.'" alt="">
+										</div>';
+									}
+									$content .= '<h2>'.$post->post_title.'</h2>';
+									if($person_company === 'YES' && !empty($people_company)) { 
+										$content .= '<div class="desc">
+										<p>'. get_the_title($companyObjectID) .'</p>'; 
+									}
+									if($person_position === 'YES' && !empty($people_designation)) { 
+										$content .= '<h3>'. $people_designation .'</h3>'; 
+									}
+								$content .= '</div></div>
+							</div>';
+			}
+		}
+	$content .= '</div>
+	<input type="hidden" value="'.$term_id.'" id="termID">
+	<input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
+	<input type="hidden" value="'.$person_image.'" id="person_image">
+	<input type="hidden" value="'.$person_name.'" id="person_name">
+	<input type="hidden" value="'.$person_position.'" id="person_position">
+	<input type="hidden" value="'.$person_company.'" id="person_company">';
+	if ( is_page( array( 'europe') ) ) {
+		$content .= ''.$button.'';
+	}
+	$content .= '</section>';
     }
     return $content;
 }
@@ -1047,6 +1101,7 @@ function sigma_mt_get_company($atts) {
     $term_id = $atts['term_id'];
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : -1;
+    $colorClass = isset($atts['color']) ? $atts['color'] : '';
     $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
     $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
     $term_name = get_term_by('id', $term_id, $taxonomy);
@@ -1146,7 +1201,7 @@ function sigma_mt_get_company($atts) {
             }
         } else if(!empty($term_id)) {
             if($appearance === 'PARTNER' ) {
-                $content .= '<section class="all-winner">
+                $content .= '<section class="all-winner '.$colorClass.'"">
                                 <div class="container">
                                     <div class="winner-slider">';
                                         foreach($get_posts as $k => $post) {
@@ -1166,7 +1221,7 @@ function sigma_mt_get_company($atts) {
                                 </div>
                             </section>';
             } else if($appearance === 'IGAMING' ) {
-                $content .= '<section class="igaming-lists">
+                $content .= '<section class="igaming-lists '.$colorClass.'"">
                                 <div class="container">';
                                     foreach($get_posts as $k => $post) {
                                         $company_details = get_field('company_details', $post->ID);
@@ -1192,7 +1247,7 @@ function sigma_mt_get_company($atts) {
 			$fallback = true;
 		}
 		if($fallback){
-            $content .= '<section class="'.$main_class.'">
+            $content .= '<section class="'.$main_class.' '.$colorClass.'"">
                             <div class="container">';
                                 if(!empty($category_title)) {
                                     $content .= '<div class="about-section-title">
@@ -1208,8 +1263,10 @@ function sigma_mt_get_company($atts) {
                                     foreach($get_posts as $k => $post) {
                                         $company_details = get_field('company_details', $post->ID);
                                         $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
-                                        $content .= '<div class="'.$single_class.'">';
-                                            if(!empty($company_details)) { $content .= '<a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>'; }
+                                        if(!empty($company_details['company_logo'])) {
+                                            $content .= '<div class="'.$single_class.'">';
+                                            $content .= '<a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>';
+                                        }
                                         $content .= '</div>';
                                     }
                                 $content .= '</div>';
@@ -1504,6 +1561,12 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     return $content;
 }
 
+//shortcode to generate Air Malta Mask
+add_shortcode( 'sigma-mt-air-malta-mask', 'sigma_mt_air_malta_mask' );
+function sigma_mt_air_malta_mask() {
+	return '<div>test</div>';
+}
+
 //shortcode to get hotels
 add_shortcode( 'sigma-mt-get-hotels', 'sigma_mt_get_hotels' );
 function sigma_mt_get_hotels($atts) {
@@ -1533,6 +1596,7 @@ function sigma_mt_get_hotels($atts) {
         );
     }
     $get_posts = get_posts($post_tag_args);
+    $post_count = count($get_posts);
     if(!empty($get_posts)) {
         $content .= '<div class="hotel-reviews">';
                         foreach($get_posts as $k => $post) {
@@ -1546,8 +1610,16 @@ function sigma_mt_get_hotels($atts) {
                                'type' => 'rating',
                                'number' => 12345,
                             );
+                            if($post_count === 1) {
+                                //echo $post_count; exit;
+                                $fullClass = 'full';
+                                $openClass = 'open';
+                            } else {
+                                $fullClass = '';
+                                $openClass = '';
+                            }
                             $rating = wp_star_rating($args);
-                            $content .= '<div id="single-hotel'.$post->ID.'" class="single-hotel">
+                            $content .= '<div id="single-hotel'.$post->ID.'" class="single-hotel '.$fullClass.'">
                                 <div class="short">
                                     <div class="logo">
                                         <img src="'.$hotel_icon.'" alt="">
@@ -1557,7 +1629,7 @@ function sigma_mt_get_hotels($atts) {
                                     $content .= '</div>
                                     <button class="show-more" onclick="openHotel(\'single-hotel'.$post->ID.'\', \'long'.$post->ID.'\')">'.__('Our Special Rate', 'sigmaigaming').'</button>
                                 </div>
-                                <div id="long'.$post->ID.'" class="long">
+                                <div id="long'.$post->ID.'" class="long '.$openClass.'">
                                     <div class="close" onclick="closeHotel(\'single-hotel'.$post->ID.'\', \'long'.$post->ID.'\')"></div>
                                     <div class="hotel-detail">
                                         <h3>'.$post->post_title.'</h3>
@@ -1584,27 +1656,11 @@ function sigma_mt_get_hotels($atts) {
 add_shortcode( 'sigma-mt-get-awards', 'sigma_mt_get_awards' );
 function sigma_mt_get_awards($atts) {
     $content = '';
-    $taxonomy = 'award-cat';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
-    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
-    if(isset($term_id) && !empty($term_id)) {
-		$post_tag_args = array(
-		  'posts_per_page' => $count,
-		  'post_type' => 'award-items',
-          'tax_query' => array(
-              array(
-                  'taxonomy' => $taxonomy,
-                  'field' => 'term_id',
-                  'terms' => $term_id,
-              )
-          )
-		);
-    } else {
-		$post_tag_args = array(
-		  'posts_per_page' => $count,
-		  'post_type' => 'award-items'
-		);
-    }
+    $post_tag_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'award-items',
+    );
     $get_posts = get_posts($post_tag_args);
     if(!empty($get_posts)) {
         $content .= '<div class="awards-wrapper">';
@@ -1612,11 +1668,12 @@ function sigma_mt_get_awards($atts) {
                             $award_logo = get_field('award_logo', $post->ID);
                             $sponsored_logo = get_field('sponsored_logo', $post->ID);
                             $description = get_field('description', $post->ID);
+                            $title = get_the_title( $post->ID );
                             $content .= '<div class="award-box" id="award-box'.$post->ID.'">
                                             <div class="box">
                                                 <div class="top">
                                                     <img src="'.$award_logo.'" alt="">
-                                                    <h5>BEST EU ONLINE CASINO</h5>
+                                                    <h5>'.$title.'</h5>
                                                     <div class="sponsored">
                                                         <p>'. __( 'Sponsored by', 'sigmaigaming' ).'</p>
                                                         <img src="'.$sponsored_logo.'" alt="">
@@ -1886,7 +1943,7 @@ function sigma_mt_get_logos($atts) {
     return $content;
 }
 
-// Startup pitch slider shortcode
+// book flight shortcode
 add_shortcode( 'sigma-mt-book-flight-form', 'sigma_mt_book_flight_form' );
 function sigma_mt_book_flight_form() {
     $content = '';
@@ -1906,7 +1963,7 @@ function sigma_mt_book_flight_form() {
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_dropdown_row take_off_source">
-                            <select id="airlineRegFormOrigin" name="origin" class="journeyPlace1" required="">
+                            <select name="origin" class="journeyPlace1" required="">
                               <option value="select"> --Select Origin-- </option>
                               <option value="AUH"> Abu Dhabi International </option>
                               <option value="AMS"> Amsterdam </option>
@@ -2000,7 +2057,7 @@ function sigma_mt_book_flight_form() {
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_dropdown_row take_off_destination">
-                          <select id="airlineRegFormDestination" name="destination" class="journeyPlace2" required="">
+                          <select name="destination" class="journeyPlace2" required="">
                               <option value="select"> --Select Destination-- </option>
                               <option value="AUH"> Abu Dhabi International </option>
                               <option value="AMS"> Amsterdam </option>
@@ -2096,42 +2153,42 @@ function sigma_mt_book_flight_form() {
                     <div class="airline_form_field_row">
                         <div class="airline_radiobtns_row">
                             <div class="user_way_option">
-                                <input type="radio" name="journeyType" value="round-trip" checked="" required=""> 
+                                <input type="radio" name="journeyType" id="returnWay" value="round-trip" checked required> 
                                 <label for="returnWay">Return</label>
                             </div>
                             <div class="user_way_option">
-                                <input type="radio" name="journeyType" value="one-way"> 
-                                <label for="onw_wy">One way</label>
+                                <input type="radio" name="journeyType" id="oneWay" value="one-way"> 
+                                <label for="oneWay">One way</label>
                             </div>
                         </div>
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_datepicker_left">
                             <div class="take_off_datepicker">
-                                <input type="text" name="date" placeholder="Departure Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                                <input type="text" name="date" id="despaturedate" placeholder="Departure Date" value="" autocomplete="off" required="" class="hasDatepicker">
                             </div>
                         </div>
                         <div class="airline_datepicker_right">
                             <div class="return_datepicker">
-                                <input type="text" name="date1" laceholder="Return Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                                <input type="text" name="date1" id="returndate" placeholder="Return Date" value="" autocomplete="off" required="" class="hasDatepicker">
                             </div>
                         </div>
                     </div>
                     <div class="airline_form_field_row">
                         <div class="airline_radiobtns_row_left">
                             <div class="airline_flexible_check">
-                                <input type="checkbox" name="flexible_date_check" checked="">
+                                <input type="checkbox" name="flexible_date_check" id="flexible_date_check" checked="">
                                 <label for="flexible_date_check">Flexible Dates</label>
                             </div>
                         </div>
                     
                         <div class="airline_radiobtns_row_right">
                             <div class="traveling_class">
-                                <input type="radio" name="class" value="Economy" > 
+                                <input type="radio" name="travellingClass" id="travellingClass1" value="Economy"  checked required> 
                                 <label for="travellingClass1">Economy</label>
                             </div>
                             <div class="traveling_class">
-                                <input type="radio" name="class" value="Business" checked> 
+                                <input type="radio" name="travellingClass" id="travellingClass2" value="Business"> 
                                 <label for="travellingClass2">Business</label>
                             </div>
                         </div>
@@ -2155,10 +2212,6 @@ function sigma_mt_book_flight_form() {
                                     <input type="number" name="INF" id="infan">
                                 </div>
                             </div>
-                                    <input type="hidden" name="promoCode" value="MKMSIGMA20" id="promoCode">
-                    </div>
-                    <div class="airline_form_field_row">
-                        <div class="hiddenFeilds"><input type="hidden" name="locale" value="en-GB" class="lang"><input type="hidden" name="origin1" value="select" class="temp_origin"><input type="hidden" name="destination1" value="select" class="temp_destination"></div>
                     </div>
                 </div>
                 <div class="airline_reg_action_btns">
@@ -2194,9 +2247,9 @@ function sigma_mt_last_year_startups_filter($atts) {
     $colorClass = isset($atts['color']) ? $atts['color'] : '';
     $content .= '<div class="startup-filter-last-year align-center '.$colorClass.'">
                     <ul>
-                        <li id="" class="active" data-regex="^[0-9a-gA-G].*">A - G</li>
-                        <li id="" data-regex="^[h-nH-N].*">H - N</li>
-                        <li id="" data-regex="^[o-zO-Z].*">O - Z</li>
+                        <li id="" class="a_to_g active" data-regex="^[0-9a-gA-G].*">A - G</li>
+                        <li id="" class="h_to_n" data-regex="^[h-nH-N].*">H - N</li>
+                        <li id="" class="o_to_z" data-regex="^[o-zO-Z].*">O - Z</li>
                     </ul>
                 </div>';
     return $content;
@@ -2319,23 +2372,23 @@ function sigma_mt_get_jobs($atts) {
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '10';
 
     $category = array();
-    if( isset( $_GET['country'] ) ):
-        if( $_GET['country'] != 'country' ):
+    if( isset( $_GET['country'] ) ) {
+        if( $_GET['country'] != 'country' ) {
             $category[] = $_GET['country'];
-        endif;
-    endif;
-    if( isset( $_GET['department'] ) ):
-        if( $_GET['department'] != 'department' ):
+        }
+    }
+    if( isset( $_GET['department'] ) ) {
+        if( $_GET['department'] != 'department' ) {
             $category[] = $_GET['department'];
-        endif;
-    endif;
-    if( isset( $_GET['job-type'] ) ):
-        if( $_GET['job-type'] != 'job-type' ):
+        }
+    }
+    if( isset( $_GET['job-type'] ) ) {
+        if( $_GET['job-type'] != 'job-type' ) {
             $category[] = $_GET['job-type'];
-        endif;
-    endif;
+        }
+    }
 
-    if( !empty( $category ) ):
+    if( !empty( $category ) ) {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'job-items',
@@ -2350,14 +2403,14 @@ function sigma_mt_get_jobs($atts) {
                 ),
             ),
         );
-    else:
+    } else {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'job-items',
           'orderby'        => 'rand',
           'post_status'    => 'publish',
         );
-    endif;
+    }
     $get_posts = get_posts($post_tag_args);
 
     $terms = get_terms( array(
@@ -2369,9 +2422,9 @@ function sigma_mt_get_jobs($atts) {
     ) );
 
     if(!empty($get_posts)) {
-        if( $terms ):
+        if( $terms ) {
             $content .= '<div class="vacancies-filter"><h3>All Vacancies</h3>';
-            foreach( $terms as $cat ):
+            foreach( $terms as $cat ) {
                 $parent_category_id = $cat->term_id;
                 $parent_category_name = $cat->name;
                 $parent_category_slug = $cat->slug;
@@ -2388,26 +2441,26 @@ function sigma_mt_get_jobs($atts) {
                 $content .= '
                     <select id="filter-'.$parent_category_slug.'">
                         <option value="'.$parent_category_slug.'">'.$parent_category_name.'</option>';
-                        if( $child_cat ):
-                            foreach( $child_cat as $child ):
+                        if( $child_cat ) {
+                            foreach( $child_cat as $child ) {
                                 $child_cat_name = $child->name;
                                 $child_cat_slug = $child->slug;
-                                if( isset( $_GET[$parent_category_slug] ) ):
-                                    if( $_GET[$parent_category_slug] == $child_cat_slug ):
+                                if( isset( $_GET[$parent_category_slug] ) ) {
+                                    if( $_GET[$parent_category_slug] == $child_cat_slug ) {
                                         $selected = 'selected';
-                                    else:
+                                    } else {
                                         $selected = '';
-                                    endif;
-                                else:
+                                    }
+                                } else {
                                     $selected = '';
-                                endif;
+                                }
                                 $content .= '<option value="'.$child_cat_slug.'" '.$selected.'>'.$child_cat_name.'</option>';
-                            endforeach;
-                        endif;
+                            }
+                        }
                 $content .= '</select>';
-            endforeach;
+            }
             $content .= '</div>';
-        endif;
+        }
         $content .= '<div class="job-listing">';
                         foreach($get_posts as $k => $post) {
                             $job_desc = get_field('job_description', $post->ID);

@@ -9,10 +9,12 @@ wp_enqueue_style('exhibit', get_stylesheet_directory_uri().'/exhibit-choose-edit
 get_header();
 ?>
 <?php  ob_start(); $exhibit = get_field('exhibit_banner');
+global $post;
+
 if ($exhibit){
 ?>
 	<!-- Exhibit Choose Edition banner start -->
-	<section class="home-banner" style="background-image: url(<?php echo $exhibit['exhibit_background_image']; ?>);">
+	<section class="home-banner <?php echo $post->post_name; ?>" style="background-image: url(<?php echo $exhibit['exhibit_background_image']; ?>);">
 		<div class="banner-container">
 			<!-- Desktop banner start -->
 			<div class="desktop-banner">
@@ -23,14 +25,13 @@ if ($exhibit){
 					    	<img src="<?php echo $exhibit['desktop_featured_image']['url']; ?>" alt="<?php echo $exhibit['desktop_featured_image']['alt']; ?>">
 						<?php } ?>
 		 	  		</span>
-		 	  		<div class="desktop-media-label">
-	  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>">
-	  						<?php 
-	  						if( !empty( $exhibit['explore_section'] ) ){ ?>
-						    	<img src="<?php echo $exhibit['explore_section']['explore_media']['url']; ?>" alt="<?php echo $exhibit['explore_section']['explore_media']['alt']; ?>">
-							<?php } ?>
-	  					</a>
-					</div>
+		 	  		<?php if( !empty( $exhibit['explore_section']['explore_media'] ) ) { ?>
+			 	  		<div class="desktop-media-label">
+		  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>">
+							    <img src="<?php echo $exhibit['explore_section']['explore_media']['url']; ?>" alt="<?php echo $exhibit['explore_section']['explore_media']['alt']; ?>">
+		  					</a>
+						</div>
+					<?php } ?>
 		 		</div>
 				<div class="sigma-banner-wrapper">
 			 		<div class="banner-inner-wrapper">
@@ -57,17 +58,19 @@ if ($exhibit){
 			 					<div class="game-le2"></div>
 			 				</div>
 			 		    </div>
-			 		    <div class="map-label">
+			 		    <div class="map-label <?php echo $post->post_name; ?>">
 			 		    	<div class="inner-map-label">
 			 		    		<?php
-								foreach($exhibit['countries'] as $key => $value) { ?>
-									<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>">
-										<?php 
-						 	    		if( !empty( $value['country_logo'] ) ){ ?>
-									    	<img src="<?php echo $value['country_logo']['url']; ?>" alt="<?php echo $value['country_logo']['alt']; ?>">
-										<?php } ?>
-		 					  		</a>
-								<?php  } ?>
+			 		    		if(!empty($exhibit['countries'])) {
+									foreach($exhibit['countries'] as $key => $value) { 
+										//echo '<pre>'; print_r($value); echo '</pre>'; ?>
+										<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>">
+											<?php 
+							 	    		if( !empty( $value['country_logo'] ) ){ ?>
+										    	<img src="<?php echo $value['country_logo']['url']; ?>" alt="<?php echo $value['country_logo']['alt']; ?>">
+											<?php } ?>
+			 					  		</a>
+								<?php  } } ?>
 			 		    	</div>
 				 		</div>
 			 		</div>
@@ -87,16 +90,18 @@ if ($exhibit){
 		      				</div>
 	  					</a>
 					</div>
-					<div class="event-box explore">
-	  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>">
-	  						<div class="img">
-	  							<?php 
-				 	    		if( !empty( $exhibit['explore_section'] ) ){ ?>
-							    	<img src="<?php echo $exhibit['explore_section']['explore_media']['url']; ?>" alt="<?php echo $exhibit['explore_section']['explore_media']['alt']; ?>">
-								<?php } ?>
-		      				</div>
-	  					</a>
-					</div>
+					<?php if( !empty( $exhibit['explore_section']['explore_media'] ) ) { ?>
+			 	  		<div class="event-box explore">
+		  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>">
+		  						<div class="img">
+		  							<?php 
+					 	    		if( !empty( $exhibit['explore_section'] ) ){ ?>
+								    	<img src="<?php echo $exhibit['explore_section']['explore_media']['url']; ?>" alt="<?php echo $exhibit['explore_section']['explore_media']['alt']; ?>">
+									<?php } ?>
+			      				</div>
+		  					</a>
+						</div>
+					<?php } ?>
 				</div>
 				<div class="events-wrapper">
 					<?php

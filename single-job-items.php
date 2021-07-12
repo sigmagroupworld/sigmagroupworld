@@ -33,7 +33,7 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 					<div class="blog-sub-title">
 						<h3>WHY MALTA?</h3>
 					</div>
-					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/YHfPQvoi_tU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<!-- video -->
 				</div>
 			</div>
 			<!-- Leftbar end -->
@@ -46,7 +46,7 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 				<div class="post-body">
 					<div class="post-content">
 						<?php if(!empty($responsibilities_section['responsibilities'])) { ?>
-							<div class="requirenments">
+							<div class="requirements">
 								<h3><?php echo $responsibilities_section['title']; ?></h3>
 								<div class="require-content">
 									<?php echo $responsibilities_section['responsibilities']; ?>
@@ -54,7 +54,7 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 							</div>
 						<?php } ?>
 						<?php if(!empty($requirements_section['requirements'])) { ?>
-							<div class="requirenments">
+							<div class="requirements">
 								<h3><?php echo $requirements_section['title']; ?></h3>
 								<div class="require-content">
 									<?php echo $requirements_section['requirements']; ?>
@@ -121,7 +121,7 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
         						<a class="tnc-link" href="#">*T&amp;C Apply</a>
         					</div>
 						</div>
-						<div class="offer-item">
+						<div class="offeritem">
 							<div class="img-wrap">
           						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
@@ -137,66 +137,27 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 						<h3>Latest News</h3>
 					</div>
 					<!-- Latest news blog -->
-					<div class="post-item">
-					<?php 
-					$the_query = new WP_Query( array(
-						'post_type' => 'news-items',
-						'posts_per_page' => 10,
-					)); 
-					?>
-					<?php 
-					if ( $the_query->have_posts() ) : ?>
-						<?php 
-						while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-					 		<h4 style="margin-bottom: 0px;"> <a class="more-link" href="<?php echo get_permalink();?>"><?php the_title(); ?></a></h4>
-							<div class="info">
-						  		<div>
-									<strong>
-										<?php 
-										$categories = wp_get_post_terms( get_the_ID(),array( 'news-cat' ) );?>
-										<?php 
-										foreach($categories as $c){ 
-											$cat = get_category( $c );
-										?>
-										<a style="text-decoration: none;color:#e21735;" class="topic-link" href="<?php echo get_term_link($cat);?>"> <?php echo $cat->name; ?><span>,</span>
-										</a>
-										<?php }?>
-							  		</strong> 
-						  		</div>
-							</div>    
-					  	<?php endwhile; ?> 
-					  	<?php wp_reset_postdata(); ?>
-					<?php else : ?>
-					<p><?php __('No News'); ?></p>
-					<?php endif; ?>
 				</div>
 				<div class="after-movie bottom-border">
 					<div class="blog-sub-title">
-						<h3>SiGMA 2019 after-movie</h3>
+						<h3>SiGMA 2019 Aftermovie</h3>
 					</div>
-					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZWE0KQRlSaU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<!-- Video -->
 				</div>
 				<div class="upcoming-event">
 					<div class="blog-sub-title">
 						<h3>Upcoming Events</h3>
 					</div>
-					<?php 
-					$the_query = new WP_Query( array(
-						'post_type' => 'event-items',
-					));
-					?>
-					<?php 
-					while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-						<div class="calendar-event ">
-							<h5>SiGMA Europe (Malta)</h5> 
-    						<div class="date">  November 16, 2021</div>
-    					<div class="widget-type-rich-text">
+					<div class="calendar-event ">
+						<h5>SiGMA Europe (Malta)</h5> 
+    					<div class="date">  
+      						November 16, 2021
+    					</div>
+    					<div class="widget_type_rich-text">
      						<p>Following the UK's December 2020 release of the Pfizer BioNTech vaccine, SIGMA Group will move its April event to November. SIGMA Europe, which will be based...</p>
     					</div>
-    					<a class="event-btn" href="#" target="_blank">REGISTER FREE</a>
+    					<a class="eventbtn" href="#" target="_blank">REGISTER FREE</a>
 					</div>
-					<?php endwhile; ?>
-					<?php wp_reset_postdata(); ?>
 				</div>
 			</div>
 			<!-- Rightbar end -->

@@ -1605,11 +1605,16 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     text-align: center;
 }
 .single-speaker img {
-    width: 95px;
-    height: 95px;
+    width: 140px;
+    height: 140px;
     margin: 0 auto;
     border-radius: 100%;
     object-fit: cover;
+}
+.single-speaker .lang img {
+    width: auto;
+    height: auto;
+    padding-right: 5px;
 }
 .single-speaker h3 {
     color: #212121;
@@ -1638,6 +1643,18 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-weight: 400;
     line-height: 16px;
     color: #5e5e5e;
+}
+.sponsored_america_register .supplier-single {
+    margin-top: 20px;
+    text-align: center;
+    float: left;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc;
+    width: 150px;
+    margin-right: 20px;
+    height: 100px;
 }
 .person-social p a {
     color: #ed1a3b;
@@ -3336,20 +3353,20 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .magazine-widget a:hover::after {
     background-color: rgba(237,26,59,0.75);
 }
-.requirenments {
+.requirements {
     margin-top:  20px;
 }
-.requirenments h3 {
+.requirements h3 {
     text-decoration: underline;
     font-weight: bold;
     font-size: 16px;
 }
-.requirenments .require-content p {
+.requirements .require-content p {
     text-decoration: underline;
     font-weight: 400;
     font-size: 16px;
 }
-.requirenments ul li {
+.requirements ul li {
     list-style-type: disc;
 }
 .vacancy-application {
@@ -3495,6 +3512,139 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin: 0 0 0 10px;
 }
 /*** Gallery Page end ***/
+
+.wpforms-container .wpforms-form .wpforms-field-email.wpforms-field input, .wpforms-form .wpforms-field-email.wpforms-field.roadshow_reg_email_field input {
+    background: none;
+    border-radius: 2px;
+    border: 1px solid #ccc !important;
+}
+.pitch-page-videos .elementor-wrapper.elementor-fit-aspect-ratio.elementor-open-inline {
+    width: 350px;
+    margin: 0 auto;
+}
+.single-speaker p.designation {
+    font-size: 12px;
+    color: #878787;
+    min-height: 15px;
+    margin-bottom: 0;
+    margin-top: 30px;
+}
+.explore-sub-txt {
+    min-height: 80px;
+}
+.single-exhibitor {
+    align-items: center;
+    display: flex;
+}
+.tab-buttons.tab {
+    background: none;
+}
+.iconbtn {
+    cursor: pointer;
+}
+.awards .page-btn a:focus,
+.sigma-foundation .our-btn a:focus {
+    color: #fff;
+}
+.past-winner .wrapper {
+    background: none;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+.past-winner .wrapper .all-winners { 
+    padding-top:  20px;
+    padding-left:  0;
+    padding-right:  0;
+}
+.past-winner .wrapper .all-sell i { 
+    color: #fff;
+    padding-right: 10px;
+}
+.past-winner .wrapper .toggle {
+    background: #19548c;
+    border-radius: 5px;
+
+}
+.past-winner .wrapper .toggle h3 {
+    color: #fff;
+    padding:  13px 15px 10px;
+}
+.register-choose-edition.map-label a::before {
+    border-color: #fe870e;
+    border: none;
+}
+
+/** Rgister choose addition **/
+.register-choose-edition .label-wrap-map img {
+    margin: 0 0 0 40% !important;
+}
+.register-choose-edition.map-label a img {
+    width: 140px !important;
+    height: 140px !important;
+    object-fit: contain;
+}
+.register-choose-edition.map-label a, .register-choose-edition .desktop-media-label a {
+    border:  none;
+}
+.register-choose-edition .americas {
+    top: 21%;
+    left: -7%;
+}
+.register-choose-edition .africa {
+    right: 46%;
+    bottom: 35px;
+}
+.register-choose-edition .asia {
+    right: -4%;
+    top: 16%;
+}
+.register-choose-edition .europe {
+    top: -3%;
+    left: 53%;
+}
+.america_register_form .wpforms-form input::placeholder, .america_register_form .wpforms-form select option {
+    font-size: 13px;
+}
+.america_register_form .wpforms-form input, .america_register_form .wpforms-form select {
+    height: 30px !important;
+}
+.america_register_form .wpforms-form input[type="checkbox"] {
+    height: 15px !important;
+    vertical-align: middle !important;
+}
+.america_register_form .wpforms-form .wpforms-field-checkbox li label, .latam_intro div {
+    font-size: 13px;
+    line-height: 19px;
+}
+.america_register_form #wpforms-submit-20565.wpforms-submit {
+    padding: 10px 50px !important;
+    border-radius: 50px !important;
+    background: #88bc2f !important;
+        background-color: rgb(136, 188, 47);
+    background-color: #88bc2f !important;
+    width: 200px;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+}
+.america_register_form .wpforms-form .wpforms-field {
+    padding: 5px 0 !important;
+}
+.america_register_form .wpforms-field-html div {
+    font-size: 13px !important;
+    line-height: 19px;
+}
+.america_register_form .elementor-widget-container {
+    padding: 0 20px 0 20px !important;
+}
+.america_register_form .wpforms-form .wpforms-field-label {
+    font-weight: 600;
+    font-size: 13px;
+}
+/** Rgister choose addition end **/
+
+
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */
@@ -3763,6 +3913,15 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 
 @media (max-width: 767px) {
+    .register-choose-edition .mobile-label-map .event-box {
+        width: auto !important;
+    }
+    .register-choose-edition .all-country {
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
     /* Footer Menu styling start */
     .footer-menu ul {
         -moz-column-count: 2;
