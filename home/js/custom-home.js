@@ -44,17 +44,5 @@
 	});
 	/**** Video pop up end ***/
 
-	// Sorting Home sections according to IP address start
-	var myArray = ['0', '1', '2', '3'];
-	var elArray = [];
-	$('section.home-blog').each(function() {
-	  	elArray[$(this).data('sort')] = $(this);
-	});
-	$.each(myArray, function(index, value) {
-	  	$('#sorted-data').append(elArray[value]);
-		$( '.lds-ellipsis-spinner' ).hide();
-	});
-	// Sorting Home sections according to IP address end
-
 	});
 })(jQuery);

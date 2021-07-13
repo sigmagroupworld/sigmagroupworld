@@ -615,7 +615,7 @@ body {
     right: 20px;
     top: 9px;
     font-size: 30px;
-    font-weight: 400;
+    /*font-weight: 400;*/
 }
 .post-item {
     padding-bottom: 7px;
@@ -1243,64 +1243,6 @@ body {
 #search-results .highlight-term .highlight {
     color: #787878;
 }
-/* Spinner Start */
-.lds-ellipsis-spinner {
-    display: block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: auto;
-}
-.lds-ellipsis-spinner div {
-    position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: #000;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis-spinner div:nth-child(1) {
-    left: 8px;
-    animation: lds-ellipsis-spinner1 0.6s infinite;
-}
-.lds-ellipsis-spinner div:nth-child(2) {
-    left: 8px;
-    animation: lds-ellipsis-spinner2 0.6s infinite;
-}
-.lds-ellipsis-spinner div:nth-child(3) {
-    left: 32px;
-    animation: lds-ellipsis-spinner2 0.6s infinite;
-}
-.lds-ellipsis-spinner div:nth-child(4) {
-    left: 56px;
-    animation: lds-ellipsis-spinner3 0.6s infinite;
-}
-@keyframes lds-ellipsis-spinner1 {
-    0% {
-        transform: scale(0);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-@keyframes lds-ellipsis-spinner3 {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(0);
-    }
-}
-@keyframes lds-ellipsis-spinner2 {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(24px, 0);
-    }
-}
-/* Spinner End */
 /* Media screen css start */
 @media (max-width: 1600px) {
     /* World Gaming Festival Image css start */

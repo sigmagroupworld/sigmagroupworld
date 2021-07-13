@@ -197,29 +197,8 @@ $asia = '<section class="home-blog">
 						}
 						$row++; 
 					}
-					$asia .= '<div class="testimonial-slide-home">';
-						$testimonials = sigma_mt_get_testimonial_data();
-						$r = 1;
-						$total = count($testimonials);
-						foreach($testimonials as $k => $item) {
-							$testimonial_value = $r . '/' . $total;
-							$company_name = get_field( "testimonial_company", $item->ID );
-							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'thumbnail' );
-							$asia .= '<figure class="testimonial">
-								<img src="' . $featured_image[0] . '" alt="' . $item->post_title . '" />
-								<div class="peopl">
-									<h3>' . $item->post_title . '</h3>
-									<p class="company_name">' . $company_name . '</p>
-								</div>
-								<blockquote>' . $item->post_content .
-									'<div class="btn"></div>
-								</blockquote>
-								<span>' . $testimonial_value . '</span>
-							</figure>';
-							$r++; 
-						}
-					$asia .= '</div>
-				</div>
+					$asia .= echo do_shortcode('[sigma-mt-testimonials appearance="frontpage" term_id=1307');
+				$asia .= ''</div>
 			</div>
 			<div class="spotify hp-right">';
 				$news_tags = sigma_mt_get_news_tags_data(1055, $taxonomy, 12);

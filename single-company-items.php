@@ -9,13 +9,9 @@
 
 get_header();
 
-$page_id = isset($_GET['page_id']) ? $_GET['page_id'] : '';
+$page_id = $_GET['page_id'];
 $featured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
-if(!empty ($featured_image_url[0])) {
-	$image_id = get_image_id_by_url($featured_image_url[0]);
-} else {
-	$image_id = '';
-}
+$image_id = get_image_id_by_url($featured_image_url[0]);
 $image_info = wp_get_attachment_metadata($image_id);
 $image_title = get_the_title($image_id);
 $taxonomy = 'news-cat';
@@ -67,81 +63,79 @@ $games = get_field('games', get_the_ID());
 						<div class="key-metrics-content">
 							<h3><?php echo $key_metrics['title']; ?></h3>
 							<div class="licences">
-								<span class="licences-title"><?php echo $key_metrics['licences']['title']; ?> :</span>
-								<span><?php echo $key_metrics['licences']['value']; ?></span>
+								<span>
+									<?php echo $key_metrics['licences']['title']; ?> :
+									<?php echo $key_metrics['licences']['value']; ?>
+								</span>
 							</div>
-							<div class="game-content">
-								<div class="game-left">
-									<div class="number-of-games">
-										<span class="games-title"><?php echo $key_metrics['number_of_games']['title']; ?> :</span>
-										<span><?php echo $key_metrics['number_of_games']['value']; ?></span>
-									</div>
-									<div class="game-types">
-										<span>
-											<?php echo $key_metrics['game_types']['title']; ?>
-										</span>
-										<div class="gametypes">
-											<?php 
-											$arrayVal = array();
-											$options = array('Slots', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette)', 'Keno, Lottery', 'Video Poker', 'Scratchcard Games', 'Branded Games', 'VR', 'Others');
-											foreach($key_metrics['game_types']['value'] as $val) {
-												$arrayVal[] = $val;
-											}
-											foreach($options as $val) {
-								            	if(in_array($val, $arrayVal)) {
-									               $class = ' selected';
-									            } else {
-									            	$class = '';
-									            }
-												echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
-											} ?>
-								        </div>
-									</div>
-								</div>
-								<div class="game-right">
-									<div class="operators-integrated">
-										<span>
-											<?php echo $key_metrics['operators_integrated']['title']; ?> :
-										</span>
-										<div class="casino-qt">
-											<?php 
-											$arrayVal = array();
-											$options = array('< 10', '11-25', '26-50', '51-100', '> 101');
-											foreach($key_metrics['operators_integrated']['value'] as $val) {
-												$arrayVal[] = $val;
-											}
-											foreach($options as $val) {
-								            	if(in_array($val, $arrayVal)) {
-									               $class = ' selected';
-									            } else {
-									            	$class = '';
-									            }
-												echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
-											} ?>
-								        </div>
-									</div>
-									<div class="years-in-business">
-										<span>
-											<?php echo $key_metrics['years_in_business']['title']; ?> :
-										</span>
-										<div class="year-est">
-											<?php 
-											$arrayVal = array();
-											$options = array('< 2', '3-5', '6-10', '>10');
-											foreach($key_metrics['years_in_business']['value'] as $val) {
-												$arrayVal[] = $val;
-											}
-											foreach($options as $val) {
-								            	if(in_array($val, $arrayVal)) {
-									               $class = ' selected';
-									            } else {
-									            	$class = '';
-									            }
-												echo '<p class="yearitem detail'.$class.'">'.$val.'</p>';
-											} ?>
-								        </div>
-									</div>
-								</div>
+							<div class="number-of-games">
+								<span>
+									<?php echo $key_metrics['number_of_games']['title']; ?> :
+									<?php echo $key_metrics['number_of_games']['value']; ?>
+								</span>
+							</div>
+							<div class="game-types">
+								<span>
+									<?php echo $key_metrics['game_types']['title']; ?>
+								</span>
+								<div class="gametypes">
+									<?php 
+									$arrayVal = array();
+									$options = array('Slots', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette)', 'Keno, Lottery', 'Video Poker', 'Scratchcard Games', 'Branded Games', 'VR', 'Others');
+									foreach($key_metrics['game_types']['value'] as $val) {
+										$arrayVal[] = $val;
+									}
+									foreach($options as $val) {
+						            	if(in_array($val, $arrayVal)) {
+							               $class = ' selected';
+							            } else {
+							            	$class = '';
+							            }
+										echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+									} ?>
+						        </div>
+							</div>
+							<div class="operators-integrated">
+								<span>
+									<?php echo $key_metrics['operators_integrated']['title']; ?> :
+								</span>
+								<div class="casino-qt">
+									<?php 
+									$arrayVal = array();
+									$options = array('< 10', '11-25', '26-50', '51-100', '> 101');
+									foreach($key_metrics['operators_integrated']['value'] as $val) {
+										$arrayVal[] = $val;
+									}
+									foreach($options as $val) {
+						            	if(in_array($val, $arrayVal)) {
+							               $class = ' selected';
+							            } else {
+							            	$class = '';
+							            }
+										echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
+									} ?>
+						        </div>
+							</div>
+							<div class="years-in-business">
+								<span>
+									<?php echo $key_metrics['years_in_business']['title']; ?> :
+								</span>
+								<div class="year-est">
+									<?php 
+									$arrayVal = array();
+									$options = array('< 2', '3-5', '6-10', '>10');
+									foreach($key_metrics['years_in_business']['value'] as $val) {
+										$arrayVal[] = $val;
+									}
+									foreach($options as $val) {
+						            	if(in_array($val, $arrayVal)) {
+							               $class = ' selected';
+							            } else {
+							            	$class = '';
+							            }
+										echo '<p class="yearitem detail'.$class.'">'.$val.'</p>';
+									} ?>
+						        </div>
 							</div>
 						</div>
 					<?php } ?>
@@ -156,20 +150,20 @@ $games = get_field('games', get_the_ID());
 					<?php if(!empty($certified_by)) { ?>
 						<div class="game-provider-review-content">
 							<h3><?php echo $certified_by['title']; ?></h3>
-							<div class="certified-images">
-								<?php if(!empty($certified_by['images'])) { foreach($certified_by['images'] as $image) {
-									echo '<div class="certified-single"><img src="'.$image['image'].'" alt="" width="30"></div>';
-								} } ?>
+							<div class="">
+								<?php foreach($certified_by['images'] as $image) {
+									echo '<img src="'.$image['image'].'" alt="" width="30">';
+								} ?>
 							</div>
 						</div>
 					<?php } ?>
 					<?php if(!empty($awards_won)) { ?>
 						<div class="game-provider-review-content">
 							<h3><?php echo $awards_won['title']; ?></h3>
-							<div class="awards-images">
-								<?php if(!empty($awards_won['images'])) { foreach($awards_won['images'] as $image) { 
-									echo '<div class="awards-single"><img src="'.$image['image'].'" alt="" width="30"></div>';
-								} } ?>
+							<div class="">
+								<?php foreach($awards_won['images'] as $image) { 
+									echo '<img src="'.$image['image'].'" alt="" width="30">';
+								} ?>
 							</div>
 						</div>
 					<?php } ?>

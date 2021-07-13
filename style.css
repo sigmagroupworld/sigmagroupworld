@@ -2472,16 +2472,16 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 
 /* Sigma college page contact form start */
 .college-form #wpforms-form-18805 {
-	max-width: 1000px;
+    max-width: 1000px;
     margin: auto;
     background: #fff;
     padding: 50px 20px;
     margin-top: -200px;
     border-radius: 30px;
-	box-shadow: 0px 10px 15px silver;
+    box-shadow: 0px 10px 15px silver;
 }
 .college-form #wpforms-form-18805 .wpforms-field-label {
-	font-family: "Montserrat";
+    font-family: "Montserrat";
     line-height: 1.4;
     font-size: 14px;
     font-weight: 400;
@@ -2492,7 +2492,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .college-form #wpforms-form-18805 input[type='text'],
 .college-form #wpforms-form-18805 input[type='email'],
 .college-form #wpforms-form-18805 select {
-	-webkit-appearance: none;
+    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     outline: 0;
@@ -2513,7 +2513,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     border-radius: 5px;
     border: 0;
     border: 1px solid #d1d1d1 !important;
-	height: 50px;
+    height: 50px;
 }
 .coming_soon {
     text-align: center;
@@ -3644,6 +3644,13 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 /** Rgister choose addition end **/
 
+.pitch-host-judges {
+    flex-basis: calc(33.33% - 20px * 2);
+    box-shadow: 4px 4px 12px #9b9b9b;
+    margin: 15px;
+    height: auto;
+}
+
 
 
 @media (max-width: 1830px) {
@@ -3700,10 +3707,45 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     }
     /* Header Menu styling End */
 }
+@media (min-width: 1550px) {
+    .register-choose-edition .americas {
+        top: 23%;
+        left: -2.5%;
+    }
+    .register-choose-edition .europe {
+        top: 3%;
+        left: 56%;
+    }
+    .register-choose-edition .africa {
+        right: 46%;
+        bottom: 35px;
+    }
+    .register-choose-edition .asia {
+        right: 0;
+        top: 18%;
+    }
+    /* Header Language dropdown End */
+}
 @media (max-width: 1550px) {
     /* Header Language dropdown Start */
     .ehf-header #masthead .custom-header .header-cmenu li.wpml-ls-item {
         margin-right: 10px !important;
+    }
+    .register-choose-edition .americas {
+        top: 23%;
+        left: -2.5%;
+    }
+    .register-choose-edition .europe {
+        top: 3%;
+        left: 56%;
+    }
+    .register-choose-edition .africa {
+        right: 46%;
+        bottom: 35px;
+    }
+    .register-choose-edition .asia {
+        right: 0;
+        top: 18%;
     }
     /* Header Language dropdown End */
 }

@@ -8,11 +8,9 @@
 wp_enqueue_style('directory', get_stylesheet_directory_uri().'/about/css/about.css'); 
 get_header();
 
-global $post;
 $page_id = $wp_query->get_queried_object()->ID;
-$post_slug = $post->post_name;
 ?>
-<div class="about-template <?php echo $post_slug; ?>">
+<div class="about-template">
 <?php ob_start(); $about_banner = get_field('banner');
 if ($about_banner){ ?>
 	<?php if( !empty( $about_banner['europe_logo'] ) ){ ?>

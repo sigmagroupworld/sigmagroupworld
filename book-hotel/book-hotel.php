@@ -35,9 +35,7 @@ $hotel_listing = get_field('hotel_listing', $page_id);
 	    <!-- Flights & accomodation end -->
 
 	    <!-- Flights Booking form start -->
-	    <div class="airline-wrapper">
-			<?php echo do_shortcode('[sigma-mt-book-flight-form]'); ?>
-		</div>
+	    <div></div>
 	    <!-- Flights Booking form end -->
 
 	    <!-- Sigma official hotel start -->
