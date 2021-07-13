@@ -135,7 +135,6 @@ jQuery(document).ready(function($) {
       		infinite: true,
       		slidesToShow: 1,
       		slidesToScroll: 1,
-		autoplay: true,
   	});
 
 	/**** Related Articles Slider ***/
@@ -208,7 +207,7 @@ jQuery(document).ready(function($) {
 	    $('#'+elementId).removeClass('full');
 	}
 	/** Book Hotel Toggle end ***/
-	
+
 	/** Air Malta Form ***/
 	$(".hasDatepicker").datepicker();
 	$("#returnWay").click(function(event){
@@ -275,7 +274,7 @@ jQuery(document).ready(function($) {
 
 	// Awards script start
 	openAward = (elementId) => {
-		$( '.awards-wrapper .award-box' ).removeClass('open');
+		$( '.awards .container .awards-wrapper .award-box' ).removeClass( 'open' );
 		$('#'+elementId).addClass('open');
 	}
 	closeAward = (elementId) => {
@@ -474,7 +473,7 @@ jQuery(document).ready(function($) {
 		}
 		$( '.startup-filter-last-year ul li.active' ).removeClass( 'active' );
 		var i = 0;
-		var li_class = $( this ).attr( 'class' );
+		var li_class = $( this ).attr( 'class' ); 
 		$( '.'+li_class ).addClass( 'active ');
 		var regex_data = $(this).data('regex');
 		$( '.charity-items > div' ).each(function () {
@@ -532,82 +531,7 @@ jQuery(document).ready(function($) {
 	} );
 	// 2020 Startup filter end
 
-  	// sitting down script start
-	tabArrangments = (evt, down) => {
-		var i, itemcontent, iconbtn;
-		itemcontent = document.getElementsByClassName("itemcontent");
-		for (i = 0; i < itemcontent.length; i++) {
-			itemcontent[i].style.display = "none";
-		}
-		iconbtn = document.getElementsByClassName("iconbtn");
-		for (i = 0; i < iconbtn.length; i++) {
-			iconbtn[i].className = iconbtn[i].className.replace(" active", "");
-		}
-		document.getElementById(down).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-	// sitting down script end
 
-	/** Job Filter **/
-	$('#filter').submit(function(){
-		var filter = $('#filter');
-		$.ajax({
-			url:filter.attr('action'),
-			data:filter.serialize(), // form data
-			type:filter.attr('method'), // POST
-			beforeSend:function(xhr){
-				filter.find('button').text('Processing...'); // changing the button label
-			},
-			success:function(data){
-				filter.find('button').text('Apply filter'); // changing the button label back
-				$('#response').html(data); // insert data
-			}
-		});
-		return false;
-	});
-    /** Job Filter end **/
-
-	/** Vacancies Filter **/
-	if( document.location.href.includes( '?' ) ) {
-		var current_url = document.location.href;
-	} else {
-		var current_url = document.location.href + '?';
-	}
-	
-	$('#filter-country').on('change', function(){
-		var country_val = $( this ).val();
-		var url = current_url + "&country="+country_val;
-		var new_url = new URL(url);
-		new_url.searchParams.set("country", country_val);
-      	document.location = new_url.href;
-	});
-	$('#filter-department').on('change', function(){
-		var department_val = $( this ).val();
-		var url = current_url + "&department="+department_val;
-		var new_url = new URL(url);
-		new_url.searchParams.set("department", department_val);
-      	document.location = new_url;
-	});
-	$('#filter-job-type').on('change', function(){
-		var job_type_val = $( this ).val();
-		var url = current_url + "&job-type="+job_type_val;
-		var new_url = new URL(url);
-		new_url.searchParams.set("job-type", job_type_val);
-      	document.location = new_url;
-	});
-    /** Vacancies Filter end **/
-
-    // Sigma college form full time fields
-    $( "input[name='wpforms[fields][9]']" ).on( 'click', function() {
-    	var job_status_val = $( "input[name='wpforms[fields][9]']:checked" ).val();
-    	if( job_status_val == 'Full-time' ){
-    		$( '.full_time_fields' ).css( 'display', 'block' );
-    		$( '.full_time_fields input' ).prop( 'required',true );
-    	} else {
-    		$( '.full_time_fields' ).css( 'display', 'none' );
-    		$( '.full_time_fields input' ).prop( 'required',false );
-    	}
-    } );
 });
 
 /** Casino Provider Details Tab ***/
