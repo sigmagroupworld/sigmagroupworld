@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
  	});
 	/**** Testimonial Slider end ***/
 
-//deep tech insights slider start
+	//deep tech insights slider start
 	  $('.deep-insights-slider').slick({
 	      infinite: true,
 	      slidesToShow: 3,
@@ -208,59 +208,6 @@ jQuery(document).ready(function($) {
 	}
 	/** Book Hotel Toggle end ***/
 
-	/** Air Malta Form ***/
-	$(".hasDatepicker").datepicker();
-	$("#returnWay").click(function(event){
-		console.log('prop: ' + $(this).prop('checked'));
-		if($(this).prop('checked')){
-			$("#returndate").prop('disabled', false);
-		}
-	})
-	$("#oneWay").click(function(event){
-		console.log('prop oneway: ' + $(this).prop('checked'));
-		if($(this).prop('checked')){
-			$("#returndate").prop('disabled', true);
-		}
-	})
-	
-	$("#airlineRegForm").submit(function(event) {
-		event.preventDefault();
-		let values = {};
-		$("#airlineRegForm :input").each(function() {
-			let thisType = $(this).attr('type');
-			if(thisType && (typeof $(this).prop('disabled') == 'undefined' || $(this).prop('disabled') !== true) && ( (thisType !== 'radio' && thisType !== 'checkbox' ) ||  $(this).prop('checked') === true) ){
-				values[this.name] = $(this).val().toString();
-			}
-		});
-		
-		$("#airlineRegForm select").each(function() {
-			values[this.name] = $(this).val().toString();
-		});
-		
-		let adt = 'ADT' in values && values['ADT'] != '' ? values['ADT'] : 0;
-		let chd = 'CHD' in values && values['CHD'] != '' ? values['CHD'] : 0;
-		let inf = 'INF' in values && values['INF'] != '' ? values['INF'] : 0;
-		let totalPersons = parseInt(adt) + parseInt(chd) + parseInt(inf);
-		console.log(totalPersons);
-		console.log(values);
-		// Note: "Flexible Dates" parameter is not working in the old page - the URLs generated with / without Flexible Dates are identical
-		if( totalPersons > 0 && 'journeyType' in values  && values['journeyType'] != '' && 'travellingClass' in values  && values['travellingClass'] != '' && 'origin' in values  && values['origin'] != 'select' && 'destination' in values  && values['destination'] != 'select' && 'date' in values  && values['date'] != '' && (values['journeyType'] != 'round-trip' || (values['journeyType'] == 'round-trip'  && values['date1'] != '' && 'date1' in values) ) ) {
-			let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/matrix?journeyType=' + values['journeyType'] 
-									+ '&locale=en-GB&awardBooking=false&searchType=BRANDED&class=' + values['travellingClass']  
-									+ '&ADT=' + adt + '&CHD=' + chd + '&INF=' + inf 
-									+ '&YTH=0&origin=' + values['origin'] 
-									+ '&destination=' + values['destination'] + '&date=' + values['date'];
-			let finalUrlPartTwo = 	values['journeyType'] == 'round-trip'
-									? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&direction=0&execution=e1s1'
-									: '&promoCode=MKMSIGMA20&direction=0&execution=e1s1';
-			let finalUrl = finalUrlPartOne + finalUrlPartTwo;
-			window.open(finalUrl);
-		} else {
-			alert('Please complete required fields!');
-		}
-	});
-	/** Air Malta Form End ***/
-	
 	/** Hosts script start **/
 	openHostsDiv = (elementId) => {
 		$('#'+elementId).toggleClass('person-open');
@@ -297,7 +244,7 @@ jQuery(document).ready(function($) {
 		evt.currentTarget.className += " active";
 	}
 	// sitting down script end
-	
+
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
 	if(search_term == '') {
@@ -531,6 +478,58 @@ jQuery(document).ready(function($) {
 	} );
 	// 2020 Startup filter end
 
+	/** Air Malta Form ***/
+	$(".hasDatepicker").datepicker();
+	$("#returnWay").click(function(event){
+		console.log('prop: ' + $(this).prop('checked'));
+		if($(this).prop('checked')){
+			$("#returndate").prop('disabled', false);
+		}
+	})
+	$("#oneWay").click(function(event){
+		console.log('prop oneway: ' + $(this).prop('checked'));
+		if($(this).prop('checked')){
+			$("#returndate").prop('disabled', true);
+		}
+	})
+	
+	$("#airlineRegForm").submit(function(event) {
+		event.preventDefault();
+		let values = {};
+		$("#airlineRegForm :input").each(function() {
+			let thisType = $(this).attr('type');
+			if(thisType && (typeof $(this).prop('disabled') == 'undefined' || $(this).prop('disabled') !== true) && ( (thisType !== 'radio' && thisType !== 'checkbox' ) ||  $(this).prop('checked') === true) ){
+				values[this.name] = $(this).val().toString();
+			}
+		});
+		
+		$("#airlineRegForm select").each(function() {
+			values[this.name] = $(this).val().toString();
+		});
+		
+		let adt = 'ADT' in values && values['ADT'] != '' ? values['ADT'] : 0;
+		let chd = 'CHD' in values && values['CHD'] != '' ? values['CHD'] : 0;
+		let inf = 'INF' in values && values['INF'] != '' ? values['INF'] : 0;
+		let totalPersons = parseInt(adt) + parseInt(chd) + parseInt(inf);
+		console.log(totalPersons);
+		console.log(values);
+		// Note: "Flexible Dates" parameter is not working in the old page - the URLs generated with / without Flexible Dates are identical
+		if( totalPersons > 0 && 'journeyType' in values  && values['journeyType'] != '' && 'travellingClass' in values  && values['travellingClass'] != '' && 'origin' in values  && values['origin'] != 'select' && 'destination' in values  && values['destination'] != 'select' && 'date' in values  && values['date'] != '' && (values['journeyType'] != 'round-trip' || (values['journeyType'] == 'round-trip'  && values['date1'] != '' && 'date1' in values) ) ) {
+			let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/matrix?journeyType=' + values['journeyType'] 
+									+ '&locale=en-GB&awardBooking=false&searchType=BRANDED&class=' + values['travellingClass']  
+									+ '&ADT=' + adt + '&CHD=' + chd + '&INF=' + inf 
+									+ '&YTH=0&origin=' + values['origin'] 
+									+ '&destination=' + values['destination'] + '&date=' + values['date'];
+			let finalUrlPartTwo = 	values['journeyType'] == 'round-trip'
+									? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&direction=0&execution=e1s1'
+									: '&promoCode=MKMSIGMA20&direction=0&execution=e1s1';
+			let finalUrl = finalUrlPartOne + finalUrlPartTwo;
+			window.open(finalUrl);
+		} else {
+			alert('Please complete required fields!');
+		}
+	});
+	/** Air Malta Form End ***/
 
 });
 

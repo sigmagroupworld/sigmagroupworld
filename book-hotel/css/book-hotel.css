@@ -197,6 +197,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-top: 20px;
+    padding-top: 20px;
+
 }
 .img-gallery>a {
     width: calc(32.33% - 15px);
