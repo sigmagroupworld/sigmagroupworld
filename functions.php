@@ -1077,7 +1077,7 @@ function sigma_mt_get_company($atts) {
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
-        $category_title = $sponsors_and_exhibitors['title'];
+        $category_title = isset($sponsors_and_exhibitors['title']) ? $sponsors_and_exhibitors['title'] : '';
     //} else if(!empty($partners['category_name'][0]) && $term_name->name === $partners['category_name'][0]) {
 	} else if($appearance == $appearancePartners){
         $main_class = 'our-partner';
@@ -1097,6 +1097,7 @@ function sigma_mt_get_company($atts) {
         $main_class = 'suppliers';
         $sub_class = 'supplier-logo';
         $single_class = 'supplier-single';
+		$category_title = $partners ? $partners['title'] : '';
     }
 	
 		
@@ -1197,6 +1198,37 @@ function sigma_mt_get_company($atts) {
 								}
 							$content .= '</div>
 						</section>';
+        } else if($appearance === 'Default' ) {
+            $content .= '<section class="'.$main_class.' '.$colorClass.'">
+                            <div class="container">';
+                                if(!empty($category_title)) {
+                                    $content .= '<div class="about-section-title">
+                                                    <h2>'. $category_title .'</h2>
+                                                </div>';
+                                }
+                                if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
+                                    $content .= '<div class="supplier-txt">
+                                        <p>'.$our_trusted_suppliers['trusted_splliers_text'].'</p>
+                                    </div>';
+                                }
+                                $content .= '<div class="'.$sub_class.'">';
+                                    foreach($get_posts as $k => $post) {
+                                        $company_details = get_field('company_details', $post->ID);
+                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                        if(!empty($company_details['company_logo'])) {
+                                            $content .= '<div class="'.$single_class.'">';
+                                            $content .= '<a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a>';
+                                        }
+                                        $content .= '</div>';
+                                    }
+                                $content .= '</div>';
+                                if(!empty($our_trusted_suppliers['single_company_shortcode'])) {
+                                    foreach($our_trusted_suppliers['single_company_shortcode'] as $k => $value) {
+                                        $shortcode = do_shortcode($value['shortcode']);
+                                        $content .= $shortcode;
+                                    }
+                                }
+            $content .= '</section>';            
         } else {
             $content .= '<section class="'.$main_class.' '.$colorClass.'"">
                             <div class="container">';
@@ -1227,7 +1259,7 @@ function sigma_mt_get_company($atts) {
                                         $content .= $shortcode;
                                     }
                                 }
-            $content .= '</section>';            
+            $content .= '</div></section>';            
         }
 
 
@@ -1824,6 +1856,7 @@ function sigma_mt_get_hotels($atts) {
         );
     }
     $get_posts = get_posts($post_tag_args);
+    $singleCountPost = count($get_posts);
     if(!empty($get_posts)) {
         $content .= '<div class="hotel-reviews">';
                         foreach($get_posts as $k => $post) {
@@ -1837,8 +1870,15 @@ function sigma_mt_get_hotels($atts) {
                                'type' => 'rating',
                                'number' => 12345,
                             );
+                            if($singleCountPost == '1') {
+                                $fullClass = 'full';
+                                $openClass = 'open';
+                            } else {
+                                $fullClass = '';
+                                $openClass = '';
+                            }
                             $rating = wp_star_rating($args);
-                            $content .= '<div id="single-hotel'.$post->ID.'" class="single-hotel">
+                            $content .= '<div id="single-hotel'.$post->ID.'" class="single-hotel '.$fullClass.'">
                                 <div class="short">
                                     <div class="logo">
                                         <img src="'.$hotel_icon.'" alt="">
@@ -1848,7 +1888,7 @@ function sigma_mt_get_hotels($atts) {
                                     $content .= '</div>
                                     <button class="show-more" onclick="openHotel(\'single-hotel'.$post->ID.'\', \'long'.$post->ID.'\')">'.__('Our Special Rate', 'sigmaigaming').'</button>
                                 </div>
-                                <div id="long'.$post->ID.'" class="long">
+                                <div id="long'.$post->ID.'" class="long '.$openClass.'">
                                     <div class="close" onclick="closeHotel(\'single-hotel'.$post->ID.'\', \'long'.$post->ID.'\')"></div>
                                     <div class="hotel-detail">
                                         <h3>'.$post->post_title.'</h3>
