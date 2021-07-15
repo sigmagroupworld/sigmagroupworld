@@ -432,7 +432,7 @@ function sigma_mt_get_continent_order() {
         $sorting_order_americas = 2;
         $sorting_order_africa   = 3;
     }
-	$order = require_once get_stylesheet_directory().'/home/sorted-home.php';
+    $order = require_once get_stylesheet_directory().'/home/home-news.php';
     return $order;
 }
 
@@ -566,7 +566,7 @@ function sigma_mt_get_people_list($atts) {
     $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
     $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
     $speakers_text = get_field('speakers_text');
-    $appearance 		= isset($atts['appearance']) ? $atts['appearance'] : __( 'Default', 'sigmaigaming' );
+    $appearance         = isset($atts['appearance']) ? $atts['appearance'] : __( 'Default', 'sigmaigaming' );
     $person_name        = isset($atts['person_name']) ? $atts['person_name'] : NULL;
     $person_image       = isset($atts['person_image']) ? $atts['person_image'] : NULL;
     $person_position    = isset($atts['person_position']) ? $atts['person_position'] : NULL;
@@ -582,7 +582,7 @@ function sigma_mt_get_people_list($atts) {
     $hosts = get_field('hosts');
     $judges = get_field('judges');
     $our_experts = get_field('our_experts');
-	
+    
     $appearanceExhibit = __( 'Exhibit', 'sigmaigaming' );
     $appearanceRegular = __( 'Regular', 'sigmaigaming' );
     $appearanceHost = __( 'Host', 'sigmaigaming' );
@@ -591,22 +591,22 @@ function sigma_mt_get_people_list($atts) {
     $appearanceExperts = __( 'Experts', 'sigmaigaming' );
     $appearanceInvestors = __( 'Investors', 'sigmaigaming' );
     $appearanceDefault = __( 'Default', 'sigmaigaming' );
-	
+    
     //echo '<pre>'; print_r($our_experts);
     //if ( is_page( array( 'exhibit') ) ) {
-		
-	// Exhibit Appearance
-	if($appearance == $appearanceExhibit){
+        
+    // Exhibit Appearance
+    if($appearance == $appearanceExhibit){
         $main_class = 'contact-us';
         $sub_class = 'all-person';
         $single_class = 'single-person';
         $heading = __( 'CONTACT US', 'sigmaigaming' );
         $button = '';
         $desc = '';
-		
+        
     //} else if($appearance === $appearanceVal) {
-	// Regular Appearance
-	} else if($appearance == $appearanceRegular){
+    // Regular Appearance
+    } else if($appearance == $appearanceRegular){
         $main_class = 'speakers';
         $sub_class = 'all-speakers';
         $single_class = 'single-speaker';
@@ -614,24 +614,24 @@ function sigma_mt_get_people_list($atts) {
         $button = '<div class="load-people"><button class="load-more" id="load-more">'.$load_more.'</button></div></div>';
         $desc = isset($speakers_text['speaker_text']) ? $speakers_text['speaker_text'] : '';
     //} else if (!empty($hosts['title']) && $term_name === $hosts['title'] || $appearance === $appearanceHJVal) {
-	// Host Appearance
-	} else if($appearance == $appearanceHost ||$appearance == $appearanceHostJudge){
+    // Host Appearance
+    } else if($appearance == $appearanceHost ||$appearance == $appearanceHostJudge){
         $main_class = 'hosts';        
         $heading = isset($hosts['title']) ? $hosts['title'] : '';
         $sub_class = 'person-item';
         $button = '';
         $desc = '';
     //} else if (!empty($our_experts['title']) && $term_name === $our_experts['title']) {
-	// Experts Appearance
-	} else if($appearance == $appearanceExperts){
+    // Experts Appearance
+    } else if($appearance == $appearanceExperts){
         $main_class = 'our-experts';        
         $heading = $our_experts['title'];
         $sub_class = 'all-experts expert-slider';
         $button = '';
         $desc = '';
     // } else if($term_id === '1191') {
-	// Investors Appearance
-	} else if($appearance == $appearanceInvestors){
+    // Investors Appearance
+    } else if($appearance == $appearanceInvestors){
         $main_class = 'meet-investor';        
         $heading = '';
         $sub_class = 'all-experts investor-slider';
@@ -639,13 +639,13 @@ function sigma_mt_get_people_list($atts) {
         $button = '';
         $desc = '';
     // Judge Appearance
-	} else if($appearance == $appearanceJudge){
+    } else if($appearance == $appearanceJudge){
         $main_class = 'judges';        
         $heading = isset($judges['title']) ? $judges['title'] : '';
         $sub_class = 'all-judges';
         $button = '';
         $desc = isset($judges['description']) ? $judges['description'] : '';
-	// Default Appearance
+    // Default Appearance
     } else if($appearance == $appearanceDefault){
         $main_class = 'judges';        
         $heading = isset($judges['title']) ? $judges['title'] : '';
@@ -694,152 +694,152 @@ function sigma_mt_get_people_list($atts) {
                                 <p>'.$desc.'</p>
                             </div>
                             <div class="'.$sub_class.'">';
-		foreach($get_posts as $k => $post) {
-			$title = $post->post_title;
-			$people_icon = get_field('image_icon', $post->ID);
-			$people_designation = get_field('designation', $post->ID);
-			$person_email_val = get_field('email', $post->ID);
-			$person_phone_no = get_field('telephone_number', $post->ID);
-			$person_skype_id = get_field('skype_id', $post->ID);
-			$person_telgram = get_field('telegram', $post->ID);
-			$language_icon = get_field('language_icon', $post->ID);
-			$people_company = $companyObjectID = get_field('company', $post->ID);
-			$companyLogo = get_field('company_details', $companyObjectID);
-			if(!empty($companyLogo)) {
-				$companyLogo = $companyLogo['company_logo'];
-			} else {
-				$companyLogo = '';
-			}
-			if($appearance === $appearanceRegular) {
-				$content .= '<div class="'.$single_class.'">';
-					if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-					if($person_name === 'YES' && !empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
-					if($person_position === 'YES' && !empty($people_designation)) { $content .= '<p class="designation">'. $people_designation .'</p>'; }
-					if($person_company === 'YES' && !empty($people_company)) { $content .= '<p>'. get_the_title($companyObjectID) .'</p>'; }
-					if($person_language === 'YES' && !empty($language_icon)) { 
-						$content .= '<div class="lang">';
-										foreach($language_icon as $icon) {
-											$content .= '<img src="'.$icon.'" alt="">';
-										}
-									$content .= '</div>'; 
-					}
-					$content .= '<div class="person-social">';
-									if($person_email === 'YES' && !empty($person_email_val)) { $content .= '<p><span>E:</span> <a href="mailto:'.$person_email_val.'"><i class="fa fa-envelope" aria-hidden="true"></i>'.$person_email_val.'</a></p>'; }
-									if($person_phone === 'YES' && !empty($person_phone_no)) { $content .= '<p><span>T:</span> <a href="tel:'.$person_phone_no.'"><i class="fa fa-phone" aria-hidden="true"></i>'.$person_phone_no.'</a></p>'; }
-									if($person_skype === 'YES' && !empty($person_skype_id)) { $content .= '<p><span>S:</span> <a href="skype:'.$person_skype_id.'?call"><i class="fab fa-skype"></i>'.$person_skype_id.'</a></p>'; }
-									if($telegram === 'YES' && !empty($person_telgram)) { $content .= '<p><span>Telegram:</span> <a href="skype:'.$person_telgram.'?call"><i class="fab fa-telegram" aria-hidden="true"></i>'.$person_telgram.'</a></p>'; }
-								$content .= '</div>';
-				$content .= '</div>';
-			} else if ($appearance === $appearanceHost) {
-				$content .= '<div id="item'.$post->ID.'" class="person-item-inner">
-								<div class="person-left">
-									 <div class="person-avatar-img">';
-										if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-										if(!empty($post->post_content)) {
-											$content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
-															<div></div>
-														</div>';
-										}
-									$content .= '</div>
-									<div class="person-detail">
-										<h3>'.$post->post_title.'</h3>
-										<h4>'.$people_designation.'</h4>
-									</div>
-								</div>
-								<div class="person-right">
-									<p>'.$post->post_content.'</p>
-								</div>
-							</div>';
-			} else if ($appearance === $appearanceExperts) {
-				$content .= '<div class="expert-slide">
-								<div class="expert-box">
-									<div class="expert-img">';
-										if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-									$content .= '</div>
-									<div class="expert-info">
-										<div class="expert-info">';
-											if(!empty($companyLogo)) {
-												$content .= '<div class="expert-logo">
-													<img src="'.$companyLogo.'" alt="">
-												</div>';
-											}
-											$content .= '<h2>'.$post->post_title.'</h2>
-											<h3>'.$people_designation.'</h3>
-										</div>';
-									$content .= '</div>
-								</div>
-							</div>';
-			} else if($appearance === $appearanceHostJudge) {
-				$content .= '<div id="item'.$post->ID.'" class="person-item-inner">
-								<div class="person-left">
-									 <div class="person-avatar-img">';
-										if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-										if(!empty($post->post_content)) {
-											$content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
-															<div></div>
-														</div>';
-										}
-									$content .= '</div>
-									<div class="person-detail">
-										<h3>'.$post->post_title.'</h3>
-										<h4>'.$people_designation.'</h4>
-									</div>
-								</div>
-								<div class="person-right">
-									<p>'.$post->post_content.'</p>
-								</div>
-							</div>';
-			} else if($appearance == $appearanceInvestors) {
-				$content .= '<div class="investor-slide"><div class="investor-box">
-								<div class="investor-img">';
-									if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-								$content .= '</div>
-								<div class="investor-info">';
-									if(!empty($companyLogo)) {
-										$content .= '<div class="investor-logo">
-											<img src="'.$companyLogo.'" alt="">
-										</div>';
-									}
-									$content .= '<h2>'.$post->post_title.'</h2>';
-									if($person_position === 'YES' && !empty($people_designation)) { 
-										$content .= '<div class="desc"><h3>'. $people_designation .'</h3></div>'; 
-									}
-								$content .= '</div></div>
-							</div>';
-			} else if($appearance == $appearanceDefault || $appearance == $appearanceExhibit || $appearance == $appearanceJudge) {
-				$content .= '<div class="judge-box">
-								<div class="judge-img">';
-									if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
-								$content .= '</div>
-								<div class="judge-info">';
-									if(!empty($companyLogo)) {
-										$content .= '<div class="expert-logo">
-											<img src="'.$companyLogo.'" alt="">
-										</div>';
-									}
-									$content .= '<h2>'.$post->post_title.'</h2>';
-									if($person_company === 'YES' && !empty($people_company)) { 
-										$content .= '<div class="desc">
-										<p>'. get_the_title($companyObjectID) .'</p>'; 
-									}
-									if($person_position === 'YES' && !empty($people_designation)) { 
-										$content .= '<h3>'. $people_designation .'</h3>'; 
-									}
-								$content .= '</div></div>
-							</div>';
-			}
-		}
-	$content .= '</div>
-	<input type="hidden" value="'.$term_id.'" id="termID">
-	<input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
-	<input type="hidden" value="'.$person_image.'" id="person_image">
-	<input type="hidden" value="'.$person_name.'" id="person_name">
-	<input type="hidden" value="'.$person_position.'" id="person_position">
-	<input type="hidden" value="'.$person_company.'" id="person_company">';
-	if ( is_page( array( 'europe') ) ) {
-		$content .= ''.$button.'';
-	}
-	$content .= '</section>';
+        foreach($get_posts as $k => $post) {
+            $title = $post->post_title;
+            $people_icon = get_field('image_icon', $post->ID);
+            $people_designation = get_field('designation', $post->ID);
+            $person_email_val = get_field('email', $post->ID);
+            $person_phone_no = get_field('telephone_number', $post->ID);
+            $person_skype_id = get_field('skype_id', $post->ID);
+            $person_telgram = get_field('telegram', $post->ID);
+            $language_icon = get_field('language_icon', $post->ID);
+            $people_company = $companyObjectID = get_field('company', $post->ID);
+            $companyLogo = get_field('company_details', $companyObjectID);
+            if(!empty($companyLogo)) {
+                $companyLogo = $companyLogo['company_logo'];
+            } else {
+                $companyLogo = '';
+            }
+            if($appearance === $appearanceRegular) {
+                $content .= '<div class="'.$single_class.'">';
+                    if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                    if($person_name === 'YES' && !empty($title)) { $content .= '<h3>'.$post->post_title.'</h3>'; }
+                    if($person_position === 'YES' && !empty($people_designation)) { $content .= '<p class="designation">'. $people_designation .'</p>'; }
+                    if($person_company === 'YES' && !empty($people_company)) { $content .= '<p>'. get_the_title($companyObjectID) .'</p>'; }
+                    if($person_language === 'YES' && !empty($language_icon)) { 
+                        $content .= '<div class="lang">';
+                                        foreach($language_icon as $icon) {
+                                            $content .= '<img src="'.$icon.'" alt="">';
+                                        }
+                                    $content .= '</div>'; 
+                    }
+                    $content .= '<div class="person-social">';
+                                    if($person_email === 'YES' && !empty($person_email_val)) { $content .= '<p><span>E:</span> <a href="mailto:'.$person_email_val.'"><i class="fa fa-envelope" aria-hidden="true"></i>'.$person_email_val.'</a></p>'; }
+                                    if($person_phone === 'YES' && !empty($person_phone_no)) { $content .= '<p><span>T:</span> <a href="tel:'.$person_phone_no.'"><i class="fa fa-phone" aria-hidden="true"></i>'.$person_phone_no.'</a></p>'; }
+                                    if($person_skype === 'YES' && !empty($person_skype_id)) { $content .= '<p><span>S:</span> <a href="skype:'.$person_skype_id.'?call"><i class="fab fa-skype"></i>'.$person_skype_id.'</a></p>'; }
+                                    if($telegram === 'YES' && !empty($person_telgram)) { $content .= '<p><span>Telegram:</span> <a href="skype:'.$person_telgram.'?call"><i class="fab fa-telegram" aria-hidden="true"></i>'.$person_telgram.'</a></p>'; }
+                                $content .= '</div>';
+                $content .= '</div>';
+            } else if ($appearance === $appearanceHost) {
+                $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
+                                <div class="person-left">
+                                     <div class="person-avatar-img">';
+                                        if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                        if(!empty($post->post_content)) {
+                                            $content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
+                                                            <div></div>
+                                                        </div>';
+                                        }
+                                    $content .= '</div>
+                                    <div class="person-detail">
+                                        <h3>'.$post->post_title.'</h3>
+                                        <h4>'.$people_designation.'</h4>
+                                    </div>
+                                </div>
+                                <div class="person-right">
+                                    <p>'.$post->post_content.'</p>
+                                </div>
+                            </div>';
+            } else if ($appearance === $appearanceExperts) {
+                $content .= '<div class="expert-slide">
+                                <div class="expert-box">
+                                    <div class="expert-img">';
+                                        if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                    $content .= '</div>
+                                    <div class="expert-info">
+                                        <div class="expert-info">';
+                                            if(!empty($companyLogo)) {
+                                                $content .= '<div class="expert-logo">
+                                                    <img src="'.$companyLogo.'" alt="">
+                                                </div>';
+                                            }
+                                            $content .= '<h2>'.$post->post_title.'</h2>
+                                            <h3>'.$people_designation.'</h3>
+                                        </div>';
+                                    $content .= '</div>
+                                </div>
+                            </div>';
+            } else if($appearance === $appearanceHostJudge) {
+                $content .= '<div id="item'.$post->ID.'" class="person-item-inner">
+                                <div class="person-left">
+                                     <div class="person-avatar-img">';
+                                        if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                        if(!empty($post->post_content)) {
+                                            $content .= '<div class="person-btn" onclick="openHostsDiv(\'item'.$post->ID.'\')">
+                                                            <div></div>
+                                                        </div>';
+                                        }
+                                    $content .= '</div>
+                                    <div class="person-detail">
+                                        <h3>'.$post->post_title.'</h3>
+                                        <h4>'.$people_designation.'</h4>
+                                    </div>
+                                </div>
+                                <div class="person-right">
+                                    <p>'.$post->post_content.'</p>
+                                </div>
+                            </div>';
+            } else if($appearance == $appearanceInvestors) {
+                $content .= '<div class="investor-slide"><div class="investor-box">
+                                <div class="investor-img">';
+                                    if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                $content .= '</div>
+                                <div class="investor-info">';
+                                    if(!empty($companyLogo)) {
+                                        $content .= '<div class="investor-logo">
+                                            <img src="'.$companyLogo.'" alt="">
+                                        </div>';
+                                    }
+                                    $content .= '<h2>'.$post->post_title.'</h2>';
+                                    if($person_position === 'YES' && !empty($people_designation)) { 
+                                        $content .= '<div class="desc"><h3>'. $people_designation .'</h3></div>'; 
+                                    }
+                                $content .= '</div></div>
+                            </div>';
+            } else if($appearance == $appearanceDefault || $appearance == $appearanceExhibit || $appearance == $appearanceJudge) {
+                $content .= '<div class="judge-box">
+                                <div class="judge-img">';
+                                    if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+                                $content .= '</div>
+                                <div class="judge-info">';
+                                    if(!empty($companyLogo)) {
+                                        $content .= '<div class="expert-logo">
+                                            <img src="'.$companyLogo.'" alt="">
+                                        </div>';
+                                    }
+                                    $content .= '<h2>'.$post->post_title.'</h2>';
+                                    if($person_company === 'YES' && !empty($people_company)) { 
+                                        $content .= '<div class="desc">
+                                        <p>'. get_the_title($companyObjectID) .'</p>'; 
+                                    }
+                                    if($person_position === 'YES' && !empty($people_designation)) { 
+                                        $content .= '<h3>'. $people_designation .'</h3>'; 
+                                    }
+                                $content .= '</div></div>
+                            </div>';
+            }
+        }
+    $content .= '</div>
+    <input type="hidden" value="'.$term_id.'" id="termID">
+    <input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
+    <input type="hidden" value="'.$person_image.'" id="person_image">
+    <input type="hidden" value="'.$person_name.'" id="person_name">
+    <input type="hidden" value="'.$person_position.'" id="person_position">
+    <input type="hidden" value="'.$person_company.'" id="person_company">';
+    if ( is_page( array( 'europe') ) ) {
+        $content .= ''.$button.'';
+    }
+    $content .= '</section>';
     }
     return $content;
 }
@@ -1038,7 +1038,7 @@ function sigma_mt_get_company($atts) {
     $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
     $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
     $term_name = get_term_by('id', $term_id, $taxonomy);
-	
+    
     $supported_cat = get_field('supported_by');
     $supported_asia_cat = get_field('supported_by_asia');
     $exhibitors_cat = get_field('our_exhibitors_partners');
@@ -1046,9 +1046,9 @@ function sigma_mt_get_company($atts) {
     $our_trusted_suppliers = get_field('our_trusted_suppliers');
     $meet_the_past_winners = get_field('meet_the_past_winners');
     $partners = get_field('our_partners');
-	
+    
     // $fallback = false;
-	
+    
     $appearanceSupported = __( 'SUPPORTED', 'sigmaigaming' );
     $appearancePartners = __( 'PARTNER', 'sigmaigaming' );
     $appearanceIgaming = __( 'IGAMING', 'sigmaigaming' );
@@ -1058,37 +1058,37 @@ function sigma_mt_get_company($atts) {
     $appearanceTrustedSuppliers = __( 'TRUSTED SUPPLIERS', 'sigmaigaming' );
     $appearanceLogos = __( 'Logos', 'sigmaigaming' );
     $appearanceDefault = __( 'Default', 'sigmaigaming' );
-	
-	
+    
+    
     //if( !empty($supported_cat['category_name'][0]) && str_starts_with($term_name->name, $supported_cat['category_name'][0]) ) {
-	if($appearance == $appearanceSupported){
+    if($appearance == $appearanceSupported){
         $main_class = 'supported';
         $sub_class = 'supported-logo';
         $single_class = 'supported-single';
         $category_title = $supported_cat['supported_by_title'];
     //} else if(!empty($exhibitors_cat['category_name'][0]) && str_starts_with($term_name->name, $exhibitors_cat['category_name'][0])) {
-	} else if($appearance == $appearanceExhibitors){
+    } else if($appearance == $appearanceExhibitors){
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
         $category_title = $exhibitors_cat['our_exhibitors_partners_title'];
     //} else if(!empty($sponsors_and_exhibitors['category_name'][0]) && str_starts_with($term_name->name, $sponsors_and_exhibitors['category_name'][0])) {
-	} else if($appearance == $appearanceSponsorsExhibitors){
+    } else if($appearance == $appearanceSponsorsExhibitors){
         $main_class = 'exhibitors';
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
         $category_title = isset($sponsors_and_exhibitors['title']) ? $sponsors_and_exhibitors['title'] : '';
     //} else if(!empty($partners['category_name'][0]) && $term_name->name === $partners['category_name'][0]) {
-	} else if($appearance == $appearancePartners){
+    } else if($appearance == $appearancePartners){
         $main_class = 'our-partner';
         $sub_class = 'all-partners';
         $single_class = 'single-partner';
         //$category_title = $partners['title'];
-	} else if($appearance == $appearancePastWinners){
+    } else if($appearance == $appearancePastWinners){
         $main_class = 'suppliers';
         $sub_class = 'supplier-logo';
         $single_class = 'supplier-single';
-	} else if($appearance == $appearanceTrustedSuppliers){
+    } else if($appearance == $appearanceTrustedSuppliers){
         $main_class = 'suppliers';
         $sub_class = 'supplier-logo';
         $single_class = 'supplier-single';
@@ -1097,10 +1097,10 @@ function sigma_mt_get_company($atts) {
         $main_class = 'suppliers';
         $sub_class = 'supplier-logo';
         $single_class = 'supplier-single';
-		$category_title = $partners ? $partners['title'] : '';
+        $category_title = $partners ? $partners['title'] : '';
     }
-	
-		
+    
+        
     $post_args = array(
       'posts_per_page' => $posts_per_page,
       'post_type' => $post_type,
@@ -1117,8 +1117,8 @@ function sigma_mt_get_company($atts) {
     );
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
-		//if(!empty($meet_the_past_winners['category_title']) && $meet_the_past_winners['category_title'] === $term_name->name) {
-		if($appearance == $appearancePastWinners){
+        //if(!empty($meet_the_past_winners['category_title']) && $meet_the_past_winners['category_title'] === $term_name->name) {
+        if($appearance == $appearancePastWinners){
             $year = $atts['year'];
             //echo '<pre>'; print_r(); 
             $args = array( 
@@ -1159,45 +1159,45 @@ function sigma_mt_get_company($atts) {
                 $content .= '';
             }
         } else if($appearance === 'PARTNER' ) {
-			$content .= '<section class="all-winner '.$colorClass.'"">
-							<div class="container">
-								<div class="winner-slider">';
-									foreach($get_posts as $k => $post) {
-										$post_date = explode('-', $post->post_date);
-										$year = $post_date[0];
-										$company_details = get_field('company_details', $post->ID);
-										$url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
-										$content .= '<div class="winer-slide"><div class="winner-single-slide">
-														<div class="winner-label">WINNER '.$year.'</div>
-														<div class="winner-content">';
-															if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
-															if(!empty($company_details)) { $content .= '<div class="winner-disc"><p>'.$post->post_content.'</p></div>'; }
-													$content .= '</div></div>
-												</div>';
-									}
-								$content .= '</div>
-							</div>
-						</section>';
-		} else if($appearance === 'IGAMING' ) {
-			$content .= '<section class="igaming-lists '.$colorClass.'"">
-							<div class="container">';
-								foreach($get_posts as $k => $post) {
-									$company_details = get_field('company_details', $post->ID);
-									$url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
-									$content .= '<div class="igaming-single">
-													<div class="igaming-box">
-														<div class="expert-img">';
-															if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
-														$content .= '</div>
-														<div class="expert-info">';
-															$content .= '<h2>'.$post->post_title.'</h2>';
-															$content .= '<a href="'.$url.'">'.__( 'Visit Website', 'sigmaigaming' ).'</a>';
-														$content .= '</div>
-													</div>
-												</div>';
-								}
-							$content .= '</div>
-						</section>';
+            $content .= '<section class="all-winner '.$colorClass.'"">
+                            <div class="container">
+                                <div class="winner-slider">';
+                                    foreach($get_posts as $k => $post) {
+                                        $post_date = explode('-', $post->post_date);
+                                        $year = $post_date[0];
+                                        $company_details = get_field('company_details', $post->ID);
+                                        $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                        $content .= '<div class="winer-slide"><div class="winner-single-slide">
+                                                        <div class="winner-label">WINNER '.$year.'</div>
+                                                        <div class="winner-content">';
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-disc"><p>'.$post->post_content.'</p></div>'; }
+                                                    $content .= '</div></div>
+                                                </div>';
+                                    }
+                                $content .= '</div>
+                            </div>
+                        </section>';
+        } else if($appearance === 'IGAMING' ) {
+            $content .= '<section class="igaming-lists '.$colorClass.'"">
+                            <div class="container">';
+                                foreach($get_posts as $k => $post) {
+                                    $company_details = get_field('company_details', $post->ID);
+                                    $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                    $content .= '<div class="igaming-single">
+                                                    <div class="igaming-box">
+                                                        <div class="expert-img">';
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. $company_details['company_logo'] .'"></a></div>'; }
+                                                        $content .= '</div>
+                                                        <div class="expert-info">';
+                                                            $content .= '<h2>'.$post->post_title.'</h2>';
+                                                            $content .= '<a href="'.$url.'">'.__( 'Visit Website', 'sigmaigaming' ).'</a>';
+                                                        $content .= '</div>
+                                                    </div>
+                                                </div>';
+                                }
+                            $content .= '</div>
+                        </section>';
         } else if($appearance === 'Default' ) {
             $content .= '<section class="'.$main_class.' '.$colorClass.'">
                             <div class="container">';
@@ -2222,56 +2222,56 @@ function sigma_mt_get_testimonials($atts) {
     }
     $testimonials = get_posts($post_args);
     if(!empty($testimonials)) {
-		if($appearance == 'full'){
-			$content .= '<div class="testimonial-slider '.$colorClass.'">';
-			foreach($testimonials as $k => $testimonial) {
-				$company = get_field('testimonial_company', $testimonial->ID);
-				$people = get_field('people_relationship', $testimonial->ID);
-				//echo '<pre>'; print_r($people);
-				$content .= '<div class="testi-slide">
-								<div class="testimonial-inner">
-								  <div class="client-image">';
-									foreach($people as $id) {
-										$people_icon = get_field('image_icon', $id);
-										$content .= '<img src="'.$people_icon.'" alt="">';
-									}
-								  $content .= '</div>
-								  <div class="client-txt">';
-									foreach($people as $id) {
-										$content .= '<h4 class="testimonial-title">'.get_the_title($id).'</h4>';
-									}
-									$content .= '<div class="testimonial-info">
-									  <h4 class="testimonial-company">'.$company.'</h4>
-									  <p>'.$testimonial->post_content.'</p>
-									</div>
-								  </div>
-								</div>
-							  </div>';
-							}
-			$content .= '</div>';
-		} else if($appearance == 'frontpage') {
-			$content .= '<div class="testimonial-slide-home">';
-			$r = 1;
-			$total = count($testimonials);
-			foreach($testimonials as $k => $testimonial) {
-				$testimonial_value = $r . '/' . $total;
-				$company_name = get_field( "testimonial_company", $testimonial->ID );
-				$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $testimonial->ID ), 'thumbnail' );
-				$content .= '<figure class="testimonial">
-					<img src="' . $featured_image[0] . '" alt="' . $testimonial->post_title . '" />
-					<div class="peopl">
-						<h3>' . $testimonial->post_title . '</h3>
-						<p class="company_name">' . $company_name . '</p>
-					</div>
-					<blockquote>' . $testimonial->post_content .
-						'<div class="btn"></div>
-					</blockquote>
-					<span>' . $testimonial_value . '</span>
-				</figure>';
-				$r++; 
-			}
-			$content .= '</div>';
-		}
+        if($appearance == 'full'){
+            $content .= '<div class="testimonial-slider '.$colorClass.'">';
+            foreach($testimonials as $k => $testimonial) {
+                $company = get_field('testimonial_company', $testimonial->ID);
+                $people = get_field('people_relationship', $testimonial->ID);
+                //echo '<pre>'; print_r($people);
+                $content .= '<div class="testi-slide">
+                                <div class="testimonial-inner">
+                                  <div class="client-image">';
+                                    foreach($people as $id) {
+                                        $people_icon = get_field('image_icon', $id);
+                                        $content .= '<img src="'.$people_icon.'" alt="">';
+                                    }
+                                  $content .= '</div>
+                                  <div class="client-txt">';
+                                    foreach($people as $id) {
+                                        $content .= '<h4 class="testimonial-title">'.get_the_title($id).'</h4>';
+                                    }
+                                    $content .= '<div class="testimonial-info">
+                                      <h4 class="testimonial-company">'.$company.'</h4>
+                                      <p>'.$testimonial->post_content.'</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>';
+                            }
+            $content .= '</div>';
+        } else if($appearance == 'frontpage') {
+            $content .= '<div class="testimonial-slide-home">';
+            $r = 1;
+            $total = count($testimonials);
+            foreach($testimonials as $k => $testimonial) {
+                $testimonial_value = $r . '/' . $total;
+                $company_name = get_field( "testimonial_company", $testimonial->ID );
+                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $testimonial->ID ), 'thumbnail' );
+                $content .= '<figure class="testimonial">
+                    <img src="' . $featured_image[0] . '" alt="' . $testimonial->post_title . '" />
+                    <div class="peopl">
+                        <h3>' . $testimonial->post_title . '</h3>
+                        <p class="company_name">' . $company_name . '</p>
+                    </div>
+                    <blockquote>' . $testimonial->post_content .
+                        '<div class="btn"></div>
+                    </blockquote>
+                    <span>' . $testimonial_value . '</span>
+                </figure>';
+                $r++; 
+            }
+            $content .= '</div>';
+        }
     }
     return $content;
 }
@@ -2528,5 +2528,56 @@ function sigma_mt_game_providers($atts) {
                         $content .= '</div>
                     </div>';
     }
+    return $content;
+}
+
+// Shortcode for speakers
+add_shortcode( 'sigma-mt-speakers', 'sigma_mt_speakers' );
+function sigma_mt_speakers($atts) {
+    global $post;
+    $cat = get_terms('speaker-cat');
+    $content = '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $content .= '<div class="call-for-speakers-db">';
+        foreach ($cat as $k => $catVal) {
+            $postArg = array(
+                'post_type' => 'speaker-items',
+                'posts_per_page' => $count,
+                'order' => 'desc',
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'speaker-cat',
+                        'field' => 'term_id',
+                        'terms' => $catVal->term_id
+                )
+            ));
+            $getPost = new wp_query($postArg);
+            $content .= '<div class="speaker-item" onclick="openSpeakersDiv(\'toggle-content'.$k.'\')">
+                            <div class="title">
+                                <h5>'.$catVal->name.'</h5>
+                            </div>
+                            <div class="toggle-content'.$k.'">';
+                                if($getPost->have_posts()) {
+                                    while ($getPost->have_posts()) {
+                                        $getPost->the_post();
+                                        $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                                        $content .= '<div class="body">
+                                                        <div class="inner-wrapper">
+                                                            <div class="single-speaker">
+                                                                <div class="avatar" style="background-image:url(\''.$featured_image[0].'\');">
+                                                                </div>
+                                                                <div class="right widget_type_rich-text">
+                                                                    <h4>'.$post->post_title.'</h4>
+                                                                    <h6>WH Partners</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
+                                    }
+                                }
+                            $content .= '</div>
+                        </div>';
+    }
+    $content .= '</div>';
     return $content;
 }

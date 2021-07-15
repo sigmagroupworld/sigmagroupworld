@@ -3472,7 +3472,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     padding-bottom: 0;
     max-width: 1024px;
 }
-.gt3_gallery-template-default .entry-header .post-thumbnail, .gt3-photo-gallery-pro--isotope_gallery, .gt3_gallery-template-default .wp-block-code {
+.gt3_gallery-template-default .entry-header .post-thumbnail, .gt3_gallery-template-default .wp-block-code {
     display:  none;
 }
 .gt3_gallery-template-default .entry-content .gt3-photo-gallery-pro--isotope_gallery {
@@ -3650,6 +3650,200 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin: 15px;
     height: auto;
 }
+
+/*** SPeakers page css **/
+.call-for-speakers-guidelines ul li::before {
+    background-color: #fcd72a;
+    content: '';
+    min-width: 7px;
+    height: 7px;
+    display: inline-block;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.call-for-speakers-guidelines ul li {
+    color: #5e5e5e;
+    font-size: 16px;
+    line-height: 30px;
+}
+.call-for-speakers-guidelines li strong {
+    color: #ed1a3b;
+}
+.participation-form .wpforms-container-full .wpforms-form label.wpforms-field-label {
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #464a53;
+    font-family: "Montserrat";
+}
+.participation-form .wpforms-container-full .wpforms-form input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font-family: "Montserrat";
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #010101;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px !important;
+    border: 0;
+    border: 1px solid #d1d1d1;
+}
+.participation-form .wpforms-container-full .wpforms-form .wpforms-submit {
+    background: linear-gradient(45deg,#38b6e9 0%,#38b6e9 40%,#38b6e9 60%,#38b6e9 100%) !important;
+    display: block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: "Montserrat";
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #fff;
+    outline: 0;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+    width: 210px;
+    padding: 13px 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #38b6e9;
+    border: 0;
+}
+.participation-form .wpforms-container-full .wpforms-form li.wpforms-selected input::after {
+    border-color: #ed1a3b;
+    background-image: url("https://cdn2.hubspot.net/hubfs/532280/6Minded/check6m.svg");
+    background-color: #ed1a3b;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -moz-background-size: 85%;
+    background-size: 85%;
+    position: relative;
+}
+
+body.call-speakers .call-for-speakers-db {
+    margin-bottom: 20px;
+}
+.call-for-speakers-db {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.call-for-speakers-db > div {
+    width: 48%;
+    margin: 1%;
+}
+.call-for-speakers-db .title {
+    background-color: #ebebeb;
+    padding: 0 40px 0 18px;
+    cursor: pointer;
+    height: 58px;
+    line-height: 58px;
+    display: flex;
+    position: relative;
+}
+.call-for-speakers-db .title::before {
+    content: '\f103';
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #b5b7b8;
+    font-weight: 600;
+}
+.call-for-speakers-db .body.show {
+    max-height: 600px;
+    overflow: auto;
+    -webkit-transition: max-height .5s ease-in-out;
+    -o-transition: max-height .5s ease-in-out;
+    -moz-transition: max-height .5s ease-in-out;
+    transition: max-height .5s ease-in-out;
+}
+.call-for-speakers-db .body {
+    background-color: #f7f7f7;
+    -webkit-transition: max-height .5s cubic-bezier(0,1,0,1);
+    -o-transition: max-height .5s cubic-bezier(0,1,0,1);
+    -moz-transition: max-height .5s cubic-bezier(0,1,0,1);
+    transition: max-height .5s cubic-bezier(0,1,0,1);
+    max-height: 0;
+    overflow: hidden;
+}
+.call-for-speakers-db .single-speaker {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-bottom: 10px;
+    width: auto;
+    border-radius: 0;
+    border: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.call-for-speakers-db .single-speaker .avatar {
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    border: 2px solid #dedede;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+}
+.call-for-speakers-db .single-speaker .right {
+    width: 100%;
+    margin-left: 20px;
+}
+.call-for-speakers-db .single-speaker .right h4 {
+    font-size: 13px;
+    color: #ed1a3b;
+    padding: 2px 0 6px 0;
+    font-weight: 600;
+    text-align: left;
+    margin: 0px;
+}
+.call-for-speakers-db .single-speaker .right h6 {
+    font-size: 12px;
+    color: #212121;
+    padding: 0px 0 0px 0;
+    margin: 0px;
+    text-align: left;
+}
+.call-for-speakers-db .speaker-item .title h5 {
+    align-items: center;
+    display: flex;
+}
+/*** SPeakers page css end **/
+
 
 
 
