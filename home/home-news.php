@@ -197,8 +197,8 @@ $asia = '<section class="home-blog">
 						}
 						$row++; 
 					}
-					$asia .= echo do_shortcode('[sigma-mt-testimonials appearance="frontpage" term_id=1307');
-				$asia .= ''</div>
+					$asia .= do_shortcode('[sigma-mt-testimonials appearance="frontpage" term_id=1307');
+				$asia .= '</div>
 			</div>
 			<div class="spotify hp-right">';
 				$news_tags = sigma_mt_get_news_tags_data(1055, $taxonomy, 12);
@@ -458,7 +458,7 @@ $africa = '<section class="home-blog">
 </section>'; ?>
 
 <?php 
-$sort = $_GET['front_page_sort'];
+$sort = isset($_GET['front_page_sort']) ?  $_GET['front_page_sort'] : '';
 if($sort == 'asia'){
 	echo $asia . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ) . $americas .  do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' );
 } else if($sort == 'americas'){
