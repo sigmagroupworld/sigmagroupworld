@@ -1,0 +1,994 @@
+/* banner section start */
+.gaming-sub-txt {
+    padding: 30px 0;
+}
+.gaming-sub-txt p {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+.awards-night-img .for-mobile {
+    display: none;
+}
+/* banner section end */
+/* Sitting Down section start */
+.page-title h2, .europe-gaming-awards-template .about-section-title h2 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 10px 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #0a4b83;
+    margin-bottom: 20px;
+}
+.sub-txt p {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    line-height: 26px;
+    color: #000;
+    margin-bottom: 20px;
+}
+.sub-txt p a,
+.right p a.right,
+.itemcontent p a {
+    color: #ff0201;
+    text-decoration: underline;
+}
+.four-tab-panels {
+    margin-bottom: 40px;
+}
+.four-tab-panels .tab-buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.four-tab-panels .tab-buttons .iconbtn {
+    text-align: center;
+    border: 2px solid #13375b;
+    padding: 1.2rem .5rem;
+    border-radius: 40px;
+    background: #fff;
+    transition: background-color .4s;
+    width: 24%;
+    margin: 14px 0 0;
+    display: block;
+}
+.four-tab-panels .tab-buttons .iconbtn:hover {
+    background: #13375b;
+}
+.four-tab-panels .tab-buttons .iconbtn:hover span {
+    color: #fff;
+}
+.four-tab-panels .tab-buttons .iconbtn span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #1f4b7f;
+    display: block;
+}
+.four-tab-panels .tab-buttons .iconbtn img {
+    width: 90px;
+    height: 70px;
+    margin: 0 auto 5px auto;
+    object-fit: contain;
+}
+.for-hover,
+.four-tab-panels .tab-buttons .iconbtn:hover .for-main {
+    display: none;
+}
+.four-tab-panels .tab-buttons .iconbtn:hover .for-hover {
+    display: block;
+}
+.itemcontent {
+    display: none;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 4px 4px 6px #b7b7b7;
+    margin-top: 15px;
+    color: #000;
+    font-size: 14px;
+    line-height: 20px;
+    background: #f2f2f2;
+}
+.itemcontent ul {
+    padding-left: 24px;
+    margin: 5px 0 20px 0;
+}
+.itemcontent ul,
+.itemcontent li {
+    list-style: disc;
+}
+.itemcontent li {
+    margin-bottom: 10px
+}
+/* Sitting Down section end */
+/* award section start */
+.awards {
+    position: relative;
+    overflow: hidden;
+    z-index: 1 ;
+    margin-bottom: 80px;
+}
+.awards:after {
+    position: absolute;
+    content: '';
+    bottom: -2%;
+    right: -2%;
+    background-image: url(https://sigmauat.xyz/wp-content/uploads/2021/06/A-Element-right-side.png);
+    background-repeat: no-repeat    ;
+    background-size: contain;
+    z-index: -1;
+    height: 700px;
+    width: 410px;
+}
+.page-btn,
+.our-btn {
+    text-align: center;
+    margin: 12px 0;
+}
+.page-btn a,
+.our-btn a {
+    display: block;
+    width: 100%;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 14px 0;
+    max-width: 240px;
+    margin: auto;
+    border-radius: 30px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.award-box .discription {
+    display: none;
+    width: 68%;
+}
+.award-box.open .discription {
+    display: block;
+}
+.award-box.open {
+    width: 100%;
+}
+.awards-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: calc(100% + 20px);
+    margin-left: -10px;
+}
+.award-box {
+    margin: 10px;
+    width: -webkit-calc(33.33% - 20px);
+    width: -moz-calc(33.33% - 20px);
+    width: calc(33.33% - 20px);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    border: 1px solid #c4c4c4;
+    border-radius: 30px;
+    padding: 14px 8px;
+}
+.award-box .box {
+    width: 100%;
+}
+.award-box.open .box {
+    width: calc(32% - 10px);
+}
+.awards-wrapper .award-box .box {
+    background: #fff;
+    overflow: hidden;
+    cursor: pointer;
+    height: 100%;
+    padding-bottom: 50px;
+    border-radius: 30px;
+}
+.award-box .box .top {
+    text-align: center;
+    min-height: 76px;
+}
+.award-box .top img {
+    max-width: 80px;
+}
+.award-box .box .top h5 {
+    color: #295487;
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 13px;
+}
+.award-box .sponsored p {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: darkgray;
+}
+.award-box .top .sponsored img {
+    max-width: 140px;
+}
+.award-box .bottom {
+    background: #afafaf;
+    background-size: 100%;
+    padding: 0 16px;
+    height: 40px;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0 0 30px 30px;
+}
+.award-box .bottom:hover,
+.award-box.open .bottom:hover {
+    background: #19548c;
+    background-repeat: no-repeat;
+    background-size: 200% 100%;
+    transition: background-size 1s;
+}
+.award-box .bottom::after {
+    content: '\f101';
+    color: #fff;
+    font-family: 'Font Awesome 5 Free';
+    color: #fff;
+    position: absolute;
+    right: 18px;
+    font-weight: 600;
+    top: 5px;
+    font-size: 18px;
+}
+.award-box .bottom span.less,
+.award-box.open .bottom span.more {
+    display: none;
+}
+.award-box.open .bottom span.less,
+.award-box .bottom span.more {
+    display: flex;
+}
+.award-box .bottom span {
+    font-size: 12px;
+    width: 100%;
+    font-weight: 600;
+    color: #fff;
+    height: 100%;
+    align-items: center;
+}
+.award-box .discription p,
+.person-right p,
+.right p {
+    font-size: 14px;
+    color: #000;
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+/* award section end */
+
+/* hosts section start */
+.hosts {
+    margin-bottom: 30px;
+}
+.person-item {
+    margin-top:  20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.person-item-inner {
+    flex-basis: 31%;
+    margin-right: 3.5%;
+    margin-bottom: 3%;
+    box-shadow: 4px 4px 12px #9b9b9b;
+}
+.person-item-inner:nth-child(3n+3) {
+    margin-right: 0; 
+}
+.person-item-inner.person-open {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-basis: 100%;
+}
+.person-left {
+    width: 100%;
+}
+.person-avatar-img {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    background: url(https://sigmauat.xyz/wp-content/uploads/2021/06/Hosts-Background.jpg) no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 20px 0;
+}
+.person-avatar-img img {
+    height: 155px;
+    width: 155px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 100%;
+    border: 4px solid #fff;
+    margin: 0 auto;
+}
+.person-avatar-img .person-btn {
+    background-color: #a48157;
+    right: -10px;
+    cursor: pointer;
+    bottom: -8px;
+    position: absolute;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+}
+.person-avatar-img .person-btn>div,
+.single-item .btn>div {
+    position: relative;
+    transition: .3s all;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
+.person-item-inner.person-open .person-avatar-img .person-btn>div,
+.single-item.full .btn>div {
+    transform: rotate(45deg);
+}
+.person-avatar-img .person-btn>div:before, 
+.person-avatar-img .person-btn>div:after,
+.single-item .btn>div:before,
+.single-item .btn>div:after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+    position: absolute;
+    top: 16px;
+    left: 8px;
+}
+.person-avatar-img .person-btn>div:after,
+.single-item .btn>div:after {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.person-detail {
+    padding: 20px 0;
+    text-align: center;
+}
+.person-detail h3 {
+    color: #000;
+    font-family: 'Montserrat';
+    text-transform: capitalize;
+    font-size: 16px;
+    margin: 0 0 5px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+.person-detail h4 {
+    font-size: 14px;
+    color: #000;
+    font-family: 'Montserrat';
+    margin: 2px 0 0;
+    letter-spacing: .01em;
+    font-weight: 500;
+    font-style: italic;
+}
+.person-right {
+    display: none;
+}
+.person-item-inner.person-open .person-right {
+    display: block;
+    flex-basis: 60%;
+    padding: 20px;
+    text-align: left;
+}
+.person-item-inner.person-open .person-left {
+    flex-basis: 34%;
+}
+/* hosts section end */
+/* judges section start */
+.all-judges {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -14px;
+    width: -webkit-calc(100% + 20px * 2);
+    width: -moz-calc(100% + 20px * 2);
+    width: calc(100% + 20px * 2);
+    justify-content: flex-start;
+}
+.judge-box {
+    width: calc(25% - 2.5%);
+    margin: 2% 1.25% 2% 1.25% !important;
+    box-shadow: 3px 3px 12px #7a7a7a;
+}
+.judge-img {
+    background: url(https://sigmauat.xyz/wp-content/uploads/2021/06/Hosts-Background.jpg);
+    padding: 15px 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.judge-img img {
+    width: 155px;
+    height: 155px;
+    border: 4px solid #fff;
+    background-size: cover;
+    border-radius: 100%;
+    margin: 0 auto;
+    background-position: center center;
+}
+.judge-info {
+    margin: 20px auto;
+    max-width: 110px;
+}
+.judge-info h2 {
+    color: #212121;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+.judge-box .desc {
+    margin: 15px auto 0px;
+    text-align: center;
+    font-size: 12px;
+    color: #000;
+}
+.judge-box h3 {
+    text-align: center;
+    font-size: 11px;
+    color: #878787;
+    margin: 5px auto 0px;
+    font-weight: 600;
+}
+/* judges section end */
+
+/* charity auction section start */
+.charity-items {
+    display: flex;
+    flex-wrap: wrap;
+    width: -webkit-calc(100% + 30px);
+    width: -moz-calc(100% + 30px);
+    width: calc(100% + 30px);
+    margin-left: -15px;
+}
+.single-item {
+    width: -webkit-calc(33.33% - 30px);
+    width: -moz-calc(33.33% - 30px);
+    width: calc(33.33% - 30px);
+    margin: 0 15px;
+    background-color: #fff;
+    border: 1px solid #c4c4c4;
+    border-radius: 15px;
+    padding: 25px;
+    -webkit-transition: .3s all;
+    -o-transition: .3s all;
+    -moz-transition: .3s all;
+    transition: .3s all;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+}
+.single-item.full {
+    width: -webkit-calc(100% - 30px);
+    width: -moz-calc(100% - 30px);
+    width: calc(100% - 30px);
+}
+.single-item .btn {
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    background-color: #a48157;
+    position: absolute;
+    bottom: 30px;
+    right: -17px;
+    cursor: pointer;
+}
+.single-item.full .btn {
+    background-color: #b7b7b7;
+}
+.single-item .left {
+    text-align: center;
+    width: 100%;
+}
+.single-item .img-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+.single-item .img-wrapper img {
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+}
+.single-item .left h3 {
+    color: #212121;
+    font-size: 16px;
+    margin: 20px 0 5px;
+    letter-spacing: 1px;
+    min-height: 38px;
+    font-weight: 600;
+}
+.single-item .left h6 {
+    font-size: 11px;
+    color: #878787;
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+    min-height: 15px;
+    font-weight: 600;
+}
+.single-item .right {
+    display: none;
+    width: -webkit-calc(100% - 200px);
+    width: -moz-calc(100% - 200px);
+    width: calc(100% - 200px);
+}
+.single-item.full .right {
+    display: block;
+}
+.single-item.full .left {
+    width: 182px;
+}
+/* charity auction section end */
+
+/* sigma foundation start start */
+.charity-foundation {
+    padding: 30px 25px 10px;
+    border-radius: 15px;
+    border: 1px solid #c4c4c4;
+    text-align: center;
+}
+.charity-foundation img {
+    margin-bottom: 20px;
+}
+.charity-foundation p {
+    font-weight: 700;
+    font-size: 18px;
+    color: #000;
+    max-width: 700px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.charity-foundation p a,
+.single-faq p a {
+    text-decoration: underline;
+    color: #ed1a3b;
+}
+.sigma-foundation {
+    margin: 20px 0;
+}
+/* sigma foundation start end */
+
+/* Faq section start */
+.single-faq {
+    padding-bottom: 25px;
+}
+.single-faq h4 {
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    line-height: 20px;
+    color: #000;
+}
+.single-faq p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000;
+    margin-bottom: 20px;
+}
+/* Faq section end */
+
+/* Past winner section start */
+.past-winner {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 50px;
+}
+.past-winner:before {
+    position: absolute;
+    content: '';
+    bottom: -4%;
+    left: 0;
+    background-image: url(https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Gaming%20Awards%20%28Europe%29/A-Element-left-side-bottom.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    height: 850px;
+    width: 480px;
+}
+.wrapper {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 25px rgba(0, 0, 50, 0.1);
+    box-shadow: 0 5px 25px rgba(0, 0, 50, 0.1);
+}
+.toggle {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px 10px 20px;
+}
+.toggle h3,
+.all-sell i.icon {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 26px;
+}
+.toggle h3 {
+    letter-spacing: 1px;
+}
+.all-sell i {
+    font-size: 18px;
+}
+.content {
+    position: relative;
+    font-size: 14px;
+    text-align: justify;
+    line-height: 30px;
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+.all-winners {
+    padding: 20px;
+    max-height: 1000px;
+    overflow: auto;
+    -webkit-transition: max-height 1s ease-in-out;
+    -o-transition: max-height 1s ease-in-out;
+    -moz-transition: max-height 1s ease-in-out;
+    transition: max-height 1s ease-in-out;
+    display: flex;
+    flex-wrap: wrap;
+}
+.single-winner {
+    text-align: center;
+    width: 25%;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid lightgray;
+}
+.single-winner h3 {
+    color: #295487;
+    border-bottom: 2px solid #19548c;
+    padding-bottom: 15px;
+    min-height: 50px;
+    margin: 10px auto 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.single-winner .winner-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+/* Past winner section end */
+
+/* Testimonial section start */
+.testimonial-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.client-image {
+    height: 180px;
+    width: 180px;
+    margin-right: -70px;
+    z-index: 1;
+}
+.client-image img {
+    border-radius: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+.client-txt {
+    width: 80%;
+}
+.testimonial-title {
+    font-size: 22px;
+    line-height: 26px;
+    font-family: "Montserrat";
+    font-weight: 600;
+    color: #13375b;
+    padding: 10px 20px 10px 90px;
+}
+.testimonial-info {
+    background-color: #13375b;
+    color: #fff;
+    font-family: "Montserrat";
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 15px 20px 15px 90px;
+    position: relative;
+    font-style: italic;
+    min-height: 90px;
+}
+.testimonial-slider .slick-list {
+    width: 70%;
+    margin: 0 auto;
+    z-index: 2;
+}
+.testimonial-company {
+    margin: 10px 0;
+    font-weight: bold;
+}
+.testimonial-info p {
+    font-weight: bold;
+}
+.testimonial-slider .slick-arrow {
+    background-color: #19548c;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+}
+.testimonial-slider .slick-arrow.slick-prev {
+    left: 10%;
+    height: 28%;
+    top: 48%;
+    transform: unset;
+    width: 30%;
+}
+.testimonial-slider .slick-arrow.slick-next {
+    left: auto;
+    right: 10%;
+    transform: rotate(180deg);
+    height: 28%;
+    top: 48%;
+    width: 30%;
+}
+.testimonial-slider .slick-arrow:before {
+    background-image: url(https://cdn2.hubspot.net/hubfs/6357768/DeepTech/elements/left.png);
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    opacity: 1;
+    display: block;
+    background-position: center;
+}
+.slick-prev.slick-disabled:before, 
+.slick-next.slick-disabled:before {
+    opacity: .25;
+}
+.testimonial {
+    margin: 30px 0;
+}
+/* Testimonial section end */
+/* Responsive Css Start */
+@media(max-width:1200px) {
+    .awards:after {
+        height: 450px;
+        width: 260px;
+    }
+    .past-winner:before {
+        height: 450px;
+        width: 280px;
+    }
+}
+@media(max-width:1024px) {
+    .single-item {
+        width: -webkit-calc(50% - 30px);
+        width: -moz-calc(50% - 30px);
+        width: calc(50% - 30px);
+    }
+    .judge-box {
+        width: calc(31.33% - 15px);
+        margin: 15px !important;
+    }
+    .all-judges {
+        margin: 0 -15px;
+    }
+    .four-tab-panels .tab-buttons .iconbtn img {
+        width: 70px;
+        height: 50px;
+    }
+    .four-tab-panels .tab-buttons .iconbtn span {
+        font-size: 10px;
+        line-height: 14px;
+    }
+    .client-image {
+        width: 150px;
+        height: 150px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev {
+        left: 4%;
+    }
+    .testimonial-slider .slick-arrow.slick-prev, 
+    .testimonial-slider .slick-arrow.slick-next {
+        height: 25%;
+        top: 46%;
+    }
+    .testimonial-slider .slick-arrow::before {
+        width: 30px;
+        height: 30px;
+        background-position: left;
+        margin-left: 10px;
+    }
+}
+@media(max-width:767px) {
+    .awards-night-img .for-mobile {
+        display: block;
+    }
+    .awards-night-img .for-desktop {
+        display: none;
+    }
+    .award-box {
+        width: -webkit-calc(50% - 20px);
+        width: -moz-calc(50% - 20px);
+        width: calc(50% - 20px);
+    }
+    .sub-txt p,
+    .gaming-sub-txt p,
+    .single-faq p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .person-item-inner {
+        flex-basis: 48%;
+        margin-right: 3.5%;
+        margin-bottom: 3.5%;
+    }
+    .person-item-inner:nth-child(3n+3) {
+        margin-right: 3.5%; 
+    }
+    .person-item-inner:nth-child(2n+2) {
+        margin-right: 0; 
+    }
+    .judge-box {
+        width: calc(47% - 15px);
+    }
+    .client-image {
+        width: 125px;
+        height: 125px;
+        margin-right: 0;
+        margin-bottom: -60px;
+    }
+    .client-txt {
+        width: 100%;
+    }
+    .testimonial-inner {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev, 
+    .testimonial-slider .slick-arrow.slick-next {
+        top: unset;
+        bottom: -25px;
+        height: auto;
+        width: auto;
+        padding: 5px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev {
+        left: 40%;
+    }
+    .testimonial-slider .slick-arrow.slick-next {
+        right: 40%;
+    }
+    .testimonial-slider .slick-arrow::before {
+        width: 20px;
+        height: 20px;
+        padding-left: 0;
+        margin-left: 4px;
+    }
+    .testimonial-slider .slick-list {
+        width: 100%;
+    }
+    .testimonial-info p {
+        margin-bottom: 10px;
+    }
+    .testimonial {
+        margin-bottom: 60px;
+    }
+    .testimonial-info {
+        padding-left: 20px;
+    }
+    .testimonial-title {
+        padding-left: 150px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+@media(max-width:580px) {
+    .awards:after {
+        height: 340px;
+        width: 200px;
+        bottom: 0;
+    }
+    .award-box {
+        width: -webkit-calc(100% - 20px);
+        width: -moz-calc(100% - 20px);
+        width: calc(100% - 20px);
+        flex-wrap: wrap;
+        background: #fff;
+    }
+    .award-box.open .box {
+        width: 100%;
+        padding-bottom: 0;
+        height: auto;
+        border-radius: 30px 30px 0 0;
+    }
+    .award-box .discription {
+        width: 100%;
+        padding-bottom: 50px;
+        text-align: center;
+        background: #fff;
+    }
+    .person-item-inner {
+        flex-basis: 100%;
+        margin-right: 0;
+    }
+    .person-item-inner:nth-child(3n+3){
+        margin-right: 0;
+    }
+    .person-item-inner.person-open .person-left,
+    .person-item-inner.person-open .person-right {
+        flex-basis: 100%;
+    }
+    .person-detail {
+        padding-bottom: 0;
+    }
+    .person-item-inner.person-open {
+        flex-wrap: wrap;
+    }
+    .single-item {
+        width: -webkit-calc(100% - 30px);
+        width: -moz-calc(100% - 30px);
+        width: calc(100% - 30px);
+    }
+    .single-item.full .left {
+        margin-bottom: 20px;
+    }
+    .single-item.full .left,
+    .single-item .right {
+        width: 100%;
+    }
+    .judge-box {
+        width: calc(100% - 15px);
+    }
+    .past-winner:before {
+        height: 380px;
+        width: 200px;
+    }
+    .four-tab-panels .tab-buttons .iconbtn img {
+        width: 50px;
+        height: 30px;
+    }
+    .four-tab-panels .tab-buttons .iconbtn {
+        border-radius: 12px;
+    }
+}
+
+/* Responsive Css End */

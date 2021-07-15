@@ -1,0 +1,82 @@
+.search-page .container {
+	max-width: 1064px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+.search-page-title {
+	margin-bottom: 30px;
+}
+.search-page-title h2 {
+	font-size: 22px;
+	font-weight: 600;
+	line-height: 30px;
+	padding: 10px 0;
+	color: #ed1a3b;
+	border-bottom: 1px solid #fbd640;
+}
+.search-content {
+	padding-top: 40px;
+}
+.search-content ul li {
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+    /*margin-bottom: 20px;*/
+    padding: 20px 0;
+}
+.search-content ul li a {
+	font-size: 21px;
+    font-weight: 400;
+    line-height: 0px;
+    color: #ed1a3b !important;
+    font-family: 'Montserrat';
+}
+.search-content ul li p {
+	font-size: 16px;
+	font-weight: 400;
+	color: #000;
+	line-height: 22px;
+	font-family: 'Montserrat';
+	/*margin-bottom: 20px;*/
+}
+.pagination {
+	display: flex;
+	justify-content: space-between;
+}
+.search-pagination.alignLeft {
+	order: 2;
+}
+.search-pagination.alignRight {
+	order: 1;
+}
+.search-pagination a {
+	display: inline-block;
+    line-height: 30px;
+    padding: 8px 15px;
+    text-align: center;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: #ed1a3b;
+    color: #fff;
+    font-size: 14px;
+}
+.search-pagination a:hover,
+.search-pagination a:focus,
+.search-pagination a:active {
+	background-color: #ed1a3b !important;
+    color: #fff !important;
+    outline: none !important;
+    background: #ed1a3b !important;
+}
+
+.has-background-white .site #search-results li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
+.has-background-white .site .search-content li a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	background: none !important;
+}
+.site #search-results li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
+.site .search-content li a:focus:not(.wp-block-button__link):not(.wp-block-file__button),
+.site .pagination .search-pagination a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	text-decoration: none !important;
+}
+.pagination {
+	border: none !important;
+}

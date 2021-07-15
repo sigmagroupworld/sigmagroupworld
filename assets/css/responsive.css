@@ -1,0 +1,341 @@
+@media (max-width: 1300px) {
+    .page-container {
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    /* Left bar css Start */
+    .blog-leftbar {
+        max-width: 49%;
+        width: 50%;
+        -webkit-box-ordinal-group: 3;
+        -webkit-order: 2;
+        -moz-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+    /* Left bar css End */
+    /* Middle Detail News css start */
+    .blog-details {
+        max-width: 100%;
+        width: 100%;
+        -webkit-box-ordinal-group: 2;
+        -webkit-order: 1;
+        -moz-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px);
+        margin-bottom: 0px;
+    }
+    /* Middle Detail News css end */
+    /* Rightbar css Start */
+    .blog-rightbar {
+        max-width: 49%;
+        width: 50%;
+        -webkit-box-ordinal-group: 4;
+        -webkit-order: 3;
+        -moz-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+        order: 3;
+    }
+    /* Rightbar css End */
+}
+@media(max-width:1024px) {
+    /* testimonial start */
+    .testimonial-slider .slick-arrow.slick-prev, 
+    .testimonial-slider .slick-arrow.slick-next {
+        height: 25%;
+        top: 46%;
+    }
+    .testimonial-slider .slick-arrow::before {
+        width: 30px;
+        height: 30px;
+        background-position: left;
+        margin-left: 10px;
+    }
+    /* testimonial end */
+    /* charity auction section start */
+    .single-item,
+    .pitch-strartup .single-item.full {
+        width: -webkit-calc(50% - 30px);
+        width: -moz-calc(50% - 30px);
+        width: calc(50% - 30px);
+    }
+    /* charity auction section end */
+    /* Investor and judes single section start */
+    .judge-box {
+        width: calc(31.33% - 15px);
+        margin: 15px !important;
+    }
+    .all-judges {
+        margin: 0 -15px;
+    }
+    /* Investor and judes single section end */   
+    /* Speaker section start */
+    .single-speaker {
+        width: calc(33.33% - 10px * 4);
+    } 
+    /* Speaker section start */
+    /* year image slider start */
+    .previous-startup .elementor-swiper-button-prev {
+        left: 0;
+    }
+    .previous-startup .elementor-swiper-button-next {
+        right: 0;
+    }
+    /* year image slider end */
+    /* all winner section start */
+    .winner-slider {
+        padding: 0 20px;
+    }
+    .winner-slider .slick-arrow.slick-prev {
+        left: -10px;
+    }
+    .winner-slider .slick-arrow.slick-next {
+        right: -10px;
+    }
+    .winner-content {
+        width: 90%;
+    }
+    /* all winner section end */
+    .single-package {
+        width: calc(33.33% - 15px * 2);
+        margin: 15px;
+    }
+    /* Get In Touch Section start */
+    .get-in-touch-txt::before {
+        height: 100px;
+        width: 240px;
+    }
+    .get-in-touch-txt::after {
+        height: 80px;
+        width: 110px;
+    }
+    /* Get In Touch Section end */
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(25% - 10px * 2);
+    }
+    /* All Casinos Section end */ 
+}
+@media (max-width: 850px) {
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(33.33% - 10px * 2);
+    }
+    /* All Casinos Section end */ 
+}
+@media(max-width:767px) {
+    /* Host & judges section start */
+    .person-item-inner {
+        flex-basis: 100%;
+        margin-right: 0;
+    }
+    .person-item-inner:nth-child(3n+3){
+        margin-right: 0;
+    }
+    .person-item-inner.person-open .person-left,
+    .person-item-inner.person-open .person-right {
+        flex-basis: 100%;
+    }
+    .person-item-inner.person-open {
+        flex-wrap: wrap;
+    }
+    .person-right {
+        padding-top: 0;
+    }
+    .person-social p a i {
+        display: block;
+        color: #232323;
+        font-size: 20px;
+    }
+    .person-social p a:hover i {
+        color: #ed1a3b;
+        font-size: 14px;
+    }
+    .person-social {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .person-social p {
+        margin: 5px;
+    }
+    .person-social p span {
+        display: none;
+    }
+    .person-social p a {
+        font-size: 0;
+        text-decoration: none;
+    }
+    /* Host & judges section end */
+    /* Investor and judes single section start */
+    .judge-box {
+        width: 100%;
+        margin: 15px 0 !important;
+    }
+    .all-judges {
+        width: 100%;
+        margin: 0;
+    }
+    /* Investor and judes single section end */
+    /* charity auction section start */
+    .single-item,
+    .pitch-strartup .single-item.full {
+        width: -webkit-calc(100% - 30px);
+        width: -moz-calc(100% - 30px);
+        width: calc(100% - 30px);
+    }
+    .single-item.full .left {
+        margin-bottom: 20px;
+    }
+    .single-item.full .left,
+    .single-item .right {
+        width: 100%;
+    }
+    /* charity auction section end */
+    /* testimonial start */
+    .client-image {
+        width: 125px;
+        height: 125px;
+        margin-right: 0;
+        margin-bottom: -60px;
+    }
+    .client-txt {
+        width: 100%;
+    }
+    .testimonial-inner {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev, 
+    .testimonial-slider .slick-arrow.slick-next {
+        top: unset;
+        bottom: -25px;
+        height: auto;
+        width: auto;
+        padding: 5px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev {
+        left: 40%;
+    }
+    .testimonial-slider .slick-arrow.slick-next {
+        right: 40%;
+    }
+    .testimonial-slider .slick-arrow::before {
+        width: 20px;
+        height: 20px;
+        padding-left: 0;
+        margin-left: 0px;
+    }
+    .testimonial-slider .slick-list {
+        width: 100%;
+    }
+    .testimonial-info p {
+        margin-bottom: 10px;
+    }
+    .testimonial {
+        margin-bottom: 60px;
+    }
+    .testimonial-info {
+        padding-left: 20px;
+    }
+    .testimonial-title {
+        padding-left: 150px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    /* testimonial end */
+    /* Speaker section start */
+    .single-speaker {
+        width: 100%;
+        margin: 10px 0;
+    } 
+    .all-speakers {
+        margin: 0;
+    }
+    /* Speaker section start */
+    /* year image slider start */
+    .elementor-year-slider ul li {
+        font-size: 17px;
+        padding: 10px 20px;
+        margin: 0 5px;
+    }
+    /* year image slider end */
+    /* artical slider start */
+    .articles-slide .slick-prev,
+    .investor-slider .slick-prev {
+        left: -15px !important;
+    }
+    .articles-slide .slick-next,
+    .investor-slider .slick-next {
+        right: -15px !important;
+    }
+    /* artical slider end */
+    .single-package {
+        width: 100%;
+    }
+    .sell {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+    .toggle, .toggle_link {
+        align-items: flex-start;
+    }
+    /* Get In Touch Section start */
+    .get-in-touch-txt::before {
+        height: 50px;
+        width: 140px;
+        top: unset;
+        bottom: 0;
+    }
+    .get-in-touch-txt::after {
+        height: 50px;
+        width: 70px;
+        top: 10px;
+    }
+    /* Get In Touch Section end */
+    .blog-leftbar,
+    .blog-rightbar {
+        max-width: 100%;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .single-banner-advert a {
+        text-align: center;
+    }
+    .offers-wrapper {
+        max-width: 100%;
+    }
+    .calendar-event {
+        margin-bottom: 20px;
+    }
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(50% - 10px * 2);
+    }
+    /* All Casinos Section end */ 
+}
+@media (max-width: 650px) {
+    .tab-bottom-links .left a {
+        min-width: auto;
+        font-size: 12px;
+        padding: 10px 30px;
+    }
+    .tab-bottom-links {
+        padding-top: 10px;
+    }
+}
+@media (max-width: 580px) {
+    /* All Casinos Section start */ 
+    .single-casino {
+        width: calc(100% - 10px * 2);
+    }
+    /* All Casinos Section end */
+}

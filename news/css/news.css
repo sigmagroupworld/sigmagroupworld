@@ -14,6 +14,9 @@ body {
     height: 100%;
     object-fit: cover;
 }
+/*.blog-banner.texonomy-banner img {
+    object-fit: contain;
+}*/
 /* Blog Banner css end */
 .page-container {
     width: 100%;
@@ -39,7 +42,7 @@ body {
     padding-top: 20px;
     position: relative;
 }
-.bottom-border.singleBannerAdvert {
+.bottom-border.single-banner-advert {
     margin-top: 30px;
 }
 .bottom-border {
@@ -47,10 +50,10 @@ body {
     padding-bottom: 30px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
-.singleBannerAdvert a {
+.single-banner-advert a {
     display: block;
 }
-.singleBannerAdvert a img {
+.single-banner-advert a img {
     max-width: 100%;
     height: auto;
 }
@@ -246,6 +249,7 @@ body {
 /* Recent News css start */
 .releted-post .listing-wrapper {
     display: flex;
+    flex-wrap: wrap;
 }
 .releted-post .listing-wrapper article {
     width: 31%;
@@ -326,11 +330,11 @@ body {
     width: 100%;
     height: auto;
 }
-.offersWrapper {
+.offers-wrapper {
     margin-bottom: 30px;
     max-width: 350px;
 }
-.offeritem {
+.offer-item {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -339,18 +343,18 @@ body {
     border: 0;
     border-bottom: 2px solid #e5e5e5;
 }
-.offeritem .imgwrap,
-.offeritem .linkwrap {
+.offer-item .img-wrap,
+.offer-item .link-wrap {
     flex-basis: 47%;
 }
-.imgwrap img {
+.img-wrap img {
     max-width: 180px;
     max-height: 55px;
     width: 100%;
     height: auto;
     object-fit: contain;
 }
-.playbtn {
+.play-btn {
     font-size: 13px;
     line-height: 16px;
     letter-spacing: .025em;
@@ -364,7 +368,7 @@ body {
     position: relative;
     text-transform: uppercase;
 }
-.playbtn::after {
+.play-btn::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -376,7 +380,7 @@ body {
     -webkit-transform: rotate(-8deg);
     border-radius: 80% 0 0 0;
 }
-.linkwrap a {
+.link-wrap a {
     display: block;
     text-align: center;
     cursor: pointer;
@@ -442,7 +446,7 @@ body {
     font-weight: 600;
     font-family: "Montserrat";
 }
-.calendar-event .widget_type_rich-text p {
+.calendar-event .widget-type-rich-text p {
     padding: 4px;
     text-align: center;
     font-size: 14px;
@@ -451,7 +455,7 @@ body {
     margin: 0;
     font-family: "Montserrat";
 }
-.eventbtn {
+.event-btn {
     box-sizing: border-box;
     border: 1px solid #ed1a3b;
     padding: 15px 30px;
@@ -472,7 +476,7 @@ body {
     text-align: center;
     font-family: "Montserrat";
 }
-.tnclink {
+.tnc-link {
     font-size: 14px;
     line-height: 16px;
     letter-spacing: .025em;
@@ -485,6 +489,28 @@ body {
     position: relative;
 }
 /* Rightbar css End */
+
+/** Archive posts css ***/
+
+.nav-links .page-numbers.current, .prev.page-numbers, .next.page-numbers {
+    line-height: 30px;
+    padding: 0px 15px;
+    text-align: center;
+    width: auto;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: #ee4438;
+    color: #f4f4f4;
+    margin: 0;
+    font-size: 14px;
+}
+.navigation.pagination .nav-links a {
+    text-align: center;
+    margin: 0;
+}
+/** Archive posts css end ***/
+
 
 /* Media Screen start */
 @media (max-width: 1300px) {
@@ -554,10 +580,10 @@ body {
         padding-left: 20px;
         padding-right: 20px;
     }
-    .singleBannerAdvert a {
+    .single-banner-advert a {
         text-align: center;
     }
-    .offersWrapper {
+    .offers-wrapper {
         max-width: 100%;
     }
     .calendar-event {
