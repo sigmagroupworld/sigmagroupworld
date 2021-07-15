@@ -212,6 +212,11 @@ jQuery(document).ready(function($) {
 	openHostsDiv = (elementId) => {
 		$('#'+elementId).toggleClass('person-open');
 	}
+	openSpeakersDiv = (elementId) => {
+		$('.'+elementId + ' .title').toggleClass('open');
+		$('.'+elementId + ' .body').toggleClass('show');
+		//$('.'+elementId).toggle('person-open');
+	}
 	/** Hosts script start end **/
 	// charity auction script start
 	openCharityDiv = (elementId) => {
@@ -477,6 +482,48 @@ jQuery(document).ready(function($) {
 		} );
 	} );
 	// 2020 Startup filter end
+
+	/** Vacancies Filter **/
+	if( document.location.href.includes( '?' ) ) {
+		var current_url = document.location.href;
+	} else {
+		var current_url = document.location.href + '?';
+	}
+	
+	$('#filter-country').on('change', function(){
+		var country_val = $( this ).val();
+		var url = current_url + "&country="+country_val;
+		var new_url = new URL(url);
+		new_url.searchParams.set("country", country_val);
+      	document.location = new_url.href;
+	});
+	$('#filter-department').on('change', function(){
+		var department_val = $( this ).val();
+		var url = current_url + "&department="+department_val;
+		var new_url = new URL(url);
+		new_url.searchParams.set("department", department_val);
+      	document.location = new_url;
+	});
+	$('#filter-job-type').on('change', function(){
+		var job_type_val = $( this ).val();
+		var url = current_url + "&job-type="+job_type_val;
+		var new_url = new URL(url);
+		new_url.searchParams.set("job-type", job_type_val);
+      	document.location = new_url;
+	});
+    	/** Vacancies Filter end **/
+
+    // Sigma college form full time fields
+    $( "input[name='wpforms[fields][9]']" ).on( 'click', function() {
+    	var job_status_val = $( "input[name='wpforms[fields][9]']:checked" ).val();
+    	if( job_status_val == 'Full-time' ){
+    		$( '.full_time_fields' ).css( 'display', 'block' );
+    		$( '.full_time_fields input' ).prop( 'required',true );
+    	} else {
+    		$( '.full_time_fields' ).css( 'display', 'none' );
+    		$( '.full_time_fields input' ).prop( 'required',false );
+    	}
+    } );
 
 	/** Air Malta Form ***/
 	$(".hasDatepicker").datepicker();
