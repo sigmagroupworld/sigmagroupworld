@@ -30,13 +30,13 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css');
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
-    
+  	wp_enqueue_script( 'jquery-ui-datepicker' );    
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 
     /****Autocomplete script ****/
-    wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
-        ['jquery', 'jquery-ui-autocomplete'], null, true);
+    /*wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
+        ['jquery', 'jquery-ui-autocomplete'], null, true);*/
     wp_localize_script('autocomplete-search', 'AjaxRequest', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'ajax_nonce' => wp_create_nonce('autocompleteSearchNonce'),
@@ -576,6 +576,7 @@ function sigma_mt_get_people_list($atts) {
     $person_phone       = isset($atts['person_phone']) ? $atts['person_phone'] : NULL;
     $person_skype       = isset($atts['person_skype']) ? $atts['person_skype'] : NULL;
     $telegram       = isset($atts['telegram']) ? $atts['telegram'] : 'no';
+    $fullClass          = isset($atts['fullClass']) ? $atts['fullClass'] : '';
     $load_more = __( 'Load More', 'sigmaigaming' );
     $tag_category = get_term_by('id', $term_id, $taxonomy);
     $term_name = $tag_category->name;
@@ -590,6 +591,7 @@ function sigma_mt_get_people_list($atts) {
     $appearanceHostJudge = __( 'Hosts and Judges', 'sigmaigaming' );
     $appearanceExperts = __( 'Experts', 'sigmaigaming' );
     $appearanceInvestors = __( 'Investors', 'sigmaigaming' );
+    $appearanceSponsorsExhabitors = __( 'SponsorsExhabitors', 'sigmaigaming' );
     $appearanceDefault = __( 'Default', 'sigmaigaming' );
     
     //echo '<pre>'; print_r($our_experts);
@@ -652,6 +654,18 @@ function sigma_mt_get_people_list($atts) {
         $sub_class = 'all-judges';
         $button = '';
         $desc = isset($judges['description']) ? $judges['description'] : '';
+    } else if($appearance == $appearanceSponsorsExhabitors){
+        $main_class = 'sponsors-and-exibitors-wrapper';        
+        $heading = '';
+        $sub_class = 'db-items-wrapper';
+        $button = '';
+        $desc = '';
+    }
+
+    if($fullClass == 'YES') {
+        $fullClass = 'full';
+    } else {
+        $fullClass = '';
     }
     $get_posts = array();
     //$term_id = explode(',', $term_id);
@@ -702,6 +716,7 @@ function sigma_mt_get_people_list($atts) {
             $person_phone_no = get_field('telephone_number', $post->ID);
             $person_skype_id = get_field('skype_id', $post->ID);
             $person_telgram = get_field('telegram', $post->ID);
+            $person_website = get_field('website', $post->ID);
             $language_icon = get_field('language_icon', $post->ID);
             $people_company = $companyObjectID = get_field('company', $post->ID);
             $companyLogo = get_field('company_details', $companyObjectID);
@@ -826,6 +841,39 @@ function sigma_mt_get_people_list($atts) {
                                         $content .= '<h3>'. $people_designation .'</h3>'; 
                                     }
                                 $content .= '</div></div>
+                            </div>';
+            } else if($appearance == $appearanceSponsorsExhabitors) {
+                $content .= '<div id="single-sponsors-exhibitors'.$post->ID.'" class="item '.$fullClass.'">
+                                <div class="btn" onclick="openSponsorsExhibitors(\'single-sponsors-exhibitors'.$post->ID.'\')">
+                                    <div></div>
+                                </div>
+                                <div class="left">';
+                                    if(!empty($companyLogo)) {
+                                        $content .= '<div class="img-wrapper">
+                                            <img src="'.$companyLogo.'" alt="">
+                                        </div>';
+                                    }
+                                    if($person_image === 'YES' && !empty($people_icon)) { 
+                                            $content .= '<div class="avatar" style="background-image: url('.$people_icon.')"></div>                                                                    <h4>'.get_the_title($people_company).'</h4>';
+                                    }
+                                $content .= '</div>';
+                                $content .= '<div class="right">
+                                    <div class="top">
+                                        <div class="website">
+                                            <span>Website</span>
+                                            <a href="'.$person_website.'" target="_blank">'.$person_website.'</a>
+                                        </div>';
+                                        if($person_email === 'YES' && !empty($person_email_val)) { 
+                                            $content .= '<div class="emial">
+                                                            <span>Email</span>
+                                                            <a href="mailto:'.$person_email_val.'" target="_blank">'.$person_email_val.'</a>
+                                                        </div>'; 
+                                        }
+                                    $content .= '</div>
+                                    <div class="widget-type-rich_text">
+                                         <p>'.$post->post_content.'</p>
+                                    </div>
+                                </div>
                             </div>';
             }
         }
@@ -1766,12 +1814,12 @@ function sigma_mt_book_flight_form() {
                     <div class="airline_form_field_row">
                         <div class="airline_datepicker_left">
                             <div class="take_off_datepicker">
-                                <input type="text" name="date" id="despaturedate" placeholder="Departure Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                                <input type="text" name="date" id="departuredate" placeholder="Departure Date" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="airline_datepicker_right">
                             <div class="return_datepicker">
-                                <input type="text" name="date1" id="returndate" placeholder="Return Date" value="" autocomplete="off" required="" class="hasDatepicker">
+                                <input type="text" name="date1" id="returndate" placeholder="Return Date" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -1823,7 +1871,8 @@ function sigma_mt_book_flight_form() {
                 <div class="data_box"></div>
             </form>
         </div>
-    </div>';
+    </div>
+	';
     return $content;
 }
 
@@ -2318,7 +2367,7 @@ function sigma_mt_related_articles($atts) {
                                                     </div>
                                                 </div></a>';
                                 }
-                            $content .= '</div>
+                            $content .= '</div>o
                         </div>
                     <!-- Related Article Section end -->';
     }
