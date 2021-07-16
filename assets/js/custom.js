@@ -19,6 +19,15 @@ jQuery(document).ready(function($) {
 	});
 	/**** Scroll To Top ***/
 
+	/** Sponsors Exhibitors Toggle ***/
+	openSponsorsExhibitors = (elementId) => {
+	    $('#'+elementId).toggleClass('full');
+	}
+	closeSponsorsExhibitors = (elementId) => {
+	    $('#'+elementId).removeClass('full');
+	}
+	/** Sponsors Exhibitors Toggle end ***/
+
 	/**** Testimonial Slider ***/
   	$(".testimonial-slider").slick({
 		slidesToShow: 1,
@@ -526,7 +535,15 @@ jQuery(document).ready(function($) {
     } );
 
 	/** Air Malta Form ***/
-	$(".hasDatepicker").datepicker();
+	
+	$("#departuredate").datepicker({
+		minDate: 0,
+		dateFormat : "mm-dd-yy"
+	});
+	$("#returndate").datepicker({
+		minDate: 0,
+		dateFormat : "mm-dd-yy"
+	});
 	$("#returnWay").click(function(event){
 		console.log('prop: ' + $(this).prop('checked'));
 		if($(this).prop('checked')){
@@ -562,14 +579,14 @@ jQuery(document).ready(function($) {
 		console.log(values);
 		// Note: "Flexible Dates" parameter is not working in the old page - the URLs generated with / without Flexible Dates are identical
 		if( totalPersons > 0 && 'journeyType' in values  && values['journeyType'] != '' && 'travellingClass' in values  && values['travellingClass'] != '' && 'origin' in values  && values['origin'] != 'select' && 'destination' in values  && values['destination'] != 'select' && 'date' in values  && values['date'] != '' && (values['journeyType'] != 'round-trip' || (values['journeyType'] == 'round-trip'  && values['date1'] != '' && 'date1' in values) ) ) {
-			let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/matrix?journeyType=' + values['journeyType'] 
-									+ '&locale=en-GB&awardBooking=false&searchType=BRANDED&class=' + values['travellingClass']  
+			let finalUrlPartOne = 	'https://flight.airmalta.com/dx/KMDX/#/flight-selection?journeyType=' + values['journeyType'] 
+									+ '&locale=en-GB&searchType=BRANDED&class=' + values['travellingClass']  
 									+ '&ADT=' + adt + '&CHD=' + chd + '&INF=' + inf 
 									+ '&YTH=0&origin=' + values['origin'] 
 									+ '&destination=' + values['destination'] + '&date=' + values['date'];
 			let finalUrlPartTwo = 	values['journeyType'] == 'round-trip'
-									? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&direction=0&execution=e1s1'
-									: '&promoCode=MKMSIGMA20&direction=0&execution=e1s1';
+									? '&origin1=' + values['destination'] + '&destination1=' + values['origin'] + '&date1=' + values['date1'] + '&promoCode=MKMSIGMA20&execution=e1s1'
+									: '&promoCode=MKMSIGMA20&execution=e1s1';
 			let finalUrl = finalUrlPartOne + finalUrlPartTwo;
 			window.open(finalUrl);
 		} else {
