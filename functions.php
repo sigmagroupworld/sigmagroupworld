@@ -576,7 +576,7 @@ function sigma_mt_get_people_list($atts) {
     $person_phone       = isset($atts['person_phone']) ? $atts['person_phone'] : NULL;
     $person_skype       = isset($atts['person_skype']) ? $atts['person_skype'] : NULL;
     $telegram       = isset($atts['telegram']) ? $atts['telegram'] : 'no';
-    $fullClass          = isset($atts['fullClass']) ? $atts['fullClass'] : '';
+    $fullclass          = isset($atts['fullclass']) ? $atts['fullclass'] : '';
     $load_more = __( 'Load More', 'sigmaigaming' );
     $tag_category = get_term_by('id', $term_id, $taxonomy);
     $term_name = $tag_category->name;
@@ -594,7 +594,6 @@ function sigma_mt_get_people_list($atts) {
     $appearanceSponsorsExhabitors = __( 'SponsorsExhabitors', 'sigmaigaming' );
     $appearanceDefault = __( 'Default', 'sigmaigaming' );
     
-    //echo '<pre>'; print_r($our_experts);
     //if ( is_page( array( 'exhibit') ) ) {
         
     // Exhibit Appearance
@@ -662,11 +661,12 @@ function sigma_mt_get_people_list($atts) {
         $desc = '';
     }
 
-    if($fullClass == 'YES') {
-        $fullClass = 'full';
+    if($fullclass === 'YES') {
+        $fullclass = 'full';
     } else {
-        $fullClass = '';
+        $fullclass = '';
     }
+
     $get_posts = array();
     //$term_id = explode(',', $term_id);
     if(!empty($term_id)) {
@@ -843,11 +843,13 @@ function sigma_mt_get_people_list($atts) {
                                 $content .= '</div></div>
                             </div>';
             } else if($appearance == $appearanceSponsorsExhabitors) {
-                $content .= '<div id="single-sponsors-exhibitors'.$post->ID.'" class="item '.$fullClass.'">
-                                <div class="btn" onclick="openSponsorsExhibitors(\'single-sponsors-exhibitors'.$post->ID.'\')">
-                                    <div></div>
-                                </div>
-                                <div class="left">';
+                $content .= '<div id="" class="single-sponsors-exhibitors'.$post->ID.' item '.$fullclass.'">';
+                                if($fullclass === '') {
+                                    $content .= '<div class="btn" onclick="openSponsorsExhibitors(\'single-sponsors-exhibitors'.$post->ID.'\')">
+                                                    <div></div>
+                                                </div>';
+                                }
+                                $content .= '<div class="left">';
                                     if(!empty($companyLogo)) {
                                         $content .= '<div class="img-wrapper">
                                             <img src="'.$companyLogo.'" alt="">
