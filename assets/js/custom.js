@@ -21,10 +21,7 @@ jQuery(document).ready(function($) {
 
 	/** Sponsors Exhibitors Toggle ***/
 	openSponsorsExhibitors = (elementId) => {
-	    $('#'+elementId).toggleClass('full');
-	}
-	closeSponsorsExhibitors = (elementId) => {
-	    $('#'+elementId).removeClass('full');
+	    $('.'+elementId).toggleClass('full');
 	}
 	/** Sponsors Exhibitors Toggle end ***/
 
