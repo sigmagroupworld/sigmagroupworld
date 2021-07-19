@@ -697,6 +697,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-weight: 600;
     padding: 10px 0;
     font-size: 14px;
+    font-weight: bold;
 }
 .newsletter-inner p {
     color: #000;
@@ -2432,7 +2433,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     max-width: 90%;
     margin: 0 auto;
     padding-bottom: 15px;
-    border-bottom: 1px solid #e4e4e4;
+    /*border-bottom: 1px solid #e4e4e4;*/
 }
 .articles-slide .testimonial .testi-details img {
     height: 180px;
@@ -2452,7 +2453,10 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     max-width: 90%;
     margin: 0 auto;
     padding-bottom: 15px;
-    border-bottom: 1px solid #e4e4e4;
+    /*border-bottom: 1px solid #e4e4e4;*/
+}
+.articles-slide .slick-dots li button {
+    display:  none;
 }
 .articles-slide .testimonial .testi-details img {
     height: 180px;
@@ -2556,7 +2560,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .vacancies-filter select {
     padding: 10px;
     margin: 0 10px;
-    -moz-appearance: auto !important;
+    -moz-appearance: none !important;
     border: 2px solid #ed1a3b !important;
     border-radius: 0px;
     font-weight: 700;
@@ -3312,10 +3316,15 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin-right:  30px;
     min-height: 200px;
 }
+.igaming-lists .igaming-box .expert-img  {
+    height: 80px;
+}
 .igaming-single .expert-info h2 {
     font-size: 14px;
     color: #ed1a3b;
     text-align: center;
+    font-weight: 600;
+    margin: 10px 0 10px;
 }
 .igaming-single .expert-info a:hover {
     background: #ed1a3b;
@@ -3847,6 +3856,78 @@ body.call-speakers .call-for-speakers-db {
 }
 /*** SPeakers page css end **/
 
+.deep-tech-partners .suppliers .about-section-title h2 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 10px 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #415095;
+    margin-bottom: 20px;
+    color: #ed1a3b;
+}
+.about-template .yellow .about-section-title h2 {
+    color: #eba80d;
+}
+.about-template .red .about-section-title h2 {
+    color: #b52424;
+}
+.about-template .green .about-section-title h2 {
+    color: #2a9354;
+}
+.newsletter-inner .newsletter-form .wpforms-container-full .wpforms-field-container input {
+    border-bottom-right-radius: 0px;
+    background: #414042;
+    border-color: #414042;
+    color: #fff;
+    appearance: none;
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    padding: 12px 15px;
+    color: #010101;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    border: 0;
+    height: 50px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #d1d1d1;
+        border-top-color: rgb(209, 209, 209);
+        border-right-color: rgb(209, 209, 209);
+        border-bottom-color: rgb(209, 209, 209);
+        border-left-color: rgb(209, 209, 209);
+}
+.newsletter-inner .newsletter-form .wpforms-container-full .wpforms-submit-container button {
+    height:  50px;
+    border-radius: 5px;
+}
+
+.contact-us-form .elementor-shortcode .wpforms-container-full .wpforms-field-container input, .contact-us-form .elementor-shortcode .wpforms-container-full .wpforms-field-container select, .contact-us-form .elementor-shortcode .wpforms-container-full .wpforms-field-container textarea {
+    border: 1px solid #d1d1d1 !important;
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: #010101;
+}
+.contact-us-form .elementor-shortcode .wpforms-container-full .wpforms-field-container input::placeholder, .contact-us-form .elementor-shortcode .wpforms-container-full .wpforms-field-container select::placeholder {
+    font-size: 14px;
+}
+.contact-us-form .elementor-shortcode .wpforms-container-full .wpforms-field-container label {
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #464a53;
+}
 /**** Sponsors and exhabitors page css ***/
 
 .sponsors-and-exibitors-wrapper .db-items-wrapper {
@@ -4057,6 +4138,20 @@ body.call-speakers .call-for-speakers-db {
     transform: rotate(45deg);
 }
 /**** Sponsors and exhabitors page css end ***/
+
+.magazine-page-sidebar-events h1.tribe-events-single-event-title {
+    font-size: 16px;
+    color: #ed1a3b;
+    margin: 15px 0 0px;
+    line-height: 20px;
+}
+.magazine-page-sidebar-events .tribe-event-date-start {
+    fofont-size: 12px;
+    color: #353434;
+    margin: 0 0 10px;
+    line-height: 18px;
+    font-weight: 600;
+}
 
 
 @media (max-width: 1830px) {
