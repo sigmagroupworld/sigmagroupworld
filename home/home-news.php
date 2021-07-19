@@ -197,7 +197,7 @@ $asia = '<section class="home-blog">
 						}
 						$row++; 
 					}
-					$asia .= do_shortcode('[sigma-mt-testimonials appearance="frontpage" term_id=1307');
+					$asia .= do_shortcode('[sigma-mt-get-testimonials appearance="frontpage" term_id=1307]');
 				$asia .= '</div>
 			</div>
 			<div class="spotify hp-right">';
