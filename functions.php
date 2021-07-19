@@ -35,8 +35,8 @@ function sigma_mt_scripts() {
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 
     /****Autocomplete script ****/
-    /*wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
-        ['jquery', 'jquery-ui-autocomplete'], null, true);*/
+    wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
+        ['jquery', 'jquery-ui-autocomplete'], null, true);
     wp_localize_script('autocomplete-search', 'AjaxRequest', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'ajax_nonce' => wp_create_nonce('autocompleteSearchNonce'),
@@ -701,7 +701,7 @@ function sigma_mt_get_people_list($atts) {
     }
     //echo '<pre>'; print_r($post_args); echo '</pre>';
     if(!empty($get_posts)) {
-        $content .= '<section class="'.$main_class.' '.$colorClass.'"">
+        $content .= '<section class="'.$main_class.' '.$colorClass.'">
                         <div class="container">
                             <div class="about-section-title">
                                 <h2>'.$heading.'</h2>
@@ -1122,6 +1122,7 @@ function sigma_mt_get_company($atts) {
         $sub_class = 'all-exhibitors';
         $single_class = 'single-exhibitor';
         $category_title = $exhibitors_cat['our_exhibitors_partners_title'];
+        $exhibitorText = $exhibitors_cat['exhibitors_and_partners_text'];
     //} else if(!empty($sponsors_and_exhibitors['category_name'][0]) && str_starts_with($term_name->name, $sponsors_and_exhibitors['category_name'][0])) {
     } else if($appearance == $appearanceSponsorsExhibitors){
         $main_class = 'exhibitors';
@@ -1209,7 +1210,7 @@ function sigma_mt_get_company($atts) {
                 $content .= '';
             }
         } else if($appearance === 'PARTNER' ) {
-            $content .= '<section class="all-winner '.$colorClass.'"">
+            $content .= '<section class="all-winner '.$colorClass.'">
                             <div class="container">
                                 <div class="winner-slider">';
                                     foreach($get_posts as $k => $post) {
@@ -1229,7 +1230,7 @@ function sigma_mt_get_company($atts) {
                             </div>
                         </section>';
         } else if($appearance === 'IGAMING' ) {
-            $content .= '<section class="igaming-lists '.$colorClass.'"">
+            $content .= '<section class="igaming-lists '.$colorClass.'">
                             <div class="container">';
                                 foreach($get_posts as $k => $post) {
                                     $company_details = get_field('company_details', $post->ID);
@@ -1256,6 +1257,11 @@ function sigma_mt_get_company($atts) {
                                                     <h2>'. $category_title .'</h2>
                                                 </div>';
                                 }
+                                if(!empty($exhibitorText)) {
+                                    $content .= '<div class="about-section-text">
+                                                    <p>'. $exhibitorText .'</p>
+                                                </div>';
+                                }
                                 if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
                                     $content .= '<div class="supplier-txt">
                                         <p>'.$our_trusted_suppliers['trusted_splliers_text'].'</p>
@@ -1280,11 +1286,16 @@ function sigma_mt_get_company($atts) {
                                 }
             $content .= '</section>';            
         } else {
-            $content .= '<section class="'.$main_class.' '.$colorClass.'"">
+            $content .= '<section class="'.$main_class.' '.$colorClass.'">
                             <div class="container">';
                                 if(!empty($category_title)) {
                                     $content .= '<div class="about-section-title">
                                                     <h2>'. $category_title .'</h2>
+                                                </div>';
+                                }
+                                if(!empty($exhibitorText)) {
+                                    $content .= '<div class="about-section-text">
+                                                    <p>'. $exhibitorText .'</p>
                                                 </div>';
                                 }
                                 if(!empty($our_trusted_suppliers['trusted_splliers_text'])) {
@@ -1979,7 +1990,7 @@ function sigma_mt_get_awards($atts) {
                             $sponsored_logo = get_field('sponsored_logo', $post->ID);
                             $description = get_field('description', $post->ID);
                             $content .= '<div class="award-box" id="award-box'.$post->ID.'">
-                                            <div class="box">
+                                            <div class="box" onclick="openAward(\'award-box'.$post->ID.'\')">
                                                 <div class="top">
                                                     <img src="'.$award_logo.'" alt="">
                                                     <h5>BEST EU ONLINE CASINO</h5>
@@ -2308,8 +2319,15 @@ function sigma_mt_get_testimonials($atts) {
                 $testimonial_value = $r . '/' . $total;
                 $company_name = get_field( "testimonial_company", $testimonial->ID );
                 $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $testimonial->ID ), 'thumbnail' );
+                if(!empty($featured_image[0])) {
+                    $featured_image = $featured_image[0];
+                    $featured_title = $testimonial->post_title;
+                } else {
+                    $featured_image = '';
+                    $featured_title = 'No Image Available';
+                }
                 $content .= '<figure class="testimonial">
-                    <img src="' . $featured_image[0] . '" alt="' . $testimonial->post_title . '" />
+                    <img src="' . $featured_image . '" alt="' . $featured_title . '" />
                     <div class="peopl">
                         <h3>' . $testimonial->post_title . '</h3>
                         <p class="company_name">' . $company_name . '</p>
@@ -2360,16 +2378,23 @@ function sigma_mt_related_articles($atts) {
                             <div class="articles-slide">';
                                 foreach($relatedArticles as $k => $item) {
                                     $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
+                                    if(!empty($featured_image[0])) {
+                                        $featured_image = $featured_image[0];
+                                        $featured_title = $item->post_title;
+                                    } else {
+                                        $featured_image = '';
+                                        $featured_title = 'No Image Available';
+                                    }
                                     $content .= '<a href="'.get_permalink($item->ID).'"><div class="testimonial">
                                                     <div class="testi-details">
-                                                        <img src="'.$featured_image[0].'" alt="'.$item->post_title.'" />
+                                                        <img src="'.$featured_image.'" alt="'.$featured_title.'" />
                                                         <div class="post-title">
                                                             <h3>'.$item->post_title.'</h3>
                                                         </div>
                                                     </div>
                                                 </div></a>';
                                 }
-                            $content .= '</div>o
+                            $content .= '</div>
                         </div>
                     <!-- Related Article Section end -->';
     }
