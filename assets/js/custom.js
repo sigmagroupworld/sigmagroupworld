@@ -141,6 +141,8 @@ jQuery(document).ready(function($) {
       		infinite: true,
       		slidesToShow: 1,
       		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 2000,
   	});
 
 	/**** Related Articles Slider ***/
@@ -161,10 +163,11 @@ jQuery(document).ready(function($) {
 	 });
 	$(".pitch-articles .articles-slide").slick({
 		slidesToShow: 3,
-	    	slidesToScroll: 1,
+	    	slidesToScroll: 3,
 	    	autoplay: false,
 	    	autoplaySpeed: 1500,
 	    	arrows: true,
+		dots: true,
 	    	responsive: [{
 	    		breakpoint: 850,
 	    		settings: {
@@ -431,8 +434,8 @@ jQuery(document).ready(function($) {
 		}
 		$( '.startup-filter-last-year ul li.active' ).removeClass( 'active' );
 		var i = 0;
-		var li_class = $( this ).attr( 'class' ); 
-		$( '.'+li_class ).addClass( 'active ');
+		var li_class = $( this ).attr( 'class' );
+		$( '.'+ li_class ).addClass( 'active ');
 		var regex_data = $(this).data('regex');
 		$( '.charity-items > div' ).each(function () {
 			if ( $( this ).data( 'title' ).search( regex_data ) > -1) {
@@ -501,21 +504,21 @@ jQuery(document).ready(function($) {
 		var url = current_url + "&country="+country_val;
 		var new_url = new URL(url);
 		new_url.searchParams.set("country", country_val);
-      	document.location = new_url.href;
+      		document.location = new_url.href;
 	});
 	$('#filter-department').on('change', function(){
 		var department_val = $( this ).val();
 		var url = current_url + "&department="+department_val;
 		var new_url = new URL(url);
 		new_url.searchParams.set("department", department_val);
-      	document.location = new_url;
+      		document.location = new_url;
 	});
 	$('#filter-job-type').on('change', function(){
 		var job_type_val = $( this ).val();
 		var url = current_url + "&job-type="+job_type_val;
 		var new_url = new URL(url);
 		new_url.searchParams.set("job-type", job_type_val);
-      	document.location = new_url;
+      		document.location = new_url;
 	});
     	/** Vacancies Filter end **/
 
