@@ -104,7 +104,9 @@ $testimonials = get_field('testimonials', $page_id);
 	<!-- our experts section end -->
 
 	<!-- our partners section start -->
-	<?php echo do_shortcode($our_partners['shortcode']); ?>
+	<div class="deep-tech-partners">
+		<?php echo do_shortcode($our_partners['shortcode']); ?>
+	</div>
 	<!-- our partners section end -->
 
 	<!-- Testimonial section start --> 
