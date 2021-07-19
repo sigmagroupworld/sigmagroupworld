@@ -139,6 +139,9 @@ if ($floor_plan){ ?>
 			    <div class="about-section-title">
 			    	<h2 style="color:<?php echo $about_banner['register_color']; ?>"><?php echo $floor_plan['floor_plan_title']; ?></h2>
 			    </div>
+			    <div class="about-section-text">
+			    	<p><?php echo $floor_plan['floor_plan_text']; ?></p>
+			    </div>
 			    <div class="iframe-plan">
 			    	<?php echo $floor_plan['floor_plan_iframe']; ?>
 			    </div>
