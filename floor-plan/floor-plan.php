@@ -1,119 +1,254 @@
-<?php
-/**
- * Template Name: SigmaMT Floor Plan Page Layout
- * Created By: Rinkal Petersen
- * Created at: 9 June 2021
- */
-/* Floor Plan template css */
-wp_enqueue_style('directory', get_stylesheet_directory_uri().'/floor-plan/css/floor-plan.css'); 
-get_header();
+.floor-plan-page {
+	margin-top: 40px;
+}
+/* Page title css start */
+.page-title h2 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    padding: 10px 0;
+    border-bottom: 2px solid #585c59;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+/* Page title css end */
+/* Main floor plan section start */
+.country-plan {
+	padding: 15px 50px;
+	background-position: center;
+	background-size: cover;
+	margin-top: 20px;
+}
+.single-country {
+	display: flex;
+	justify-content: space-between;
+	padding: 30px 0;
+}
+.single-country a {
+	display: block;
+	width: 18%;
+	min-height: 90px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    text-align: center;
+    padding: 0 5px 10px 5px;
+}
+.single-country a:first-child {
+	width: 40%;
+	position: relative;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+.single-country a:first-child img {
+	width: 65px;
+    height: 65px;
+    margin: 0 15px 0 0;
+}
+.single-country a.europe,
+.single-country a.europe:hover,
+.single-country a.europe:focus {
+	background: #396bb0 !important;
+}
+.single-country a.africa,
+.single-country a.africa:hover,
+.single-country a.africa:focus {
+	background: linear-gradient(to right,#da8e3a,#f6b130) !important;
+}
+.single-country a.asia,
+.single-country a.asia:hover,
+.single-country a.asia:focus {
+	background: #cf343c !important;
+}
+.single-country a.america,
+.single-country a.america:hover,
+.single-country a.america:focus {
+	background: #309b53 !important;
+}
+.single-country a img {
+	width: 50px;
+    height: 50px;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    object-fit: contain;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+}
+.single-country a:first-child:after {
+    content: '';
+    position: absolute;
+    right: 45%;
+    bottom: -15px;
+    color: #396bb0;
+    z-index: 1;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid;
+}
+.single-country a.europe:first-child:after {
+	border-top-color: #396bb0;
+}
+.single-country a.africa:first-child:after {
+	border-top-color: #da8e3a;
+}
+.single-country a.asia:first-child:after {
+	border-top-color: #cf343c;
+}
+.single-country a.america:first-child:after {
+	border-top-color: #309b53;
+}
+.single-country a span {
+	font-size: 12px;
+	text-align: center;
+	max-width: 175px;
+	display: block;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+.single-country a span.event-title {
+	padding-bottom: 2px;
+	font-size: 16px;
+}
+.single-country a:first-child span.event-title {
+	font-size: 18px;
+}
+/* Main floor plan section end */
+/* Become Sponsor Section Start */
+.single-exhibitor {
+	width: calc(20% - 20px * 2);
+	margin: 35px 20px;
+	text-align: center;
+} 
+.all-exhibitors {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -20px;
+}
+.some-explore {
+    display: flex;
+    flex-wrap: wrap;
+}
+.single-explore {
+    width: calc(50% - 20px * 2);
+    margin: 10px 20px 30px 20px;
+    border: 1px solid #c4c4c4;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    font-family: "Montserrat";
+}
+.explore-img {
+	margin-bottom: 20px;
+}
+.explore-title h2 {
+	color: #ed1a3b;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+	text-align: center;
+	text-transform: uppercase;
+	margin: 10px 0;
+    font-family: "Montserrat";
+}
+.explore-sub-txt p {
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.explore-btns {
+	text-align: center;
+	margin-top: 30px;
+}
+.explore-btns a {
+	box-sizing: border-box;
+    border: 1px solid #ed1a3b;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ed1a3b;
+    width: 28%;
+    transition: all .4s;
+    text-decoration: none;
+    background: #fff;
+    color: #ed1a3b;
+    border-radius: 40px;
+    max-width: 250px;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat";
+}
+.explore-btns a:hover,
+.explore-btns a:focus,
+.explore-btns a:active {
+	background: #ed1a3b !important;
+    color: #fff !important;
+}
+.about-section-title h2 {
+    color: #2364ae;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    padding: 10px 0;
+    border-bottom: 2px solid #585c59;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+/* Become Sponsor Section End */
 
-$page_id = $wp_query->get_queried_object()->ID;
-?>
-
-<!-- Main floor plan section start -->
-<div class="floor-plan-page">
-  <?php ob_start(); $plan = get_field('plan');
-  if ($plan){ ?>
-    <?php if( !empty( $plan['floor_plan'] ) ){ ?>
-      <section class="main-plan">
-        <div class="container">
-          <div class="page-title">
-            <h2 style="color: <?php echo $plan['country_color']; ?>;">
-              <?php echo $plan['plan_title']; ?>
-            </h2>
-          </div>
-          <div class="country-plan" style="background-image: url(<?php echo $plan['background_image']; ?>);">
-            <div class="single-country">
-              <?php
-              foreach ($plan['country_plan'] as $key => $value) { ?>
-                <a href="<?php echo $value['country_event_link']; ?>" class="europe <?php echo $value['country_name']; ?>">
-                  <?php if( !empty( $value['country_logo'] ) ){ ?>
-                    <img src="<?php echo $value['country_logo']['url']; ?>" alt="<?php echo $value['country_logo']['alt']; ?>">
-                  <?php } ?>
-                  <span>
-                    <span class="event-title">
-                      <?php echo $value['country_title']; ?>
-                    </span>
-                    <span class="event-date">
-                      <?php echo $value['event_date']; ?>
-                    </span>
-                  </span>
-                </a>
-              <?php } ?>
-            </div>
-            <div class="single-plan">
-              <?php echo $plan['floor_plan']; ?>
-            </div>
-          </div>
-        </div>
-      </section>
-    <?php } ?>
-  <?php
-  }
-  ?>
-  <!-- Main floor plan section end -->
-
-  <!-- News Image slider start -->
-  <?php $for_advertisement = get_field('add_banner');
-  if ($for_advertisement){ ?>
-    <?php if( !empty( $for_advertisement['add_banner_image'] ) ){ ?>
-      <?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$for_advertisement["add_banner_image"].' banner_url = '.$for_advertisement["add_banner_link"].' ]' ); ?>
-    <?php } ?>
-  <?php
-  }
-  ?>
-  <!-- News Image slider end -->
-
-  <!-- Exhibitors & Partners Section Start -->
-  <?php
-  $field = get_field('our_sponsors_and_exhibitors', $page_id);
-  echo do_shortcode($field['sponsors_shortcode']);
-  ?>
-  <!-- Exhibitors & Partners Section End -->
-
-  <!-- Become Sponsor Section Start -->
-  <?php ob_start(); $become_sponsor = get_field('become_sponsor');
-  if ($become_sponsor){ ?>
-    <?php if( !empty( $become_sponsor['link_boxes'] ) ){ ?>
-      <!-- Explore All Section Strat -->
-      <section class="explore-all">
-        <div class="container">
-          <div class="some-explore"> 
-              <?php
-              foreach ($become_sponsor['link_boxes'] as $key => $value) { ?>
-                <div class="single-explore">
-                  <?php if( !empty( $value['logo'] ) ){ ?>
-                    <div class="explore-img">
-                      <img src="<?php echo $value['logo']['url']; ?>" alt="<?php echo $value['logo']['alt']; ?>">
-                    </div>
-                  <?php } ?>
-                  <div class="explore-title">
-                    <h2><?php echo $value['title']; ?></h2>
-                  </div>
-                  <div class="explore-sub-txt">
-                    <?php echo $value['sub_text']; ?>
-                  </div>
-                  <div class="explore-btns">
-                    <?php if( !empty( $value['button_text'] ) ){ ?>
-                      <span>
-                        <a href="<?php echo $value['button_link']; ?>"><?php echo $value['button_text']; ?></a>
-                      </span>
-                    <?php } ?>
-                  </div>
-                </div>
-              <?php } ?>
-            </div>
-        </div>
-      </section>
-      <!-- Explore All Section End -->
-    <?php } ?>
-  <?php
-  }
-  ?>
-  <!-- Become Sponsor Section End -->
-
-  <?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
-
-</div>
-<?php get_footer(); ?>
+/* Responsive Css Start */
+@media(max-width:850px) {
+	.single-country a:first-child {
+		order: 4;
+		width: 100%;
+	}
+	.single-country a {
+		width: calc(33% - 10px);
+		margin: 20px 0;
+	}
+	.single-country {
+		flex-wrap: wrap;
+		padding-top: 0;
+	}
+	.single-country a span {
+		margin: 0 auto;
+	}
+}
+@media(max-width:767px) {
+	.country-plan {
+		padding: 15px;
+	}
+	.single-country a {
+		width: calc(33% - 5px);
+    	height: auto;
+    	padding: 10px;
+	}
+	.single-country a img {
+		width: 40px;
+		height: 40px;
+	}
+	.single-country a:first-child img {
+		width: 45px;
+		height: 45px;
+	}
+	.single-explore {
+		width: 100%;
+		padding: 30px 15px;
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+@media(max-width:560px) {
+	.single-country a span {
+		font-size: 10px;
+	}
+}
+/* Responsive Css End */

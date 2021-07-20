@@ -4153,6 +4153,22 @@ body.call-speakers .call-for-speakers-db {
     font-weight: 600;
 }
 
+/* Supplier Logo start */
+.supplier-logo {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -7px;
+    padding: 30px 0;
+}
+.supplier-single {
+    width: calc(20% - 15px);
+    margin: 7px;
+    padding: 15px 10px;
+    height: 86px;
+    align-items: center;
+	display: flex;
+}
+/* Supplier Logo End */
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */

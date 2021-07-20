@@ -107,26 +107,6 @@ function sigmamt_autocomplete_search() {
 
 }
 
-// For upcoming news
-add_shortcode('upcoming-event', 'sigma_mt_upcoming_event_shortcode');
-function sigma_mt_upcoming_event_shortcode(){
-    $upcomingevent = get_field('upcoming_event', 'option');
-    if(is_array($upcomingevent) && !empty($upcomingevent)){
-        $event_data =   '<div class="upcomingeventsection">
-                            <div class="upcomingeventheading"> 
-                                <h2>"'.$upcomingevent['title'].'"</h2>
-                            </div>
-                            <div class="upcomingeventintro">
-                                <h3>"'.$upcomingevent['event_name'].'"</h3>
-                                <h4>"'.$upcomingevent['event_date'].'"</h4>
-                                <p>"'.$upcomingevent['event_description'].'"</p>
-                                <a href="'.$upcomingevent['button_link'].'">"'.$upcomingevent['button_text'].'"</a>
-                            </div>
-                        </div>';
-        return $event_data;
-    }
-}
-
 //function to get news tags.
 function sigma_mt_get_news_tags_lists() {
     $taxonomies = array( 
@@ -438,6 +418,7 @@ function sigma_mt_get_continent_order() {
 
 //function to get news tags.
 function sigma_mt_get_casino_provider_data($term_id = "", $posts_per_page = "") {
+    $posts_per_page = isset($posts_per_page) ? $posts_per_page : -1;
     if(!empty($term_id)) {
         $post_tag_args = array(
             'posts_per_page' => $posts_per_page,
@@ -455,7 +436,7 @@ function sigma_mt_get_casino_provider_data($term_id = "", $posts_per_page = "") 
         );
     } else {
         $post_tag_args = array(
-          'posts_per_page' => 10,
+          'posts_per_page' => $posts_per_page,
           'post_type' => 'casinos-items',
           'orderby'        => 'ASC',
         );
@@ -469,7 +450,7 @@ add_shortcode( 'sigma-mt-casino-providers', 'sigma_mt_casino_providers' );
 function sigma_mt_casino_providers($atts) {
     $content = '';
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $results =  sigma_mt_get_casino_provider_data($term_id, $count);
     if(!empty($results)) {
@@ -1421,6 +1402,7 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     $tag_id = isset($atts['tag_id']) ? $atts['tag_id'] : '';
     $taxonomy = 'sponsoring-cat';
     $count = isset($atts['count']) ? $atts['count'] : '';
+    $show_tab = isset($atts['show_tab']) ? $atts['show_tab'] : 'yes';
     $tag_category = get_term_by('id', $tag_id, $taxonomy);
     $split_text = explode(" ", $tag_category->name);
     $field = get_field('accordian_section');
@@ -1462,145 +1444,149 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     $get_posts = get_posts($post_tag_args);
     $aval_sold = do_shortcode( '[sigma-mt-available-sold-text]' );
     if(!empty($get_posts)) {
-        $content .= '<div class="wrapper">
-                        <div class="toggle">
-                            <h3>'.$tag_category->name.'</h3>
-                            '.$aval_sold.'
-                        </div>
-                        <div class="content">
-                            <div class="'.$main_class.'">';
-                                $counter = 0;
-                                $total_sponsors = count($get_posts);
-                                foreach($get_posts as $k => $sponsoring) {
-                                    $exhibit_details = get_field('exhibit_details', $sponsoring->ID);
-                                    $sponsors_logo = isset($exhibit_details['sponsers_icon']) ? $exhibit_details['sponsers_icon'] : '';
-                                    $sponsors_amount = isset($exhibit_details['amount']) ? $exhibit_details['amount'] : '';
-                                    $sponsors_count = isset($exhibit_details['sponsors_count']) ? $exhibit_details['sponsors_count'] : '';
-                                    $term_obj_list = get_the_terms( $sponsoring->ID, 'sponsoring-tag' );
-                                    $sponsors_gallery = isset($exhibit_details['sponsers_gallery']) ? $exhibit_details['sponsers_gallery'] : '';
-                                    $sponsors_status = isset($term_obj_list[0]->name) ? $term_obj_list[0]->name : '';
-                                    $package = isset($exhibit_details['package']) ? $exhibit_details['package'] : '';
-                                    $package_status = isset($exhibit_details['package_status']) ? $exhibit_details['package_status'] : '';
-                                    $available = __( 'Available', 'sigmaigaming' );
-                                    $sold_out = __( 'Sold Out', 'sigmaigaming' );
-                                    $gold_pkg = __( 'Gold Package', 'sigmaigaming' );
-                                    $outdoor_pkg = __( 'Outdoor Platinum', 'sigmaigaming' );
-                                    $silver_pkg = __( 'Silver Package', 'sigmaigaming' );
-                                    $platinum_pkg = __( 'Platinum Package', 'sigmaigaming' );
-                                    $bronze_pkg = __( 'Bronze Package', 'sigmaigaming' );
-                                    $meeting_pkg = __( 'Meeting Room Package', 'sigmaigaming' );
-                                    if($sponsors_status === $sold_out) {
-                                        $class = 'sold';
-                                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/SOLD-OUTv1.png" alt="" class="soldout">';
-                                    } else {
-                                        $image = '';
-                                        $class = '';
-                                    }
-                                    $counter++;
-                                    if ($total_sponsors-1 % 4  == 0)  {
-                                        $sec_division = 'double-line';
-                                    }
-                                    if($appearance === $appearanceReg ) {
-                                        $content .= '<div class="single-sponsor" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
-                                                          <div class="top">
-                                                            <img src='.$sponsors_logo.' alt="">
-                                                            '.$image.'
-                                                            <h4>'.$sponsoring->post_title.'</h4>
-                                                          </div>
-                                                          <div class="bottom '.$class.'">
-                                                            <span class="prcie">'.$sponsors_amount.'</span>
-                                                            <span class="status">'.$sponsors_count.'</span>
-                                                          </div>
-                                                    </div>';
+		if($show_tab == 'yes'){
+			$content .= '<div class="wrapper">
+							<div class="toggle">
+								<h3>'.$tag_category->name.'</h3>
+								'.$aval_sold.'
+							</div>
+							<div class="content">';
+		}
+		$content .= '<div class="'.$main_class.'">';
+			$counter = 0;
+			$total_sponsors = count($get_posts);
+			foreach($get_posts as $k => $sponsoring) {
+				$exhibit_details = get_field('exhibit_details', $sponsoring->ID);
+				$sponsors_logo = isset($exhibit_details['sponsers_icon']) ? $exhibit_details['sponsers_icon'] : '';
+				$sponsors_amount = isset($exhibit_details['amount']) ? $exhibit_details['amount'] : '';
+				$sponsors_count = isset($exhibit_details['sponsors_count']) ? $exhibit_details['sponsors_count'] : '';
+				$term_obj_list = get_the_terms( $sponsoring->ID, 'sponsoring-tag' );
+				$sponsors_gallery = isset($exhibit_details['sponsers_gallery']) ? $exhibit_details['sponsers_gallery'] : '';
+				$sponsors_status = isset($term_obj_list[0]->name) ? $term_obj_list[0]->name : '';
+				$package = isset($exhibit_details['package']) ? $exhibit_details['package'] : '';
+				$package_status = isset($exhibit_details['package_status']) ? $exhibit_details['package_status'] : '';
+				$available = __( 'Available', 'sigmaigaming' );
+				$sold_out = __( 'Sold Out', 'sigmaigaming' );
+				$gold_pkg = __( 'Gold Package', 'sigmaigaming' );
+				$outdoor_pkg = __( 'Outdoor Platinum', 'sigmaigaming' );
+				$silver_pkg = __( 'Silver Package', 'sigmaigaming' );
+				$platinum_pkg = __( 'Platinum Package', 'sigmaigaming' );
+				$bronze_pkg = __( 'Bronze Package', 'sigmaigaming' );
+				$meeting_pkg = __( 'Meeting Room Package', 'sigmaigaming' );
+				if($sponsors_status === $sold_out) {
+					$class = 'sold';
+					$image = '<img src="'.CHILD_DIR.'/exhibit/images/SOLD-OUTv1.png" alt="" class="soldout">';
+				} else {
+					$image = '';
+					$class = '';
+				}
+				$counter++;
+				if ($total_sponsors-1 % 4  == 0)  {
+					$sec_division = 'double-line';
+				}
+				if($appearance === $appearanceReg ) {
+					$content .= '<div class="single-sponsor" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
+									  <div class="top">
+										<img src='.$sponsors_logo.' alt="">
+										'.$image.'
+										<h4>'.$sponsoring->post_title.'</h4>
+									  </div>
+									  <div class="bottom '.$class.'">
+										<span class="prcie">'.$sponsors_amount.'</span>
+										<span class="status">'.$sponsors_count.'</span>
+									  </div>
+								</div>';
 
-                                    }
-                                    if($appearance === $appearanceWork) {
-                                        if($sponsors_status === $sold_out) {
-                                            $class = 'disable';
-                                        } else {
-                                            $class = 'active';
-                                        }
-                                        $content .= '<div class="double-line">
-                                                        <div class="single-workshop" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
-                                                            <div class="label">
-                                                                <span>'.$split_text[0].'</span>
-                                                            </div>
-                                                            <div class="work-content">
-                                                                <h5>'.$sponsoring->post_title.'</h5>
-                                                                <div class="amount">
-                                                                    <h3>'.$sponsors_amount.'</h3>
-                                                                    <span class="status">'.$sponsors_count.'</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="pop-icons">
-                                                                <div class="ribbon '.$class.'">
-                                                                    <i class="fa fa-bookmark" aria-hidden="true"></i>
-                                                                </div>
-                                                                <div class="open-arrow">
-                                                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>';
-                                    }
-                                    if($appearance === $appearanceName ) {
-                                        if($package === $gold_pkg) {
-                                            $class = 'gold';
-                                            $image = '<img src="'.CHILD_DIR.'/exhibit/images/gold-package-icon.png" alt="" class="soldout">';
-                                        } else if($package === $outdoor_pkg || $package === $platinum_pkg) {
-                                            $class = 'platinum';
-                                            $image = '<img src="'.CHILD_DIR.'/exhibit/images/platinum-package-blue-icon-1.png" alt="" class="soldout">';
-                                        } else if($package === $silver_pkg) {
-                                            $class = 'silver';
-                                            $image = '<img src="'.CHILD_DIR.'/exhibit/images/silver-package-icon.png" alt="" class="soldout">';
-                                        } else {
-                                            $class = '';
-                                            $image = '';
-                                        }
-                                        $content .= '<div class="single-package '.$class.'" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
-                                                        <div class="top">
-                                                            <h3>'.$package.'</h3>
-                                                            <div class="package-icon">'.$image.'</div>
-                                                        </div>
-                                                        <div class="mid">
-                                                            <div class="prize-wrapper">
-                                                                <h3>'.$sponsors_amount.'</h3>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bottom">
-                                                            <span class="open-btn">'.$package_status.'</span>
-                                                        </div>
-                                                    </div>';
-                                    }
-                                    $content .= '<!-- The Modal -->
-                                                <div id="sponsorContent'.$sponsoring->ID.'" class="modal">
-                                                    <!-- Modal content -->
-                                                    <div class="modal-content">
-                                                        <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>
-                                                        <h4>'.$sponsoring->post_title.'</h4>';
-                                                        $sponsors_gallery = $exhibit_details['sponsers_gallery'];
-                                                        if(!empty($sponsors_gallery)) {
-                                                            $content .= '<div class="sponsors_gallery">';
-                                                                foreach($sponsors_gallery as $image) {
-                                                                    $content .= '<img src="'.$image.'">';
-                                                                }
-                                                            $content .= '</div>';
-                                                        }
-                                                        if(!empty($sponsoring->post_content)) {
-                                                            $content .='<div class="post_content">'.$sponsoring->post_content.'</div>';
-                                                        }
-                                                        if(!empty($sponsors_amount)) {
-                                                            $content .='<div class="bottom '.$class.'">
-                                                                <span class="prcie">'.$sponsors_amount.'</span>
-                                                                <span class="status">'.$sponsors_count.'</span>
-                                                            </div>';
-                                                        }
-                                                    $content .= '</div>
-                                                </div>';
-                                }
-                            $content .= '</div>
-                        </div>
-                    </div>';
+				}
+				if($appearance === $appearanceWork) {
+					if($sponsors_status === $sold_out) {
+						$class = 'disable';
+					} else {
+						$class = 'active';
+					}
+					$content .= '<div class="double-line">
+									<div class="single-workshop" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
+										<div class="label">
+											<span>'.$split_text[0].'</span>
+										</div>
+										<div class="work-content">
+											<h5>'.$sponsoring->post_title.'</h5>
+											<div class="amount">
+												<h3>'.$sponsors_amount.'</h3>
+												<span class="status">'.$sponsors_count.'</span>
+											</div>
+										</div>
+										<div class="pop-icons">
+											<div class="ribbon '.$class.'">
+												<i class="fa fa-bookmark" aria-hidden="true"></i>
+											</div>
+											<div class="open-arrow">
+												<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+											</div>
+										</div>
+									</div>
+								</div>';
+				}
+				if($appearance === $appearanceName ) {
+					if($package === $gold_pkg) {
+						$class = 'gold';
+						$image = '<img src="'.CHILD_DIR.'/exhibit/images/gold-package-icon.png" alt="" class="soldout">';
+					} else if($package === $outdoor_pkg || $package === $platinum_pkg) {
+						$class = 'platinum';
+						$image = '<img src="'.CHILD_DIR.'/exhibit/images/platinum-package-blue-icon-1.png" alt="" class="soldout">';
+					} else if($package === $silver_pkg) {
+						$class = 'silver';
+						$image = '<img src="'.CHILD_DIR.'/exhibit/images/silver-package-icon.png" alt="" class="soldout">';
+					} else {
+						$class = '';
+						$image = '';
+					}
+					$content .= '<div class="single-package '.$class.'" id="sponsorPopup'.$sponsoring->ID.'" onclick="openModal(\'sponsorPopup'.$sponsoring->ID.'\', \'sponsorContent'.$sponsoring->ID.'\', \'closeSponsor'.$sponsoring->ID.'\')">
+									<div class="top">
+										<h3>'.$package.'</h3>
+										<div class="package-icon">'.$image.'</div>
+									</div>
+									<div class="mid">
+										<div class="prize-wrapper">
+											<h3>'.$sponsors_amount.'</h3>
+										</div>
+									</div>
+									<div class="bottom">
+										<span class="open-btn">'.$package_status.'</span>
+									</div>
+								</div>';
+				}
+				$content .= '<!-- The Modal -->
+							<div id="sponsorContent'.$sponsoring->ID.'" class="modal">
+								<!-- Modal content -->
+								<div class="modal-content">
+									<span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>
+									<h4>'.$sponsoring->post_title.'</h4>';
+									$sponsors_gallery = $exhibit_details['sponsers_gallery'];
+									if(!empty($sponsors_gallery)) {
+										$content .= '<div class="sponsors_gallery">';
+											foreach($sponsors_gallery as $image) {
+												$content .= '<img src="'.$image.'">';
+											}
+										$content .= '</div>';
+									}
+									if(!empty($sponsoring->post_content)) {
+										$content .='<div class="post_content">'.$sponsoring->post_content.'</div>';
+									}
+									if(!empty($sponsors_amount)) {
+										$content .='<div class="bottom '.$class.'">
+											<span class="prcie">'.$sponsors_amount.'</span>
+											<span class="status">'.$sponsors_count.'</span>
+										</div>';
+									}
+								$content .= '</div>
+							</div>';
+			}
+		$content .= '</div>';
+		if($show_tab == 'yes'){
+			$content .= '</div>
+					</div>';
+		}
     }
     return $content;
 }
@@ -1839,8 +1825,8 @@ function sigma_mt_book_flight_form() {
                     <div class="airline_form_field_row">
                         <div class="airline_radiobtns_row_left">
                             <div class="airline_flexible_check">
-                                <input type="checkbox" name="flexible_date_check" id="flexible_date_check" checked="">
-                                <label for="flexible_date_check">Flexible Dates</label>
+                                <!--input type="checkbox" name="flexible_date_check" id="flexible_date_check" checked="">
+                                <label for="flexible_date_check">Flexible Dates</label-->
                             </div>
                         </div>
                     
@@ -1895,7 +1881,7 @@ function sigma_mt_get_hotels($atts) {
     $content = '';
     $taxonomy = 'hotel-cat';
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $tag_category = get_term_by('id', $term_id, $taxonomy);
     if(isset($term_id) && !empty($term_id)) {
         $post_tag_args = array(
@@ -1977,7 +1963,7 @@ function sigma_mt_get_hotels($atts) {
 add_shortcode( 'sigma-mt-get-awards', 'sigma_mt_get_awards' );
 function sigma_mt_get_awards($atts) {
     $content = '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $post_tag_args = array(
       'posts_per_page' => $count,
       'post_type' => 'award-items',
@@ -2020,7 +2006,7 @@ function sigma_mt_igaming_gallery($atts) {
     global $wp_query;
     $content = '';
     $posts_by_year = [];
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '5';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     $page_id = $wp_query->get_queried_object()->ID;
     $post_args = array(
@@ -2072,7 +2058,7 @@ function sigma_mt_igaming_gallery($atts) {
 add_shortcode( 'sigma-mt-get-jobs', 'sigma_mt_get_jobs' );
 function sigma_mt_get_jobs($atts) {
     $content = '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '10';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
 
     $category = array();
     if( isset( $_GET['country'] ) ) {
@@ -2258,7 +2244,7 @@ function sigma_mt_seating_arrangments($atts) {
 add_shortcode( 'sigma-mt-get-testimonials', 'sigma_mt_get_testimonials' );
 function sigma_mt_get_testimonials($atts) {
     $content = '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $colorClass = isset($atts['color']) ? $atts['color'] : '';
@@ -2349,7 +2335,7 @@ function sigma_mt_get_testimonials($atts) {
 add_shortcode( 'sigma-mt-related-articles', 'sigma_mt_related_articles' );
 function sigma_mt_related_articles($atts) {
     $content = '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     if(isset($term_id) && !empty($term_id)) {
         $post_args = array(
@@ -2437,7 +2423,7 @@ add_shortcode( 'sigma-mt-logos', 'sigma_mt_get_logos' );
 function sigma_mt_get_logos($atts) {
     $content = '';
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $colorClass = isset($atts['color']) ? $atts['color'] : '';
     $companyLists =  sigma_mt_get_all_company_lists_array($term_id, $count);
@@ -2516,9 +2502,8 @@ add_shortcode( 'sigma-mt-magazines', 'sigma_mt_magazines' );
 function sigma_mt_magazines($atts) {
     $content = '';
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '5';
-    $post_per_page = isset($atts['post_per_page']) ? $atts['post_per_page'] : '10';
+    $post_per_page = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $taxonomy = 'magazines-cat';
-    $post_per_page = isset($post_per_page) ? $post_per_page : '';
     $category = get_term_by('id', $term_id, $taxonomy);
     $post_args = array(
       'posts_per_page' => $post_per_page,
@@ -2556,8 +2541,9 @@ add_shortcode( 'sigma-mt-game-providers', 'sigma_mt_game_providers' );
 function sigma_mt_game_providers($atts) {
     global $wp_query;
     $content = '';
+    $text = isset($atts['text']) ? $atts['text'] : '';
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $image = isset($atts['logo']) ? $atts['logo'] : NULL;
     $game_title = isset($atts['game_title']) ? $atts['game_title'] : NULL;
@@ -2595,7 +2581,7 @@ function sigma_mt_game_providers($atts) {
                                                     }
                                                     if($discover === 'YES' ) {
                                                         $content .= '<div class="provider-btn">
-                                                            <p>'.__( 'Discover Games', 'sigmaigaming' ).'</p>
+                                                            <p>'.__( 'Discover ' . $text, 'sigmaigaming' ).'</p>
                                                         </div>';
                                                     }
                                                 $content .= '</a>
@@ -2656,4 +2642,51 @@ function sigma_mt_speakers($atts) {
     }
     $content .= '</div>';
     return $content;
+}
+
+
+// For upcoming news
+add_shortcode('upcoming-event', 'sigma_mt_upcoming_event_shortcode');
+function sigma_mt_upcoming_event_shortcode(){
+    $upcomingevent = get_field('upcoming_event', 'option');
+    if(is_array($upcomingevent) && !empty($upcomingevent)){
+        $event_data =   '<div class="upcomingeventsection">
+                            <div class="upcomingeventheading"> 
+                                <h2>"'.$upcomingevent['title'].'"</h2>
+                            </div>
+                            <div class="upcomingeventintro">
+                                <h3>"'.$upcomingevent['event_name'].'"</h3>
+                                <h4>"'.$upcomingevent['event_date'].'"</h4>
+                                <p>"'.$upcomingevent['event_description'].'"</p>
+                                <a href="'.$upcomingevent['button_link'].'">"'.$upcomingevent['button_text'].'"</a>
+                            </div>
+                        </div>';
+        return $event_data;
+    }
+}
+
+// Shortcode for an upcoming event
+add_shortcode( 'sigma-mt-show-sidebar-event', 'sigma_mt_show_sidebar_event' );
+function sigma_mt_show_sidebar_event($atts) {
+	return '';
+}
+// Shortcode for the casino part of the sidebar
+add_shortcode( 'sigma-mt-show-sidebar-casinos', 'sigma_mt_show_sidebar_casinos' );
+function sigma_mt_show_sidebar_casinos($atts) {
+	return '';
+}
+// Shortcode for the entire sidebar
+add_shortcode( 'sigma-mt-show-sidebar', 'sigma_mt_show_sidebar' );
+function sigma_mt_show_sidebar($atts) {
+	return '';
+}
+// Shortcode for calendar subentries (intra-day events)
+add_shortcode( 'sigma-mt-calendar-subentries', 'sigma_mt_calendar_subentries' );
+function sigma_mt_calendar_subentries($atts) {
+	return '';
+}
+// Shortcode for calendar entries (day-long events)
+add_shortcode( 'sigma-mt-calendar-entries', 'sigma_mt_calendar_entries' );
+function sigma_mt_calendar_entries($atts) {
+	return '';
 }

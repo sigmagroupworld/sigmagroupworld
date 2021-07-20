@@ -566,6 +566,51 @@ function sigma_mt_tags_sponsoring(){
 	);
 }
 
+// create a Custom post type Sidebar Element
+add_action('init', 'sigma_mt_sidebar_element_custom_posts');
+function sigma_mt_sidebar_element_custom_posts() {
+	register_post_type('sidebar-elements', array(
+		'labels' => array(
+			'name' => __('Sidebar Element', 'sigmaigaming'),
+			'singular_name' => __('Sidebar Element', 'sigmaigaming'),
+			'menu_name' => __('Sidebar Element', 'sigmaigaming'),
+			'add_new' => __('Add Sidebar Element', 'sigmaigaming'),
+			'add_new_item' => __('Add Sidebar Element', 'sigmaigaming'),
+			'edit_item' => __('Edit Sidebar Element', 'sigmaigaming'),
+			'new_item' => __('Sidebar Elements', 'sigmaigaming'),
+			'view_item' => __('View Sidebar Elements', 'sigmaigaming'),
+			'search_items' => __('Search Sidebar Elements', 'sigmaigaming'),
+			'not_found' => __('No Sidebar Elements found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Sidebar Elements found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'sidebar-elements'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post taxonomy for Hotel post
+add_action( 'init', 'sigma_mt_taxonomies_sidebar_elements', 0 );
+function sigma_mt_taxonomies_sidebar_elements(){
+	register_taxonomy('sidebar-elements-cat', array('sidebar-elements'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Sidebar Element Categories', 'sigmaigaming'),
+				'singular_name' => __('Sidebar Element Category', 'sigmaigaming'),
+				'search_items' => __('Search Sidebar Element Category', 'sigmaigaming'),
+				'all_items' => __('All Sidebar Element Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Sidebar Element Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Sidebar Element Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Sidebar Element Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Sidebar Element Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Sidebar Element Category', 'sigmaigaming'),
+				'new_item_name' => __('New Sidebar Element Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'latest-sidebar-elements')
+		)
+	);
+}
+
 // create a Custom post type Hotel
 add_action('init', 'sigma_mt_hotel_custom_posts');
 function sigma_mt_hotel_custom_posts() {
