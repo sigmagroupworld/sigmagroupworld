@@ -8,6 +8,7 @@
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/europe-gaming-awards/css/europe-gaming-awards.css');
 wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true ); 
 get_header();
+global $post;
 $page_id = $wp_query->get_queried_object()->ID;
 $gaming_awards_banner = get_field('banner', $page_id);
 $are_you_sitting_down_info = get_field('are_you_sitting_down', $page_id);
@@ -19,7 +20,7 @@ $faq = get_field('faq', $page_id);
 $meet_the_past_winners = get_field('meet_the_past_winners', $page_id);
 $testimonials = get_field('testimonials', $page_id);
 ?>
-<div class="europe-gaming-awards-template">
+<div class="europe-gaming-awards-template" id="<?php echo $post->post_name; ?>">
 	<!-- banner section start -->
 	<section class="gaming-awards-banner">
 	  <div class="container">
@@ -43,7 +44,7 @@ $testimonials = get_field('testimonials', $page_id);
 	<section class="sitting-down">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2 style="color: #13375b;"><?php echo $are_you_sitting_down_info['title']; ?></h2>
+	      <h2><?php echo $are_you_sitting_down_info['title']; ?></h2>
 	      <div class="sub-txt">
 	        <p><?php echo $are_you_sitting_down_info['text']; ?></p>
 	      </div>
@@ -59,7 +60,7 @@ $testimonials = get_field('testimonials', $page_id);
 	<section class="awards">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2 style="color: #13375b;"><?php echo $awards['title']; ?></h2>
+	      <h2><?php echo $awards['title']; ?></h2>
 	      <div class="sub-txt">
 	        <p><?php echo $awards['description']; ?></p>
 	      </div>
@@ -88,7 +89,7 @@ $testimonials = get_field('testimonials', $page_id);
 	<section class="judges">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2 style="color: #13375b;"><?php echo $charity_auction_items['title']; ?></h2>
+	      <h2><?php echo $charity_auction_items['title']; ?></h2>
 	    </div>
 	    <div class="charity-items">
 	    	<?php if(!empty($charity_auction_items['all_items'])) { 
@@ -133,7 +134,7 @@ $testimonials = get_field('testimonials', $page_id);
 	<section class="faq">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2 style="color: #13375b;"><?php echo $faq['title']; ?></h2>
+	      <h2><?php echo $faq['title']; ?></h2>
 	    </div>
 	    <?php foreach($faq['lists_of_faq'] as $k => $item) { ?>
 		    <div class="single-faq">
@@ -184,7 +185,7 @@ $testimonials = get_field('testimonials', $page_id);
 	<section class="testimonial">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2 style="color: #13375b;"><?php echo $testimonials['title']; ?></h2>
+	      <h2><?php echo $testimonials['title']; ?></h2>
 	    </div>
 	    <?php echo do_shortcode($testimonials['shortcode']); ?>
 	  </div>
