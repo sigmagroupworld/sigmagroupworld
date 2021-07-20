@@ -219,7 +219,9 @@ jQuery(document).ready(function($) {
 
 	/** Hosts script start **/
 	openHostsDiv = (elementId) => {
-		$('#'+elementId).toggleClass('person-open');
+		$('.'+elementId).toggleClass('person-open');
+		$(".person-item-inner."+elementId).css("margin-right", "0");
+		$(".person-item-inner").css("margin-right", "20px");
 	}
 	openSpeakersDiv = (elementId) => {
 		$('.'+elementId + ' .title').toggleClass('open');
@@ -419,7 +421,8 @@ jQuery(document).ready(function($) {
 		} , 500);
 	}
 	// 2020 Startup filter start
-	var numToDisplay = $("#meet_startup_last_year").val();
+	// var numToDisplay = $("#meet_startup_last_year").val();
+	var numToDisplay = 2;
 	$( '.startup-filter-last-year ul li' ).click( function(){
 		if( $(this).hasClass( 'active' ) ) {
 			return;
