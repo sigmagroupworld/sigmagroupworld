@@ -98,9 +98,9 @@ a:focus {
     padding: 0 20px;
     margin: 0 auto;
 }
-p {
+/*p {
     margin-bottom: 20px;
-}
+}*/
 p:last-child {
     margin-bottom: 0;
 }
@@ -3615,21 +3615,21 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     top: -3%;
     left: 53%;
 }
-.america_register_form .wpforms-form input::placeholder, .america_register_form .wpforms-form select option {
+.america_register_form input::placeholder, .america_register_form select option {
     font-size: 13px;
 }
-.america_register_form .wpforms-form input, .america_register_form .wpforms-form select {
+.america_register_form input, .america_register_form select {
     height: 30px !important;
 }
-.america_register_form .wpforms-form input[type="checkbox"] {
+.america_register_form input[type="checkbox"] {
     height: 15px !important;
     vertical-align: middle !important;
 }
-.america_register_form .wpforms-form .wpforms-field-checkbox li label, .latam_intro div {
+.america_register_for li label, .latam_intro div {
     font-size: 13px;
     line-height: 19px;
 }
-.america_register_form #wpforms-submit-20565.wpforms-submit {
+.america_register_form .hs-button {
     padding: 10px 50px !important;
     border-radius: 50px !important;
     background: #88bc2f !important;
@@ -3640,17 +3640,17 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin: 0 auto;
     font-weight: bold;
 }
-.america_register_form .wpforms-form .wpforms-field {
+.america_register_form input {
     padding: 5px 0 !important;
 }
-.america_register_form .wpforms-field-html div {
+.america_register_form div {
     font-size: 13px !important;
     line-height: 19px;
 }
 .america_register_form .elementor-widget-container {
     padding: 0 20px 0 20px !important;
 }
-.america_register_form .wpforms-form .wpforms-field-label {
+.america_register_form label span {
     font-weight: 600;
     font-size: 13px;
 }
@@ -3866,10 +3866,13 @@ body.call-speakers .call-for-speakers-db {
     margin-bottom: 20px;
     color: #ed1a3b;
 }
-.about-template .yellow .about-section-title h2 {
+#europe-gaming-awards.europe-gaming-awards-template .about-section-title h2, #europe-gaming-awards.europe-gaming-awards-template .page-title h2 {
+    color: #13375b;
+}
+.about-template .yellow .about-section-title h2, #africa-gaming-awards.europe-gaming-awards-template .page-title h2, #africa-gaming-awards.europe-gaming-awards-template .about-section-title h2 {
     color: #eba80d;
 }
-.about-template .red .about-section-title h2 {
+.about-template .red .about-section-title h2, #asia-gaming-awards.europe-gaming-awards-template .page-title h2, #asia-gaming-awards.europe-gaming-awards-template .about-section-title h2 {
     color: #b52424;
 }
 .about-template .green .about-section-title h2 {
@@ -4164,11 +4167,114 @@ body.call-speakers .call-for-speakers-db {
     width: calc(20% - 15px);
     margin: 7px;
     padding: 15px 10px;
-    height: 86px;
+    height: 95px;
     align-items: center;
-	display: flex;
+    display: flex;
 }
 /* Supplier Logo End */
+
+
+/* Sidebar */
+.sidebar-header h3 {
+	font-family: "Montserrat";
+    font-size: 18px;
+    font-weight: 600;
+    color: #020202;
+    background-color: #fff;
+    z-index: 2;
+    padding-right: 10px;
+	word-wrap: break-word;
+	vertical-align: baseline;
+	margin: 10px 0 10px;
+	line-height: 1.2;
+}
+
+.sidebar-header hr,
+.sidebar hr {
+    position: absolute;
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #e21735;
+    z-index: 1;
+    margin-bottom: 0px;
+	word-wrap: break-word;
+}
+
+.sidebar .sigma-news .container{
+	padding: 0 !important;
+}
+.sidebar .sigma-news .container .magazine-widget,
+.sidebar-image{
+	width: 100% !important;
+	margin-bottom: 10px !important;
+}
+
+.calendar-event {
+	padding:10px;
+	border:1px solid #ccc;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+	margin:0;
+	background:#fafafa;
+	text-align:center
+}
+.calendar-event h5 {
+	font-size:16px;
+	color:#ed1a3b;
+	margin:15px 0 0px;
+	line-height:20px
+}
+.calendar-event .date {
+	font-size:12px;
+	color:#353434;
+	margin:0 0 10px;
+	line-height:18px;
+	font-weight:600
+}
+.calendar-event .widget_type_rich-text {
+	padding:4px;
+	text-align:center;
+	font-size:14px;
+	line-height:20px;
+	color:#000;
+	margin:0
+}
+
+/* End Sidebar */
+
+.page-template-exhibit .suppliers .supplier-single {
+    border: 1px solid #c4c4c4;
+}
+.page-template-exhibit .suppliers .supplier-txt p, .page-template-exhibit .suppliers .every-single-supply p span {
+    margin-top: 20px;
+    color: #5e5e5e;
+}
+.page-template-exhibit .suppliers .every-single-supply .supply-txt {
+    display: inline-block;
+    vertical-align: middle;
+}
+.page-template-exhibit .suppliers .every-single-supply .supplier-single {
+    display: inline-block;
+    vertical-align: top;
+}
+.page-template-exhibit .single-logo-supply {
+    border-top: 1px solid #c9c9c9;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 30px;
+}
+.page-template-exhibit .single-logo-supply .every-single-supply .supply-txt p {
+    font-size: 12px;
+    font-weight: 600;
+}
+.page-template-exhibit .single-logo-supply .every-single-supply .supply-txt p a {
+    color: #ed1a3b;
+    text-decoration: underline;
+    margin-right: 10px;
+}
+
 
 @media (max-width: 1830px) {
     /* Header Menu styling start */
