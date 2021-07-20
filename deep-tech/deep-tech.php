@@ -90,6 +90,8 @@ $testimonials = get_field('testimonials', $page_id);
 	<!-- deep tech insights section start -->
 
 	<!-- agenda section start -->
+	<div id="deeptechagenda"></div>
+	<br />
 	<section class="our-partner">
 	  <div class="container">
 	    <div class="page-title">
