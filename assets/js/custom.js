@@ -348,7 +348,7 @@ jQuery(document).ready(function($) {
 	let page = 2;
 	$("#load-more").click(function(){
 		let term_id = typeof $("#termID").val() !== undefined ? $("#termID").val() : '';
-		let posts_per_page = typeof $("#posts_per_page").val() !== undefined ? $("#posts_per_page").val() : '';
+		let posts_per_page = typeof $("#posts_per_page").val() !== undefined ? $("#posts_per_page").val() : '-1';
 		let person_image = typeof $("#person_image").val() !== undefined ? $("#person_image").val() : '';
 		let person_position = typeof $("#person_position").val() !== undefined ? $("#person_position").val() : '';
 		let person_name = typeof $("#person_name").val() !== undefined ? $("#person_name").val() : '';
@@ -536,14 +536,24 @@ jQuery(document).ready(function($) {
 
 	/** Air Malta Form ***/
 	
+	
 	$("#departuredate").datepicker({
+		dateFormat : "mm-dd-yy",
 		minDate: 0,
-		dateFormat : "mm-dd-yy"
-	});
-	$("#returndate").datepicker({
+        onSelect: function(dateStr) {
+            var min = $(this).datepicker('getDate') || new Date(); // Selected date or today if none
+            $('#returndate').datepicker('option', {minDate: min});
+        }
+    });
+
+	$("#returndate").datepicker({     
+		dateFormat : "mm-dd-yy",
 		minDate: 0,
-		dateFormat : "mm-dd-yy"
-	});
+        onSelect: function(dateStr) {
+            var max = $(this).datepicker('getDate'); // Selected date or null if none
+            $('#departuredate').datepicker('option', {maxDate: max});
+        }
+    });
 	$("#returnWay").click(function(event){
 		console.log('prop: ' + $(this).prop('checked'));
 		if($(this).prop('checked')){
