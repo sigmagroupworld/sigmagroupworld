@@ -421,7 +421,7 @@
 }
 .judge-info {
     margin: 20px auto;
-    max-width: 110px;
+    /*max-width: 110px;*/
 }
 .judge-info h2 {
     color: #212121;
@@ -786,6 +786,61 @@
     margin: 30px 0;
 }
 /* Testimonial section end */
+
+/*********************************/
+/*** Africa css****/
+#africa-gaming-awards .four-tab-panels .tab-buttons .iconbtn {
+    border: 2px solid #db9a1d;
+}
+#africa-gaming-awards .four-tab-panels .tab-buttons .iconbtn:hover span, #africa-gaming-awards .award-box .box .top h5 {
+    color: #db9a1d;
+}
+#africa-gaming-awards .four-tab-panels .tab-buttons .iconbtn:hover {
+    background: #db9a1d;
+    border-color: #db9a1d;
+}
+#africa-gaming-awards .award-box .bottom:hover, .award-box.open .bottom:hover {
+    background: linear-gradient(to right,#c79418,#ffcd3d);
+}
+#africa-gaming-awards .person-avatar-img, #africa-gaming-awards .judge-img {
+    background: url(/wp-content/uploads/2021/07/Host-background.png) no-repeat;
+}
+#africa-gaming-awards .charity-foundation .our-btn a, #africa-gaming-awards .awards .page-btn a {
+    background: #db9a1d !important;
+}
+#africa-gaming-awards .past-winner .wrapper .toggle {
+    background: #db9a1d;
+    border-radius: 5px;
+}
+/*** Africa css end ****/
+
+/*** Asia css ****/
+#asia-gaming-awards .four-tab-panels .tab-buttons .iconbtn {
+    border: 2px solid #d03639;
+}
+#asia-gaming-awards .four-tab-panels .tab-buttons .iconbtn:hover span, #africa-gaming-awards .award-box .box .top h5, #asia-gaming-awards .award-box .box .top h5 {
+    color: #d03639;
+}
+#asia-gaming-awards .four-tab-panels .tab-buttons .iconbtn:hover {
+    background: #d03639;
+    border-color: #d03639;
+}
+#asia-gaming-awards .award-box .bottom:hover, .award-box.open .bottom:hover, #asia-gaming-awards .person-avatar-img .person-btn,  #asia-gaming-awards .single-item .btn {
+    background: #e21d2f;
+}
+#asia-gaming-awards .person-avatar-img, #asia-gaming-awards .judge-img {
+    background: url(/wp-content/uploads/2021/07/Red-background-Judges.png) no-repeat;
+}
+#asia-gaming-awards .charity-foundation .our-btn a, #asia-gaming-awards .awards .page-btn a {
+    background: #d03639 !important;
+}
+#asia-gaming-awards .past-winner .wrapper .toggle {
+    background: #d03639;
+    border-radius: 5px;
+}
+/*** Asia css end ****/
+
+/********************************/
 /* Responsive Css Start */
 @media(max-width:1200px) {
     .awards:after {
