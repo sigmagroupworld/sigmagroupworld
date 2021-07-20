@@ -4242,6 +4242,127 @@ body.call-speakers .call-for-speakers-db {
 	margin:0
 }
 
+.recent-posts-wrapper{
+	font-family: "Montserrat" !important;
+}
+.recent-posts-wrapper .post-item {
+	border-bottom:1px solid rgba(0,
+	0,
+	0,
+	0.1);
+	padding-bottom:0px;
+	margin-bottom:10px
+}
+.recent-posts-wrapper .post-item .info {
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-moz-box;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-box-pack:justify;
+	-webkit-justify-content:space-between;
+	-moz-box-pack:justify;
+	-ms-flex-pack:justify;
+	justify-content:space-between
+}
+.recent-posts-wrapper .post-item .info>div {
+	font-size:11px;
+	font-weight:600;
+	line-height:2.18;
+	color:#aaa
+}
+.recent-posts-wrapper .post-item .info>div strong {
+	color:#e21735
+}
+.recent-posts-wrapper .post-item .info>div strong a span {
+	display:inline;
+	margin-right:0px
+}
+.recent-posts-wrapper .post-item .info>div strong>a:last-child span {
+	display:none
+}
+.recent-posts-wrapper .post-item span a {
+	font-size:13px;
+	font-weight:600;
+	-webkit-transition:.3s all;
+	-o-transition:.3s all;
+	-moz-transition:.3s all;
+	transition:.3s all;
+	color:#020202
+}
+.recent-posts-wrapper .post-item span a:hover {
+	color:#ed1a3b
+}
+
+.offeritem {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 0;
+	border: 0;
+	border-bottom: 2px solid #e5e5e5
+}
+
+.offeritem>div {
+	flex-basis: 47%
+}
+
+.imgwrap img {
+	max-width: 180px;
+	max-height: 55px;
+	width: 100%;
+	height: auto;
+	object-fit: contain
+}
+
+.linkwrap a {
+	display: block;
+	text-align: center;
+	cursor: pointer
+}
+
+.playbtn {
+	font-size: 13px;
+	line-height: 16px;
+	letter-spacing: .025em;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	background-color: #1b8100;
+	color: #fff;
+	padding: 12px 14px;
+	margin: 0;
+	border-radius: 10px;
+	position: relative;
+	text-transform: uppercase
+}
+
+.playbtn::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 10px;
+	left: 4px;
+	background-color: rgba(255, 255, 255, 0.3);
+	transform: rotate(-8deg);
+	-webkit-transform: rotate(-8deg);
+	border-radius: 80% 0 0 0
+}
+
+.tnclink {
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: .025em;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	color: #000;
+	padding: 0;
+	margin: 2px 0;
+	z-index: 2;
+	position: relative
+}
+
 /* End Sidebar */
 
 .page-template-exhibit .suppliers .supplier-single {

@@ -2679,6 +2679,8 @@ function sigma_mt_upcoming_event_shortcode(){
         return $event_data;
     }
 }
+
+
 // Shortcode for an upcoming event
 add_shortcode( 'sigma_mt_show_sidebar_event', 'sigma_mt_show_sidebar_event' );
 function sigma_mt_show_sidebar_event($atts) {
@@ -2702,123 +2704,49 @@ function sigma_mt_show_sidebar_event($atts) {
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
 		foreach($get_posts as $k => $post) {
-			return get_field('_EventStartDate', $post->ID);
+			$event_data =   '<div class="calendar-event">
+								<h5>'.$post->post_title.'</h5> 
+								<div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
+								<div class="widget_type_rich-text">
+									<p>
+										<span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
+									</p>
+								</div>
+								<a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
+							</div>';
+			return $event_data;
 		}
-	}
-	
-	
-	
-	
-	$content = '';
-    $elements = isset($atts['elements']) ? $atts['elements'] : '';
-	$elementsArray = explode(", ", $elements);
-    if(isset($elementsArray) && !empty($elementsArray)) {
-        $post_tag_args = array(
-			'posts_per_page' => 1,
-			'post_type' => 'sidebar-elements',
-			'post__in' => $elementsArray,
-			'orderby' => 'post__in'
-        );
-    }
-    $upcomingevent = get_field('upcoming_event', 'option');
-    if(is_array($upcomingevent) && !empty($upcomingevent)){
-        $event_data =   '<div class="upcomingeventsection">
-                            <div class="upcomingeventheading"> 
-                                <h2>"'.$upcomingevent['title'].'"</h2>
-                            </div>
-                            <div class="upcomingeventintro">
-                                <h3>"'.$upcomingevent['event_name'].'"</h3>
-                                <h4>"'.$upcomingevent['event_date'].'"</h4>
-                                <p>"'.$upcomingevent['event_description'].'"</p>
-                                <a href="'.$upcomingevent['button_link'].'">"'.$upcomingevent['button_text'].'"</a>
-                            </div>
-                        </div>';
-        return $event_data;
     }
 }
+
 // Shortcode for the casino part of the sidebar
 add_shortcode( 'sigma_mt_show_sidebar_casinos', 'sigma_mt_show_sidebar_casinos' );
-function sigma_mt_show_sidebar_casinos($atts) {$content = '';
+function sigma_mt_show_sidebar_casinos($atts) {
+	$content = '';
     $term_id = '1378';
     $count = -1;
     $results =  sigma_mt_get_casino_provider_data($term_id, $count);
     if(!empty($results)) {
-        //$content .= '<div class="all-casinos '.$appearance.'">';
+        $content .= '<div class="offerwrap">';
 		foreach($results as $k => $post) {
 			setup_postdata( $post );
-			print_r($k);
 			$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$casino_provider = get_field('casino_details', $post->ID);
-			print_r($casino_provider);
-			/*
-			$content .= '<div class="single-casino">
-							<div class="casino-logo">
-								<img src="'.$casino_provider['casino_logo'].'" alt="">
+			$content .= '<div class="offeritem">
+							<div class="imgwrap">
+							  <img src="'.$casino_provider["casino_logo"].'" alt="offer">
 							</div>
-							<div class="casino-star-rating">
-								<div class="start-rating">';
-									if(isset($casino_provider['star_rating_count']) && !empty($casino_provider['star_rating_count'])) {
-										$count = $casino_provider['star_rating_count'];
-									} else {
-										$count = '3';
-									}
-									$args = array(
-									   'rating' => $count,
-									   'type' => 'rating',
-									   'number' => 12345,
-									);
-									$rating = wp_star_rating($args);
-									$content .= $rating;
-			$content .= '</div>
-					</div>
-					<div class="casino-bonus">
-						<img src="'. CHILD_DIR . '/online-casinos/images/Icon-Present.png" alt="">
-						<p>'.$casino_provider['exclusive_bonus'].'</p>
-					</div>
-					<div class="casino-bonus-details">
-						<ul>';
-			if(isset($casino_provider['online_casino_bonus_detail'])) { 
-				foreach($casino_provider['online_casino_bonus_detail'] as $value) {
-					$content .= '<li>'.$value['bonus_details'].'</li>';
-				}
-			}
-			$content .= '</ul>
-				</div>
-				<div class="casino-buttons">
-					<a href="#" class="play">'.__( 'Play', 'sigmaigaming' ).'</a>
-					<a href="'.get_permalink( $post->ID ).'" class="review">'. __( 'Review', 'sigmaigaming' ).'</a>
-				</div>
-				<div class="payment-options">';
-			if(isset($casino_provider['payment_options'])) { 
-				foreach($casino_provider['payment_options'] as $value) {
-					$visa = __( 'Visa', 'sigmaigaming' );
-					$mastercard = __( 'Mastercard', 'sigmaigaming' );
-					$neteller =__( 'Neteller', 'sigmaigaming' );
-					$skrill = __( 'Skrill', 'sigmaigaming' );
-					$mestrocard = __( 'Mestrocard', 'sigmaigaming' );
-					$paypal = __( 'Paypal', 'sigmaigaming' );
-					$bitcoin =__( 'Bitcoin', 'sigmaigaming' );
-					$ecopayz = __( 'Ecopayz', 'sigmaigaming' );
-					$content .= '<div class="single-option">';
-						if($value === $visa) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">';
-						if($value === $mastercard) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">';
-						if($value === $neteller) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">';
-						//if($value === $payeer) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">';
-						if($value === $bitcoin) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">';
-						//if($value === $ecopays) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">';
-						//if($value === $webpay) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">';
-						//if($value === $epay) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">';
-					$content .= '</div>';
-				}
-			}
-			$content .= '</div>
-			</div>';
-			*/
+							<div class="linkwrap">
+							  <a class="playbtn" target="_blank" href="'.$casino_provider["play_link"].'">'.__('*Play now', 'sigmaigaming').'</a>
+							  <a class="tnclink" href="'.$casino_provider["tc_url"].'">'.__('*T&amp;C Apply', 'sigmaigaming').'</a>
+							</div>
+						  </div>';
 		}
-		//$content .= '</div>';
+		$content .= '</div>';
     }
     return $content;
 }
+
 // Shortcode for the entire sidebar
 add_shortcode( 'sigma_mt_show_sidebar', 'sigma_mt_show_sidebar' );
 function sigma_mt_show_sidebar($atts) {
@@ -2841,19 +2769,18 @@ function sigma_mt_show_sidebar($atts) {
 			$shortcode = get_field('shortcode', $post->ID);
 			$images = get_field('images', $post->ID);
 			if($title != ''){
-				$content .= '<div class="sidebar-header">';
+				$content .= '<div class="blog-sub-title">';
 				$content .= '<h3>' . $title . '</h3>';
-				$content .= '<hr />';
 				$content .= '</div>';
 				$content .= '<br />';
 			}
 			if($html != ''){
 				$content .= $html;
-				$content .= '<br /><hr /><br />';
+				$content .= '<br /><br />';
 			}
 			if($shortcode != ''){
 				$content .= do_shortcode($shortcode);
-				$content .= '<br /><hr /><br />';
+				$content .= '<br /><br />';
 			}
 			if(!empty($images)) {
 				foreach($images as $l => $image) {
@@ -2865,7 +2792,7 @@ function sigma_mt_show_sidebar($atts) {
 						$content .= '<img src="' . $image["url"] . '" width="100%" />';
 					}
 				}
-				$content .= '<br /><br /><hr /><br />';
+				$content .= '<br /><br />';
 			}
 		}
 	}
@@ -2873,27 +2800,133 @@ function sigma_mt_show_sidebar($atts) {
 	return $content;
 }
 
+
 // Shortcode for calendar subentries (intra-day events)
 add_shortcode( 'sigma-mt-calendar-subentries', 'sigma_mt_calendar_subentries' );
-function sigma_mt_calendar_subentries($atts) {
-	return '';
+function sigma_mt_calendar_subentries($atts) { 
+	// parent="2345"  style="tabular" (or timeline)
+	$parent = isset($atts['parent']) ? $atts['parent'] : '';
+    $style = isset($atts['style']) ? $atts['style'] : '';
+    $taxonomy = 'tribe_events_cat';
+	$post_args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'tribe_events',
+		'orderby' => 'meta_value',
+		'meta_key' => '_EventStartDate',
+		'order' => 'ASC',
+		'post_status'    => 'publish',
+		'tax_query' => array(
+			array(
+				'taxonomy' => $taxonomy,
+				'field' => 'term_id',
+				'terms' => $parent
+			)
+		)
+	);
+    $get_posts = get_posts($post_args);
+    if(!empty($get_posts)) {
+		foreach($get_posts as $k => $post) {
+			$event_data =   '<div class="calendar-event">
+								<h5>'.$post->post_title.'</h5> 
+								<div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
+								<div class="widget_type_rich-text">
+									<p>
+										<span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
+									</p>
+								</div>
+								<a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
+							</div>';
+			return $event_data;
+		}
+    }
 }
 
 // Shortcode for calendar entries (day-long events)
 add_shortcode( 'sigma-mt-calendar-entries', 'sigma_mt_calendar_entries' );
 function sigma_mt_calendar_entries($atts) {
-	return '';
+    $type = isset($atts['type']) ? $atts['type'] : '';
+    $range = isset($atts['range']) ? $atts['range'] : '';
+    $annualHeaders = isset($atts['annualHeaders']) ? $atts['annualHeaders'] : "false";
+    $showFilters = isset($atts['showFilters']) ? $atts['showFilters'] : "false";
+    $firstActive = isset($atts['firstActive']) ? $atts['firstActive'] : "false";
+    $sort = isset($atts['sort']) ? $atts['sort'] : '';
+	//  type="igathering" range="future" annualHeaders="false" showFilters="false" firstActive="false" sort="asc"
+    $taxonomy = 'tribe_events_cat';
+	$post_args = [];
+	if($range == 'future'){
+		$post_args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'tribe_events',
+			'orderby' => 'meta_value',
+			'meta_key' => '_EventStartDate',
+			'meta_value' => date('Y-m-d h:i'),
+      		'meta_compare' => '>=',
+			'order' => $sort,
+			'post_status'    => 'publish',
+			'tax_query' => array(
+				array(
+					'taxonomy' => $taxonomy,
+					'field' => 'term_id',
+					'terms' => ($type == 'igathering' ? 1364 : 1360)
+				)
+			)
+		);
+	} else if($range == 'past'){
+		$post_args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'tribe_events',
+			'orderby' => 'meta_value',
+			'meta_key' => '_EventStartDate',
+			'meta_value' => date('Y-m-d h:i'),
+      		'meta_compare' => '<',
+			'order' => $sort,
+			'post_status'    => 'publish',
+			'tax_query' => array(
+				array(
+					'taxonomy' => $taxonomy,
+					'field' => 'term_id',
+					'terms' => ($type == 'igathering' ? 1364 : 1360)
+				)
+			)
+		);
+	} else {
+		$post_args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'tribe_events',
+			'orderby' => 'meta_value',
+			'meta_key' => '_EventStartDate',
+			'order' => $sort,
+			'post_status'    => 'publish',
+			'tax_query' => array(
+				array(
+					'taxonomy' => $taxonomy,
+					'field' => 'term_id',
+					'terms' => ($type == 'igathering' ? 1364 : 1360)
+				)
+			)
+		);
+	} 
+    $get_posts = get_posts($post_args);
+    if(!empty($get_posts)) {
+		foreach($get_posts as $k => $post) {
+			$event_data =   '<div class="calendar-event">
+								<h5>'.$post->post_title.'</h5> 
+								<div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
+								<div class="widget_type_rich-text">
+									<p>
+										<span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
+									</p>
+								</div>
+								<a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
+							</div>';
+			return $event_data;
+		}
+    }
 }
 // Shortcode for calendar entries (day-long events)
 add_shortcode( 'sigma_mt_latest_news', 'sigma_mt_latest_news' );
 function sigma_mt_latest_news($atts) {
-	$content = '<div class="latest-news bottom-border">
-					<div class="blog-sub-title">
-						<h3>Latest News</h3>
-					</div>
-					<!-- Latest news blog -->
-					<div class="post-item">';
-					
+	$content = '<div class="recent-posts-wrapper">';
 	$the_query = new WP_Query( array(
 		'post_type' => 'news-items',
 		'posts_per_page' => 10,
@@ -2901,16 +2934,18 @@ function sigma_mt_latest_news($atts) {
 	if ( $the_query->have_posts() ){
 	
 		while ( $the_query->have_posts() ) : $the_query->the_post();
-			$content .= '<h4 style="margin-bottom: 0px;"> <a class="more-link" href="' . get_permalink() . '">' . the_title() . '</a></h4>
-			<div class="info">
-				<div>
-					<strong>';
+			$content .= '<div class="post-item">
+				<span style="margin-bottom: 0px;"> <a class="more-link" href="' . get_permalink() . '">' . get_the_title() . '</a></span>
+				<div class="info">
+					<div>
+						<strong>';
 			$categories = wp_get_post_terms( get_the_ID(),array( 'news-cat' ) );
 			foreach($categories as $c){ 
 				$cat = get_category( $c );
 				$content .= '<a style="text-decoration: none;color:#e21735;" class="topic-link" href="' . get_term_link($cat) . '"> ' . $cat->name . '<span>,</span></a>';
 			}
-			$contentn .= '</strong> 
+			$content .= '</strong> 
+					</div>
 				</div>
 			</div>';    
 		endwhile;
