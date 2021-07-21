@@ -229,17 +229,12 @@ jQuery(document).ready(function($) {
 		//$('.'+elementId).toggle('person-open');
 	}
 	/** Hosts script start end **/
-	// charity auction script start
-	openCharityDiv = (elementId) => {
-		$('#'+elementId).toggleClass('full');
-	}
-	// charity auction script end 
 
 	// Awards script start
 	openAward = (elementId) => {
 		$( '.awards .container .awards-wrapper .award-box' ).removeClass( 'open' );
 		$('#'+elementId).addClass('open');
-	}
+	}	
 	closeAward = (elementId) => {
 		$('#'+elementId).removeClass('open');
 	}
@@ -260,6 +255,12 @@ jQuery(document).ready(function($) {
 		evt.currentTarget.className += " active";
 	}
 	// sitting down script end
+
+	// charity auction script start
+	openCharityDiv = (elementId) => {
+		$('#'+elementId).toggleClass('full');
+	}
+	// charity auction script end 
 
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
