@@ -8,14 +8,16 @@
 wp_enqueue_style('home', get_stylesheet_directory_uri().'/exhibit/css/exhibit.css'); 
 get_header();
 
+global $post;
 $page_id = $wp_query->get_queried_object()->ID;
+$parent_page = get_the_title( wp_get_post_parent_id( $post->ID ) );
 $exhibit_banner = get_field('banner');
 $sponsors_term = get_field('sponsors_term', $page_id);
 $taxonomy = 'sponsoring-cat';
 
 $field = get_field('accordian_section', $page_id);
 ?>
-<div class="exhibit-template">
+<div class="exhibit-template <?php echo $parent_page; ?>">
 	<!-- Banner section start -->
 	<section class="exhibit-banner europe">
 	  <div class="container">
