@@ -4365,6 +4365,130 @@ body.call-speakers .call-for-speakers-db {
 
 /* End Sidebar */
 
+/* Start Agenda */
+
+.agendaitemwrap {
+	margin-top: 4px
+}
+
+.agendaiteminnerwrap {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between
+}
+
+.agendaitemleft {
+	flex-basis: 10%;
+	text-align: center;
+	position: relative
+}
+
+.agendaitemleft:after {
+	content: '';
+	position: absolute;
+	left: 48%;
+	top: 6px;
+	height: 100%;
+	width: 0px;
+	border-left: 4px dotted #c4c4c4;
+	transition: all .3s ease-in;
+	z-index: 1
+}
+
+.agendaitemright {
+	flex-basis: 90%;
+	margin-bottom: 20px;
+	border-left: 1px solid #e6e6e6
+}
+
+.agendaitemrightinner {
+	padding-left: 25px
+}
+
+.agendatimestart {
+	color: #000;
+	background-color: #fff;
+	margin: 10px 0;
+	font-size: 22px;
+	line-height: 26px;
+	font-family: "Montserrat";
+	font-weight: 600;
+	padding: 10px 0;
+	text-transform: uppercase;
+	position: relative;
+	z-index: 2
+}
+
+.agendaitemrightinner a {
+	color: #ed1a3b;
+	text-decoration: underline
+}
+
+.agendaitemrightinner>h4 {
+	margin: 10px 0;
+	color: #ed1a3b;
+	font-size: 22px;
+	line-height: 22px;
+	font-family: "Montserrat";
+	font-weight: 600;
+	padding: 10px 0;
+	text-transform: uppercase
+}
+
+.agendaitemrightinner>h5 {
+	color: #000;
+	font-size: 16px;
+	line-height: 18px;
+	margin: 0 0 5px 0;
+	font-family: "Montserrat";
+	font-weight: 600
+}
+
+.agendaitemrightinner>h6 {
+	color: #8e8e8e;
+	font-size: 14px;
+	line-height: 16px;
+	margin: 0 0 5px 0;
+	font-family: "Montserrat";
+	font-weight: 400
+}
+
+.agenditemlink {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	margin: 30px 0
+}
+
+.agenditemlink a {
+	font-size: 16px;
+	font-weight: 600;
+	color: #ed1a3b;
+	border: 1px solid #ed1a3b;
+	border-radius: 4px;
+	padding: 15px 40px;
+	transition: all .4s linear;
+	text-decoration: none;
+	min-width: 200px;
+	text-align: center;
+	margin: 0;
+	margin-right: 20px;
+	font-family: "Montserrat"
+}
+
+.agenditemlink a:hover {
+	background: #ed1a3b;
+	color: #fff
+}
+
+.agenditemlink a:last-child {
+	margin-right: 0px
+}
+
+/* End Agenda */
+
 .page-template-exhibit .suppliers .supplier-single {
     border: 1px solid #c4c4c4;
 }
@@ -4395,6 +4519,15 @@ body.call-speakers .call-for-speakers-db {
     text-decoration: underline;
     margin-right: 10px;
 }
+
+
+/***** Color css **/
+
+.Asia .page-accordion .toggle h3 {
+    color: #b52424;
+}
+
+/***** Color css **/
 
 
 @media (max-width: 1830px) {
