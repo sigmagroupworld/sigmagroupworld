@@ -412,11 +412,12 @@ function sigma_mt_get_continent_order() {
         $sorting_order_americas = 2;
         $sorting_order_africa   = 3;
     }
-    if ( is_page('home')) {
+    /*if ( is_page('home')) {
         $order = require_once get_stylesheet_directory().'/home/home-news.php';
     } else {
         $order = require_once get_stylesheet_directory().'/latest-news/latest-news.php';
-    }
+    }*/
+    $order = require_once get_stylesheet_directory().'/home/home-news.php';
     return $order;
 }
 
@@ -864,18 +865,43 @@ function sigma_mt_get_people_list($atts) {
                             </div>';
             }
         }
-    $content .= '</div>
-    <input type="hidden" value="'.$term_id.'" id="termID">
-    <input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
-    <input type="hidden" value="'.$person_image.'" id="person_image">
-    <input type="hidden" value="'.$person_name.'" id="person_name">
-    <input type="hidden" value="'.$person_position.'" id="person_position">
-    <input type="hidden" value="'.$person_company.'" id="person_company">';
-    if ( is_page( array( 'europe') ) ) {
-        $content .= ''.$button.'';
-    }
-    $content .= '</section>';
-    }
+		$content .= '</div></div>
+		<input type="hidden" value="'.$term_id.'" id="termID">
+		<input type="hidden" value="'.$posts_per_page.'" id="posts_per_page">
+		<input type="hidden" value="'.$person_image.'" id="person_image">
+		<input type="hidden" value="'.$person_name.'" id="person_name">
+		<input type="hidden" value="'.$person_position.'" id="person_position">
+		<input type="hidden" value="'.$person_company.'" id="person_company">';
+		if ( is_page( array( 'europe') ) ) {
+			$content .= ''.$button.'';
+		}
+		$content .= '</section>';
+    } else {
+		if($appearance === $appearanceHostJudge) {
+			$content .= '<section class="'.$main_class.' '.$colorClass.'">
+							<div class="container">
+								<div class="about-section-title">
+									<h2>'.$heading.'</h2>
+									<p>'.$desc.'</p>
+								</div>
+								<div class="'.$sub_class.'">';
+			$content .= '<div id="item_blank" class="person-item-inner item_blank">
+							<div class="person-left">
+								 <div class="person-avatar-img">';
+									if($person_image === 'YES' && !empty($people_icon)) { $content .= '<img src="'. $people_icon .'" alt="">'; }
+								$content .= '</div>
+								<div class="person-detail">
+									<h3>...</h3>
+									<h4>...</h4>
+								</div>
+							</div>
+							<div class="person-right">
+								<p>...</p>
+							</div>
+						</div>';
+			$content .= '</div></div> </section>';
+		}
+	}
     return $content;
 }
 
@@ -2695,6 +2721,8 @@ function sigma_mt_show_sidebar_event($atts) {
         'post_type' => 'tribe_events',
         'orderby' => 'meta_value',
         'meta_key' => '_EventStartDate',
+		'meta_value' => date('Y-m-d h:i'),
+		'meta_compare' => '>=',
         'order' => 'ASC',
         'post_status'    => 'publish',
         'tax_query' => array(
@@ -2710,7 +2738,7 @@ function sigma_mt_show_sidebar_event($atts) {
         foreach($get_posts as $k => $post) {
             $event_data =   '<div class="calendar-event">
                                 <h5>'.$post->post_title.'</h5> 
-                                <div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
+                                <div class="date">'.date_format(new DateTime(get_field('_EventStartDate', $post->ID)), 'F d, Y').'</div>
                                 <div class="widget_type_rich-text">
                                     <p>
                                         <span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
@@ -2808,40 +2836,65 @@ function sigma_mt_show_sidebar($atts) {
 // Shortcode for calendar subentries (intra-day events)
 add_shortcode( 'sigma-mt-calendar-subentries', 'sigma_mt_calendar_subentries' );
 function sigma_mt_calendar_subentries($atts) { 
-    // parent="2345"  style="tabular" (or timeline)
-    $parent = isset($atts['parent']) ? $atts['parent'] : '';
+	// parent="2345"  style="tabular" (or timeline)
+	$parent = isset($atts['parent']) ? $atts['parent'] : '';
     $style = isset($atts['style']) ? $atts['style'] : '';
     $taxonomy = 'tribe_events_cat';
-    $post_args = array(
-        'posts_per_page' => -1,
-        'post_type' => 'tribe_events',
-        'orderby' => 'meta_value',
-        'meta_key' => '_EventStartDate',
-        'order' => 'ASC',
-        'post_status'    => 'publish',
-        'tax_query' => array(
-            array(
-                'taxonomy' => $taxonomy,
-                'field' => 'term_id',
-                'terms' => $parent
-            )
-        )
-    );
+	$post_args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'tribe_events',
+		'orderby' => 'meta_value',
+		'meta_key' => '_EventStartDate',
+		'order' => 'ASC',
+		'post_status'    => 'publish',
+		'tax_query' => array(
+			array(
+				'taxonomy' => $taxonomy,
+				'field' => 'term_id',
+				'terms' => $parent
+			)
+		)
+	);
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
-        foreach($get_posts as $k => $post) {
-            $event_data =   '<div class="calendar-event">
-                                <h5>'.$post->post_title.'</h5> 
-                                <div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
-                                <div class="widget_type_rich-text">
-                                    <p>
-                                        <span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
-                                    </p>
-                                </div>
-                                <a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
-                            </div>';
-            return $event_data;
-        }
+		foreach($get_posts as $k => $post) {
+			$event_data = '';
+			$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
+			$endDateTime = new DateTime(get_field('_EventEndDate', $post->ID));
+			if($style == 'timeline'){
+				$event_data =   '<div class="agendaiteminnerwrap">
+									<div class="agendaitemleft">
+									  <div class="agendatimestart">
+										<span>' . $startDateTime->format('H:i') . '</span>  
+									  </div>
+									</div>
+									<div class="agendaitemright">
+									  <div class="agendaitemrightinner">
+										<h4>'.$post->post_title.'</h4>
+										<h5>
+										  <span>' . $startDateTime->format('H:i') . ' - ' . $endDateTime->format('H:i') . '</span>
+											  <span> | <a href="" target="_blank"></a></span>
+										</h5>
+										<h6>
+										  '.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'
+										</h6>										
+									  </div>
+									</div>
+								  </div>';
+			} else if($style == 'timeline') {
+				$event_data =   '<div class="calendar-event">
+									<h5>'.$post->post_title.'</h5> 
+									<div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
+									<div class="widget_type_rich-text">
+										<p>
+											<span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
+										</p>
+									</div>
+									<a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
+							</div>';
+			}
+			return $event_data;
+		}
     }
 }
 
