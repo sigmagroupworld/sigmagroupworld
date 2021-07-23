@@ -4523,10 +4523,12 @@ body.call-speakers .call-for-speakers-db {
 
 /***** Color css **/
 
-.Asia .page-accordion .toggle h3 {
+.Asia .page-accordion .toggle h3, .Asia .about-section-title h2 {
     color: #b52424;
 }
-
+.Americas .page-accordion .toggle h3, .Americas .about-section-title h2 {
+    color: #2a9354;
+}
 /***** Color css **/
 
 

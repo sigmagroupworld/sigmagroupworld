@@ -13,6 +13,8 @@ get_header();
 ?>
 
 <?php ob_start(); $desktop_banner = get_field('desktop_banner');
+
+//echo '<pre>'; print_r($desktop_banner);
 $taxonomy = __( 'news-tag', 'sigmaigaming' );
 $row = 0;
 $page_id = $wp_query->get_queried_object()->ID;
