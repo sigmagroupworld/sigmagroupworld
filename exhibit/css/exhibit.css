@@ -143,6 +143,14 @@
 	display: none;
 }
 
+/*******************/
+	
+.Americas .exhibit-banner.europe::before {
+    background-color: #2a9354;
+}
+
+/*********************/
+
 /* Responsive Css Start */
 @media(max-width:1400px) {
 	.banner-contact p {
