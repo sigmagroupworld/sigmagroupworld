@@ -6,6 +6,18 @@ define( 'SITE_URL', site_url() );
 require_once get_stylesheet_directory().'/cpt-functions.php';
 require_once get_stylesheet_directory().'/class/class-custom-widget.php';
 
+function remove_css_js_version( $src ) {
+    if( strpos( $src, '?ver=' ) )
+        $src = remove_query_arg( 'ver', $src );
+    return $src;
+}
+add_filter( 'style_loader_src', 'remove_css_js_version', 9999 );
+add_filter( 'script_loader_src', 'remove_css_js_version', 9999 );
+add_action( 'init', 'stop_heartbeat', 1 );
+function stop_heartbeat() {
+wp_deregister_script('heartbeat');
+}
+
 add_action( 'wp_enqueue_scripts', 'sigma_mt_enqueue_styles', PHP_INT_MAX);
 function sigma_mt_enqueue_styles() {
     $parent_style = 'adforest-style'; // This is 'adforest-style' for the AdForest theme.
@@ -344,9 +356,12 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'news-items',
+		  'post_status' => 'publish',
+		  'orderby' => 'publish_date',
+		  'order' => 'DESC',
           'tax_query' => array(
               array(
-                  'taxonomy' => 'news-tag',
+                  'taxonomy' => 'news-cat',
                   'field' => 'term_id',
                   'terms' => $tag_category->term_id,
               )
@@ -357,7 +372,10 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
           'posts_per_page' => $count,
           'post_type' => 'news-items',
           'orderby'        => 'rand',
-          'post_status'    => 'publish'
+          'post_status'    => 'publish',
+		  'post_status' => 'publish',
+		  'orderby' => 'publish_date',
+		  'order' => 'DESC',
         );
     }
     $tag_data['term_value'] = $tag_category;
@@ -412,12 +430,12 @@ function sigma_mt_get_continent_order() {
         $sorting_order_americas = 2;
         $sorting_order_africa   = 3;
     }
-    /*if ( is_page('home')) {
+    if ( is_page('home')) {
         $order = require_once get_stylesheet_directory().'/home/home-news.php';
     } else {
         $order = require_once get_stylesheet_directory().'/latest-news/latest-news.php';
-    }*/
-    $order = require_once get_stylesheet_directory().'/home/home-news.php';
+    }
+    //$order = require_once get_stylesheet_directory().'/home/home-news.php';
     return $order;
 }
 
@@ -428,7 +446,8 @@ function sigma_mt_get_casino_provider_data($term_id = "", $posts_per_page = "") 
         $post_tag_args = array(
             'posts_per_page' => $posts_per_page,
             'post_type' => 'casinos-items',
-            'orderby'        => 'DESC',
+            'orderby'        => 'title',
+            'order'        => 'ASC',
             'post_status'    => '',
             'paged'          => 1,
             'tax_query' => array(
@@ -465,9 +484,11 @@ function sigma_mt_casino_providers($atts) {
                             $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
                             $casino_provider = get_field('casino_details', $post->ID);
                             $content .= '<div class="single-casino">
-                                            <div class="casino-logo">
-                                                <img src="'.$casino_provider['casino_logo'].'" alt="">
-                                            </div>
+                                            <div class="casino-logo">';
+							if(!empty($featured_image)){
+                                                $content .= '<img src="'.$featured_image[0].'" alt="">';
+							}
+							$content .= '</div>
                                             <div class="casino-star-rating">
                                                 <div class="start-rating">';
                                                     if(isset($casino_provider['star_rating_count']) && !empty($casino_provider['star_rating_count'])) {
@@ -486,11 +507,11 @@ function sigma_mt_casino_providers($atts) {
                                             </div>
                                             <div class="casino-bonus">
                                                 <img src="'. CHILD_DIR . '/online-casinos/images/Icon-Present.png" alt="">
-                                                <p>'.$casino_provider['exclusive_bonus'].'</p>
+                                                <p>'.(isset($casino_provider['exclusive_bonus']) ? $casino_provider['exclusive_bonus'] : '').'</p>
                                             </div>
                                             <div class="casino-bonus-details">
                                                 <ul>';
-                                                    if(isset($casino_provider['online_casino_bonus_detail'])) { 
+                                                    if(!empty($casino_provider['online_casino_bonus_detail'])) { 
                                                         foreach($casino_provider['online_casino_bonus_detail'] as $value) {
                                                             $content .= '<li>'.$value['bonus_details'].'</li>';
                                                         }
@@ -498,27 +519,33 @@ function sigma_mt_casino_providers($atts) {
                                                 $content .= '</ul>
                                             </div>
                                             <div class="casino-buttons">
-                                                <a href="#" class="play">'.__( 'Play', 'sigmaigaming' ).'</a>
-                                                <a href="'.get_permalink( $post->ID ).'" class="review">'. __( 'Review', 'sigmaigaming' ).'</a>
+                                                <a href="'.(isset($casino_provider['play_link']) ? $casino_provider['play_link'] : '').'" class="play" target="_blank">'.__( 'Play', 'sigmaigaming' ).'</a>
+                                                <a href="'.(isset($casino_provider['old_link']) ? $casino_provider['old_link'] : '').'" class="review" target="_blank">'. __( 'Review', 'sigmaigaming' ).'</a>
                                             </div>
                                             <div class="payment-options">';
                                                 if(isset($casino_provider['payment_options'])) { 
+													$visa = __( 'Visa', 'sigmaigaming' );
+													$mastercard = __( 'Mastercard', 'sigmaigaming' );
+													$neteller =__( 'Neteller', 'sigmaigaming' );
+													$skrill = __( 'Skrill', 'sigmaigaming' );
+													//$mestrocard = __( 'Mestrocard', 'sigmaigaming' );
+													$paypal = __( 'Paypal', 'sigmaigaming' );
+													$bitcoin =__( 'Bitcoin', 'sigmaigaming' );
+													$muchbetter = __( 'MuchBetter', 'sigmaigaming' );
+													$ecopayz = __( 'Ecopayz', 'sigmaigaming' );
+													$trustly = __( 'Trustly', 'sigmaigaming' );
                                                     foreach($casino_provider['payment_options'] as $value) {
-                                                        $visa = __( 'Visa', 'sigmaigaming' );
-                                                        $mastercard = __( 'Mastercard', 'sigmaigaming' );
-                                                        $neteller =__( 'Neteller', 'sigmaigaming' );
-                                                        $skrill = __( 'Skrill', 'sigmaigaming' );
-                                                        $mestrocard = __( 'Mestrocard', 'sigmaigaming' );
-                                                        $paypal = __( 'Paypal', 'sigmaigaming' );
-                                                        $bitcoin =__( 'Bitcoin', 'sigmaigaming' );
-                                                        $ecopayz = __( 'Ecopayz', 'sigmaigaming' );
                                                         $content .= '<div class="single-option">';
                                                             if($value === $visa) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">';
                                                             if($value === $mastercard) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">';
                                                             if($value === $neteller) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">';
+                                                            if($value === $skrill) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Skrill.png">';
                                                             //if($value === $payeer) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">';
                                                             if($value === $bitcoin) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">';
-                                                            //if($value === $ecopays) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">';
+                                                            if($value === $paypal) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Paypal.png">';
+                                                            if($value === $ecopayz) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">';
+                                                            if($value === $muchbetter) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/MuchBetter.png">';
+                                                            if($value === $trustly) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Trustly.png">';
                                                             //if($value === $webpay) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">';
                                                             //if($value === $epay) $content .= '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">';
                                                         $content .= '</div>';
@@ -878,7 +905,7 @@ function sigma_mt_get_people_list($atts) {
         }
         $content .= '</section>';
     } 
-	if($show_empty_box != null){
+    if($show_empty_box != null){
         if($show_empty_box == 'host-judge') {
             $content .= '<section class="'.$main_class.' '.$colorClass.'">
                             <div class="container">
@@ -890,7 +917,7 @@ function sigma_mt_get_people_list($atts) {
             $content .= '<div id="item_blank" class="person-item-inner item_blank">
                             <div class="person-left">
                                 <div class="person-avatar-img">
-									<img src="' . SITE_URL.'/wp-content/uploads/2021/07/anonymous.jpg" alt="">
+                                    <img src="' . SITE_URL.'/wp-content/uploads/2021/07/anonymous.jpg" alt="">
                                 </div>
                                 <div class="person-detail">
                                     <h3>' . __('Are you our next Judge?', 'sigmaigaming') . '</h3>
@@ -899,7 +926,7 @@ function sigma_mt_get_people_list($atts) {
                                 </div>
                             </div>
                         </div>
-					</div></div> </section>';
+                    </div></div> </section>';
         }
     }
     return $content;
@@ -957,20 +984,20 @@ function sigma_mt_get_videos($term_id, $posts_per_page, $appearance = '') {
     $taxonomy = 'videos-cat';
     $post_type = 'video-items';
     if(!empty($term_id)){
-		$post_args = array(
-			'posts_per_page' => $posts_per_page,
-			'post_type' => $post_type,
-			'orderby'        => 'ASC',
-			'post_status'    => 'publish',
-			'tax_query' => array(
-				array(
-					'taxonomy' => $taxonomy,
-					'field' => 'term_id',
-					'terms' => $term_id,
-				)
-			)
-		);
-		$get_posts = get_posts($post_args);
+        $post_args = array(
+            'posts_per_page' => $posts_per_page,
+            'post_type' => $post_type,
+            'orderby'        => 'ASC',
+            'post_status'    => 'publish',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => $taxonomy,
+                    'field' => 'term_id',
+                    'terms' => $term_id,
+                )
+            )
+        );
+        $get_posts = get_posts($post_args);
     } else {
         if(!empty($appearance)) {
             if($appearance === 'SIGMATV' ) {
@@ -1007,10 +1034,10 @@ function sigma_mt_get_about_videos($atts) {
     $get_videos = sigma_mt_get_videos($term_id, $posts_per_page, $appearance);
     if(!empty($get_videos)) {
         if($appearance === 'SIGMATV') {
-			foreach($get_videos as $k => $video) {
-					$year = date_format(new DateTime($video->post_date), 'Y');
+            foreach($get_videos as $k => $video) {
+                    $year = date_format(new DateTime($video->post_date), 'Y');
                     $posts_by_year[$year][] = ['ID' => $video->ID, 'title' => $video->post_title, 'link' => get_field('youtube_video_link',  $video->ID), 'Year' => $year];
-			}
+            }
             foreach($posts_by_year as $posts) {
                 $content .= '<h2 class="elementor-heading-title sigma-tv-page">SIGMA TV '.$posts[0]['Year'].'</h2>';
                 foreach($posts as $post) {
@@ -1066,6 +1093,27 @@ function sigma_mt_get_company_term($page_id) {
     return $result_array;
 }
 
+add_shortcode( 'sigma-mt-last-winners', 'sigma_mt_get_last_winners' );
+function sigma_mt_get_last_winners($atts) {
+    $elements = isset($atts['elements']) ? $atts['elements'] : '';
+    $elementsArray = explode(", ", $elements);
+    $descriptions = isset($atts['descriptions']) ? $atts['descriptions'] : '';
+    $descriptionsArray = explode(", ", $descriptions);
+	$content = '';
+	if(count($elementsArray) == count($descriptionsArray)){
+		 $content .= '<div class="all-winners">';
+		 foreach($elementsArray as $k => $element) {
+			 $content .= '<div class="single-winner">
+                                                    <h3>'.$descriptionsArray[$k].'</h3>
+                                                    <div class="winner-img">
+                                                        <img src="'.wp_get_attachment_image_src( get_post_thumbnail_id( $element ), 'full' )[0].'" alt="nomination logo">
+                                                    </div>
+                                                </div>';
+		 }
+		$content .= '</div>';
+	}
+	return $content;
+}
 //Shortcode to get company.
 add_shortcode( 'sigma-mt-company-lists', 'sigma_mt_get_company' );
 function sigma_mt_get_company($atts) {
@@ -1163,8 +1211,7 @@ function sigma_mt_get_company($atts) {
         if($appearance == $appearancePastWinners){
             $year = $atts['year'];
             //echo '<pre>'; print_r(); 
-            $args = array( 
-                    //'date_query' => array( array( 'before' => '-1 year' ) ),    
+            $args = array(   
                     'posts_per_page' => $posts_per_page,
                     'post_type' => $post_type,
                     'orderby'        => 'DESC',
@@ -1334,23 +1381,22 @@ function sigma_mt_get_single_company_row($atts) {
     $post_type = 'company-items';
     $company_desc_id = $atts['company_desc_id'];
     // split image id parameter on the comma
-    $logo = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0];
-    $arrlength = count($logo);
-    if(!empty($arrlength)) {
-            $content .= '<div class="container suppliers"><div class="single-logo-supply">';
-                            $company_details = get_field('company_details', $company_desc_id);
-                            $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
-                            $description = isset($company_details['description']) ? $company_details['description'] : '';
-                            if(!empty($description)) {
-                                $content .= '<div class="every-single-supply">
+    $logo = wp_get_attachment_image_src( get_post_thumbnail_id( $company_desc_id ), 'full' );
+	$content .= '<div class="container suppliers"><div class="single-logo-supply">';
+	$company_details = get_field('company_details', $company_desc_id);
+	$url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+	$description = isset($company_details['description']) ? $company_details['description'] : '';
+	if(!empty($description)) {
+		$content .= '<div class="every-single-supply">
                                                 <div class="supply-txt">
                                                     <p>'.$description.'</p>
                                                 </div>';
-								$content .= '<div class="supplier-single">
-									<a href="'.$url.'" target="_blank"><img src="'. $logo .'"></a></div></div>';
-                            }
-            $content .= '</div></div>';
-    }
+		$content .= '<div class="supplier-single">';
+		if(!empty($logo)){
+			$content .= '<a href="'.$url.'" target="_blank"><img src="'. $logo[0] .'"></a></div></div>';
+		}
+	}
+	$content .= '</div></div>';
     return $content;
 }
 
@@ -1917,7 +1963,8 @@ function sigma_mt_get_hotels($atts) {
     if(!empty($get_posts)) {
         $content .= '<div class="hotel-reviews">';
                         foreach($get_posts as $k => $post) {
-                            $hotel_icon = get_field('hotel_icon', $post->ID);
+                            //$hotel_icon = get_field('hotel_icon', $post->ID);
+                            $hotel_icon = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
                             $hotel_address = get_field('address', $post->ID);
                             $star_rating = get_field('star_ratings', $post->ID);
                             $hotel_gallery = get_field('hotel_gallery', $post->ID);
@@ -1937,9 +1984,11 @@ function sigma_mt_get_hotels($atts) {
                             $rating = wp_star_rating($args);
                             $content .= '<div id="single-hotel'.$post->ID.'" class="single-hotel '.$fullClass.'">
                                 <div class="short">
-                                    <div class="logo">
-                                        <img src="'.$hotel_icon.'" alt="">
-                                    </div>
+                                    <div class="logo">';
+										if(!empty($hotel_icon)){
+                                        	$content .= '<img src="'.$hotel_icon[0].'" alt="">';
+										}
+                                    $content .= '</div>
                                     <div class="rate">';
                                         $content .= $rating;
                                     $content .= '</div>
@@ -1949,7 +1998,7 @@ function sigma_mt_get_hotels($atts) {
                                     <div class="close" onclick="closeHotel(\'single-hotel'.$post->ID.'\', \'long'.$post->ID.'\')"></div>
                                     <div class="hotel-detail">
                                         <h3>'.$post->post_title.'</h3>
-                                        <p>Vjal Portomaso St Julian’s PTM, 01</p>
+                                        <p>'.$hotel_address.'</p>
                                         <p>'.$post->post_content.'</p>
                                     </div>
                                     <div class="img-gallery">';
@@ -1958,9 +2007,11 @@ function sigma_mt_get_hotels($atts) {
                                             $content .= '<a href="#"><img src="'.$img["images"].'" alt=""></a>';
                                         }
                                     }
-                                    $content .= '</div>
-                                    <div class="buttons-wrapper"><a class="more" target="_blank" href="'.$book_button['link']['url'].'">'.$book_button['text'].'</a></div>
-                                </div>
+                                    $content .= '</div>';
+									if(!empty($book_button) && isset($book_button['link']) && isset($book_button['link']['url']) && isset($book_button['text'])){
+                                    	$content .= '<div class="buttons-wrapper"><a class="more" target="_blank" href="'.$book_button['link']['url'].'">'.$book_button['text'].'</a></div>';
+									}
+                                $content .= '</div>
                             </div>';
                         }
                     $content .= '</div>';
@@ -2303,15 +2354,14 @@ function sigma_mt_get_testimonials($atts) {
                 $content .= '<div class="testi-slide">
                                 <div class="testimonial-inner">
                                   <div class="client-image">';
-                                    foreach($people as $id) {
-                                        $people_icon = get_field('image_icon', $id);
-                                        $content .= '<img src="'.$people_icon.'" alt="">';
-                                    }
+                                    //$people_icon = get_field('image_icon', $people->ID);
+                					$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $people->ID ), 'thumbnail' );
+									if(!empty($featured_image)){
+                                    	$content .= '<img src="'.$featured_image[0].'" alt="">';
+									}
                                   $content .= '</div>
                                   <div class="client-txt">';
-                                    foreach($people as $id) {
-                                        $content .= '<h4 class="testimonial-title">'.get_the_title($id).'</h4>';
-                                    }
+                                    $content .= '<h4 class="testimonial-title">'.get_the_title($people->ID).'</h4>';
                                     $content .= '<div class="testimonial-info">
                                       <h4 class="testimonial-company">'.$company.'</h4>
                                       <p>'.$testimonial->post_content.'</p>
@@ -2326,9 +2376,10 @@ function sigma_mt_get_testimonials($atts) {
             $r = 1;
             $total = count($testimonials);
             foreach($testimonials as $k => $testimonial) {
+                $people = get_field('people_relationship', $testimonial->ID);
                 $testimonial_value = $r . '/' . $total;
                 $company_name = get_field( "testimonial_company", $testimonial->ID );
-                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $testimonial->ID ), 'thumbnail' );
+                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $people->ID ), 'thumbnail' );
                 if(!empty($featured_image[0])) {
                     $featured_image = $featured_image[0];
                     $featured_title = $testimonial->post_title;
@@ -2419,7 +2470,8 @@ function sigma_mt_get_all_company_lists_array($term_id, $count) {
         $post_args = array(
           'posts_per_page' => $count,
           'post_type' => $post_type,
-          'orderby'        => 'DESC',
+          'orderby'        => 'title',
+          'order'        => 'ASC',
           'post_status'    => 'publish',
           'tax_query' => array(
                   array(
@@ -2456,13 +2508,13 @@ function sigma_mt_get_logos($atts) {
                             <input type="hidden" value="'.$count.'" id="meet_startup_last_year">';
                             foreach($companyLists as $k => $item) {
                                 $logo_list = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
-								print_r($logo_list);
-								$logo = '';
-								$alt = __('No Image Available', 'sigmaigaming');
-								if(!empty($logo_list[0])) {
-									$logo = $logo_list[0];
-									$alt = $item->post_title;
-								}
+                                //print_r($logo_list);
+                                $logo = '';
+                                $alt = __('No Image Available', 'sigmaigaming');
+                                if(!empty($logo_list[0])) {
+                                    $logo = $logo_list[0];
+                                    $alt = $item->post_title;
+                                }
                                 $company_details = get_field('company_details', $item->ID);
                                 $content .= '<div class="single-item" id="single-item'.$k.'" data-title="'.$item->post_title.'">';
                                 if($appearance === 'link' ) {
@@ -2594,10 +2646,11 @@ function sigma_mt_game_providers($atts) {
                             foreach($gameLists as $game) {
                                 $game_provider = get_field('company_details', $game->ID);
                                 $link = esc_url( add_query_arg( 'page_id', $page_id, get_permalink($game->ID) ) );
+								$logo = wp_get_attachment_image_src( get_post_thumbnail_id( $game->ID ), 'full' );
                                 $content .= '<div class="single-directory">
                                                 <a href="'.$link.'" target="_blank">';
-                                                    if(!empty($game_provider['company_logo']) && $image === 'YES') {
-                                                        $content .= '<img src="'.$game_provider['company_logo'].'" alt="">';
+                                                    if(!empty($logo) && $image === 'YES') {
+                                                        $content .= '<img src="'.$logo[0].'" alt="">';
                                                     }
                                                     if(!empty($game->post_title) && $game_title === 'YES' ) {
                                                         $content .= '<div class="provider-name">
@@ -2745,12 +2798,14 @@ function sigma_mt_show_sidebar_casinos($atts) {
             $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
             $casino_provider = get_field('casino_details', $post->ID);
             $content .= '<div class="offeritem">
-                            <div class="imgwrap">
-                              <img src="'.$casino_provider["casino_logo"].'" alt="offer">
-                            </div>
+                            <div class="imgwrap">';
+							if(!empty($featured_image)){
+                              $content .= '<img src="'.$featured_image[0].'" alt="offer">';
+							}
+                            $content .= '</div>
                             <div class="linkwrap">
-                              <a class="playbtn" target="_blank" href="'.$casino_provider["play_link"].'">'.__('*Play now', 'sigmaigaming').'</a>
-                              <a class="tnclink" href="'.$casino_provider["tc_url"].'">'.__('*T&amp;C Apply', 'sigmaigaming').'</a>
+                              <a class="playbtn" target="_blank" href="'.(isset($casino_provider["play_link"]) ? $casino_provider["play_link"] : '#').'">'.__('*Play now', 'sigmaigaming').'</a>
+                              <a class="tnclink" href="'.(isset($casino_provider["tc_url"]) ? $casino_provider["tc_url"] : '#').'">'.__('*T&amp;C Apply', 'sigmaigaming').'</a>
                             </div>
                           </div>';
         }
@@ -2835,34 +2890,58 @@ function sigma_mt_calendar_subentries($atts) {
             )
         )
     );
+	$return_data = '';
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
+		$posts_by_day = [];
         foreach($get_posts as $k => $post) {
-            $event_data = '';
             $startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
-            $endDateTime = new DateTime(get_field('_EventEndDate', $post->ID));
-            if($style == 'timeline'){
-                $event_data =   '<div class="agendaiteminnerwrap">
-                                    <div class="agendaitemleft">
-                                      <div class="agendatimestart">
-                                        <span>' . $startDateTime->format('H:i') . '</span>  
-                                      </div>
-                                    </div>
-                                    <div class="agendaitemright">
-                                      <div class="agendaitemrightinner">
-                                        <h4>'.$post->post_title.'</h4>
-                                        <h5>
-                                          <span>' . $startDateTime->format('H:i') . ' - ' . $endDateTime->format('H:i') . '</span>
-                                              <span> | <a href="" target="_blank"></a></span>
-                                        </h5>
-                                        <h6>
-                                          '.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'
-                                        </h6>                                       
-                                      </div>
-                                    </div>
-                                  </div>';
-            } else if($style == 'timeline') {
-                $event_data =   '<div class="calendar-event">
+			$startDate = $startDateTime->format('d M');
+            $posts_by_day[$startDate][] = $post;
+		}
+		
+		
+		if($style == 'timeline'){
+			$event_data = '';
+			$header_data = '<ul role="menu">';
+			$i = 0;
+        	foreach($posts_by_day as $day => $posts) {
+				$i++;
+				$header_data .= '<li class="hs-menu-item hs-menu-depth-1" data-opens="'.$i.'">'.__('Day', 'sigmaigaming') . $i . '<br />' .$day.'</span></a></li>';
+				$event_data .= '<div class="dailyWrapper" data-element="'.$i . '"';
+				if($i > 1){
+					$event_data .= ' style="display: none;"';
+				}
+				$event_data .= '>';
+        		foreach($posts as $index => $post) {
+            		$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
+            		$endDateTime = new DateTime(get_field('_EventEndDate', $post->ID));
+					$event_data .=   '<div class="agendaiteminnerwrap">
+										<div class="agendaitemleft">
+										  <div class="agendatimestart">
+											<span>' . $startDateTime->format('H:i') . '</span>  
+										  </div>
+										</div>
+										<div class="agendaitemright">
+										  <div class="agendaitemrightinner">
+											<h4>'.$post->post_title.'</h4>
+											<h5>
+											  <span>' . $startDateTime->format('H:i') . ' - ' . $endDateTime->format('H:i') . '</span>
+												  <span> | <a href="" target="_blank"></a></span>
+											</h5>
+											<h6>
+											  '.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'
+											</h6>                                       
+										  </div>
+										</div>
+									  </div>';
+				}
+				$event_data .= '</div>';
+			}
+			$header_data .= '</ul>';
+			$return_data = $header_data . $event_data;
+		} else if($style == 'tabular') {
+			$event_data .=   '<div class="calendar-event">
                                     <h5>'.$post->post_title.'</h5> 
                                     <div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
                                     <div class="widget_type_rich-text">
@@ -2872,10 +2951,9 @@ function sigma_mt_calendar_subentries($atts) {
                                     </div>
                                     <a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
                             </div>';
-            }
-            return $event_data;
-        }
+		}
     }
+	return $return_data;
 }
 
 // Shortcode for calendar entries (day-long events)
