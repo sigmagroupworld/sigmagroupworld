@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function($) 
 	/**** Scroll To Top ***/
 	$(".scroll-to-top").click(function() {
 	    $("html, body").animate({ 
@@ -25,6 +25,18 @@ jQuery(document).ready(function($) {
 	}
 	/** Sponsors Exhibitors Toggle end ***/
 
+	/*
+	$(".hs-menu-item").click(function() {
+		var currentId = $(this).attr('data-opens');
+		alert(currentId);
+	    $(".dailyWrapper").each(function(){ 
+			$(this).hide();
+			if($(this).attr('data-element') == currentId){
+				$(this).show();
+			}
+	    });
+	});
+*/
 	/**** Testimonial Slider ***/
   	$(".testimonial-slider").slick({
 		slidesToShow: 1,
@@ -232,11 +244,12 @@ jQuery(document).ready(function($) {
 
 	// Awards script start
 	openAward = (elementId) => {
-		$( '.awards .container .awards-wrapper .award-box' ).removeClass( 'open' );
-		$('#'+elementId).addClass('open');
+		//$( '.awards .container .awards-wrapper .award-box' ).removeClass( 'open' );
+		$('#'+elementId).toggleClass('open');
 	}	
 	closeAward = (elementId) => {
-		$('#'+elementId).removeClass('open');
+		//alert(elementId);
+		$('#'+elementId).toggleClass('open');
 	}
   	//Awards script end
 

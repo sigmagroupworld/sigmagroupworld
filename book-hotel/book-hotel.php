@@ -11,6 +11,7 @@ get_header();
 $page_id = $wp_query->get_queried_object()->ID;
 $flights_accommodation = get_field('flights_and_accommodation');
 $sigma_offical_hotels = get_field('sigma_offical_hotels');
+$show_flight_form = get_field('show_flight_form');
 $hotel_listing = get_field('hotel_listing', $page_id);
 ?>
 
@@ -37,7 +38,11 @@ $hotel_listing = get_field('hotel_listing', $page_id);
 	    <!-- Flights & accomodation end -->
 
 	    <!-- Flights Booking form start -->
-	    <div><?php echo do_shortcode('[sigma-mt-book-flight-form]'); ?></div>
+	    <div>
+			<?php if($show_flight_form == true) {
+				echo do_shortcode('[sigma-mt-book-flight-form]'); 
+		}?>
+		</div>
 	    <!-- Flights Booking form end -->
 
 	    <!-- Sigma official hotel start -->
