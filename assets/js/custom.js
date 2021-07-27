@@ -1,10 +1,45 @@
-jQuery(document).ready(function($) 
+jQuery(document).ready(function($) {
 	/**** Scroll To Top ***/
 	$(".scroll-to-top").click(function() {
 	    $("html, body").animate({ 
 	        scrollTop: 0 
 	    }, "slow");
 	    return false;
+	});
+	$(".agenda-header-link").click(function(){
+		var attrTarget = $(this).attr("data-target");
+		$(".dailyWrapper").each(function(){
+			$(this).hide();
+			if($(this).attr("data-element") == attrTarget){
+				$(this).show();
+			}
+		});
+	});
+	$(".action-expand").click(function(){
+		$(".action-expand").each(function(){
+			$(this).removeClass('active');
+		});
+		$(this).addClass('active');
+		var childIsActive = $(this).parent().find(".confdedtails").is(':visible');
+		$(".confdedtails").each(function(){
+			$(this).hide();
+		});
+		if(!childIsActive){
+			$(this).parent().find(".confdedtails").show();
+		}
+	});
+	$(".row-top").click(function(){
+		$(".row-top").each(function(){
+			$(this).removeClass('active');
+		});
+		$(this).addClass('active');
+		var childIsActive = $(this).parent().find(".description").is(':visible');
+		$(".description").each(function(){
+			$(this).hide();
+		});
+		if(!childIsActive){
+			$(this).parent().find(".description").show();
+		}
 	});
 	var scroll_btn = document.getElementById("scroll-top");
 	$(window).scroll(function() {    

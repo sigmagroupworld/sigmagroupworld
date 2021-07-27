@@ -66,7 +66,7 @@ $field = get_field('accordian_section', $page_id);
 			<!-- Networking Igatherings -->
 			<div class="wrapper">
 				<?php $sponsoring_categories = __( 'Networking Igatherings', 'sigmaigaming' ); ?>
-				<a href="<?php echo SITE_URL; ?>">
+				<a href="https://sigma.world/igatherings/">
 					<div class="toggle_link">
 						<h3><?php echo $sponsoring_categories; ?></h3>
 						<div class="all-sell">
@@ -76,6 +76,24 @@ $field = get_field('accordian_section', $page_id);
 				</a>
 			</div>
 			<!-- Networking Igatherings end -->
+
+			<!-- Print Opportunities -->
+	    	<?php 
+			echo do_shortcode($field['print_opportunities']['shortcode']);
+			?>
+			<!-- Advisory Opportunities end -->
+
+			<!-- Media/TV Opportunities -->
+	    	<?php 
+			echo do_shortcode($field['mediatv_opportunities']['shortcode']);
+			?>
+			<!-- Advisory Opportunities end -->
+
+			<!-- Conference Opportunities -->
+	    	<?php 
+			echo do_shortcode($field['conference_opportunities']['shortcode']);
+			?>
+			<!-- Advisory Opportunities end -->
 
 			<!-- Workshop Opportunities -->
 			<?php
@@ -91,7 +109,7 @@ $field = get_field('accordian_section', $page_id);
 	<!-- Contact Us section start -->
 	<?php
 	$field = get_field('contact_us', $page_id);
-	echo do_shortcode($field['shortcode_for_people']);
+	echo do_shortcode('[sigma-mt-people-lists sort_ordering="ASC" ordering_by="sort_order_exhibit_pages" term_id = "1171" person_name = "YES" person_image = "YES" person_position = "YES" person_company = "no" person_language = "YES" person_email= "YES" person_phone= "YES" person_skype= "YES" appearance = "Regular" color="'.$field['contact_us_color'].'" ]');
 	?>
 	<!-- Contact Us section end -->
 
