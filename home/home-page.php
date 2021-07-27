@@ -15,7 +15,7 @@ get_header();
 <?php ob_start(); $desktop_banner = get_field('desktop_banner');
 
 //echo '<pre>'; print_r($desktop_banner);
-$taxonomy = __( 'news-tag', 'sigmaigaming' );
+$taxonomy = __( 'news-cat', 'sigmaigaming' );
 $row = 0;
 $page_id = $wp_query->get_queried_object()->ID;
 $post_count = '10';
@@ -146,7 +146,7 @@ if ($desktop_banner){ ?>
 	</section>
 	<!-- News category menu end -->
 	<!-- Latest blog section -->
-	<section class="home-blog">
+	<section class="home-blog latest-news">
 		<div class="container">
 			<div class="home-news">
 				<div class="latest-news hp-left">
@@ -166,7 +166,9 @@ if ($desktop_banner){ ?>
 								<a href="<?php the_permalink(); ?>">
 									<?php if($row === 0) { ?>
 										<div class="thumb-img">
-			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+											<?php if(!empty($featured_image)){ ?>
+			                        		    <img src="<?php echo $featured_image[0] ?>" alt="">
+											<?php } ?>
 			                    		</div>
 			                    	<?php } ?>
 		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
@@ -179,7 +181,7 @@ if ($desktop_banner){ ?>
 				</div>
 				<div class="affiliate hp-center">
 					<?php
-					$news_tags = sigma_mt_get_news_tags_data(1060, $taxonomy, 12);
+					$news_tags = sigma_mt_get_news_tags_data(1886, $taxonomy, 12);
 					?>
 					<div class="h-title">
 						<a href="<?php echo get_tag_link($news_tags['term_value']->term_id); ?>">
@@ -220,7 +222,9 @@ if ($desktop_banner){ ?>
 					$video_cat = sigma_mt_get_video_term($page_id);
 			      	$term_id = $video_cat[0]->term_id;
 					$videos = sigma_mt_get_videos($term_id, $post_count);
-			        $youtube_video_title = get_field('video_title', $videos[0]->ID);
+					 if(!empty($videos)){
+			        	$youtube_video_title = get_field('video_title', $videos[0]->ID);
+					 }
 			        $r = 0;
 					?>
 

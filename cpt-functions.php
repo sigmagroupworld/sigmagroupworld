@@ -424,6 +424,7 @@ function sigma_mt_people_custom_posts() {
 		),
 		'public' => TRUE,
 		'rewrite' => array('slug' => 'people'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 		
 	));
 }

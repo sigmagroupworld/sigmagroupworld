@@ -6,6 +6,7 @@ define( 'SITE_URL', site_url() );
 require_once get_stylesheet_directory().'/cpt-functions.php';
 require_once get_stylesheet_directory().'/class/class-custom-widget.php';
 
+/*
 function remove_css_js_version( $src ) {
     if( strpos( $src, '?ver=' ) )
         $src = remove_query_arg( 'ver', $src );
@@ -13,6 +14,7 @@ function remove_css_js_version( $src ) {
 }
 add_filter( 'style_loader_src', 'remove_css_js_version', 9999 );
 add_filter( 'script_loader_src', 'remove_css_js_version', 9999 );
+*/
 add_action( 'init', 'stop_heartbeat', 1 );
 function stop_heartbeat() {
 wp_deregister_script('heartbeat');
@@ -24,7 +26,7 @@ function sigma_mt_enqueue_styles() {
     wp_enqueue_style( 'child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array( $parent_style ),
-        wp_get_theme()->get('Version')
+        time()
     );   
     wp_enqueue_style('sigmamt-responsive', CHILD_DIR . '/assets/css/responsive.css');
     wp_enqueue_style('sigmamt-slick', CHILD_DIR . '/assets/css/slick.css');
@@ -43,7 +45,7 @@ function sigma_mt_scripts() {
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css');
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script( 'jquery-ui-datepicker' );    
-    wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
+    wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), time(), true );    
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
 
     /****Autocomplete script ****/
@@ -573,12 +575,12 @@ function sigma_mt_get_people_list($atts) {
     $taxonomy = 'people-cat';
     $post_type = 'people-items';
     $term_id = $atts['term_id'];
-    $appearance = $atts['appearance'];
+	
     $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
-    $colorClass = isset($atts['color']) ? $atts['color'] : '';
-    $sort_order = isset($atts['sort_order']) ? $atts['sort_order'] : '';
-    $orderby = isset($atts['orderby']) ? $atts['orderby'] : '';
-    $speakers_text = get_field('speakers_text');
+    $colorClass 		= isset($atts['color']) ? $atts['color'] : '';
+    $sort_ordering 		= isset($atts['sort_ordering']) ? $atts['sort_ordering'] : '';
+	$ordering_by 		= isset($atts['ordering_by']) ? $atts['ordering_by'] : '';
+    $speakers_text 		= get_field('speakers_text');
     $show_empty_box     = isset($atts['show_empty_box']) ? $atts['show_empty_box'] : '';
     $appearance         = isset($atts['appearance']) ? $atts['appearance'] : __( 'Default', 'sigmaigaming' );
     $person_name        = isset($atts['person_name']) ? $atts['person_name'] : NULL;
@@ -607,7 +609,7 @@ function sigma_mt_get_people_list($atts) {
     $appearanceInvestors = __( 'Investors', 'sigmaigaming' );
     $appearanceSponsorsExhabitors = __( 'SponsorsExhabitors', 'sigmaigaming' );
     $appearanceDefault = __( 'Default', 'sigmaigaming' );
-    
+	
     //if ( is_page( array( 'exhibit') ) ) {
         
     // Exhibit Appearance
@@ -680,36 +682,53 @@ function sigma_mt_get_people_list($atts) {
     } else {
         $fullclass = '';
     }
-
+	
     $get_posts = array();
     //$term_id = explode(',', $term_id);
     if(!empty($term_id)) {
-        $post_args = array(
-            'posts_per_page' => $posts_per_page,
-            'post_type' => $post_type,
-            'orderby'        => 'DESC',
-            'post_status'    => '',
-            'paged'          => 1,
-            'tax_query' => array(
-                array(
-                  'taxonomy' => $taxonomy,
-                  'field' => 'term_id',
-                  'terms' => explode(',', $term_id),
-                )
-            ),
-            'order'   => $sort_order,
-            'orderby'        => $orderby,
-        );
-        $get_posts = get_posts($post_args);
+		if($ordering_by != '' && $sort_ordering != ''){
+			$post_args = array(
+				'posts_per_page' => $posts_per_page,
+				'post_type' => $post_type,
+				'post_status'    => '',
+				'paged'          => 1,
+				'meta_key'			=> $ordering_by,
+				'orderby'		 => 'meta_value',
+				'order'   		 => $sort_ordering,
+				'tax_query' => array(
+					array(
+					  'taxonomy' => $taxonomy,
+					  'field' => 'term_id',
+					  'terms' => explode(',', $term_id),
+					)
+				)
+			);
+			$get_posts = get_posts($post_args);
+		} else {
+			$post_args = array(
+				'posts_per_page' => $posts_per_page,
+				'post_type' => $post_type,
+				'post_status'    => '',
+				'paged'          => 1,
+				'tax_query' => array(
+					array(
+						'taxonomy' => $taxonomy,
+						'field' => 'term_id',
+						'terms' => explode(',', $term_id),
+					)
+				)
+			);
+			$get_posts = get_posts($post_args);
+		}
     } else {
         $post_args = array(
           'posts_per_page' => $posts_per_page,
           'post_type' => $post_type,
-          'orderby'        => 'DESC',
           'post_status'    => 'publish',
           'paged' => 1,
-          'order'   => $sort_order,
-          'orderby'        => $orderby,
+			'meta_key'			=> $ordering_by,
+			'orderby'		 => 'meta_value',
+            'order'   		 => $sort_ordering,
         );
         $get_posts = get_posts($get_posts);
     }
@@ -1194,8 +1213,8 @@ function sigma_mt_get_company($atts) {
     $post_args = array(
       'posts_per_page' => $posts_per_page,
       'post_type' => $post_type,
-      'order'   => $sort_order,
-      'orderby'        => $orderby,
+      'orderby'   => $orderby,
+      'order'        => $sort_order,
       'post_status'    => 'publish',
       'tax_query' => array(
               array(
@@ -1311,7 +1330,7 @@ function sigma_mt_get_company($atts) {
                                             $company_details = get_field('company_details', $post->ID);
                                             $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
                                             if(!empty(wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0])) {
-                                                $content .= '<div class="'.$single_class.'">';
+                                                $content .= '<div class="'.$single_class.'" >';
                                                 $content .= '<a href="'.$url.'" target="_blank"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a>';
                                             }
                                             $content .= '</div>';
@@ -1375,28 +1394,34 @@ add_shortcode( 'sigma-mt-single-company-row', 'sigma_mt_get_single_company_row' 
 function sigma_mt_get_single_company_row($atts) {
     $atts = shortcode_atts( array(
         'company_desc_id' => $atts['company_desc_id'],
+		'company_logo_id' => $atts['company_logo_id'],
     ), $atts );
     $content = '';
     $taxonomy = 'company-cat';
     $post_type = 'company-items';
     $company_desc_id = $atts['company_desc_id'];
-    // split image id parameter on the comma
-    $logo = wp_get_attachment_image_src( get_post_thumbnail_id( $company_desc_id ), 'full' );
-	$content .= '<div class="container suppliers"><div class="single-logo-supply">';
 	$company_details = get_field('company_details', $company_desc_id);
-	$url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+	$logo_companies = explode(', ', $atts['company_logo_id']);
+    // split image id parameter on the comma
+	$content .= '<div class="container suppliers"><div class="single-logo-supply">';
 	$description = isset($company_details['description']) ? $company_details['description'] : '';
+	$content .= '<div class="every-single-supply">';
 	if(!empty($description)) {
-		$content .= '<div class="every-single-supply">
-                                                <div class="supply-txt">
-                                                    <p>'.$description.'</p>
-                                                </div>';
-		$content .= '<div class="supplier-single">';
-		if(!empty($logo)){
-			$content .= '<a href="'.$url.'" target="_blank"><img src="'. $logo[0] .'"></a></div></div>';
+		$content .= '<div class="supply-txt">
+                         <p>'.$description.'</p>
+                     </div>';
+	};
+	
+	if(!empty($logo_companies)){
+		foreach($logo_companies as $k => $logo_company){
+    		$logo = wp_get_attachment_image_src( get_post_thumbnail_id( $logo_company ), 'full' );
+			$url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+			if(!empty($logo)){
+				$content .= '<div class="supplier-single"><a href="'.$url.'" target="_blank"><img src="'. $logo[0] .'" style="max-height:60px;"></a></div>';
+			}
 		}
 	}
-	$content .= '</div></div>';
+	$content .= '</div></div></div>';
     return $content;
 }
 
@@ -1409,6 +1434,9 @@ function sigma_mt_get_sponsoring_tags_data($tag_id, $taxonomy, $count) {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'sponsoring-items',
+          'post_status'    => 'publish',
+          'orderby'        => 'post_date',
+		  'order'		   => 'DESC',
           'tax_query' => array(
               array(
                   'taxonomy' => $taxonomy,
@@ -1421,7 +1449,8 @@ function sigma_mt_get_sponsoring_tags_data($tag_id, $taxonomy, $count) {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'sponsoring-items',
-          'orderby'        => 'rand',
+          'orderby'        => 'post_date',
+		  'order'		   => 'DESC',
           'post_status'    => 'publish'
         );
     }
@@ -1548,7 +1577,7 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                                       </div>
                                       <div class="bottom '.$class.'">
                                         <span class="prcie">'.$sponsors_amount.'</span>
-                                        <span class="status">'.$sponsors_count.'</span>
+                                        <span class="sponsorCount">'.$sponsors_count.'</span>
                                       </div>
                                 </div>';
 
@@ -2023,27 +2052,45 @@ function sigma_mt_get_hotels($atts) {
 add_shortcode( 'sigma-mt-get-awards', 'sigma_mt_get_awards' );
 function sigma_mt_get_awards($atts) {
     $content = '';
+    $term_id = $atts['term_id'];
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $show_fallback = isset($atts['show_fallback']) ? $atts['show_fallback'] : 'no';
     $post_tag_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'award-items',
+      	'posts_per_page' 	=> $count,
+      	'post_type' 		=> 'award-items',
+        'orderby'        	=> 'post-date',
+        'order'       		=> 'ASC',
+		'tax_query' 		=> array(
+			array(
+				'taxonomy' => 'award-cat',
+				'field' => 'term_id',
+				'terms' => $term_id,
+			)
+		)
     );
     $get_posts = get_posts($post_tag_args);
     if(!empty($get_posts)) {
         $content .= '<div class="awards-wrapper">';
                         foreach($get_posts as $k => $post) {
                             $award_logo = get_field('award_logo', $post->ID);
-                            $sponsored_logo = get_field('sponsored_logo', $post->ID);
+                            //$sponsored_logo = get_field('sponsored_logo', $post->ID);
+                            $company_logo = !empty(get_field('related_company', $post->ID)) ? wp_get_attachment_image_src( get_post_thumbnail_id( get_field('related_company', $post->ID) ), 'full' ) : [];
                             $description = get_field('description', $post->ID);
                             $content .= '<div class="award-box" id="award-box'.$post->ID.'">
                                             <div class="box" onclick="openAward(\'award-box'.$post->ID.'\')">
                                                 <div class="top">
                                                     <img src="'.$award_logo.'" alt="">
                                                     <h5>'.$post->post_title.'</h5>
-                                                    <div class="sponsored">
-                                                        <p>'. __( 'Sponsored by', 'sigmaigaming' ).'</p>
-                                                        <img src="'.$sponsored_logo.'" alt="">
-                                                    </div>
+                                                    <div class="sponsored">';
+														if($show_fallback == 'yes') {
+                                                        	$content .= '<p>'. __( 'Sponsored by', 'sigmaigaming' ).'</p>';
+														}
+														if(!empty($company_logo)){
+															$content .= '<img src="'.$company_logo[0].'" alt="">';
+														} else if($show_fallback == 'yes') {
+															$content .= '<img src="/fileadmin/fallback.png" alt="">';
+														}
+                                                    $content .= '</div>
                                                 </div>
                                                 <div class="bottom" onclick="closeAward(\'award-box'.$post->ID.'\')">
                                                     <span class="more">'. __( 'Read More', 'sigmaigaming' ).'</span>
@@ -2072,7 +2119,7 @@ function sigma_mt_igaming_gallery($atts) {
     $post_args = array(
       'posts_per_page' => $count,
       'post_type' => 'gt3_gallery',
-      'orderby'        => 'DESC',
+      'order'        => 'DESC',
       'post_status'    => 'publish',
       'tax_query' => array(
                 array(
@@ -2872,88 +2919,152 @@ function sigma_mt_show_sidebar($atts) {
 add_shortcode( 'sigma-mt-calendar-subentries', 'sigma_mt_calendar_subentries' );
 function sigma_mt_calendar_subentries($atts) { 
     // parent="2345"  style="tabular" (or timeline)
-    $parent = isset($atts['parent']) ? $atts['parent'] : '';
+    $parent = isset($atts['parent']) ? explode(', ', $atts['parent']) : [];
     $style = isset($atts['style']) ? $atts['style'] : '';
     $taxonomy = 'tribe_events_cat';
-    $post_args = array(
-        'posts_per_page' => -1,
-        'post_type' => 'tribe_events',
-        'orderby' => 'meta_value',
-        'meta_key' => '_EventStartDate',
-        'order' => 'ASC',
-        'post_status'    => 'publish',
-        'tax_query' => array(
-            array(
-                'taxonomy' => $taxonomy,
-                'field' => 'term_id',
-                'terms' => $parent
-            )
-        )
-    );
-	$return_data = '';
-    $get_posts = get_posts($post_args);
-    if(!empty($get_posts)) {
-		$posts_by_day = [];
-        foreach($get_posts as $k => $post) {
-            $startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
-			$startDate = $startDateTime->format('d M');
-            $posts_by_day[$startDate][] = $post;
-		}
-		
-		
-		if($style == 'timeline'){
-			$event_data = '';
-			$header_data = '<ul role="menu">';
-			$i = 0;
-        	foreach($posts_by_day as $day => $posts) {
-				$i++;
-				$header_data .= '<li class="hs-menu-item hs-menu-depth-1" data-opens="'.$i.'">'.__('Day', 'sigmaigaming') . $i . '<br />' .$day.'</span></a></li>';
-				$event_data .= '<div class="dailyWrapper" data-element="'.$i . '"';
-				if($i > 1){
-					$event_data .= ' style="display: none;"';
-				}
-				$event_data .= '>';
-        		foreach($posts as $index => $post) {
-            		$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
-            		$endDateTime = new DateTime(get_field('_EventEndDate', $post->ID));
-					$event_data .=   '<div class="agendaiteminnerwrap">
-										<div class="agendaitemleft">
-										  <div class="agendatimestart">
-											<span>' . $startDateTime->format('H:i') . '</span>  
-										  </div>
-										</div>
-										<div class="agendaitemright">
-										  <div class="agendaitemrightinner">
-											<h4>'.$post->post_title.'</h4>
-											<h5>
-											  <span>' . $startDateTime->format('H:i') . ' - ' . $endDateTime->format('H:i') . '</span>
-												  <span> | <a href="" target="_blank"></a></span>
-											</h5>
-											<h6>
-											  '.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'
-											</h6>                                       
-										  </div>
-										</div>
-									  </div>';
-				}
-				$event_data .= '</div>';
+	if(!empty($parent)){
+		$post_args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'tribe_events',
+			'orderby' => 'meta_value',
+			'meta_key' => '_EventStartDate',
+			'order' => 'ASC',
+			'post_status'    => 'publish',
+			'tax_query' => array(
+				array(
+					'taxonomy' => $taxonomy,
+					'field' => 'term_id',
+					'terms' => $parent
+				)
+			)
+		);
+		$return_data = '';
+		$get_posts = get_posts($post_args);
+		if(!empty($get_posts)) {
+			$posts_by_day = [];
+			foreach($get_posts as $k => $post) {
+				$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
+				$startDate = $startDateTime->format('d M');
+				$posts_by_day[$startDate][] = $post;
 			}
-			$header_data .= '</ul>';
-			$return_data = $header_data . $event_data;
-		} else if($style == 'tabular') {
-			$event_data .=   '<div class="calendar-event">
-                                    <h5>'.$post->post_title.'</h5> 
-                                    <div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
-                                    <div class="widget_type_rich-text">
-                                        <p>
-                                            <span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
-                                        </p>
-                                    </div>
-                                    <a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
-                            </div>';
+
+
+			if($style == 'timeline'){
+				$event_data = '';
+				$header_data = '<ul class="agenda-submenu" role="menu">';
+				$i = 0;
+				foreach($posts_by_day as $day => $posts) {
+					$i++;
+					$header_data .= '<li class="hs-menu-item hs-menu-depth-1 agenda-header-link" data-target="'.$i.'"><a href="#">'.__('Day', 'sigmaigaming') . ' ' . $i . '<br />' .$day.'</a></li>';
+					$event_data .= '<div class="dailyWrapper" data-element="'.$i . '"';
+					if($i > 1){
+						$event_data .= ' style="display: none;"';
+					}
+					$event_data .= '>';
+					foreach($posts as $index => $post) {
+						$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
+						$endDateTime = new DateTime(get_field('_EventEndDate', $post->ID));
+						$event_data .=   '<div class="agendaiteminnerwrap">
+											<div class="agendaitemleft">
+											  <div class="agendatimestart">
+												<span>' . $startDateTime->format('H:i') . '</span>  
+											  </div>
+											</div>
+											<div class="agendaitemright">
+											  <div class="agendaitemrightinner">
+												<h4>'.$post->post_title.'</h4>
+												<h5>
+												  <span>' . $startDateTime->format('H:i') . ' - ' . $endDateTime->format('H:i') . '</span>';
+						if(!empty(get_field('_EventVenueID', $post->ID) )){
+							$venueId = get_field('_EventVenueID', $post->ID);
+							$event_data .= '<span> | <a href="'.tribe_get_map_link( $post->ID ).'" target="_blank">'.get_field('_VenueVenue', $venueId).'</a></span>';
+						}
+												$event_data .= '</h5>
+												<h6>
+												  '.$post->post_content.'
+												</h6>                                       
+											  </div>
+											</div>
+										  </div>';
+					}
+					$event_data .= '</div>';
+				}
+				$header_data .= '</ul>';
+				$return_data = $header_data . $event_data;
+			} else if($style == 'tabular') {
+				$event_data = '';
+				$header_data = '<div class="agenda-roadshow-menu agendamenu"><ul role="menu">
+				  <li class="hs-menu-item hs-menu-depth-1" role="none" style="color: grey;"><a href="#" role="menuitem" target="_self" style="border-color: grey;">3rd March<br>Ukraine</a></li>
+				  <li class="hs-menu-item hs-menu-depth-1" role="none" style="color: grey;"><a href="#" role="menuitem" target="_self" style="border-color: grey;">7th April<br>Las Vegas</span></a></li>
+				  <li class="hs-menu-item hs-menu-depth-1" role="none" style="color: grey;"><a href="#" role="menuitem" target="_self" style="border-color: grey;">5th May<br>Manila</a></li>
+				  <li class="hs-menu-item hs-menu-depth-1" role="none" style="color: grey;"><a href="#" role="menuitem" target="_self" style="border-color: grey;">16th June<br>Germany</a></li>
+				  <li class="hs-menu-item hs-menu-depth-1" role="none" style="color: grey;"><a href="#" role="menuitem" target="_self" style="border-color: grey;">7th July<br>Nigeria</a></li>';
+				$i = 0;
+				$colors = ['04 Aug' => 'rgb(3, 77, 140)', '13 Sep' => 'rgb(33, 178, 92)', '14 Sep' => 'rgb(33, 178, 92)'];
+				$titles = ['04 Aug' => 'Nordics &amp;<br />Netherlands', '13 Sep' => 'North<br />Americas', '14 Sep' => 'South<br />Americas'];
+				foreach($posts_by_day as $day => $posts) {
+					$i++;
+					$header_data .=  '<li class="hs-menu-item hs-menu-depth-1 agenda-header-link" data-target="'.$i.'" role="none" style="color: '.$colors[$day].';"><a href="#" role="menuitem" target="_self" class="active" style="border-color: '.$colors[$day].'; color: '.$colors[$day].';">'.$day.'<br>'.$titles[$day].'</span></a></li>';
+					$event_data .= '<div class="sim-single-conf dailyWrapper" data-element="'.$i . '"';
+					if($i > 1){
+						$event_data .= ' style="display: none;"';
+					}
+					$event_data .= '><div class="sim-confdedtails"><div class="sim-agenda-wrapper">';
+					foreach($posts as $index => $post) {
+						$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
+						$endDateTime = new DateTime(get_field('_EventEndDate', $post->ID));
+						$event_data .=   '<div class="sim-single-agenda">
+                          <div class="sim-leftagenda">
+                             <span>' . $startDateTime->format('H:i') . ' - ' . $endDateTime->format('H:i') . ' ' . $endDateTime->getTimezone()->getName() . '</span>
+                          </div>
+                          <div class="sim-rightagenda">
+                            <div class="title">
+                              	'.$post->post_title.'
+                            </div>
+                            <div class="desc">
+								'.$post->post_content.'
+                            </div>
+                            <div class="sim-speaker-wrapper">';
+						
+						$people_args = array(
+							'post_type'		=> 'people-items',
+							'meta_query'	=> array(
+							  array(
+								'key' => 'events',
+								'value' => '"'.$post->ID.'"',
+								'compare' => 'LIKE'
+							  )
+							)
+						);
+						$people = get_posts($people_args);
+						if(!empty($people)){
+							foreach($people as $k => $person){
+								$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $person->ID ), 'full' );
+								$event_data .= '<div class="person">';
+								if(!empty($featured_image)){
+									$event_data .= '<div class="avatar"><img src="'.$featured_image[0].'"></div>';
+								}
+								$event_data .= '<div class="persondetail">
+												  <h4>'.$person->post_title.'</h4>
+												  <h5>'.get_field('designation', $person->ID).' </h5>
+												  <h6>'.get_the_title(get_field('company', $person->ID)).'</h6>
+												</div>
+											  </div>';
+							}
+						}
+						$event_data .= '</div>
+                          </div>
+                        </div>';
+					}
+					$event_data .= '</div></div></div>';
+				}
+				$header_data .= '</ul></div>';
+				$return_data = $header_data . $event_data;
+			}
 		}
-    }
-	return $return_data;
+		return $return_data;
+	}
+	return '';
 }
 
 // Shortcode for calendar entries (day-long events)
@@ -3023,19 +3134,62 @@ function sigma_mt_calendar_entries($atts) {
     } 
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
+		$event_data = '';
         foreach($get_posts as $k => $post) {
-            $event_data =   '<div class="calendar-event">
-                                <h5>'.$post->post_title.'</h5> 
-                                <div class="date">'.substr(get_field('_EventStartDate', $post->ID), 0, 11).'</div>
-                                <div class="widget_type_rich-text">
-                                    <p>
-                                        <span>'.(strlen($post->post_content) < 200 ? $post->post_content : (substr($post->post_content, 0, 200). '...')).'</span>
-                                    </p>
-                                </div>
-                                <a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
-                            </div>';
-            return $event_data;
+			if($type == 'igathering'){
+				$startDateTime = new DateTime(get_field('_EventStartDate', $post->ID));
+            	$event_data .=   '<section class="date-box">
+					<div class="row-top active">
+					  <div class="date">
+						<span class="day">'.$startDateTime->format('d').'</span>
+						<span class="month">'.$startDateTime->format('M').'</span>
+						<span class="year">'.$startDateTime->format('Y').'</span>
+					  </div>
+					  <div class="title">
+						<div class="wrapper">
+						<div class="col col--1">'
+						.
+						$post->post_title
+						.
+						'</div>
+						<div class="col col--2">
+						  '.get_field('price', $post->ID).'
+						</div>';
+						  if(get_field('fully_booked', $post->ID) == true){
+							  $event_data .= '<div class="ribbon inactive "><i class="fa fa-bookmark" aria-hidden="true"></i></div>';
+						  } else {
+							  $event_data .= '<div class="ribbon active "><i class="fa fa-bookmark" aria-hidden="true"></i></div>';
+						  }
+						$event_data .= '</div>
+					  </div>
+					</div>
+					<div class="row-bottom show">
+
+					  <div class="description">
+						<div>
+
+							<div class="hs_cos_wrapper_type_inline_rich_text">  
+								'.$post->post_content.'
+						  	</div>
+
+
+						  	<div class="bot">
+						  		<span class="prcie">'.get_field('price', $post->ID).'</span>
+								<span class="status">'.get_field('status', $post->ID).'</span>
+
+							</div>
+						</div>
+
+
+					  </div>
+
+					</div>
+				  </section>';
+			} else {
+				
+			}
         }
+		return $event_data;
     }
 }
 // Shortcode for calendar entries (day-long events)
