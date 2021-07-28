@@ -18,7 +18,6 @@ get_header();
 $taxonomy = __( 'news-cat', 'sigmaigaming' );
 $row = 0;
 $page_id = $wp_query->get_queried_object()->ID;
-$post_count = '10';
 
 if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
@@ -192,10 +191,13 @@ if ($desktop_banner){ ?>
 					</div>
 					<div class="blog-listing-module">
 						<?php
+					 $row = 0;
 						foreach ( $news_tags['term_data'] as $k => $post ) {
-				        	setup_postdata( $post );
-				        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
-				        	<?php if($row === 0) { ?>
+				        	setup_postdata( $post ); 
+						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+							$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						?>
+				        	<?php if($row == 0) { ?>
 								<div class="post-item">
 									<a href="<?php the_permalink(); ?>">
 										<div class="thumb-img">
@@ -208,7 +210,7 @@ if ($desktop_banner){ ?>
 								<div class="post-item">
 									<a href="<?php the_permalink(); ?>">
 										<div class="thumb-img">
-			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
+			                        		<img src="<?php echo $featured_image_thumb[0] ?>" alt="">
 			                    		</div>
 			                    		<h2><?php the_title(); ?></h2>
 									</a>
@@ -221,7 +223,7 @@ if ($desktop_banner){ ?>
 					<?php
 					$video_cat = sigma_mt_get_video_term($page_id);
 			      	$term_id = $video_cat[0]->term_id;
-					$videos = sigma_mt_get_videos($term_id, $post_count);
+					$videos = sigma_mt_get_videos($term_id, 9);
 					 if(!empty($videos)){
 			        	$youtube_video_title = get_field('video_title', $videos[0]->ID);
 					 }

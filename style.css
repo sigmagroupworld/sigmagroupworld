@@ -3124,12 +3124,6 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 /* Single Casino Page end */
 
 /* Game provider single start */
-.single-desc {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22px;
-    margin-bottom: 20px;
-}
 .key-metrics-content h3,
 .game-provider-review-content h3 {
     font-size: 22px;
@@ -5636,6 +5630,63 @@ ul.agenda-submenu li a::after{
 	display: none;
 }
 
+.display-type-switcher,
+.display-type-year {
+	margin: 50px 0px
+}
+
+.display-type-switcher ul,
+.display-type-year ul {
+	list-style: none;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-moz-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap
+}
+
+.display-type-switcher ul>li,
+.display-type-year ul>li {
+	background: #dedede;
+	color: #636363;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 7px 33px 7px 22px;
+	margin: 10px;
+	position: relative;
+	cursor: pointer;
+	font-size: 14px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.date-outerbox  h2 {
+    text-align: center;
+    margin: 0 auto 45px auto !important;
+    font-size: 30px;
+    color: #ee1f3d;
+    width: 100%;
+    border-bottom: 1px dotted #d4d4d4;
+}
+
+.display-type-switcher ul>li.active,
+.display-type-year ul>li.active {
+	background: #ed1a3b;
+	color: #fff
+}
 /* End iGathering Calendar */
 
 .page-template-exhibit .suppliers .supplier-single {
@@ -5669,6 +5720,1195 @@ ul.agenda-submenu li a::after{
     margin-right: 10px;
 }
 
+
+/** Single Provider Page */
+
+.certifiedcontent {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap
+}
+
+.certifiedcontent p {
+	flex-basis: 25%;
+	display: flex;
+	align-items: center;
+	text-align: center
+}
+
+.certifiedcontent img {
+	max-width: 120px;
+	height: auto;
+	object-fit: contain;
+	margin: 0 auto
+}
+
+.single-pay-banner {
+	margin-bottom: 40px
+}
+
+.single-pay-banner img {
+	width: 100%;
+	height: auto;
+	object-fit: cover
+}
+
+.sectiontitle {
+	color: #4786be;
+	font-size: 2.2rem;
+	line-height: 1.2;
+	text-transform: uppercase;
+	margin: 20px 0;
+	padding: 0 0 6px 0;
+	border-bottom: 1px solid #506379;
+	display: inline-block;
+	width: 100%
+}
+
+.key_choices {
+	display: flex;
+	flex-direction: row;
+	margin: 15px 0;
+	flex-wrap: wrap
+}
+
+.keyitem {
+	flex-basis: 33.33%;
+	display: flex
+}
+
+.key_choices .keyitem span {
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	padding: 8px 20px 8px 40px;
+	font-family: 'Montserrat';
+	margin: 0;
+	border: 2px solid #0d58a5;
+	border-radius: 20px;
+	position: relative
+}
+
+.key_choices .keyitem span::before {
+	content: '';
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	border: 2px solid #0d58a5;
+	top: -1px;
+	left: -2px;
+	border-radius: 26px;
+	background: #fff
+}
+
+.key_choices .keyitem.selected span::after {
+	content: '';
+	position: absolute;
+	position: absolute;
+	content: '\2714';
+	color: #509647;
+	top: 6px;
+	left: 4px;
+	font-size: 38px;
+	transform: rotate(12deg)
+}
+
+.keyabout {
+	margin: 10px 0;
+	display: inline-block;
+	border: 2px solid silver;
+	border-radius: 10px;
+	padding: 15px
+}
+
+.keyabout p {
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 500;
+	padding: 0;
+	font-family: 'Montserrat';
+	margin: 14px 0 14px 30px;
+	position: relative
+}
+
+.keyabout p:before {
+	content: '';
+	position: absolute;
+	height: 24px;
+	width: 24px;
+	left: -30px;
+	top: 0;
+	background-repeat: no-repeat;
+	background-size: contain
+}
+
+.platform::before {
+	background-image: url(https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Payment%20Provider/platform.png)
+}
+
+.region::before {
+	background-image: url(https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Payment%20Provider/region.png)
+}
+
+.keyabout p span {
+	font-weight: 600;
+	margin-right: 10px
+}
+
+.km_content {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	margin: 20px 0
+}
+
+.km_content .check_block {
+	flex-basis: 50%;
+	margin: 0 0 15px 0
+}
+
+.check_block .title {
+	color: #4786be;
+	text-transform: uppercase;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	padding: 0;
+	font-family: 'Montserrat';
+	margin: 0 8px 10px 0
+}
+
+.check_block .kmitem {
+	color: #000;
+	text-transform: unset;
+	position: relative;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	padding: 0 0 0 25px;
+	font-family: 'Montserrat';
+	margin: 0 0 10px 0
+}
+
+.check_block .kmitem.detail::before {
+	position: absolute;
+	content: '';
+	width: 16px;
+	height: 16px;
+	border: 1px solid #4786be;
+	top: 0;
+	left: 0
+}
+
+.check_block .kmitem.detail.selected::after {
+	position: absolute;
+	content: '\2714';
+	color: #509647;
+	top: 0;
+	left: -5px;
+	font-size: 32px;
+	transform: rotate(18deg)
+}
+
+.relatedcontent {
+	margin: 14px -10px
+}
+
+.relatedarticle {
+	padding: 0 10px
+}
+
+.related-articles .slick-prev::before,
+.awards-won-list .slick-prev::before {
+	content: "\25E3" !important;
+	transform: rotate(45deg)
+}
+
+.related-articles .slick-next::before,
+.awards-won-list .slick-next::before {
+	content: "\25E5" !important;
+	transform: rotate(45deg)
+}
+
+.related-articles .slick-arrow::before,
+.awards-won-list .slick-arrow::before {
+	font-size: 30px !important;
+	color: #4786be !important
+}
+
+.related-articles .slick-arrow,
+.awards-won-list .slick-arrow {
+	left: -10px !important
+}
+
+.related-articles .slick-arrow.slick-next,
+.awards-won-list .slick-arrow.slick-next {
+	right: -10px !important
+}
+
+.awardcontent {
+	margin: 15px 30px
+}
+
+.award-won {
+	padding: 10px
+}
+
+.awardicon {
+	width: 160px;
+	height: 160px;
+	object-fit: contain;
+	margin: 0 auto
+}
+
+.awardtitle {
+	color: #000;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	letter-spacing: .025em;
+	margin: 25px 0 0 0;
+	padding: 20px 15px 0px 15px;
+	text-align: center;
+	hyphens: auto;
+	text-transform: capitalize;
+	border-top: 3px solid #ed885a
+}
+
+.articleimg {
+	width: 100%;
+	height: auto;
+	object-fit: contain
+}
+
+.articletitle {
+	color: #000;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	letter-spacing: .025em;
+	margin: 10px 0 0 0;
+	padding: 0 10px;
+	text-align: center
+}
+
+.getintouchperson {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center
+}
+
+.getintouchperson .persondetail {
+	flex-basis: 68%
+}
+
+.getintouchperson .personimage {
+	flex-basis: 30%
+}
+
+.personimage img {
+	height: 220px;
+	width: 220px;
+	object-fit: cover;
+	border-radius: 100%
+}
+
+.persondetail h4 {
+	font-size: 18px;
+	line-height: 20px;
+	text-transform: uppercase;
+	color: #000;
+	font-family: 'Montserrat';
+	font-weight: 600
+}
+
+.intrestedIn {
+	text-align: center;
+	border: 1px solid #4786be;
+	padding: 20px 0;
+	margin-top: 40px
+}
+
+.intrestedIn a {
+	color: #ed1a3b;
+	text-decoration: none;
+	cursor: pointer
+}
+
+.intrestedIn a img {
+	width: 18px;
+	height: auto
+}
+
+.intrestedIn p {
+	margin: 0;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 18px;
+	font-family: 'Montserrat'
+}
+
+.sectiontitle.to {
+	display: none
+}
+
+@media(max-width:1100px) {
+	.relatedcontent {
+		margin: 14px 20px
+	}
+	.awards-won-list .slick-arrow::before {
+		font-size: 24px !important
+	}
+}
+
+@media(max-width:767px) {
+	.single-desc p,
+	.single-desc {
+		font-size: 14px
+	}
+	.keyitem {
+		flex-basis: 50%;
+		margin-bottom: 15px
+	}
+	.key_choices .keyitem span::before {
+		width: 32px;
+		height: 32px
+	}
+	.key_choices .keyitem.selected span::after {
+		font-size: 32px
+	}
+	.key_choices .keyitem span,
+	.keyabout p,
+	.persondetail h4,
+	.intrestedIn p,
+	.check_block .kmitem,
+	.check_block .title {
+		font-size: 14px;
+		line-height: 16px
+	}
+	.km_content .check_block {
+		flex-basis: 100%
+	}
+	.check_block .kmitem.detail::before {
+		width: 14px;
+		height: 14px
+	}
+	.check_block .kmitem.detail.selected::after {
+		left: 0px;
+		font-size: 20px
+	}
+	.personimage img {
+		height: 120px;
+		width: 120px
+	}
+}
+
+@media(max-width:680px) {
+	.certifiedcontent p {
+		flex-basis: 50%
+	}
+}
+
+.gameReviewContent {
+	text-align: center
+}
+
+.single-gaming-banner {
+	margin-bottom: 40px
+}
+
+.single-gaming-banner img {
+	width: 100%;
+	height: auto;
+	object-fit: cover
+}
+
+
+.sectiontitle {
+	color: #e76124;
+	font-size: 2.2rem;
+	line-height: 1.2;
+	text-transform: uppercase;
+	margin: 20px 0;
+	padding: 0 0 6px 0;
+	border-bottom: 1px solid #42637f;
+	display: inline-block;
+	width: 100%
+}
+
+.lj_text,
+.nogames {
+	display: flex;
+	flex-direction: row;
+	margin: 10px 0
+}
+
+.lj_text p,
+.nogames p,
+.gametypes p,
+.casino_qt p,
+.year_est p {
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	padding: 0;
+	font-family: 'Montserrat';
+	margin: 0 0 10px 0
+}
+
+.lj_text .title,
+.nogames .title,
+.gametypes .title,
+.casino_qt .title,
+.year_est .title {
+	color: #e76124;
+	text-transform: uppercase;
+	margin-right: 8px
+}
+
+.lj_text .detail {
+	color: #000;
+	text-transform: unset
+}
+
+.nogames .detail {
+	color: #4b637c;
+	font-size: 22px;
+	text-transform: unset
+}
+
+.gametypes .detail,
+.casino_qt .detail,
+.year_est .detail {
+	color: #000;
+	text-transform: unset;
+	position: relative;
+	padding-left: 25px
+}
+
+.gametypes .detail::before,
+.casino_qt .detail::before,
+.year_est .detail::before {
+	position: absolute;
+	content: '';
+	width: 16px;
+	height: 16px;
+	border: 1px solid #e76124;
+	top: 0;
+	left: 0
+}
+
+.gametypes .detail.selected::after,
+.casino_qt .detail.selected::after,
+.year_est .detail.selected::after {
+	position: absolute;
+	content: '\2714';
+	color: #509647;
+	top: 0;
+	left: -5px;
+	font-size: 32px;
+	transform: rotate(18deg)
+}
+
+.gametypes,
+.casino_qt,
+.year_est {
+	margin: 10px 0;
+	display: flex;
+	flex-direction: column
+}
+
+.km_content {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap
+}
+
+.km_content>div {
+	flex-basis: 50%
+}
+
+.certifiedcontent {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap
+}
+
+.certifiedcontent p {
+	flex-basis: 25%;
+	display: flex;
+	align-items: center;
+	text-align: center
+}
+
+.certifiedcontent img {
+	max-width: 120px;
+	height: auto;
+	object-fit: contain;
+	margin: 0 auto
+}
+
+.relatedcontent {
+	margin: 14px -10px
+}
+
+.relatedarticle {
+	padding: 0 10px
+}
+
+.related-articles .slick-prev::before,
+.awards-won-list .slick-prev::before {
+	content: "\25E3" !important;
+	transform: rotate(45deg)
+}
+
+.related-articles .slick-next::before,
+.awards-won-list .slick-next::before {
+	content: "\25E5" !important;
+	transform: rotate(45deg)
+}
+
+.related-articles .slick-arrow::before,
+.awards-won-list .slick-arrow::before {
+	font-size: 30px !important;
+	color: #e76124 !important
+}
+
+.related-articles .slick-arrow,
+.awards-won-list .slick-arrow {
+	left: -10px !important
+}
+
+.related-articles .slick-arrow.slick-next,
+.awards-won-list .slick-arrow.slick-next {
+	right: -10px !important
+}
+
+.articleimg {
+	width: 100%;
+	height: auto;
+	object-fit: contain
+}
+
+.articletitle {
+	color: #000;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	letter-spacing: .025em;
+	margin: 10px 0 0 0;
+	padding: 0 10px;
+	text-align: center
+}
+
+.awardcontent {
+	margin: 15px 30px
+}
+
+.award-won {
+	padding: 10px
+}
+
+.awardicon {
+	width: 160px;
+	height: 160px;
+	object-fit: contain;
+	margin: 0 auto
+}
+
+.awardtitle {
+	color: #000;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	letter-spacing: .025em;
+	margin: 25px 0 0 0;
+	padding: 20px 15px 0px 15px;
+	text-align: center;
+	text-transform: capitalize;
+	border-top: 3px solid #ed885a
+}
+
+.gameswrap {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 10px -10px
+}
+
+.games {
+	flex-basis: 20%
+}
+
+.gamesinner {
+	margin: 10px
+}
+
+.gameimg {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	max-height: 240px
+}
+
+.gamelink {
+	color: #fff;
+	background-color: #e76124;
+	font-size: 16px;
+	line-height: 20px;
+	font-family: 'Montserrat';
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 15px 10px;
+	text-align: center
+}
+
+.gameloadmore {
+	text-align: center
+}
+
+.gameloadmore .gamebtn {
+	display: inline-block;
+	color: #e76124;
+	font-weight: bolder;
+	border-radius: 5px;
+	font-size: 26px;
+	padding: 20px 40px 30px 40px;
+	line-height: 30px;
+	text-decoration: none !important;
+	border: 0;
+	transition: .3s all;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+	margin-bottom: 20px
+}
+
+.gameloadmore .gamebtn::after {
+	position: absolute;
+	content: '\25E3';
+	transform: rotate(-45deg);
+	bottom: 0;
+	right: 42%
+}
+
+.gamescontent .gameswrap.load-more-items .games.show-item.on-page {
+	display: block
+}
+
+.gameloadmore {
+	width: 100% !important
+}
+
+.gamescontent .person-box,
+.gamescontent .gameswrap.load-more-items .games.show-item,
+.gamescontent .gamebtn.hide {
+	display: none
+}
+
+.relatedpicsinner {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between
+}
+
+.relatedpicsinner img {
+	flex-basis: 25%;
+	height: auto;
+	object-fit: cover;
+	max-width: 22%;
+	max-height: 200px;
+	object-position: center;
+	margin: 3% 0
+}
+
+.intrestedIn {
+	text-align: center;
+	border: 1px solid #e28357;
+	padding: 20px 0;
+	margin-top: 40px
+}
+
+.intrestedIn a {
+	color: #ed1a3b;
+	text-decoration: none;
+	cursor: pointer
+}
+
+.intrestedIn a img {
+	width: 18px;
+	height: auto
+}
+
+.intrestedIn p {
+	margin: 0;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 18px;
+	font-family: 'Montserrat'
+}
+
+.sectiontitle.art {
+	display: none
+}
+
+.single-desc{
+	margin-bottom: 1em;
+}
+
+@media(max-width:1100px) {
+	.relatedcontent {
+		margin: 14px 20px
+	}
+	.awards-won-list .slick-arrow::before {
+		font-size: 24px !important
+	}
+}
+
+@media(max-width:850px) {
+	.games {
+		flex-basis: 25%
+	}
+	.relatedpicsinner img {
+		flex-basis: 33.33%;
+		max-width: 31%;
+		margin: 2% 0
+	}
+}
+
+@media(max-width:680px) {
+	.certifiedcontent p {
+		flex-basis: 50%
+	}
+	.games {
+		flex-basis: 33.33%
+	}
+	.gameloadmore .gamebtn {
+		font-size: 18px;
+		padding: 16px 30px 18px 30px;
+		line-height: 20px
+	}
+	.km_content,
+	.lj_text {
+		flex-direction: column
+	}
+	.km_content>div {
+		flex-basis: 100%
+	}
+}
+
+@media(max-width:550px) {
+	.games {
+		flex-basis: 50%
+	}
+	.relatedpicsinner img {
+		flex-basis: 50%;
+		max-width: 48%;
+		margin: 2% 0
+	}
+}
+
+.casinocontent {
+	margin: 20px 0
+}
+
+.casinomenu {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	list-style: none
+}
+
+.casinomenu li {
+	flex-basis: 60%;
+	cursor: pointer;
+	border: 1px solid gray;
+	background-color: #1d71b7;
+	border-radius: 0 18px 0 0;
+	z-index: 0
+}
+
+.casinomenu li.active {
+	background-color: #0f4b87;
+	box-shadow: 1px 5px 16px #000;
+	border-radius: 18px 18px 0 0;
+	z-index: 1
+}
+
+.reviewtab.active {
+	margin-right: -10px
+}
+
+.detailtab.active {
+	margin-left: -10px
+}
+
+.reviewtab:not(.active) {
+	margin-right: -10px;
+	padding-right: 10px;
+	border-radius: 18px 0 0 0
+}
+
+.detailtab:not(.active) {
+	margin-left: -10px;
+	padding-left: 10px;
+	border-radius: 0 18px 0 0
+}
+
+.casinomenu li span {
+	padding: 15px 30px;
+	display: flex;
+	align-items: center;
+	color: #fff;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	font-family: 'Montserrat'
+}
+
+.casinomenu li span img {
+	width: 35px;
+	height: 35px;
+	object-fit: contain;
+	margin: 0 5px 0 0
+}
+
+.casinotabcontent {
+	display: block;
+	z-index: 2;
+	position: relative
+}
+
+.casinotabinnercontent {
+	margin: -2px 0px 0 0;
+	background-color: #fff;
+	padding: 30px 20px;
+	border-radius: 4px;
+	border: 1px solid #ccc
+}
+
+.casinotabcontent>div>div {
+	display: none
+}
+
+.casinotabcontent>div>div.active {
+	display: block
+}
+
+.sport-betting-single .casinomenu li.active {
+	background-color: #1200c6
+}
+
+.sport-betting-single .casinomenu li {
+	background-color: #1c08d9
+}
+
+.sport-betting-single .reviewtitle,
+.sport-betting-single .faqtitle {
+	color: #1c08d9
+}
+
+.reviewdesc {
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: 400;
+	font-family: 'Montserrat'
+}
+
+.reviewdesc ul {
+	margin: 0;
+	padding: 0 0 0 14px;
+	font-family: 'Montserrat'
+}
+
+.reviewdesc ul li{
+	list-style-type: disc;
+}
+
+.reviewdesc p {
+	margin: 10px 0
+}
+
+.reviewdesc .hs-embed-wrapper {
+	max-width: 350px !important;
+	max-height: 250px !important
+}
+
+.reviewtitle,
+.faqtitle {
+	font-size: 20px;
+	line-height: 24px;
+	padding: 4px 0;
+	margin: 8px 0 20px 0;
+	border: 0;
+	color: #1d71b7;
+	border-bottom: 1px solid #000;
+	text-transform: uppercase;
+	font-weight: 600
+}
+
+.reviewsfaqs br {
+	display: none
+}
+
+.singlefaq h4 {
+	font-family: 'Montserrat';
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 18px;
+	padding: 0;
+	margin: 10px 0
+}
+
+.reviewsfaqs h4 {
+	text-transform: uppercase
+}
+
+.singlefaq h6 {
+	font-family: 'Montserrat';
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 18px;
+	padding: 0;
+	margin: 0 0 10px 0
+}
+
+.detailblk {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between
+}
+
+.detailblk .title {
+	flex-basis: 25%;
+	padding: 10px 0
+}
+
+.detailblk .content {
+	flex-basis: 72%;
+	padding: 10px 0;
+	height: auto;
+}
+
+.detailblk .title span {
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	font-family: 'Montserrat';
+	margin: 0;
+	display: block;
+	padding: 0 0 0 30px;
+	position: relative
+}
+
+.detailblk .title span:before {
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 25px;
+	height: 25px;
+	background-repeat: no-repeat;
+	background-size: contain
+}
+
+.casino_licences span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/licences.png)
+}
+
+.casino_players span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/player.png)
+}
+
+.casino_deposite span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/method.png)
+}
+
+.casino_withdraw_method span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/method2.png)
+}
+
+.casino_withdraw_limit span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/limit.png)
+}
+
+.casino_type span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/casino.png)
+}
+
+.casino_software span:before {
+	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/software.png)
+}
+
+.casino_licences h4,
+.casino_withdraw_limit h4,
+.casino_software h4 {
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: 400;
+	font-family: 'Montserrat';
+	margin: 0;
+	padding: 0
+}
+
+.innerplayer p,
+.innermethod p {
+	display: block
+}
+
+.innerplayer img {
+	width: 25px !important;
+	height: 25px !important;
+	margin: 0 10px 0 0;
+	float: left
+}
+
+.innermethod img {
+	width: 55px !important;
+	height: auto !important;
+	margin: 0 10px 10px 0;
+	float: left;
+	object-fit: contain
+}
+
+.casino_type ul {
+	list-style: none;
+	-webkit-column-count: 2;
+	-moz-column-count: 2;
+	column-count: 2;
+	column-gap: 20px;
+	margin: 0;
+	padding: 0
+}
+
+.casino_type li a {
+	position: relative;
+	padding: 0 0 0 30px;
+	margin: 5px 0;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 400;
+	font-family: "Montserrat";
+	color: #000;
+	display: inline-block
+}
+
+.casino_type li img {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+	position: absolute;
+	top: 0;
+	left: 0
+}
+
+.casino_type .keyitem:not(.selected) img {
+	filter: grayscale(100%)
+}
+
+.related-article h5 {
+	padding: 5px 0;
+	border-bottom: 2px solid #1d71b7;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: .5px;
+	margin-bottom: 20px;
+	color: #1d71b7;
+	border-color: #1d71b7
+}
+
+.sport-betting-single .related-article h5 {
+	color: #1c08d9;
+	border-color: #1c08d9
+}
+
+.slider-related {
+	display: block !important
+}
+
+.sport-betting-single .slider-related {
+	display: flex !important;
+	flex-wrap: wrap;
+	margin-bottom: 25px
+}
+
+.slider-related article.slider-single-cs a {
+	display: flex;
+	flex-direction: column;
+	max-width: 90%;
+	margin: 0 auto
+}
+
+.slider-single-cs a .thumb {
+	height: 180px !important;
+	width: 100%;
+	width: 100% !important;
+	margin-bottom: 15px
+}
+
+.slider-single-cs a h2 {
+	text-align: center;
+	font-size: 17px
+}
+
+.sport-betting-single .slider-single-cs a h2:hover {
+	color: #390ab2 !important
+}
+
+.sport-betting-single .slider-related .slick-prev:hover,
+.sport-betting-single .slider-related .slick-prev {
+	background-image: url('https://www.sigma.com.mt/hubfs/MicrosoftTeams-image-2-1.png')
+}
+
+.sport-betting-single .slider-related .slick-next:hover,
+.sport-betting-single .slider-related .slick-next {
+	background-image: url('https://www.sigma.com.mt/hubfs/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')
+}
+
+@media(max-width:767px) {
+	.detailblk .title span {
+		padding: 0 0 10px 30px;
+		border-bottom: 1px dotted #000
+	}
+	.casinomenu li span {
+		padding: 10px 20px;
+		font-size: 14px;
+		line-height: 16px
+	}
+	.reviewdesc {
+		font-size: 13px;
+		line-height: 16px
+	}
+	.reviewtitle,
+	.faqtitle {
+		font-size: 18px;
+		line-height: 22px
+	}
+	.singlefaq h4 {
+		font-size: 15px;
+		line-height: 18px
+	}
+	.singlefaq h6 {
+		font-size: 13px;
+		line-height: 16px
+	}
+	.casinotabinnercontent {
+		padding: 20px 10px
+	}
+	.detailblk {
+		flex-wrap: wrap
+	}
+	.detailblk .title,
+	.detailblk .content {
+		flex-basis: 100%
+	}
+}
 
 /***** Color css **/
 

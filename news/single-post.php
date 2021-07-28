@@ -100,40 +100,45 @@ $image_title = get_the_title($image_id);
 				<div class="releted-post">
 					<h3>Related Posts</h3>
 					<div class="listing-wrapper">
-					<?php 
-					/*$post_categories = array();
-					$categories = wp_get_post_terms( get_the_ID(),array( 'news-cat' ) );
-						 foreach($categories as $c){ 
-								$cat = get_category( $c );	
-							 $post_categories[] = $cat->name; 	
-						 }*/
-					$the_query = new WP_Query( array(
-						//'category_name' => 'home-slider', 
-						'post_type' => 'news-items',
-						'posts_per_page' => 6,
-					)); ?>
-					<?php 
-					while ( $the_query->have_posts() ) : $the_query->the_post();?>
-						<article class="post-item">
-							<div class="thumb" style="background-image: url('<?php echo wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ); ?>')">
-								<a href="<?php echo get_permalink();?>"></a>
-							</div>
-							<div class="content-wrapper">
-								<h2><a href="<?php echo get_permalink();?>"><?php the_title(); ?></a></h2>
-								<p>
-									<?php 	
-									$content = get_the_content('read more', true);
-									$content = substr($content,0,250);
-									$content = apply_filters('the_content', $content.'...' );
-									//$content = $content . '<a href="'.get_permalink().'">(Read More...)</a>'; 
-									echo $content;  
-									?>
-								</p>
-							</div>
-						</article>
-					<?php endwhile; ?>
-					<?php wp_reset_postdata(); ?>
-					</div> 
+						<?php 
+						//echo do_shortcode('[sigma-mt-related-articles post_per_page = 10]');
+						/*$post_categories = array();
+						$categories = wp_get_post_terms( get_the_ID(),array( 'news-cat' ) );
+							 foreach($categories as $c){ 
+									$cat = get_category( $c );	
+								 $post_categories[] = $cat->name; 	
+							 }*/
+						$the_query = new WP_Query( array(
+							//'category_name' => 'home-slider', 
+							'post_type' => 'news-items',
+							'posts_per_page' => 6,
+						)); ?>
+						<?php
+						if ( $the_query->have_posts() ) :
+							while ( $the_query->have_posts() ) : $the_query->the_post();?>
+								<a href="'.get_permalink().'"><article class="post-item">
+									<div class="thumb" style="background-image: url('<?php echo wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ); ?>')">
+										<a href="<?php echo get_permalink();?>"></a>
+									</div>
+									<div class="content-wrapper">
+										<h2><a href="<?php echo get_permalink();?>"><?php the_title(); ?></a></h2>
+										<p>
+											<?php 	
+											$content = the_content('read more', true);
+											$content = substr($content,0,50);
+											$content = apply_filters('the_content', $content.'...' );
+											//$content = $content . '<a href="'.get_permalink().'">(Read More...)</a>'; 
+											echo $content;  
+											?>
+										</p>
+									</div>
+								</article></a>
+							<?php endwhile; ?>
+						<?php else : ?>
+							<p><?php __('No News'); ?></p>
+						<?php endif; ?>
+						<?php wp_reset_postdata(); ?>
+					</div>
 				</div>
 			</div>
 			<!-- Middle Detail News end -->

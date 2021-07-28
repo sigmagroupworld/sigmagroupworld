@@ -45,7 +45,8 @@ $europe = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$europe .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -61,7 +62,7 @@ $europe = '<section class="home-blog">
 							$europe .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">
-		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
+		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
 		                    		</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
@@ -104,7 +105,8 @@ $europe = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$europe .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -120,8 +122,8 @@ $europe = '<section class="home-blog">
 							$europe .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">';
-										if(!empty($featured_image)){
-		                        			$europe .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
+										if(!empty($featured_image_thumb)){
+		                        			$europe .= '<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">';
 										}
 		                    		$europe .= '</div>
 		                    		<h2>' . $post->post_title . '</h2>
@@ -185,7 +187,8 @@ $asia = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$asia .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -199,7 +202,7 @@ $asia = '<section class="home-blog">
 							$asia .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">
-		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
+		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
 		                    		</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
@@ -221,7 +224,8 @@ $asia = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$asia .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -235,7 +239,7 @@ $asia = '<section class="home-blog">
 							$asia .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">
-		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
+		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
 		                    		</div>
 		                    		<h2>' . $post->post_title . '</h2>
 								</a>
@@ -295,7 +299,8 @@ $americas = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -309,8 +314,8 @@ $americas = '<section class="home-blog">
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">';
-										if(!empty($featured_image)){
-		                        			$americas .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
+										if(!empty($featured_image_thumb)){
+		                        			$americas .= '<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">';
 										}
 		                    		$americas .= '</div>
 	                    			<h2>' . $post->post_title . '</h2>
@@ -332,7 +337,8 @@ $americas = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -346,8 +352,8 @@ $americas = '<section class="home-blog">
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">';
-										if(!empty($featured_image)){
-		                        			$americas .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
+										if(!empty($featured_image_thumb)){
+		                        			$americas .= '<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">';
 										}
 		                    		$americas .= '</div>
 		                    		<h2>' . $post->post_title . '</h2>
@@ -410,7 +416,8 @@ $africa = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -424,7 +431,7 @@ $africa = '<section class="home-blog">
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">
-		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
+		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
 		                    		</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
@@ -445,7 +452,8 @@ $africa = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -459,7 +467,7 @@ $africa = '<section class="home-blog">
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">
-		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
+		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
 		                    		</div>
 		                    		<h2>' . $post->post_title . '</h2>
 								</a>
