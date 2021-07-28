@@ -5,7 +5,7 @@
  * Created at: 22 May 2021
  */
 /* About template css */
-wp_enqueue_style('directory', get_stylesheet_directory_uri().'/about/css/about.css'); 
+wp_enqueue_style('directory', get_stylesheet_directory_uri().'/about/css/about.css', array(), time()); 
 get_header();
 
 $page_id = $wp_query->get_queried_object()->ID;
@@ -23,6 +23,7 @@ if ($about_banner){ ?>
 					    	<img src="<?php echo $about_banner['europe_logo']['url']; ?>" alt="<?php echo $about_banner['europe_logo']['alt']; ?>">
 						<?php } ?>
 				    </div>
+					<?php if($about_banner['learn_more_button_text'] == '' && $about_banner['agenda_button_text'] == '') { ?>
 		    		<div class="paraAbout">
 		      			<div class="paralocate">
 		      				<?php echo $about_banner['event_date']; ?>
@@ -31,6 +32,19 @@ if ($about_banner){ ?>
 		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['register_button_text']; ?></a>
 		      			</div>
 		    		</div>
+					<?php } else { ?>
+		    		<div class="paraAbout">
+		      			<div class="paralocate" style="width: 100%; text-align: center; margin-bottom: 1em;">
+		      				<?php echo $about_banner['event_date']; ?>
+						</div>
+						<br />
+		      			<div class="parabtn" style="width: 100%;">
+		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['register_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['learn_more_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['learn_more_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['agenda_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['agenda_button_text']; ?></a>
+		      			</div>
+		    		</div>
+					<?php } ?>
 		  		</div>
 		  		<div class="paral_layer parallax" id="paral-0" data-speed="2" style="background-image: url(<?php echo $about_banner['banner_parellax_image_one']; ?>);"></div><!-- 00.0 -->
 		  		<div class="paral_layer parallax settor" id="paral-1" data-speed="11" style="background-image: url(<?php echo $about_banner['banner_parellax_image_two']; ?>);"></div><!-- 12.5 -->
@@ -60,10 +74,9 @@ if ($why_sigma){ ?>
 			      	</div>
 			      	<div class="sigma-about-video">
 			      		<?php 
-			      		$video_cat = sigma_mt_get_video_term($page_id);
-			      		$term_id = $video_cat[0]->term_id;
-			      		?>
-			      		<?php echo do_shortcode('[sigma-mt-about-videos term_id="'.$term_id.'" appearance = "List"]'); ?>
+			      		if($why_sigma['why_sigma_video_shortcode'] != '') {
+							echo do_shortcode($why_sigma['why_sigma_video_shortcode']);
+						} ?>
 			      	</div>
 			    </div>
 		  	</div>
@@ -119,7 +132,9 @@ if ($attendees){ ?>
 <!-- Speakers Section Start -->
 <?php
 $field = get_field('speakers_text', $page_id);
-echo do_shortcode($field['speaker_shortcode']);
+if($field['speaker_shortcode'] != ''){
+	echo do_shortcode($field['speaker_shortcode']);
+}
 ?>
 <!-- Speakers Section End -->
 
@@ -129,6 +144,40 @@ $field = get_field('our_exhibitors_partners', $page_id);
 echo do_shortcode($field['exhibitors_and_partners_shortcode']);
 ?>
 <!-- Exhibitors & Partners Section End -->
+
+<!-- Agenda 1 Section Start -->
+<?php
+$field = get_field('agenda_field_1', $page_id);
+if(!empty($field) && $field['shortcode'] != ''){ ?>
+	<section class="agenda" style="padding: 30px 0;">
+		<div class="container">
+			<div class="about-section-title">
+				<h2 style="color:<?php echo $about_banner['register_color']; ?>"><?php echo $field['title']; ?></h2>
+			</div>
+	<?php echo do_shortcode($field['shortcode']); ?>
+		</div>
+	</section>
+<?php 
+}
+?>
+<!-- Agenda 1 Section End -->
+
+<!-- Agenda 2 Section Start -->
+<?php
+$field = get_field('agenda_field_2', $page_id);
+if(!empty($field) && $field['shortcode'] != ''){ ?>
+	<section class="agenda" style="padding: 30px 0;">
+		<div class="container">
+			<div class="about-section-title">
+				<h2 style="color:<?php echo $about_banner['register_color']; ?>"><?php echo $field['title']; ?></h2>
+			</div>
+	<?php echo do_shortcode($field['shortcode']); ?>
+		</div>
+	</section>
+<?php 
+}
+?>
+<!-- Agenda 2 Section End -->	
 
 <?php ob_start(); $floor_plan = get_field('floor_plan');
 if ($floor_plan){ ?>
@@ -152,6 +201,51 @@ if ($floor_plan){ ?>
 <?php
 }
 ?>
+
+<!-- Sponsorship Section Start -->
+<?php
+$field = get_field('sponsorship', $page_id);
+if(!empty($field) && $field['shortcode'] != ''){ ?>
+	<section class="sponsorship" style="padding: 30px 0;">
+		<div class="container">
+			<div class="about-section-title">
+				<h2 style="color:<?php echo $about_banner['register_color']; ?>"><?php echo $field['title']; ?></h2>
+			</div>
+	<?php echo do_shortcode($field['shortcode']); ?>
+		</div>
+	</section>
+<?php 
+}
+?>
+?>
+<!-- Sponsorship Section End -->
+
+<!-- Past Speakers 2 Section Start -->
+<?php
+$field = get_field('past_speakers_2', $page_id);
+if(!empty($field) && $field['shortcode'] != ''){
+	echo do_shortcode($field['shortcode']);
+}
+?>
+<!-- Past Speakers 2 Section End -->
+
+<!-- Sponsors & Exhibitors Section Start -->
+<?php
+$field = get_field('sponsors_exhibitors', $page_id);
+if(!empty($field) && $field['shortcode'] != ''){ ?>
+	<section class="sponsors_exhibitors" style="padding: 30px 0;">
+		<div class="container">
+			<div class="about-section-title">
+				<h2 style="color:<?php echo $about_banner['register_color']; ?>"><?php echo $field['title']; ?></h2>
+			</div><br />
+	<?php echo do_shortcode($field['shortcode']); ?>
+		</div>
+	</section>
+<?php 
+}
+?>
+?>
+<!-- Sponsors & Exhibitors Section End -->
 
 <?php ob_start(); $explore_all = get_field('explore_all');
 if ($explore_all){ ?>

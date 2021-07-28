@@ -1,4 +1,25 @@
 jQuery(document).ready(function($) {
+
+	/// show div first time
+	/*var isshow = localStorage.getItem('isshow');
+	if (isshow== null) {
+		localStorage.setItem('isshow', 1);
+		// Show popup here
+		setTimeout(function(){
+			$('#letcont').modal('show');
+		},5000);
+	}*/
+
+	// show div first time
+	var isshow = sessionStorage.getItem('isshow');
+	if (isshow== null) {
+		sessionStorage.setItem('isshow', 1);
+		// Show popup here
+		setTimeout(function(){
+			jQuery('#letcont').modal('show');
+		},5000);
+	}
+
 	/**** Scroll To Top ***/
 	$(".scroll-to-top").click(function() {
 	    $("html, body").animate({ 
@@ -6,7 +27,22 @@ jQuery(document).ready(function($) {
 	    }, "slow");
 	    return false;
 	});
+	$(".calendarswitcher").click(function(){
+		$(".calendarswitcher").each(function(){
+			$(this).removeClass('active');
+		});
+		$(this).addClass('active');
+		var attrTarget = $(this).attr("data-target");
+		$(".date-outerbox").each(function(){
+			$(this).hide();
+		});
+		$(".box_" + attrTarget).show();
+	});
 	$(".agenda-header-link").click(function(){
+		$(".agenda-header-link").each(function(){
+			$(this).removeClass('active');
+		});
+		$(this).addClass('active');
 		var attrTarget = $(this).attr("data-target");
 		$(".dailyWrapper").each(function(){
 			$(this).hide();
@@ -54,24 +90,19 @@ jQuery(document).ready(function($) {
 	});
 	/**** Scroll To Top ***/
 
+	$('.img-gallery').slickLightbox({
+		itemSelector        : 'img',
+  		navigateByKeyboard  : true,
+  		src		    : 'src',
+  		//itemSelector: '.img-gallery img'
+	});
+
 	/** Sponsors Exhibitors Toggle ***/
 	openSponsorsExhibitors = (elementId) => {
 	    $('.'+elementId).toggleClass('full');
 	}
 	/** Sponsors Exhibitors Toggle end ***/
 
-	/*
-	$(".hs-menu-item").click(function() {
-		var currentId = $(this).attr('data-opens');
-		alert(currentId);
-	    $(".dailyWrapper").each(function(){ 
-			$(this).hide();
-			if($(this).attr('data-element') == currentId){
-				$(this).show();
-			}
-	    });
-	});
-*/
 	/**** Testimonial Slider ***/
   	$(".testimonial-slider").slick({
 		slidesToShow: 1,

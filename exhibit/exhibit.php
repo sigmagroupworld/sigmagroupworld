@@ -78,7 +78,7 @@ $field = get_field('accordian_section', $page_id);
 			<!-- Networking Igatherings end -->
 
 			<!-- Print Opportunities -->
-	    	<?php 
+	    	<?php
 			echo do_shortcode($field['print_opportunities']['shortcode']);
 			?>
 			<!-- Advisory Opportunities end -->
