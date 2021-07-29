@@ -5,7 +5,7 @@ $taxonomy = 'news-cat';
 $europe = '<section class="home-blog">
 	<div class="container">
 		<div class="home-news">';
-			$news_tags = sigma_mt_get_news_tags_data(1884, $taxonomy, 9);
+			$news_tags = sigma_mt_get_news_tags_data(1884, $taxonomy, 12);
 			$europe .= '<div class="latest-news hp-left">
 				<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' . 
@@ -144,7 +144,7 @@ $europe = '<section class="home-blog">
 $asia = '<section class="home-blog">
 	<div class="container">
 		<div class="home-news">';
-			$news_tags = sigma_mt_get_news_tags_data(1892, $taxonomy, 9);
+			$news_tags = sigma_mt_get_news_tags_data(1892, $taxonomy, 12);
 			$asia .= '<div class="latest-news hp-left">
 				<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' . 
@@ -289,7 +289,7 @@ $americas = '<section class="home-blog">
 				}
 			$americas .= '</div>
 			<div class="affiliate hp-center">';
-				$news_tags = sigma_mt_get_news_tags_data(1914, $taxonomy, 6);
+				$news_tags = sigma_mt_get_news_tags_data(1914, $taxonomy, 5);
 				$americas .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>

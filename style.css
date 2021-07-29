@@ -1801,6 +1801,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .single-sponsor .top h4 {
     color: #848484;
     font-size: 14px;
+    min-height: 40px;
     line-height: 17px;
     font-weight: 400;
     margin: 10px 0;
@@ -1855,7 +1856,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 .platinum .top,
 .platinum .bottom {
-    background-color: #4682b4;
+    background-color: #9CC0D1;
 }
 .gold .top,
 .gold .bottom {
@@ -1884,6 +1885,14 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .food .top,
 .food .bottom {
     background-color: #CCC1D9;
+}
+.chillout .top,
+.chillout .bottom {
+    background-color: #CFA0E9;
+}
+.outdoor .top,
+.outdoor .bottom {
+    background-color: #4682b4;
 }
 .single-package .top {
     position: relative;
@@ -5242,7 +5251,7 @@ ul.agenda-submenu li a::after{
 
 .agenda-roadshow-menu ul li {
 	position: relative;
-	margin: 12px
+	margin: 10px
 }
 
 @media(max-width:440px) {
@@ -5280,6 +5289,11 @@ ul.agenda-submenu li a::after{
 	left: 20px
 }
 
+
+.related-articles .slick-next.slick-arrow {
+    left: unset !important;
+}
+
 /* End Roadshow */
 
 /* Start iGathering Calendar */
@@ -5313,6 +5327,17 @@ ul.agenda-submenu li a::after{
 	.date-box .wrapper .col {
 		font-size: 12px
 	}
+    .single-sponsor {
+        width: -webkit-calc(50% - 20px);
+        width: -moz-calc(50% - 20px);
+        width: calc(50% - 20px);
+    }
+    .roadshow-our-sponsors .supplier-logo .supplier-single {
+        width:  100%;
+    }
+    .sponsor-boxes .bottom .prcie {
+        font-size: 12px;
+    }
 }
 @media(max-width:550px) {
 	.date-box .wrapper .col {
@@ -5465,6 +5490,9 @@ ul.agenda-submenu li a::after{
 }
 .date-box .row-top .title .ribbon.active i {
 	color:#44c156
+}
+.date-box .row-top .title .ribbon.inactive i {
+	color:#ed1a3b
 }
 .date-box .row-top .title .ribbon.disabled i {
 	color:#ed1a3b
@@ -6053,6 +6081,28 @@ ul.agenda-submenu li a::after{
 .sectiontitle.to {
 	display: none
 }
+
+/*******/
+.roadshow-our-sponsors .supplier-logo .supplier-single {
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    height: 120px;
+    margin-bottom: 20px;
+}
+.roadshow-our-sponsors .supplier-logo .supplier-single a {
+    margin: 0 auto;
+}
+.roadshow-our-sponsors .supplier-logo .supplier-single img {
+    max-width: 150px !important;
+    max-height: 100px !important;
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+}
+/*******/
 
 @media(max-width:1100px) {
 	.relatedcontent {

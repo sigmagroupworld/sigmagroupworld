@@ -1506,7 +1506,7 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
     $post_data = array();
     $tag_id = isset($atts['tag_id']) ? $atts['tag_id'] : '';
     $taxonomy = 'sponsoring-cat';
-    $count = isset($atts['count']) ? $atts['count'] : '';
+    $count = isset($atts['count']) ? $atts['count'] : -1;
     $show_tab = isset($atts['show_tab']) ? $atts['show_tab'] : 'yes';
     $tag_category = get_term_by('id', $tag_id, $taxonomy);
     $split_text = explode(" ", $tag_category->name);
@@ -1577,9 +1577,15 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                 $gold_pkg = __( 'Gold Package', 'sigmaigaming' );
                 $outdoor_pkg = __( 'Outdoor Platinum', 'sigmaigaming' );
                 $silver_pkg = __( 'Silver Package', 'sigmaigaming' );
+                $platinum_outdoor_pkg = __( 'Outdoor Platinum Package', 'sigmaigaming' );
                 $platinum_pkg = __( 'Platinum Package', 'sigmaigaming' );
                 $bronze_pkg = __( 'Bronze Package', 'sigmaigaming' );
-                $meeting_pkg = __( 'Meeting Room Package', 'sigmaigaming' );
+                $gold_pkg = __( 'Gold Package', 'sigmaigaming' );
+                $meeting_room_pkg = __( 'Meeting Room Package', 'sigmaigaming' );
+                $standard_pkg = __( 'Standard Package', 'sigmaigaming' );
+                $branding_pkg = __( 'Branding Package', 'sigmaigaming' );
+                $food_court_pkg = __( 'Food Court Sponsor', 'sigmaigaming' );
+                $chillout_pkg = __( 'Chill Out Area', 'sigmaigaming' );
                 if($sponsors_status === $sold_out) {
                     $class = 'sold';
                     $image = '<img src="'.CHILD_DIR.'/exhibit/images/SOLD-OUTv1.png" alt="" class="soldout">';
@@ -1644,6 +1650,27 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                     } else if($package === $silver_pkg) {
                         $class = 'silver';
                         $image = '<img src="'.CHILD_DIR.'/exhibit/images/silver-package-icon.png" alt="" class="soldout">';
+                    } else if($package === $bronze_pkg) {
+                        $class = 'bronze';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/bronze-package-icon.png" alt="" class="soldout">';
+                    } else if($package === $meeting_room_pkg) {
+                        $class = 'meeting';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/platinum-package-pink.png" alt="" class="soldout">';
+                    } else if($package === $standard_pkg) {
+                        $class = 'standard';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/standard-package-icon.png" alt="" class="soldout">';
+                    } else if($package === $branding_pkg) {
+                        $class = 'branding';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/branding-package-icon.png" alt="" class="soldout">';
+                    } else if($package === $food_court_pkg) {
+                        $class = 'food';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/platinum-package-blue-icon-1.png" alt="" class="soldout">';
+                    } else if($package === $chillout_pkg) {
+                        $class = 'chillout';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/platinum-package-pink.png" alt="" class="soldout">';
+                    } else if($package === $platinum_outdoor_pkg) {
+                        $class = 'outdoor';
+                        $image = '<img src="'.CHILD_DIR.'/exhibit/images/platinum-outdoor-package-icon.png" alt="" class="soldout">';
                     } else {
                         $class = '';
                         $image = '';
@@ -1663,6 +1690,9 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
                                     </div>
                                 </div>';
                 }
+				
+				// TODO: remove after data import
+				$content .= '<p>' . $sponsoring->ID . '</p>';
                 $content .= '<!-- The Modal -->
                             <div id="sponsorContent'.$sponsoring->ID.'" class="modal">
                                 <!-- Modal content -->
@@ -2137,29 +2167,30 @@ function sigma_mt_igaming_gallery($atts) {
     $content = '';
     $posts_by_year = [];
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
-    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $post_id = isset($atts['post_id']) ? $atts['post_id'] : '';
     $page_id = $wp_query->get_queried_object()->ID;
     $post_args = array(
       'posts_per_page' => $count,
-      'post_type' => 'gt3_gallery',
+      'post_type' => 'bwg_gallery',
       'order'        => 'DESC',
       'post_status'    => 'publish',
-      'tax_query' => array(
+      /*'tax_query' => array(
                 array(
                     'taxonomy' => 'gt3_gallery_category',
                     'field'    => 'term_id',
                     'terms'    => $term_id,
                     'operator' => 'IN'
                 ),
-            ),
+            ),*/
     );
     $gallery = new WP_Query($post_args);
+    //echo '<pre>'; print_r($gallery);
     if(!empty($gallery)) {
         if ($gallery->have_posts()) {
         while ($gallery->have_posts()) {
             $gallery->the_post();
             $year = get_the_date('Y');
-            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+            $posts_by_year[$year][] = ['ID' => $post_id, 'title' => get_the_title(), 'content' => get_the_content(), 'link' => get_the_permalink(), 'Year' => $year,];
         }
     }
     $content .= '<div class="directory-gallery">
@@ -2171,9 +2202,6 @@ function sigma_mt_igaming_gallery($atts) {
                                 $content .= '<div class="single-gallery">
                                                 <a href="'.get_permalink($post['ID']).'" target="_blank">
                                                     <h3>'.$post['title'].'</h3>
-                                                    <div class="featured-image">
-                                                        <img src="'.$featured_image[0].'" alt="">
-                                                    </div>
                                                 </a>
                                             </div>';
                             }
@@ -2923,7 +2951,7 @@ function sigma_mt_show_sidebar($atts) {
             $title = get_field('title', $post->ID);
             $html = get_field('html', $post->ID);
             $shortcode = get_field('shortcode', $post->ID);
-            $images = get_field('images', $post->ID);
+            $linked_images = get_field('linked_images', $post->ID);
             if($title != ''){
                 $content .= '<div class="blog-sub-title">';
                 $content .= '<h3>' . $title . '</h3>';
@@ -2938,14 +2966,14 @@ function sigma_mt_show_sidebar($atts) {
                 $content .= do_shortcode($shortcode);
                 $content .= '<br /><br />';
             }
-            if(!empty($images)) {
-                foreach($images as $l => $image) {
-                    if(isset($image["link"]) && $image["link"] != ''){
-                        $content .= '<a href="' . $image["link"] . '" target="_blank">';
-                        $content .= '<img class="sidebar-image" src="' . $image["url"] . '" width="100%" />';
+            if(!empty($linked_images)) {
+                foreach($linked_images as $l => $linked_image) {
+                    if(isset($linked_image["link"]) && isset($linked_image["link"]["url"])){
+                        $content .= '<a href="' . $linked_image["link"]["url"] . '" target="_blank">';
+                        $content .= '<img class="sidebar-image" src="' . $linked_image["image"]["url"] . '" width="100%" />';
                         $content .= '</a>';
                     } else {
-                        $content .= '<img src="' . $image["url"] . '" width="100%" />';
+                        $content .= '<img src="' . $linked_image["image"]["url"] . '" width="100%" />';
                     }
                 }
                 $content .= '<br /><br />';
@@ -3139,7 +3167,7 @@ function sigma_mt_calendar_entries($atts) {
     $className = isset($atts['classname']) ? $atts['classname'] : "default";
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     $firstActive = isset($atts['firstActive']) ? $atts['firstActive'] : "false";
-    $sort = isset($atts['sort']) ? $atts['sort'] : '';
+    $sort = isset($atts['sort']) ? $atts['sort'] : 'DESC';
     //  type="igathering" range="future" annualHeaders="false" showFilters="false" firstActive="false" sort="asc"
     $taxonomy = 'tribe_events_cat';
     $post_args = [];
@@ -3283,11 +3311,13 @@ function sigma_mt_calendar_entries($atts) {
 							<div class="col col--2">
 							  '.get_field('price', $post->ID).'
 							</div>';
+							if($range != 'past'){
 							  if(get_field('fully_booked', $post->ID) == true){
 								  $event_data .= '<div class="ribbon inactive "><i class="fa fa-bookmark" aria-hidden="true"></i></div>';
 							  } else {
 								  $event_data .= '<div class="ribbon active "><i class="fa fa-bookmark" aria-hidden="true"></i></div>';
 							  }
+							}
 							$event_data .= '
 						</div>
 					  </div>
@@ -3351,5 +3381,53 @@ function sigma_mt_latest_news($atts) {
         $content .= '<p>' . __('No News') . '</p>';
     }
     $content .= '</div>';
+    return $content;
+}
+
+//shortcode to get Awards
+add_shortcode( 'sigma-mt-deep-tech-insights', 'sigma_mt_deep_tech_insights' );
+function sigma_mt_deep_tech_insights($atts) {
+    $content = '';
+    $term_id = $atts['term_id'];
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $post_tag_args = array(
+        'posts_per_page'    => $count,
+        'post_type'         => 'news-items',
+        'orderby'           => 'post-date',
+        'order'             => 'ASC',
+        'tax_query'         => array(
+            array(
+                'taxonomy' => 'news-cat',
+                'field' => 'term_id',
+                'terms' => $term_id,
+            )
+        )
+    );
+    $get_posts = get_posts($post_tag_args);
+    if(!empty($get_posts)) {
+        $deep_tech_insights = get_field('deep_tech_insights');
+        $content .= '<section class="deep-insights">
+                        <div class="container">
+                            <div class="page-title">
+                                <h2>'.$deep_tech_insights['title'].'</h2>
+                            </div>
+                            <div class="deep-insights-slider1">';
+                                foreach($get_posts as $post) { 
+                                    $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                                    $content .= '<div class="insights-slide">
+                                                    <div class="insight-box">
+                                                        <div class="insight-img">
+                                                            <img src="'.$featured_image[0].'" alt="">
+                                                        </div>
+                                                        <div class="insight-txt">
+                                                            <h3>'.$post->post_title.'</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>';
+                                }
+                            $content .= '</div>
+                        </div>
+                    </section>';
+    }
     return $content;
 }

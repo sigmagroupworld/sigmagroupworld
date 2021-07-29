@@ -10,18 +10,23 @@
 get_header();
 
 $featured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
-$image_id = get_image_id_by_url($featured_image_url[0]);
-$image_info = wp_get_attachment_metadata($image_id);
-$image_title = get_the_title($image_id);
+if ($featured_image_url) {
+    $image_id = get_image_id_by_url($featured_image_url[0]);
+    $image_info = wp_get_attachment_metadata($image_id);
+    $image_title = get_the_title($image_id);
+}
+
 ?>
 
 <section>
 	<!-- News Banner start -->
-	<div class="blog-banner">
-		<a href="#">
-			<img src="<?php echo $featured_image_url[0]; ?>" alt="<?php echo $image_title; ?>">
-		</a>
-	</div>
+    <?php if ($featured_image_url) { ?>
+        <div class="blog-banner">
+            <a href="#">
+                <img src="<?php echo $featured_image_url[0]; ?>" alt="<?php echo $image_title; ?>">
+            </a>
+        </div>
+    <?php } ?>
 	<!-- News Banner end -->
 
 	<!-- News page main section start -->
