@@ -29,7 +29,7 @@ if ($about_banner){ ?>
 		      				<?php echo $about_banner['event_date']; ?>
 		      			</div>
 		      			<div class="parabtn">
-		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['register_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['register_button_text']; ?></a>
 		      			</div>
 		    		</div>
 					<?php } else { ?>
@@ -39,9 +39,9 @@ if ($about_banner){ ?>
 						</div>
 						<br />
 		      			<div class="parabtn" style="width: 100%;">
-		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['register_button_text']; ?></a>
-		        			<a href="<?php echo $about_banner['learn_more_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['learn_more_button_text']; ?></a>
-		        			<a href="<?php echo $about_banner['agenda_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>"><?php echo $about_banner['agenda_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['register_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['learn_more_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['learn_more_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['agenda_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['agenda_button_text']; ?></a>
 		      			</div>
 		    		</div>
 					<?php } ?>
@@ -217,7 +217,6 @@ if(!empty($field) && $field['shortcode'] != ''){ ?>
 <?php 
 }
 ?>
-?>
 <!-- Sponsorship Section End -->
 
 <!-- Past Speakers 2 Section Start -->
@@ -243,7 +242,6 @@ if(!empty($field) && $field['shortcode'] != ''){ ?>
 	</section>
 <?php 
 }
-?>
 ?>
 <!-- Sponsors & Exhibitors Section End -->
 
@@ -271,12 +269,12 @@ if ($explore_all){ ?>
 					        <div class="explore-btns">
 					        	<?php if( !empty( $value['explore_button_one'] ) ){ ?>
 						        	<span>
-							        	<a href="<?php echo $value['explore_button_one_link']; ?>"><?php echo $value['explore_button_one']; ?></a>
+							        	<a href="<?php echo $value['explore_button_one_link']; ?>" target="_blank"><?php echo $value['explore_button_one']; ?></a>
 							        </span>
 						        <?php } ?>
 						        <?php if( !empty( $value['explore_button_two'] ) ){ ?>
 							        <span>
-							          	<a href="<?php echo $value['explore_button_two_link']; ?>"><?php echo $value['explore_button_two']; ?></a>
+							          	<a href="<?php echo $value['explore_button_two_link']; ?>" target="_blank"><?php echo $value['explore_button_two']; ?></a>
 							        </span>
 						        <?php } ?>
 					        </div>

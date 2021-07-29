@@ -65,12 +65,13 @@ $testimonials = get_field('testimonials', $page_id);
 	<!-- about deep tech section end -->
 
 	<!-- deep tech insights section start -->
-	<section class="deep-insights">
+	<?php echo do_shortcode($deep_tech_insights['deep_tech_insights_shortcode']); ?>
+	<?php /*<section class="deep-insights">
 	  <div class="container">
 	    <div class="page-title">
 	      <h2><?php echo $deep_tech_insights['title']; ?></h2>
 	    </div>
-	    <div class="deep-insights-slider">
+	    <div class="deep-insights-slider1">
 	    	<?php foreach($deep_tech_insights['slider'] as $slide) { 
 	    		$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $slide->ID ), 'full' ); ?>
 				<div class="insights-slide">
@@ -86,7 +87,7 @@ $testimonials = get_field('testimonials', $page_id);
 			<?php } ?>
 	    </div>
 	  </div>
-	</section>
+	</section>*/ ?>
 	<!-- deep tech insights section start -->
 
 	<!-- agenda section start -->

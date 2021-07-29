@@ -91,10 +91,10 @@ jQuery(document).ready(function($) {
 	/**** Scroll To Top ***/
 
 	$('.img-gallery').slickLightbox({
-		itemSelector        : 'img',
+		//itemSelector        : 'img',
   		navigateByKeyboard  : true,
   		src		    : 'src',
-  		//itemSelector: '.img-gallery img'
+  		itemSelector: '.img-gallery img'
 	});
 
 	/** Sponsors Exhibitors Toggle ***/

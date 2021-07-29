@@ -66,7 +66,7 @@ $testimonials = get_field('testimonials', $page_id);
 	      </div>
 	    </div>
 	    <div class="page-btn">
-	      <a href="<?php echo $awards['nominate_button']['link']; ?>" style="background: #19548c;"><?php echo $awards['nominate_button']['title']; ?></a>
+	      <a href="<?php echo $awards['nominate_button']['link']; ?>" target="_blank" style="background: #19548c;"><?php echo $awards['nominate_button']['title']; ?></a>
 	    </div>
 	    
 	    <!-- Awards Listing -->
@@ -123,7 +123,7 @@ $testimonials = get_field('testimonials', $page_id);
 	      <img src="<?php echo $charity_auction_items['proceed_text']['logo']; ?>" alt="">
 	      <p><?php echo $charity_auction_items['proceed_text']['description']; ?></p>
 	      <div class="our-btn">
-	        <a href="<?php echo $charity_auction_items['proceed_text']['button']['link']; ?>" style="background: #19548c;"><?php echo $charity_auction_items['proceed_text']['button']['label']; ?></a>
+	        <a href="<?php echo $charity_auction_items['proceed_text']['button']['link']; ?>" target="_blank" style="background: #19548c;"><?php echo $charity_auction_items['proceed_text']['button']['label']; ?></a>
 	      </div>
 	    </div>
 	  </div>

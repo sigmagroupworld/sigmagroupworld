@@ -144,11 +144,44 @@
 }
 
 /*******************/
-	
-.Americas .exhibit-banner.europe::before {
-    background-color: #2a9354;
+.Asia .exhibit-banner.europe::before {
+	background-color: #b52424;
+}
+.Asia .exhibit-banner.europe {
+	background: -webkit-linear-gradient(left,#b52424 0%,#b52424 48%,#efc5cd 48%,#efc5cd 100%) !important;
+	background: -moz-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#efc5cd 48%,#efc5cd 100%) !important;
+	background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#efc5cd 48%,#efc5cd 100%) !important;
+	background: linear-gradient(90deg,#b52424 0%,#b52424 48%,#efc5cd 48%,#efc5cd 100%) !important;
+}
+.Asia .toggle h3, .Asia .toggle_link h3, .Asia .all-sell i.icon, .Asia .all-sell i.icon_link {
+    color: #b52424;
 }
 
+.Americas .exhibit-banner.europe::before {
+	background-color: #2a9354;
+}
+.Americas .exhibit-banner.europe {
+    background: -webkit-linear-gradient(left,#2a9354 0%,#2a9354 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+    background: -moz-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+    background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+    background: linear-gradient(90deg,#2a9354 0%,#2a9354 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+}
+.Americas .toggle h3, .Americas .toggle_link h3, .Americas .all-sell i.icon, .Americas .all-sell i.icon_link {
+    color: #2a9354;
+}
+
+.Africa .exhibit-banner.europe::before {
+	background-color: #eba80d;
+}
+.Africa .exhibit-banner.europe {
+    background: -webkit-linear-gradient(left,#eba80d 0%,#eba80d 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+	background: -moz-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+	background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+	background: linear-gradient(90deg,#eba80d 0%,#eba80d 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+}
+.Africa .toggle h3, .Americas .toggle_link h3, .Americas .all-sell i.icon, .Americas .all-sell i.icon_link {
+    color: #eba80d;
+}
 /*********************/
 
 /* Responsive Css Start */

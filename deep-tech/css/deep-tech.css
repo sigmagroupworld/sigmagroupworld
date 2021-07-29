@@ -262,6 +262,17 @@
     color: #ed1a3b;
 }
 /* our experts section end */
+
+.deep-insights-slider1 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.deep-insights-slider1 .insights-slide {
+    width: 50%;
+    margin-bottom: 25px;
+}
+
 /* Responsive Css Start */
 @media(max-width:1150px) {
     .deep-banner-img:after {
