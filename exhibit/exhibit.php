@@ -109,7 +109,7 @@ $field = get_field('accordian_section', $page_id);
 	<!-- Contact Us section start -->
 	<?php
 	$field = get_field('contact_us', $page_id);
-	echo do_shortcode('[sigma-mt-people-lists sort_ordering="ASC" ordering_by="sort_order_exhibit_pages" term_id = "1171" person_name = "YES" person_image = "YES" person_position = "YES" person_company = "no" person_language = "YES" person_email= "YES" person_phone= "YES" person_skype= "YES" appearance = "Regular" color="'.$field['contact_us_color'].'" ]');
+	echo do_shortcode('[sigma-mt-people-lists order_custom_field="YES" sort_ordering="ASC" ordering_by="sort_order_exhibit_pages" term_id = "1171" person_name = "YES" person_image = "YES" person_position = "YES" person_company = "no" person_language = "YES" person_email= "YES" person_phone= "YES" person_skype= "YES" appearance = "Regular" color="'.$field['contact_us_color'].'" ]');
 	?>
 	<!-- Contact Us section end -->
 
