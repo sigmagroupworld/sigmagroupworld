@@ -24,10 +24,10 @@ $detail = get_field('detail_content', $post_id);
 	    <div class="casino-detail">
 	    	<div class="tab">
   				<button class="tablinks active review" onclick="opendetails(event, 'casino-review')">
-  					<?php _e( 'CASINO REVIEW', 'sigmaigaming' ); ?>
+  					<?php (get_the_terms( $post_id, 'casinos-cat' )[0]->name  == 'Casino' ? _e( 'Casino Review', 'sigmaigaming' ) :  _e( 'Sports Betting Site Review', 'sigmaigaming' )); ?>
   				</button>
   				<button class="tablinks details" onclick="opendetails(event, 'casino-details')">
-  					<?php _e( 'casino details', 'sigmaigaming' ); ?>
+  					<?php (get_the_terms( $post_id, 'casinos-cat' )[0]->name == 'Casino' ? _e( 'Casino Details', 'sigmaigaming' ) :  _e( 'Sports Betting Site Details', 'sigmaigaming' )); ?>
   				</button>
 			</div>
 			<div class="casino-all">

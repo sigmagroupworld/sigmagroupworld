@@ -701,3 +701,125 @@ function sigma_mt_taxonomies_award(){
 		)
 	);
 }
+
+
+// create a Custom post type Gallery
+add_action('init', 'sigma_mt_gallery_custom_posts');
+function sigma_mt_gallery_custom_posts() {
+	register_post_type('gallery-items', array(
+		'labels' => array(
+			'name' => __('Gallery', 'sigmaigaming'),
+			'singular_name' => __('Galleries', 'sigmaigaming'),
+			'menu_name' => __('Gallery', 'sigmaigaming'),
+			'add_new' => __('Add Gallery Item', 'sigmaigaming'),
+			'add_new_item' => __('Add Gallery Item', 'sigmaigaming'),
+			'edit_item' => __('Edit Gallery Item', 'sigmaigaming'),
+			'new_item' => __('Gallery Items', 'sigmaigaming'),
+			'view_item' => __('View Gallery Items', 'sigmaigaming'),
+			'search_items' => __('Search Gallery Items', 'sigmaigaming'),
+			'not_found' => __('No Gallery Items found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Gallery Items found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'gallery'),		
+		'supports' => array( 'title', 'thumbnail', 'custom-fields' ),
+	));
+}
+
+/*add_action( "admin_init", "admin_init_gallery_meta" );
+function admin_init_gallery_meta(){
+	// add_meta_box("gallery-meta", "Gallery Options", "meta_options", "gallery", "side", "low");	
+}
+
+function meta_options(){
+    global $post;
+    $custom = get_post_custom( $post->ID );
+    $gallery_url = $custom["gallery_url"][0];
+	echo '<label>Gallery URL: </label><input name="gallery_url" value="'.$gallery_url.'" ';
+}
+ 
+add_action( 'save_post', 'save_gallery_meta_fields' );
+function save_gallery_meta_fields(){
+    global $post;
+    // update_post_meta( $post->ID, "gallery_url", $_POST["gallery_url"] );
+}*/
+
+// create a Custom post taxonomy for Gallery post
+add_action( 'init', 'sigma_mt_taxonomies_gallery', 0 );
+function sigma_mt_taxonomies_gallery(){
+	register_taxonomy('gallery-cat', array('gallery-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Gallery Categories', 'sigmaigaming'),
+				'singular_name' => __('Gallery Category', 'sigmaigaming'),
+				'search_items' => __('Search Gallery Category', 'sigmaigaming'),
+				'all_items' => __('All Gallery Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Gallery Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Gallery Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Gallery Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Gallery Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Gallery Category', 'sigmaigaming'),
+				'new_item_name' => __('New Gallery Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'show_in_nav_menus' => true,
+			'show_in_rest' => true,
+			'rewrite' => array('slug' => 'latest-gallery')
+		)
+	);
+}
+
+
+// Shortcode for iGaming Gallery
+add_shortcode( 'sigma-mt-igaming-gallery-new', 'sigma_mt_igaming_gallery_new' );
+function sigma_mt_igaming_gallery_new($atts) {
+    global $wp_query;
+    $content = '';
+    $posts_by_year = [];
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $page_id = $wp_query->get_queried_object()->ID;
+    $post_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'gallery-items',
+      'order'        => 'DESC',
+      'post_status'    => 'publish',
+      'tax_query' => array(
+                array(
+                    'taxonomy' => 'gallery-cat',
+                    'field'    => 'term_id',
+                    'terms'    => $term_id,
+                    'operator' => 'IN'
+                ),
+            ),
+    );
+    $gallery = new WP_Query($post_args);
+    //echo '<pre>'; print_r($gallery);
+    if(!empty($gallery)) {
+        if ($gallery->have_posts()) {
+        while ($gallery->have_posts()) {
+            $gallery->the_post();
+            $year = get_the_date('Y');
+            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+        }
+    }
+    $content .= '<div class="directory-gallery">
+                    <div class="all-gallery gallery-directories">';
+                        foreach($posts_by_year as $posts) {
+                            $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
+                            foreach($posts as $post) {
+                                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
+                                $content .= '<div class="single-gallery">
+                                                <a href="'.get_permalink($post['ID']).'" target="_blank">
+                                                    <h3>'.$post['title'].'</h3>
+                                                    <div class="featured-image">
+                                                        <img src="'.$featured_image[0].'" alt="">
+                                                    </div>
+                                                </a>
+                                            </div>';
+                            }
+                        }
+                    $content .= '</div>
+                </div>';
+    }
+    return $content;
+}

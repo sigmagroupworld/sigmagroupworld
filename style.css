@@ -1842,6 +1842,28 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .single-sponsor .bottom.sold {
     background-color: #ed1a3b;
 }
+.itemcontent {
+    display: none;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 4px 4px 6px #b7b7b7;
+    margin-top: 15px;
+    color: #000;
+    font-size: 14px;
+    line-height: 20px;
+    background: #f2f2f2;
+}
+.itemcontent ul {
+    padding-left: 24px;
+    margin: 5px 0 20px 0;
+}
+.itemcontent ul,
+.itemcontent li {
+    list-style: disc;
+}
+.itemcontent li {
+    margin-bottom: 10px
+}
 /* sponsor boxes end */
 /* packages boxes start */
 .all-packages {
@@ -5144,6 +5166,93 @@ ul.agenda-submenu li a::after{
 	font-weight: 600
 }
 
+/***********************/
+
+.gallery-album {
+    margin-top: 40px;
+}
+.gallery-album .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+.gallery-album .single-gallery {
+    max-width: 33.33333%;
+    padding: 1%;
+}
+.gallery-album .gallery-header h3 {
+    color: #3a3a3a;
+    font-size: 20px;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+.gallery-album .gallery-header::before {
+    content: '';
+    width: 10px;
+    height: 3px;
+    background-color: #fff;
+    display: block;
+    position: absolute;
+    right: 0px;
+    bottom: 4px;
+}
+.gallery-album .gallery-header::after {
+    content: '';
+    height: 1px;
+    background-color: #dedede;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -moz-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    display: block;
+}
+.gallery-album .gallery-header .left {
+    display: inline-block;
+}
+.gallery-album .gallery-header .right {
+    float: right;
+}
+.gallery-album .gallery-header a.back-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ed1a3b;
+}
+.gallery-album .back-button-bottom {
+    display: inline-block;
+    color: #fff;
+    font-weight: 400;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 16px 30px;
+    line-height: 1.2;
+    text-decoration: none !important;
+    border: none;
+    -webkit-transition: 0.3s all;
+    -o-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+    transition: 0.3s all;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    background: #6fd13b;
+    margin-bottom:  40px;
+}
+.gallery-album .back-button-bottom a {
+    margin: 0 auto;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+//********************/
+
 @media(max-width:1025px) {
 	.chairpersonimg img {
 		height: 75px;
@@ -5173,6 +5282,9 @@ ul.agenda-submenu li a::after{
 		width: 45px;
 		height: 45px
 	}
+    #gallery-page-tab .elementor-tabs .elementor-tabs-wrapper {
+        display:  inline-block;
+    }
 }
 
 @media(max-width:650px) {
@@ -5216,6 +5328,21 @@ ul.agenda-submenu li a::after{
 	.agendaitemrightinner {
 		padding-left: 15px
 	}
+    .gallery-album .single-gallery {
+        max-width: 100%;
+        padding: 1%;
+    }
+    #gallery-page-tab .elementor-tabs .elementor-tabs-wrapper {
+        display:  inline-block;
+    }
+    .gallery-album .gallery-header .right {
+        float: none;
+    }
+    .directory-gallery .single-gallery {
+        width: 100%;
+        display: inline-block;
+        padding: 20px;
+    }
 }
 
 .agenda-roadshow-menu ul {
@@ -5333,7 +5460,7 @@ ul.agenda-submenu li a::after{
         width: calc(50% - 20px);
     }
     .roadshow-our-sponsors .supplier-logo .supplier-single {
-        width:  100%;
+        width:  40%;
     }
     .sponsor-boxes .bottom .prcie {
         font-size: 12px;
@@ -5343,6 +5470,11 @@ ul.agenda-submenu li a::after{
 	.date-box .wrapper .col {
 		font-size: 10px
 	}
+}
+@media(max-width:400px) {
+    .roadshow-our-sponsors .supplier-logo .supplier-single {
+        width:  100%;
+    }
 }
 .date-box .wrapper .col:after {
 	display:block;
@@ -5595,9 +5727,29 @@ ul.agenda-submenu li a::after{
 	font-size:18px;
 	font-weight:600
 }
-.date-box .row-bottom .description>div .bot .status {
+.date-box .row-bottom .description>div .bot .sponsorship {
 	color:#44c156;
 	font-size:14px
+}
+.date-box ul li,
+.date-box p {
+	margin-bottom: 1em;
+}
+.date-box ul li {
+	font-family: "Montserrat";
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+.igathering_img{
+	width: 151px; 
+	display: inline;
+	border: 2px solid white !important;
+    margin: 6px 1px 5px 6px;
+    padding: 5px 5px 5px 5px;
+}
+.ntw_item_main_title_row{
+	line-height: 1.5; text-align: center;
 }
 .date-categories:not(.filters) {
 	position:relative
@@ -6101,6 +6253,7 @@ ul.agenda-submenu li a::after{
     object-fit: contain;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 /*******/
 
