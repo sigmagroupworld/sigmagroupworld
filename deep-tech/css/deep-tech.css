@@ -1,0 +1,419 @@
+/* banner section start */
+.deep-tech-banner {
+    margin: 50px 0;
+}
+.deep-banner-img {
+    position: relative;
+}
+.deep-banner-img:before,
+.deep-banner-img:after {
+    content: '';
+    position: absolute;
+    height: 180px;
+    width: 180px;
+    z-index: 1;
+}
+.deep-banner-img:before {
+    background-image: url(https://www.sigma.com.mt/hubfs/DeepTech/elements/3d-2.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    bottom: -10%;
+    left: -6% !important;
+}
+.deep-banner-img:after {
+    background-image: url(https://www.sigma.com.mt/hubfs/DeepTech/elements/3d-1.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: -14%;
+    right: 5% !important;
+    
+}
+#page .deep-tech-template .testimonial-slider .slick-arrow {
+    background-color: #ed1a3b;
+}
+/* banner section end */
+/* contact links section start */
+.contact-links {
+    padding: 30px 0;
+}
+.all-links {
+    display: flex;
+    justify-content: space-between; 
+}
+.all-links a {
+    padding: 15px 30px;
+    border: 2px solid #ed1a3b;
+    border-radius: 40px;
+    display: inline-block;
+    color: #ed1a3b;
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    transition: all .4s;
+    margin: 10px;
+    width: calc(33.33% - 10px);
+}
+.all-links a:hover,
+.all-links a:focus,
+.all-links a:active {
+    background: linear-gradient(45deg,#d80032 0%,#ff4c5c 40%,#ff4c5c 60%,#d80032 100%) !important;
+    color: #fff !important;
+}
+/* contact links section end */
+/* about deep tech section start */
+.about-deep {
+    padding: 30px 0 60px 0;
+    overflow: hidden;
+}
+.page-title h2 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 10px 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #415095;
+    margin-bottom: 20px;
+    color: #ed1a3b;
+}
+.sub-txt p {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    line-height: 26px;
+    color: #000;
+    margin-bottom: 20px;
+}
+.sub-txt p a {
+    color: #ff0201;
+    text-decoration: underline;
+}
+.icon-box {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -20px;
+    position: relative;
+}
+.icon-box:after {
+    position: absolute;
+    content: '';
+    bottom: -12%;
+    right: -12%;
+    background-image: url(../images/dotted-blue.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    height: 250px;
+    width: 250px;
+}
+.icon-box-inner {
+    width: -webkit-calc(33.33% - 20px * 2);
+    width: -moz-calc(33.33% - 20px * 2);
+    width: calc(33.33% - 20px * 2);
+    margin: 20px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 4px 5px 6px 0px #aaa;
+    border-radius: 25px;
+    border: 1px solid #fff;
+    padding: 15px 18px;
+}
+.icon-img {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+.icon-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* about deep tech section end */
+
+/* our experts section start */
+.all-experts .slick-track {
+    display: flex;
+}
+.all-experts.slick-initialized .slick-slide {
+    float: none;
+    height: auto;
+    box-shadow: 3px 3px 12px #7a7a7a;
+    margin: 15px;
+}
+.our-experts {
+    padding: 60px 0;
+}
+.expert-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    background: url(../images/expert-background.png);
+    text-align: center;
+    padding: 20px 10px;
+}
+.expert-img img {
+    width: 155px;
+    height: 155px;
+    border: 4px solid #fff;
+    background-size: cover;
+    border-radius: 100%;
+    margin: 0 auto;
+    background-position: center center;
+    object-fit: cover;
+}
+.expert-info {
+    text-align: center;
+    padding: 0 10px 20px 10px;
+}
+.expert-info h3 {
+    font-size: 14px;
+    color: #000;
+    font-family: 'Montserrat';
+    margin: 2px 0 0;
+    letter-spacing: .01em;
+    font-weight: 500;
+    font-style: italic;
+}
+.expert-box h2 {
+    color: #000;
+    font-family: 'Montserrat';
+    text-transform: capitalize;
+    font-size: 16px;
+    margin: 20px 0 5px;
+    letter-spacing: .01em;
+    font-weight: 600;
+}
+.expert-logo {
+    height: 70px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.expert-logo img {
+    max-height: 70px;
+    max-width: 200px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+.expert-slider::before {
+    content: ;
+    content: '';
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    background-image: url(../images/3d-3.jpg);
+    bottom: -11%;
+    left: -6%;
+    background-size: contain;
+}
+.expert-slider .slick-list {
+    background: #fff;
+}
+.expert-slider .slick-next, 
+.expert-slider .slick-prev,
+.deep-insights-slider .slick-next,
+.deep-insights-slider .slick-prev {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 48%;
+    background-color: transparent !important;
+    border-radius: 0px;
+    border: 0;
+    outline: 0;
+    z-index: 1;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    transform: unset;
+    background-position: center;
+    background-size: contain;
+}
+.expert-slider .slick-next:before, 
+.expert-slider .slick-prev:before,
+.deep-insights-slider .slick-next:before,
+.deep-insights-slider .slick-prev:before {
+    display: none;
+}
+.expert-slider .slick-next,
+.deep-insights-slider .slick-next {
+    right: -25px !important;
+    background-image: url(../images/arrow-right.png);
+}
+.expert-slider .slick-prev,
+.deep-insights-slider .slick-prev {
+    left: -25px !important;
+    background-image: url(../images/arrow-left.png);
+}
+.our-experts .about-section-title h2 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 10px 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #415095;
+    margin-bottom: 20px;
+    color: #ed1a3b;
+}
+/* our experts section end */
+
+/* Responsive Css Start */
+@media(max-width:1150px) {
+    .deep-banner-img:after {
+        top: -8%;
+        height: 120px;
+        width: 120px;
+    }
+    .deep-banner-img:before {
+        bottom: -6%;
+        height: 120px;
+        width: 120px;
+    }
+    .expert-slider .slick-next,
+    .deep-insights-slider .slick-next {
+        right: -15px !important;
+    }
+    .expert-slider .slick-prev,
+    .deep-insights-slider .slick-prev {
+        left: -15px !important;
+    }
+}
+@media(max-width:1024px) {
+    .client-image {
+        width: 150px;
+        height: 150px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev {
+        left: 4%;
+    }
+    .testimonial-slider .slick-arrow.slick-prev, 
+    .testimonial-slider .slick-arrow.slick-next {
+        height: 25%;
+        top: 46%;
+    }
+    .testimonial-slider .slick-arrow::before {
+        width: 30px;
+        height: 30px;
+        background-position: left;
+        margin-left: 10px;
+    }
+}
+@media(max-width:850px) {
+    .deep-banner-img:after {
+        top: -6%;
+        right: -1.5%;
+        height: 80px;
+        width: 80px;
+    }
+    .deep-banner-img:before {
+        bottom: -6%;
+        height: 80px;
+        width: 80px;
+    }
+}
+@media(max-width:767px) {
+    
+    .sub-txt p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .client-image {
+        width: 125px;
+        height: 125px;
+        margin-right: 0;
+        margin-bottom: -60px;
+    }
+    .client-txt {
+        width: 100%;
+    }
+    .testimonial-inner {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev, 
+    .testimonial-slider .slick-arrow.slick-next {
+        top: unset;
+        bottom: -25px;
+        height: auto;
+        width: auto;
+        padding: 5px;
+    }
+    .testimonial-slider .slick-arrow.slick-prev {
+        left: 40%;
+    }
+    .testimonial-slider .slick-arrow.slick-next {
+        right: 40%;
+    }
+    .testimonial-slider .slick-arrow::before {
+        width: 20px;
+        height: 20px;
+        padding-left: 0;
+        margin-left: 4px;
+    }
+    .testimonial-slider .slick-list {
+        width: 100%;
+    }
+    .testimonial-info p {
+        margin-bottom: 10px;
+    }
+    .testimonial {
+        margin-bottom: 60px;
+    }
+    .testimonial-info {
+        padding-left: 20px;
+    }
+    .testimonial-title {
+        padding-left: 150px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .deep-banner-img:after {
+        top: -8%;
+        height: 60px;
+        width: 60px;
+    }
+    .deep-banner-img:before {
+        bottom: -8%;
+        height: 60px;
+        width: 60px;
+    }
+    .all-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .all-links a {
+        font-size: 14px;
+        padding: 12px 6px;
+        margin: 6px;
+        width: calc(48% - 10px);
+    }
+    .contact-links {
+        padding: 0;
+    }
+    .icon-box-inner {
+        width: -webkit-calc(50% - 20px * 2);
+        width: -moz-calc(50% - 20px * 2);
+        width: calc(50% - 20px * 2);
+    }
+    .single-partner {
+        width: 22%; 
+    }
+    .all-partners {
+        justify-content: flex-start;
+    }
+}
+@media(max-width:580px) {
+    .icon-box-inner,
+    .single-partner {
+        width: 100%;
+    }
+}
+
+/* Responsive Css End */

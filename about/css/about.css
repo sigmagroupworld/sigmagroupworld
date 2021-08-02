@@ -1,0 +1,542 @@
+.about-template section:last-child {
+  padding-bottom: 50px;
+}
+/* Banner css start */
+section,
+.newsletter,
+.about-template {
+	position: relative;
+	z-index: 20;
+  background-color: #fff;
+}
+footer section {
+  background-color: transparent;
+}
+section.about-banner {
+	z-index: 19;
+}
+.paral {
+  position: relative;
+  z-index: 10;
+}
+.paral, .paral_layer {
+  height: 100vh;
+  height: calc( 100vh - 100px );
+}
+.paral_layer {
+  background-position: bottom center;
+  background-size: 100% 75vh;
+  background-repeat: repeat-x;
+  width: 100%;
+  position: absolute;
+}
+.paral_layer.parallax {
+  position: fixed;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+#parallax {
+  display: block;
+}
+#paral-0 {
+  background-repeat: repeat;
+  background-size: 100px 84px;
+  background-color: rgba(255,255,255,0.2);
+}
+.parallax-content {
+  position: absolute;
+  z-index: 22;  
+  width: 100%;
+  text-align: center;
+  padding: 50px 0 0 0;
+}
+.paraLogo {
+  width: 250px;
+  height: auto;
+  margin: 0 auto;
+}
+.paraLogo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.paraAbout {
+  max-width: 500px;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.paralocate p {
+  width: 100%;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 700;
+  font-family: 'Montserrat';
+  margin: 0;
+  color: #333;
+}
+.parabtn a{
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: 'Montserrat';
+}
+/* Banner css end */
+
+/* why-sigma section css start */
+.why-sigma {
+	padding: 50px 0 30px 0;
+}
+.about-title h2 {
+	font-size: 48px;
+	color: #fff;
+	text-transform: uppercase;
+	border-bottom: 4px solid #fff;
+	padding: 10px 0;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+.about-sigma-content {
+	display: flex;
+	justify-content: space-between;
+}
+.sigma-about-txt {
+	width: 62%;
+}
+.sigma-about-txt p,
+.sigma-about-txt p a {
+	font-size: 14px;
+	color: #fff;
+	font-weight: 400;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+.sigma-about-txt p a {
+	text-decoration: underline;
+}
+.sigma-about-txt p a:hover,
+.about-section-title p a:hover {
+	opacity: 0.8;
+}
+.sigma-about-txt p:last-child {
+	margin-bottom: 0;
+}
+.sigma-about-video {
+	width: 31%;
+}
+.why-sigma .sigma-about-video iframe {
+		width: 560px;
+		height: 200px;
+		border: none;
+		margin-bottom: 30px;
+	}
+/* why-sigma section css end */
+
+/* Supported section css start */
+.supported,
+.speakers,
+.attendees,
+.exhibitors {
+	padding: 30px 0;
+	background-color: #fff;
+}
+.about-template .about-section-title h2 {
+	color: #2364ae;
+	font-family: "Montserrat";
+} 
+.about-section-title h2 {
+	font-size: 22px;
+	font-weight: 600;
+	line-height: 26px;
+	padding: 10px 0;
+	border-bottom: 2px solid #585c59;
+	margin-bottom: 0;
+	text-transform: uppercase;
+}
+.supported-logo,
+.all-speakers,
+.all-exhibitors {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -20px;
+}
+.supported-single,
+.single-speaker {
+	width: calc(25% - 20px * 2);
+	margin: 20px;
+	border: 1px solid #c4c4c4;
+  padding: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  text-align: center;
+}
+.supported-single img {
+	height: 50px;
+	width: auto;
+	object-fit: contain;
+}
+
+.load-people {
+	text-align:  center;
+}
+#load-more {
+	background: #ed1a3b;
+	border-color: #ed1a3b;
+	padding: 10px 28px;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: 400;
+	line-height: 1.2;
+	transition: .3s all;
+	cursor: pointer;
+	font-family: "Montserrat";
+	font-size: 14px;
+}
+#load-more:hover {
+	background: linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+}
+/* Supported section css end */
+
+/* Attendees section css Start */
+.attendees-content {
+	text-align: center;
+}
+.attendees-content .for-mobile {
+	display: none;
+}
+/* Attendees section css end */
+
+/* Speakers section css Start */
+.about-section-title p {
+	margin: 10px 0 20px 0;
+	color: #5e5e5e;
+	font-size: 14px;
+	font-weight: 400;
+}
+.about-section-title p a {
+	color: #ed1a3b;
+}
+.single-speaker {
+	padding: 20px;
+	text-align: center;
+}
+.single-speaker img {
+	width: 140px;
+  height: 140px;
+  margin: 0 auto;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.single-speaker h3 {
+	color: #212121;
+  font-size: 16px;
+  margin: 20px 0 15px;
+  line-height: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.single-speaker h4 {
+	font-size: 12px;
+  color: #878787;
+  line-height: 14px;
+  font-weight: 600;
+}
+.single-speaker p {
+	font-size: 14px;
+  color: #212121;
+  line-height: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+.load-btn {
+	text-align: center;
+	width: 100%;
+}
+.load-btn a {
+	background: #ed1a3b;
+  border-color: #ed1a3b;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 5px;
+  padding: 10px 28px;
+  line-height: 16px;
+  display: inline-block;
+  position: relative;
+  z-index: 9;
+}
+.load-btn a:after {
+	content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  opacity: 0;
+  -webkit-transition: opacity .3s linear;
+  -o-transition: opacity .3s linear;
+  -moz-transition: opacity .3s linear;
+  transition: opacity .3s linear;
+  background: -webkit-linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+  background: -moz-linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+  background: -o-linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+  background: linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+}
+.load-btn a:hover:after {
+	opacity: 1;
+}
+/* Speakers section css end */
+
+/* Exhibitors & Partners section css Start */
+.single-exhibitor {
+	width: calc(20% - 20px * 2);
+	margin: 35px 20px;
+	text-align: center;
+	align-items: center;
+	display: flex;
+} 
+.single-exhibitor a:focus {
+	background: transparent !important;
+}
+/* Exhibitors & Partners section css End */
+
+/* Floor Plan Section Css start */
+.iframe-plan {
+  text-align: center;
+  padding-top: 20px;
+}
+.some-explore {
+  display: flex;
+  flex-wrap: wrap;
+}
+.single-explore {
+  width: calc(50% - 20px * 2);
+  margin: 10px 20px 30px 20px;
+  border: 1px solid #c4c4c4;
+  padding: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  text-align: center;
+}
+.single-explore .about-section-title h2 {
+  margin-bottom: 20px;
+}
+.single-explore .about-section-title h2:empty {
+  display: none;
+}
+.explore-btns span a:empty {
+  display: none;
+}
+.explore-sub-txt p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.explore-img {
+  margin-bottom: 20px;
+}
+.explore-btns {
+  display: flex;
+  justify-content: center;
+}
+.explore-btns span {
+  display: block;
+  padding: 0 10px;
+  max-width: 225px;
+  width: 100%;
+}
+.explore-btns a {
+  display: block;
+  border: 1px solid #ed1a3b;
+  padding: 15px 30px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ed1a3b;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  transition: all .4s;
+  background: #fff;
+  color: #ed1a3b;
+  border-radius: 40px;
+  max-width: 250px;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
+.explore-btns a:hover,
+.explore-btns a:active,
+.explore-btns a:focus {
+  background: #ed1a3b;
+  color: #fff;
+}
+/* Floor Plan Section Css end */
+
+/*What Our Attendees section css start*/
+.our-attendees .about-section-title {
+  margin-bottom: 20px;
+}
+.attendees-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.attendees-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/*What Our Attendees section css end*/
+
+.single-company {
+    border: 1px solid #c4c4c4;
+    padding: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 10px !important;
+    margin-bottom: 30px !important;
+    margin:  20px;
+    width: 200px;
+    display:  inline-block;
+}
+.single-company img {
+    margin: 0px auto;
+    height: 50px !important;
+    width: auto;
+}
+
+/* Responsive Css Start */
+@media(max-width:1199px) {
+	/* Exhibitors & Partners section css Start */
+	.single-exhibitor {
+		width: calc(25% - 20px * 2);
+	} 
+	/* Exhibitors & Partners section css End */
+}
+@media(max-width:1024px){
+	/* Banner css Start */
+	.paral_layer{
+  	background-size: auto 70vh;
+	}
+	/* Banner css end */
+	/* why-sigma section css start */
+	.supported-single {
+		width: calc(33.33% - 20px * 2);
+	}
+	/* why-sigma section css end */
+	/* Speakers section css Start */
+	.single-speaker img {
+		width: 125px;
+		height: 125px;
+	}
+	/* Speakers section css End */
+}
+@media(max-width:767px){
+	/* Banner css Start */
+	.paraLogo {
+  	width: 170px;
+	}
+	.paralocate p{
+    font-size:14px;
+    line-height: 16px;
+    text-shadow: 1px 1px 5px #fff;
+	}
+	.parabtn a {
+  	font-size: 14px;
+  	line-height: 16px;
+  	padding: 6px 12px;
+	}
+	/* Banner css end */
+	/* why-sigma section css start */
+	.about-sigma-content {
+		flex-wrap: wrap;
+	}
+	.sigma-about-txt,
+	.sigma-about-video {
+		width: 100%;
+	}
+	.supported-single {
+		width: calc(50% - 20px * 2);
+	}
+	/* why-sigma section css End */
+	/* Attendees section css Start */
+	.attendees-content .for-mobile {
+	display: block;
+	margin: 0 auto;
+	}
+	.attendees-content .for-desktop {
+		display: none;
+	}
+	/* Attendees section css end */
+	/* Speakers section css Start */
+	.single-speaker {
+		width: calc(33.33% - 20px * 2);
+	}
+	.single-speaker img {
+		width: 100px;
+		height: 100px;
+	}
+	/* Speakers section css end */
+	/* Exhibitors & Partners section css Start */
+	.single-exhibitor {
+		width: calc(33.33% - 20px * 2);
+	} 
+	/* Exhibitors & Partners section css End */
+  /* Floor Plan Section css start */
+  .iframe-plan iframe {
+    width: 100%;
+  }
+  .single-explore {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .explore-btns {
+    flex-wrap: wrap;
+  }
+  .explore-btns span {
+    padding-bottom: 10px;
+  }
+  /* Floor Plan Section css end */
+}
+@media(max-width:580px) {
+	/* why-sigma section css start */
+	.supported-single {
+		width: calc(100% - 20px * 2);
+		margin-bottom: 0;
+	}
+	/* why-sigma section css End */
+	/* Speakers section css Start */
+	.single-speaker {
+  	width: calc(50% - 20px);
+  	margin: 10px;
+  	padding: 20px 10px;
+	}
+	.all-speakers,
+	.all-exhibitors {
+		margin: 0 -10px;
+	}
+	/* Speakers section css end */
+	/* Exhibitors & Partners section css Start */
+	.single-exhibitor {
+		width: calc(50% - 20px);
+		margin: 35px 10px 0 10px; 
+	} 
+	/* Exhibitors & Partners section css End */
+}
+/* Responsive Css End */
