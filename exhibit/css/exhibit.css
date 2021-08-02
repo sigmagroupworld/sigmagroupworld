@@ -1,0 +1,222 @@
+/* Banner section css start */
+.exhibit-banner {
+    min-height: 125px;
+    padding: 20px 0;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+.exhibit-banner.europe {
+    background: -webkit-linear-gradient(left,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
+    background: -moz-linear-gradient(left,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
+    background: -o-linear-gradient(left,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
+    background: linear-gradient(90deg,#2364ae 0%,#2364ae 48%,#bdd8f4 48%,#bdd8f4 100%) !important;
+}
+.exhibit-banner:before {
+	content: "";
+    display: inline-block;
+    position: absolute;
+    left: 46%;
+    top: 0;
+    width: 100px;
+    height: 200%;
+    -webkit-transform: rotate(-25deg);
+    -moz-transform: rotate(-25deg);
+    -ms-transform: rotate(-25deg);
+    -o-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+}
+.exhibit-banner.europe:before {
+	background-color: #2364ae;
+}
+.banner-txts {
+	display: flex;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+}
+.banner-title,
+.banner-contact {
+	width: calc(50% - 20px * 2);
+	margin: 20px;
+}
+.banner-title h2 {
+	font-size: 18px;
+    color: #fff;
+    line-height: 25px;
+    font-weight: 600;
+}
+.banner-contact p,
+.banner-contact p a {
+	max-width: 285px;
+	margin: 0 auto;
+	font-size: 12px;
+	color: #000;
+	font-weight: bold;
+}
+.banner-contact p a:hover {
+	text-decoration: underline;
+}
+/* Banner section css end */
+
+/* Contact us section css start */
+.about-section-title h2 {
+    color: #2364ae;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    padding: 10px 0;
+    border-bottom: 2px solid #585c59;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+.all-person {
+	display: flex;
+    flex-wrap: wrap;
+    margin: 0 -13px;
+    padding-top: 7px;
+}
+.single-person {
+	width: calc(25% - 13px * 2);
+    margin: 13px;
+    border: 1px solid #c4c4c4;
+    padding: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+.single-person img {
+	width: 95px;
+    height: 95px;
+    margin: 0 auto;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.single-person h3 {
+	text-align: center;
+    color: #212121;
+    font-size: 15px;
+    margin: 20px 0 0 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.single-person p {
+	text-align: center;
+    font-size: 11px;
+    color: #878787;
+    margin: 5px 0 0 0;
+    font-weight: 600;
+}
+.single-person .lang {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.single-person .lang img {
+	margin: 3px;
+	width: auto;
+	height: auto;
+}
+.person-social {
+	margin: 15px auto 0px;
+    text-align: center;
+    font-size: 12px;
+}
+.person-social p {
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 16px;
+	color: #5e5e5e;
+}
+.person-social p a,
+.single-supply p a {
+	color: #ed1a3b;
+	text-decoration: underline;
+}
+/* Contact us section css end */
+
+
+.supplier-single:empty,
+.supplier-txt p:empty {
+	display: none;
+}
+
+/*******************/
+.Asia .exhibit-banner.europe::before {
+	background-color: #b52424;
+}
+.Asia .exhibit-banner.europe {
+	background: -webkit-linear-gradient(left,#b52424 0%,#b52424 48%,#efc5cd 48%,#efc5cd 100%) !important;
+	background: -moz-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#efc5cd 48%,#efc5cd 100%) !important;
+	background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#efc5cd 48%,#efc5cd 100%) !important;
+	background: linear-gradient(90deg,#b52424 0%,#b52424 48%,#efc5cd 48%,#efc5cd 100%) !important;
+}
+.Asia .toggle h3, .Asia .toggle_link h3, .Asia .all-sell i.icon, .Asia .all-sell i.icon_link {
+    color: #b52424;
+}
+
+.Americas .exhibit-banner.europe::before {
+	background-color: #2a9354;
+}
+.Americas .exhibit-banner.europe {
+    background: -webkit-linear-gradient(left,#2a9354 0%,#2a9354 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+    background: -moz-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+    background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+    background: linear-gradient(90deg,#2a9354 0%,#2a9354 48%,#bdf4bd 48%,#bdf4bd 100%) !important;
+}
+.Americas .toggle h3, .Americas .toggle_link h3, .Americas .all-sell i.icon, .Americas .all-sell i.icon_link {
+    color: #2a9354;
+}
+
+.Africa .exhibit-banner.europe::before {
+	background-color: #eba80d;
+}
+.Africa .exhibit-banner.europe {
+    background: -webkit-linear-gradient(left,#eba80d 0%,#eba80d 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+	background: -moz-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+	background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+	background: linear-gradient(90deg,#eba80d 0%,#eba80d 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
+}
+.Africa .toggle h3, .Americas .toggle_link h3, .Americas .all-sell i.icon, .Americas .all-sell i.icon_link {
+    color: #eba80d;
+}
+/*********************/
+
+/* Responsive Css Start */
+@media(max-width:1400px) {
+	.banner-contact p {
+		margin-left: 80px;
+	}
+}
+@media(max-width:570px) {
+	.exhibit-banner.europe {
+		background: -moz-linear-gradient(left,#2364ae 0%,#ed1a3a 48%,#2364ae 48%,#2364ae 100%) !important;
+    	background: -o-linear-gradient(left,#2364ae 0%,#ed1a3a 48%,#2364ae 48%,#2364ae 100%) !important;
+    	background: linear-gradient(90deg,#2364ae 0%,#2364ae 48%,#2364ae 48%,#2364ae 100%) !important;
+	}
+	.exhibit-banner:before {
+		display: none;
+	}
+	.banner-txts {
+		flex-wrap: wrap;
+	}
+	.banner-title, 
+	.banner-contact {
+		width: 100%;
+    	margin: 0px;
+    	text-align: center;
+	}
+	.banner-contact p {
+		margin: 0 auto;
+		color: #fff;
+	}
+	.banner-contact p a {
+		color: #fff;
+	}
+	.banner-title h2 {
+		margin-bottom: 20px;
+	}
+}
+/* Responsive Css End */
