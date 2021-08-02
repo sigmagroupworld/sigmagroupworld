@@ -97,7 +97,7 @@ echo do_shortcode($field['supported_by_shortcode']); ?>
 if ($for_advertisement){ ?>
 	<?php if( !empty( $for_advertisement['add_banner_image'] ) ){ ?>
 		<!-- News Image slider start -->
-		<?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$for_advertisement["add_banner_image"].' banner_url = '.$for_advertisement["add_banner_link"].' ]' ); ?>
+		<?php echo do_shortcode( '[sigma-mt-banner-adds banner_image = '.$for_advertisement["add_banner_image"].' banner_link = '.$for_advertisement["add_banner_link"].' ]' ); ?>
 		<!-- News Image slider end -->
 	<?php } ?>
 <?php
@@ -257,7 +257,7 @@ if ($explore_all){ ?>
 				      	<div class="single-explore">
 					        <?php if( !empty( $value['explore_logo'] ) ){ ?>
 				    			<div class="explore-img">
-					    			<img src="<?php echo $value['explore_logo']['url']; ?>" alt="<?php echo $value['explore_logo']['alt']; ?>" class="for-mobile">
+					    			<img src="<?php echo $value['explore_logo']['url']; ?>" alt="<?php echo $value['explore_logo']['alt']; ?>" style="height:4em; margin-top: 2em; margin-bottom: 2em;" class="for-mobile">
 					    		</div>
 							<?php } ?>
 							<div class="about-section-title">

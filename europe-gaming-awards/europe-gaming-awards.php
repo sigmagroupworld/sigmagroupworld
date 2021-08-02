@@ -5,7 +5,7 @@
  * Created at: 16 June 2021
  */
 /* Europe Gaming Awards template css */
-wp_enqueue_style('home', get_stylesheet_directory_uri().'/europe-gaming-awards/css/europe-gaming-awards.css');
+wp_enqueue_style('home', get_stylesheet_directory_uri().'/europe-gaming-awards/css/europe-gaming-awards.css', array(), time());
 wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true ); 
 get_header();
 global $post;

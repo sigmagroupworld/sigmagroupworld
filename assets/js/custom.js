@@ -1,7 +1,5 @@
 jQuery(document).ready(function($) {
 
-
-
 	$('.img-gallery').slickLightbox({
 		itemSelector        : 'img',
   		navigateByKeyboard  : true,
@@ -78,6 +76,15 @@ jQuery(document).ready(function($) {
 	    }
 	});
 	/**** Scroll To Top ***/
+
+	$( '.home-page.popup .close' ).on( 'click', function() {
+		$( '.home-page.popup' ).removeClass( 'open' );
+		$( '.home-page.popup' ).addClass( 'close' );
+	} );
+	setTimeout( function(){
+		$( '.home-page.popup' ).removeClass( 'close' );
+		$( '.home-page.popup' ).addClass( 'open' );
+	}, 2000);
 
 	/** Sponsors Exhibitors Toggle ***/
 	openSponsorsExhibitors = (elementId) => {
@@ -290,6 +297,10 @@ jQuery(document).ready(function($) {
 	}
 	/** Hosts script start end **/
 
+	$( '.podcast-popup' ).on( 'click', function() {
+            $( '.podcast-popup' ).addClass( 'close' );
+        } );
+
 	// Awards script start
 	openAward = (elementId) => {
 		//$( '.awards .container .awards-wrapper .award-box' ).removeClass( 'open' );
@@ -298,6 +309,15 @@ jQuery(document).ready(function($) {
 	closeAward = (elementId) => {
 		//alert(elementId);
 		$('#'+elementId).toggleClass('open');
+	}
+
+	openExpanDiv = (elementId, openId) => {
+		$('#'+elementId).toggleClass('open');
+		$('#'+openId).toggleClass('open');
+	}
+	closeExpanDiv = (elementId, openId) => {
+		//$('#'+elementId).removeClass('open');
+		$('.'+openId).removeClass('open');
 	}
   	//Awards script end
 
@@ -443,6 +463,24 @@ jQuery(document).ready(function($) {
 	});
 	/** Load more people ***/
 
+	/*** Gallery load more ****/
+	$( '.gallery-load-more' ).click( function(e) {
+		$( this ).attr( "disabled", true );
+		var button_term_id = $( this ).data( 'button-term-id' );
+		var i = 1;
+		$( '.gallery-directories > div[data-div-term-id='+button_term_id+']' ).not(":visible").each( function () {
+			if( i < 2 ) {
+				$( this ).show();
+				i = i + 1;
+				if( $( ".gallery-directories > div[data-div-term-id="+button_term_id+"]:hidden" ).length == 0 ){
+					$( ".gallery-load-more[data-button-term-id="+button_term_id+"]" ).hide();
+				}
+			}
+		});
+		$( this ).attr( "disabled", false );
+	} );
+	/*** Gallery load more ****/
+
 	// Elementor Year Slider
 	if( window.elementorFrontend.config.environmentMode.edit == false ) {
 		setTimeout( function(){
@@ -484,7 +522,7 @@ jQuery(document).ready(function($) {
 	}
 	// 2020 Startup filter start
 	// var numToDisplay = $("#meet_startup_last_year").val();
-	var numToDisplay = 2;
+	var numToDisplay = 9;
 	$( '.startup-filter-last-year ul li' ).click( function(){
 		if( $(this).hasClass( 'active' ) ) {
 			return;
@@ -724,9 +762,6 @@ function openModal(elementId, modalId, closeId) {
     let modal = document.getElementById(modalId);
 	let span = document.getElementById(closeId);
 	modal.style.display = "block";
-	/*popup.onclick = function() {
-	  modal.style.display = "block";
-	}*/
 	span.onclick = function() {
 	  modal.style.display = "none";
 	}
