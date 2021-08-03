@@ -179,9 +179,6 @@
 	background: -o-linear-gradient(left,#ed1a3a 0%,#ed1a3a 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
 	background: linear-gradient(90deg,#eba80d 0%,#eba80d 48%,#f2e8bb 48%,#f2e8bb 100%) !important;
 }
-.Africa .toggle h3, .Americas .toggle_link h3, .Americas .all-sell i.icon, .Americas .all-sell i.icon_link {
-    color: #eba80d;
-}
 /*********************/
 
 /* Responsive Css Start */
