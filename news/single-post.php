@@ -34,7 +34,7 @@ if ($featured_image_url) {
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22817, 22581, 22553"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22554, 22581, 22553"]'); ?>
 			</div>
 			<!-- Leftbar end -->
 
@@ -43,7 +43,7 @@ if ($featured_image_url) {
 				<h2 class="blog-title"><?php the_title(); ?></h2>
 				<div class="info">
 					<span id="publish-date">
-						Added: <strong><?php echo get_the_date( 'M d, Y' ); ?> <?php the_time( 'H:i' );?></strong>
+						<?php echo __('Posted:', 'sigmaigaming'); ?>: <strong><?php echo get_the_date( 'M d, Y' ); ?> <?php the_time( 'H:i' );?></strong>
 					</span>
 					<span id="tags">
 						Category: 
@@ -59,13 +59,24 @@ if ($featured_image_url) {
 					</span>
 					<?php $avatar_url = get_avatar_url(get_the_author_meta( 'ID' ), array('size' => 450)); ?>
 					<span class="author" id="author">
-						Posted by
-						<div class="avatar" style="background-image:url('<?php echo esc_url( $avatar_url ); ?>')"> </div> 
-						<a class="author-link" href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
-							<strong>
-								<?php echo get_the_author(); ?>
-							</strong>
-						</a>
+						<?php echo __('Posted by', 'sigmaigaming'); ?>
+						<?php 
+						$post_id = get_the_ID();
+						$author = get_field('author', $post_id);
+						if(empty($author)) { ?>
+							<div class="avatar" style="background-image:url('<?php echo esc_url( $avatar_url ); ?>')"> </div> 
+							<a class="author-link" href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
+								<strong>
+									<?php echo get_the_author(); ?>
+								</strong>
+							</a>
+						<?php } else { ?>
+							<a class="author-link" href="#">
+								<strong>
+									<?php echo $author[0]->post_title; ?>
+								</strong>
+							</a>
+						<?php } ?>
 					</span>
 				</div>
 				<div class="social-sharing">

@@ -2,6 +2,8 @@
 
 <?php 
 $taxonomy = 'news-cat';
+$placeholder = wp_get_attachment_image_url(99850);
+$placeholder_full = wp_get_attachment_image_url(99850, 'full');
 $europe = '<section class="home-blog">
 	<div class="container">
 		<div class="home-news">';
@@ -20,9 +22,15 @@ $europe = '<section class="home-blog">
 						<div class="post-item">
 							<a href="' . get_permalink($post) . '">';
 								if($row === 0) {
-									$europe .= '<div class="thumb-img">
+								    if ($featured_image) {
+                                        $europe .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
 		                    		</div>';
+                                    } else {
+                                        $europe .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                                    }
 		                    	}
 	                    		$europe .= '<h2 '; 
 								if($row === 0) { $europe .= 'class="big"'; } 
@@ -46,25 +54,33 @@ $europe = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
 			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$europe .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
 									<div class="thumb-img">';
 										if(!empty($featured_image)){
 		                        			$europe .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
-										}
+										} else {
+                                            $europe .= '<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">';
+                                        }
 		                    		$europe .= '</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$europe .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							/*if ($featured_image_thumb) {
+                                $europe .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $europe .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }*/
+                            $europe .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -76,9 +92,15 @@ $europe = '<section class="home-blog">
 						$sigma_magazines = sigma_mt_get_magazines(1149);
 						foreach($sigma_magazines as $k => $item) {
 							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
-							$europe .= '<figure class="testimonial">
+							if ($featured_image) {
+                                $europe .= '<figure class="testimonial">
 								<img src="' . $featured_image[0] . '" alt="' . $item->post_title . '" />
 							</figure>';
+                            } else {
+                                $europe .= '<figure class="testimonial">
+								<img src="' . $placeholder_full . '" alt="' . $item->post_title . '" />
+							</figure>';
+                            }
 						}
 					$europe .= '</div>
 					<div class="block-magazines testimonial-slide-home">';
@@ -88,7 +110,9 @@ $europe = '<section class="home-blog">
 							$europe .= '<figure class="testimonial">';
 								if(!empty($featured_image)){
 									$europe .= '<img src="' . $featured_image[0] . '" alt="' . $item->post_title . '" />';
-								}
+								} else {
+                                    $europe .= '<img src="' . $placeholder_full . '" alt="' . $item->post_title . '" />';
+                                }
 							$europe .= '</figure>';
 						}
 					$europe .= '</div>
@@ -105,7 +129,7 @@ $europe = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$europe .= '<div class="post-item">
@@ -113,20 +137,24 @@ $europe = '<section class="home-blog">
 									<div class="thumb-img">';
 										if(!empty($featured_image)){
 		                        			$europe .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
-										}
+										} else {
+                                            $europe .= '<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">';
+                                        }
 		                    		$europe .= '</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$europe .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">';
+								<a href="' . get_permalink($post) . '">';
+									/* <div class="thumb-img">';
 										if(!empty($featured_image_thumb)){
 		                        			$europe .= '<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">';
-										}
-		                    		$europe .= '</div>
-		                    		<h2>' . $post->post_title . '</h2>
+										} else {
+                                            $europe .= '<img src="' . $placeholder . '" alt="' . $post->post_title . '">';
+                                        }
+		                    		$europe .= '</div> */
+		                    $europe .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -163,7 +191,9 @@ $asia = '<section class="home-blog">
 									
 										if(!empty($featured_image)){
 		                        			$asia .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
-										}
+										} else {
+                                            $asia .= '<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">';
+                                        }
 		                    		$asia .= '</div>';
 		                    	}
 	                    		$asia .= '<h2 '; 
@@ -188,23 +218,35 @@ $asia = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
 			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$asia .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+                            if ($featured_image) {
+                                $asia .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $asia .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+                            $asia .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$asia .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							/*if ($featured_image_thumb) {
+                                $asia .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $asia .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }*/
+                            $asia .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -224,24 +266,36 @@ $asia = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$asia .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							if ($featured_image) {
+                                $asia .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $asia .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+                            $asia .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$asia .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							/*if ($featured_image_thumb) {
+                                $asia .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-		                    		<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $asia .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }*/
+                            $asia .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -274,9 +328,15 @@ $americas = '<section class="home-blog">
 						<div class="post-item">
 							<a href="' . get_permalink($post) . '">';
 								if($row === 0) {
-									$americas .= '<div class="thumb-img">
+								    if ($featured_image) {
+                                        $americas .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
 		                    		</div>';
+                                    } else {
+                                        $americas .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                                    }
 		                    	}
 	                    		$americas .= '<h2 '; 
 								if($row === 0) { $americas .= 'class="big"'; } 
@@ -287,7 +347,7 @@ $americas = '<section class="home-blog">
 					$row++;
 					wp_reset_postdata();
 				}
-			$americas .= '</div>
+$americas .= '</div>
 			<div class="affiliate hp-center">';
 				$news_tags = sigma_mt_get_news_tags_data(1914, $taxonomy, 5);
 				$americas .= '<div class="h-title">
@@ -300,31 +360,42 @@ $americas = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
 			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$americas .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							if ($featured_image) {
+                                $americas .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $americas .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+                            $americas .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$americas .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
+								<a href="' . get_permalink($post) . '">';
+								/*
 									<div class="thumb-img">';
 										if(!empty($featured_image_thumb)){
 		                        			$americas .= '<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">';
-										}
-		                    		$americas .= '</div>
-	                    			<h2>' . $post->post_title . '</h2>
+										} else {
+                                            $americas .= '<img src="' . $placeholder . '" alt="' . $post->post_title . '">';
+                                        }
+		                    		$americas .= '</div>*/
+							$americas .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
 						$row++; 
 					}
-				$americas .= '</div>
+$americas .= do_shortcode('[sigma-mt-get-testimonials appearance="broker" term_id=4675]');
+
+$americas .= '</div>
 			</div>
 			<div class="spotify hp-right">';
 				$news_tags = sigma_mt_get_news_tags_data(1936, $taxonomy, 12);
@@ -337,26 +408,35 @@ $americas = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$americas .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							if ($featured_image) {
+                                $americas .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $americas .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+                            $americas .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$americas .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
+								<a href="' . get_permalink($post) . '">';
+								/*
 									<div class="thumb-img">';
 										if(!empty($featured_image_thumb)){
 		                        			$americas .= '<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">';
-										}
-		                    		$americas .= '</div>
-		                    		<h2>' . $post->post_title . '</h2>
+										} else {
+                                            $americas .= '<img src="' . $placeholder . '" alt="' . $post->post_title . '">';
+                                        }
+		                    		$americas .= '</div> */
+							$americas .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -392,7 +472,9 @@ $africa = '<section class="home-blog">
 									$africa .= '<div class="thumb-img">';
 										if(!empty($featured_image)){
 		                        			$africa .= '<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">';
-										}
+										} else {
+                                            $africa .= '<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">';
+                                        }
 		                    		$africa .= '</div>';
 		                    	}
 	                    		$africa .= '<h2 '; 
@@ -417,23 +499,37 @@ $africa = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
 			        	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-						$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+						//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$africa .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							if ($featured_image) {
+                                $africa .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $africa .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+                            $africa .='<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$africa .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							/*
+							if ($featured_image_thumb) {
+                                $africa .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $africa .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+							*/
+                            $africa .='<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -452,24 +548,38 @@ $africa = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-			        	$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+			        	//$featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$africa .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							if ($featured_image) {
+                                $africa .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $africa .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder_full . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+                            $africa .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						} else {
 							$africa .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
+								<a href="' . get_permalink($post) . '">';
+							/*
+							if ($featured_image_thumb) {
+                                $africa .= '<div class="thumb-img">
 		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-		                    		<h2>' . $post->post_title . '</h2>
+		                    		</div>';
+                            } else {
+                                $africa .= '<div class="thumb-img">
+		                        		<img src="' . $placeholder . '" alt="' . $post->post_title . '">
+		                    		</div>';
+                            }
+							*/
+                                $africa .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -484,12 +594,12 @@ $africa = '<section class="home-blog">
 <?php 
 $sort = isset($_GET['front_page_sort']) ?  $_GET['front_page_sort'] : '';
 if($sort == 'asia'){
-	echo $asia . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ) . $americas .  do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' );
+	echo $asia . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_asia_banners" page_id='.$page_id.']' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_europe_banners" page_id='.$page_id.']' ) . $americas .  do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_americas_banners" page_id='.$page_id.']' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_africa_banners" page_id='.$page_id.']' );
 } else if($sort == 'americas'){
-	echo $americas . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ) . $asia . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' );
+	echo $americas . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_americas_banners" page_id='.$page_id.']' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_europe_banners" page_id='.$page_id.']' ) . $asia . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_asia_banners" page_id='.$page_id.']' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_africa_banners" page_id='.$page_id.']' );
 } else if($sort == 'africa'){
-	echo $africa . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ) . $asia . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ) . $americas . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' );
+	echo $africa . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_africa_banners" page_id='.$page_id.']' ) . $europe . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_europe_banners" page_id='.$page_id.']' ) . $asia . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_asia_banners" page_id='.$page_id.']' ) . $americas . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_americas_banners" page_id='.$page_id.']' );
 } else{
-	echo $europe . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_europe_add"].' ]' ) . $asia . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_asia_add"].' ]' ) . $americas . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_americas_add"].' ]' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add = '.$desktop_banner["sigma_africa_add"].' ]' );
+	echo $europe . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_europe_banners" page_id='.$page_id.']' ) . $asia . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_asia_banners" page_id='.$page_id.']' ) . $americas . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_americas_banners" page_id='.$page_id.']' ) . $africa . do_shortcode( '[sigma-mt-banner-adds banner_add="sigma_africa_banners" page_id='.$page_id.']' );
 }
 ?>

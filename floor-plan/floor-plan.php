@@ -58,7 +58,7 @@ $page_id = $wp_query->get_queried_object()->ID;
   <?php $for_advertisement = get_field('add_banner');
   if ($for_advertisement){ ?>
     <?php if( !empty( $for_advertisement['add_banner_image'] ) ){ ?>
-      <?php echo do_shortcode( '[sigma-mt-banner-adds banner_add = '.$for_advertisement["add_banner_image"].' banner_url = '.$for_advertisement["add_banner_link"].' ]' ); ?>
+      <?php echo do_shortcode( '[sigma-mt-banner-adds banner_image = '.$for_advertisement["add_banner_image"].' banner_link = '.$for_advertisement["add_banner_link"].' ]' ); ?>
     <?php } ?>
   <?php
   }

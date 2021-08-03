@@ -177,6 +177,51 @@ function sigma_mt_taxonomies_videos(){
 }
 
 // create a Custom post type testimonial
+add_action('init', 'sigma_mt_conference_custom_posts');
+function sigma_mt_conference_custom_posts() {
+	register_post_type('conference-items', array(
+		'labels' => array(
+			'name' => __('Conference', 'sigmaigaming'),
+			'singular_name' => __('Conference', 'sigmaigaming'),
+			'menu_name' => __('Conferences', 'sigmaigaming'),
+			'add_new' => __('Add Conference', 'sigmaigaming'),
+			'add_new_item' => __('Add Conference', 'sigmaigaming'),
+			'edit_item' => __('Edit Conference', 'sigmaigaming'),
+			'new_item' => __('Conferences', 'sigmaigaming'),
+			'view_item' => __('View Conference', 'sigmaigaming'),
+			'search_items' => __('Search Conferences', 'sigmaigaming'),
+			'not_found' => __('No Conferences found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Conferences found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'sigma-conference'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
+}
+
+// create a Custom post taxonomy for testimonial
+add_action( 'init', 'sigma_mt_taxonomies_conference', 0 );
+function sigma_mt_taxonomies_conference(){
+	register_taxonomy('conference-cat', array('conference-items'), array('hierarchical' => true,
+			'labels' => array(
+				'name' => __('Conference Categories', 'sigmaigaming'),
+				'singular_name' => __('Conference Category', 'sigmaigaming'),
+				'search_items' => __('Search Conference Category', 'sigmaigaming'),
+				'all_items' => __('All Conference Categories', 'sigmaigaming'),
+				'parent_item' => __('Parent Conference Category', 'sigmaigaming'),
+				'parent_item_colon' => __('Parent Conference Category:', 'sigmaigaming'),
+				'edit_item' => __('Edit Conference Category', 'sigmaigaming'),
+				'update_item' => __('Refresh Conference Category', 'sigmaigaming'),
+				'add_new_item' => __('Add Conference Category', 'sigmaigaming'),
+				'new_item_name' => __('New Conference Category', 'sigmaigaming')
+			),
+			'show_ui' => true,
+			'rewrite' => array('slug' => 'sm-conference')
+		)
+	);
+}
+
+// create a Custom post type testimonial
 add_action('init', 'sigma_mt_testimonial_custom_posts');
 function sigma_mt_testimonial_custom_posts() {
 	register_post_type('testimonial-items', array(
@@ -726,24 +771,6 @@ function sigma_mt_gallery_custom_posts() {
 	));
 }
 
-/*add_action( "admin_init", "admin_init_gallery_meta" );
-function admin_init_gallery_meta(){
-	// add_meta_box("gallery-meta", "Gallery Options", "meta_options", "gallery", "side", "low");	
-}
-
-function meta_options(){
-    global $post;
-    $custom = get_post_custom( $post->ID );
-    $gallery_url = $custom["gallery_url"][0];
-	echo '<label>Gallery URL: </label><input name="gallery_url" value="'.$gallery_url.'" ';
-}
- 
-add_action( 'save_post', 'save_gallery_meta_fields' );
-function save_gallery_meta_fields(){
-    global $post;
-    // update_post_meta( $post->ID, "gallery_url", $_POST["gallery_url"] );
-}*/
-
 // create a Custom post taxonomy for Gallery post
 add_action( 'init', 'sigma_mt_taxonomies_gallery', 0 );
 function sigma_mt_taxonomies_gallery(){
@@ -767,7 +794,6 @@ function sigma_mt_taxonomies_gallery(){
 		)
 	);
 }
-
 
 // Shortcode for iGaming Gallery
 add_shortcode( 'sigma-mt-igaming-gallery-new', 'sigma_mt_igaming_gallery_new' );
@@ -802,9 +828,12 @@ function sigma_mt_igaming_gallery_new($atts) {
             $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
         }
     }
+    $counter = 0; 
     $content .= '<div class="directory-gallery">
                     <div class="all-gallery gallery-directories">';
                         foreach($posts_by_year as $posts) {
+                        	( $counter > 0 ) ? $style = 'display: none;' : $style = '';
+                        	$content .= '<div style="'.$style.'" data-div-term-id="'.$term_id.'" data-year='.$posts[0]['Year'].'>';
                             $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
                             foreach($posts as $post) {
                                 $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
@@ -817,9 +846,71 @@ function sigma_mt_igaming_gallery_new($atts) {
                                                 </a>
                                             </div>';
                             }
+                            $counter++;
+                        	$content .= '</div>	';
                         }
-                    $content .= '</div>
+                        $content .= '<input type="hidden" value="'.$term_id.'" id="termID">
+				        <input type="hidden" value="'.$count.'" id="posts_per_page">
+				        <input type="hidden" value="'.$post['title'].'" id="gallery_title">
+				        <input type="hidden" value="'.$featured_image[0].'" id="featured_image">';
+                    $content .= '<div class="load-gallery"><button class="load-more gallery-load-more" id="gallery-load-more" data-button-term-id="'.$term_id.'">Load More</button></div></div></div>
                 </div>';
     }
     return $content;
+}
+
+add_action('wp_ajax_load_gallery_by_ajax', 'load_gallery_by_ajax_callback');
+add_action('wp_ajax_nopriv_load_gallery_by_ajax', 'load_gallery_by_ajax_callback');
+function load_gallery_by_ajax_callback() {
+    check_ajax_referer('load_more_gallery', 'gallerySecurity'); 
+    echo '<pre>'; print_r($_POST); exit;
+    $content = '';
+    $taxonomy = 'people-cat';
+    $post_type = 'people-items';
+    $paged = $_POST['page'];
+    $term_id            = $_POST['term_id'];
+    $posts_per_page     = $_POST['posts_per_page'];
+    $gallery_title        = $_POST['gallery_title'];
+    $featured_image       = $_POST['featured_image'];
+    $post_args = array(
+      'posts_per_page' => $count,
+      'post_type' => 'gallery-items',
+      'order'        => 'DESC',
+      'post_status'    => 'publish',
+      'tax_query' => array(
+                array(
+                    'taxonomy' => 'gallery-cat',
+                    'field'    => 'term_id',
+                    'terms'    => $term_id,
+                    'operator' => 'IN'
+                ),
+            ),
+    );
+    $gallery = new WP_Query($post_args);
+    
+    if(!empty($gallery)) {
+        if ($gallery->have_posts()) {
+	        while ($gallery->have_posts()) {
+	            $gallery->the_post();
+	            $year = get_the_date('Y');
+	            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
+	        }
+	    }
+	    foreach($posts_by_year as $posts) {
+	        $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
+	        foreach($posts as $post) {
+	            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
+	            $content .= '<div class="single-gallery">
+	                            <a href="'.get_permalink($post['ID']).'" target="_blank">
+	                                <h3>'.$post['title'].'</h3>
+	                                <div class="featured-image">
+	                                    <img src="'.$featured_image[0].'" alt="">
+	                                </div>
+	                            </a>
+	                        </div>';
+	        }
+	        echo $content;
+	    }
+	    exit;
+	}
 }

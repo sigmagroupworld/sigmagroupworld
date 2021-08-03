@@ -1,6 +1,7 @@
 body {
     font-family: "Montserrat";
 }
+
 /* Desktop banner css start */
 .home-banner {
     background-repeat: repeat;
@@ -1243,6 +1244,93 @@ body {
 #search-results .highlight-term .highlight {
     color: #787878;
 }
+
+.article-wrapper-slider {
+    max-height: 550px;
+    overflow: hidden;
+}
+
+.article-wrapper-slider .post-item a {
+    min-height: 550px;
+    display: flex;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    align-items: flex-end;
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -moz-box-align: end;
+    -ms-flex-align: end;
+    justify-content: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    padding-bottom: 100px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+
+.article-wrapper-slider .post-item a .container {
+    max-width: 1140px;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.article-wrapper-slider .post-item a .container>div {
+    max-width: 60%;
+}
+
+.article-wrapper-slider .post-item a .top {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.article-wrapper-slider .post-item a .top span.tag {
+    background-color: #ed1a3b;
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 14px;
+}
+
+.article-wrapper-slider .post-item a .top span {
+    color: #fff;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.article-wrapper-slider .post-item a h2 {
+    color: #fff;
+    font-size: 48px;
+}
+
+.article-wrapper-slider .slick-dots {
+    bottom: 20px;
+}
+
+body .slick-dots li {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+}
+
+body .slick-dots li button {
+    display: none !important;
+}
 /* Media screen css start */
 @media (max-width: 1600px) {
     /* World Gaming Festival Image css start */
@@ -1486,6 +1574,10 @@ body {
 	.label-wrap-map img {
 	    margin: 0 !important;
 	}
+
+    .article-wrapper-slider .post-item a .container>div {
+        max-width: 100%;
+    }
 }
 @media (max-width: 1024px) {
     .hp-left {
@@ -1604,6 +1696,10 @@ body {
         max-width: 100% !important;
         width: calc(100% - 55%) !important;
     }
+
+    .article-wrapper-slider .post-item a h2 {
+        font-size: 24px;
+    }
 }
 @media (max-width: 600px) {
 	.all-country.europe:before {
@@ -1653,5 +1749,11 @@ body {
 	.all-country {
 		margin-top: 0px;
 	}
+}
+
+@media (max-width: 480px) {
+    .article-wrapper-slider .post-item a {
+        min-height: 287px;
+    }
 }
 /* Media screen css start */

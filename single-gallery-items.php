@@ -48,8 +48,10 @@ $video_gallery_album = get_field('video_album', get_the_ID());
 				}
 				?>
 			</div>
-			<div class="back-button-bottom">
-				<a class="back-btn" href="<?php echo site_url(); ?>/gallery/">Back to galleries</a>
+			<div style="text-align: center;">
+				<div class="back-button-bottom">
+					<a class="back-btn" href="<?php echo site_url(); ?>/gallery/">Back to galleries</a>
+				</div>
 			</div>
 		</div>
 	</div>

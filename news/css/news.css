@@ -74,6 +74,9 @@ body {
     line-height: 21.6px;
     margin: 10px 0;
 }
+.blog-sub-title.grey h3{
+	background-color: #F4F4F4 !important;
+}
 .blog-sub-title:after {
     position: absolute;
     display: block;

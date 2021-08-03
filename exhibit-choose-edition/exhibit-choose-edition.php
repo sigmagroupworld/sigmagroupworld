@@ -27,7 +27,7 @@ if ($exhibit){
 		 	  		</span>
 		 	  		<?php if( !empty( $exhibit['explore_section']['explore_media'] ) ) { ?>
 			 	  		<div class="desktop-media-label">
-		  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>">
+		  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>" target="_blank">
 							    <img src="<?php echo $exhibit['explore_section']['explore_media']['url']; ?>" alt="<?php echo $exhibit['explore_section']['explore_media']['alt']; ?>">
 		  					</a>
 						</div>
@@ -64,7 +64,7 @@ if ($exhibit){
 			 		    		if(!empty($exhibit['countries'])) {
 									foreach($exhibit['countries'] as $key => $value) { 
 										//echo '<pre>'; print_r($value); echo '</pre>'; ?>
-										<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>">
+										<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>" target="_blank">
 											<?php 
 							 	    		if( !empty( $value['country_logo'] ) ){ ?>
 										    	<img src="<?php echo $value['country_logo']['url']; ?>" alt="<?php echo $value['country_logo']['alt']; ?>">
@@ -81,7 +81,7 @@ if ($exhibit){
 			<div class="mobile-banner">
 				<div class="mobile-label-map exhibit">
 					<div class="event-box">
-	  					<a href="<?php echo $exhibit['mobile_featured_section']['mobile_featured_image_link']; ?>">
+	  					<a href="<?php echo $exhibit['mobile_featured_section']['mobile_featured_image_link']; ?>" target="_blank">
 	  						<div class="img">
 	  							<?php 
 				 	    		if( !empty( $exhibit['mobile_featured_section'] ) ){ ?>
@@ -92,7 +92,7 @@ if ($exhibit){
 					</div>
 					<?php if( !empty( $exhibit['explore_section']['explore_media'] ) ) { ?>
 			 	  		<div class="event-box explore">
-		  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>">
+		  					<a href="<?php echo $exhibit['explore_section']['explore_media_link']; ?>" target="_blank">
 		  						<div class="img">
 		  							<?php 
 					 	    		if( !empty( $exhibit['explore_section'] ) ){ ?>
@@ -108,7 +108,7 @@ if ($exhibit){
 					foreach($exhibit['countries'] as $key => $value) { ?>
 						<div class="all-country <?php echo $value['country_name']; ?>">
 							<div class="event-box">
-								<a href="<?php echo $value['country_link']; ?>">
+								<a href="<?php echo $value['country_link']; ?>" target="_blank">
 									<span class="img">
 										<?php 
 						 	    		if( !empty( $value['country_logo'] ) ){ ?>

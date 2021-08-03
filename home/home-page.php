@@ -16,6 +16,8 @@ get_header();
 
 //echo '<pre>'; print_r($desktop_banner);
 $taxonomy = __( 'news-cat', 'sigmaigaming' );
+$placeholder = wp_get_attachment_image_url(99850);
+$placeholder_full = wp_get_attachment_image_url(99850, 'full');
 $row = 0;
 $page_id = $wp_query->get_queried_object()->ID;
 
@@ -167,7 +169,9 @@ if ($desktop_banner){ ?>
 										<div class="thumb-img">
 											<?php if(!empty($featured_image)){ ?>
 			                        		    <img src="<?php echo $featured_image[0] ?>" alt="">
-											<?php } ?>
+											<?php } else { ?>
+                                                <img src="<?php echo $placeholder_full ?>" alt="">
+                                            <?php } ?>
 			                    		</div>
 			                    	<?php } ?>
 		                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
@@ -200,18 +204,30 @@ if ($desktop_banner){ ?>
 				        	<?php if($row == 0) { ?>
 								<div class="post-item">
 									<a href="<?php the_permalink(); ?>">
+                                        <?php if ($featured_image) {?>
 										<div class="thumb-img">
 			                        		<img src="<?php echo $featured_image[0] ?>" alt="">
 			                    		</div>
+                                    <?php } else {?>
+                                            <div class="thumb-img">
+                                                <img src="<?php echo $placeholder_full ?>" alt="">
+                                            </div>
+                                    <?php } ?>
 		                    			<h2><?php the_title(); ?></h2>
 									</a>
 								</div>
 							<?php } else { ?>
 								<div class="post-item">
 									<a href="<?php the_permalink(); ?>">
-										<div class="thumb-img">
-			                        		<img src="<?php echo $featured_image_thumb[0] ?>" alt="">
-			                    		</div>
+                                        <?php if ($featured_image_thumb) {?>
+                                            <div class="thumb-img">
+                                                <img src="<?php echo $featured_image_thumb[0] ?>" alt="">
+                                            </div>
+                                        <?php } else {?>
+                                            <div class="thumb-img">
+                                                <img src="<?php echo $placeholder ?>" alt="">
+                                            </div>
+                                        <?php } ?>
 			                    		<h2><?php the_title(); ?></h2>
 									</a>
 								</div>
@@ -244,23 +260,42 @@ if ($desktop_banner){ ?>
 							<div class="post-item">
 								<?php if($r === 0) { ?>
 									<a href="<?php echo $youtube_video_link; ?>" data-video-id='<?php echo $split_video_ink; ?>' class="js-video-button" id="video_player">
-										<div class="thumb-img">
+										<?php if ($featured_image) {?>
+                                        <div class="thumb-img">
 											<div class="top" style="background-image: url('<?php echo $featured_image[0] ?>')">
 												<div class="play-btn"></div>
 												<div id="meta"></div>
 												<span><?php _e( '21.45', 'sigmaigaming' ); ?></span>
 											</div>
 			                    		</div>
+                                        <?php } else {?>
+                                        <div class="thumb-img">
+                                            <div class="top" style="background-image: url('<?php echo $placeholder_full ?>')">
+                                                <div class="play-btn"></div>
+                                                <div id="meta"></div>
+                                                <span><?php _e( '21.45', 'sigmaigaming' ); ?></span>
+                                            </div>
+                                        </div>
+                                        <?php } ?>
 			                    		<h2 class="big"><?php echo $video->post_title; ?></h2>
 									</a>
 								<?php } else { ?>
 									<a href="<?php echo $youtube_video_link; ?>" data-video-id='<?php echo $split_video_ink; ?>' class="js-video-button" id="video_player">
-										<div class="thumb-img">
+                                        <?php if ($featured_image) {?>
+
+                                        <div class="thumb-img">
 			                        		<div class="top" style="background-image: url('<?php echo $featured_image[0] ?>')">
 												<div class="play-btn"></div>
 											</div>
 			                    		</div>
-			                    		<h2><?php echo $video->post_title; ?></h2>
+                                        <?php } else {?>
+                                            <div class="thumb-img">
+                                                <div class="top" style="background-image: url('<?php echo $placeholder ?>')">
+                                                    <div class="play-btn"></div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                        <h2><?php echo $video->post_title; ?></h2>
 									</a>
 								<?php } ?>
 							</div>
@@ -279,23 +314,38 @@ if ($desktop_banner){ ?>
 	<section class="sigma-news">
         <div class="container">
         	<div class="single-news">
-	        	<?php foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
-	                <div class="all-news">
-	                    <a href="#">
-	                        <img src="<?php echo $value['latest_news_bottom_image']; ?>" alt="">
-	                    </a>
-	                </div>
-		        <?php } ?>
+	        	<?php if(!empty($desktop_banner["sigma_general_news_banners"])){
+					foreach($desktop_banner["sigma_general_news_banners"] as $value) { ?>
+						<div class="all-news">
+							<a href="<?php echo $value['link']; ?>" target="_blank">
+								<img src="<?php echo $value['image']; ?>" alt="">
+							</a>
+						</div>
+		        <?php }
+				} ?>
 	    	</div>
         </div>
     </section>
 	<!-- News Image slider end -->
 
-	<?php sigma_mt_get_continent_order(); ?>
+	<?php sigma_mt_get_continent_order($page_id); ?>
 
 <?php
 }
 ?>
+
+<div class="home-page popup close">
+	<div class="popupinner">
+		<img src="/wp-content/uploads/2021/08/Malta-Week-Pop-up-Banner.webp">
+		<a href="/europe/sigma-pitch-2021/" target="_blank" class="tl"></a>
+		<a href="/aibc-europe" target="_blank" class="tr"></a>
+		<a href="/affiliate-grand-slam/" target="_blank" class="bl"></a>
+		<a href="/deep-tech/" target="_blank" class="br"></a>
+		<div class="close">
+			<a class="close-popup">❌</a>
+		</div>
+	</div>
+</div>
 
 <?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
 

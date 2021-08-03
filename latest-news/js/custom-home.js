@@ -30,7 +30,12 @@
 			nocookie: true
 		}
 	});
-	$('.single-news').slick({
+		$('.article-wrapper-slider').slick({
+			dots: true,
+			// autoplay: true,
+		});
+
+		$('.single-news').slick({
   		autoplay: true,
     		autoplaySpeed: 2000,
 		prevArrow: false,

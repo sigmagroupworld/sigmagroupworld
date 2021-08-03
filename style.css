@@ -30,6 +30,7 @@ html, body, div, h1, h2, h3, h4, h5, h6, p, ul, li, form {
     padding: 0; 
     list-style: none; 
     font-weight: normal;
+	font-family: "Montserrat";
 }
 button, input, select, textarea {
     margin: 0; 
@@ -92,6 +93,11 @@ a:focus {
 }
 .site a:focus:not(.wp-block-button__link):not(.wp-block-file__button) img {
     outline: none;
+}
+.home-blog .container {
+    max-width: 1140px;
+    padding: 0 20px;
+    margin: 0 auto;
 }
 .container {
     max-width: 1064px;
@@ -1046,6 +1052,17 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-size: 14px;
     line-height: 16px;
 }
+.testimonial-company:after{
+    content: "";
+    width: 30px;
+    height: 30px;
+    background: url(/wp-content/themes/twentytwentyone-child/assets/left-quote.png) no-repeat;
+    top: 30px;
+    right: 250px;
+    position: absolute;
+    display: inline-block;
+    z-index: 999;
+}
 .testimonial-info p {
     font-weight: 600;
 }
@@ -1111,6 +1128,75 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 .testimonial {
     margin: 30px 0;
+}
+
+.testimonial-slide-home .broker-testimonials {
+    padding-top: 0;
+}
+
+.testimonial-slide-home .broker-testimonials h3 {
+    text-align: center;
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+}
+.testimonial-slide-home .broker-testimonials .broker-img img {
+    height: 100px;
+    width: 100px;
+    margin: 5px auto;
+    object-fit: cover;
+}
+
+.broker-testimonials .peopl {
+    width: 100%;
+    text-align: center;
+}
+
+.broker-testimonials .peopl a {
+    text-align: center;
+}
+
+.broker-testimonials .peopl #mailIcon {
+    height: 15px;
+    width: auto;
+    display: inline-block;
+    padding-right: 6px;
+    margin-bottom: 3px;
+}
+
+.broker-testimonials blockquote p {
+    font-size: 13px;
+    padding: 0;
+    text-align: center;
+    color: #000;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.broker-testimonials blockquote span {
+    padding: 0;
+    font-size: 15px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-block;
+    font-style: normal;
+}
+
+.broker-testimonials span {
+    font-size: 10px;
+    color: #000;
+}
+
+.broker-testimonials img.closed {
+    position: absolute;
+    width: 4%;
+    height: auto;
+    display: block;
+}
+
+.broker-slide .slick-prev:before, .broker-slide .slick-arrow.slick-next:before {
+    background-color: #005aac !important;
 }
 /* Testimonial section end */
 /* deep tech insights section start */
@@ -1207,7 +1293,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     padding: 20px 0;
 }
 .foundation-team .person-avatar-img {
-    background: url(/wp-content/uploads/2021/06/Background-Meet-the-team.svg) no-repeat;
+    background: url(/fileadmin/team.svg) no-repeat;
     background-size: cover;
 }
 .person-avatar-img img {
@@ -1573,6 +1659,75 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     border-right: 22px solid #0061aa;
     background: #dedede;
 }
+
+.hosts.red .person-left .person-avatar-img, .meet-investor.red .investor-box .investor-img {
+    background: url(/wp-content/uploads/2021/07/SiGMA_Pitch_Asia_Investor-19.webp) no-repeat;
+	background-size: cover;
+}
+.hosts.yellow .person-left .person-avatar-img, .meet-investor.yellow .investor-box .investor-img {
+    background: url(/wp-content/uploads/2021/08/SiGMA_Pitch_Americas_Investor-19.webp) no-repeat;
+	background-size: cover;
+}
+
+.deep-insights-slider1 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.deep-insights-slider1 .insights-slide {
+    width: 50%;
+    margin-bottom: 25px;
+}
+
+.Africa .about-section-title h2 {
+    color: #eba80d;
+}
+.Africa .toggle h3, .Africa .toggle_link h3, .Africa .all-sell i.icon, .Africa .all-sell i.icon_link {
+    color: #eba80d;
+}
+.single-speaker a.hs-button {
+    box-sizing: border-box !important;
+    border: 1px solid #ed1a3b;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ed1a3b;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    transition: all .4s;
+    text-decoration: none !important;
+    background: #fff !important;
+    color: #ed1a3b !important;
+    border-radius: 40px;
+    max-width: 250px !important;
+    width: 130px;
+    display: inline-block !important;
+    text-align: center !important;
+}
+.single-speaker a.hs-button:hover {
+    background: #ed1a3b !important;
+    color: #fff !important;
+}
+
+.load-gallery {
+    text-align: center;
+    margin-top: 40px;
+}
+.load-gallery .gallery-load-more {
+    background: #ed1a3b;
+    border-color: #ed1a3b;
+    border-radius: 5px;
+    color: #ffffff;
+    text-transform: uppercase;
+    width: 250px;
+    font-size: 18px;
+    padding: 8px;
+}
+.load-gallery .gallery-load-more:hover {
+    background: linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+    transition: opacity .3s linear;
+}
+
 /* 2020 Startup filter end */
 /* charity auction section end */
 /* sigma pitch winner's prize icon start */
@@ -1604,6 +1759,11 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     -moz-border-radius: 15px;
     border-radius: 15px;
     text-align: center;
+}
+.all-speakers .single-speaker .expert-logo img {
+    border-radius: 0;
+    object-fit: contain;
+    padding: 10px;
 }
 .single-speaker img {
     width: 140px;
@@ -1706,13 +1866,17 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     right: 0;
     top: 50px;
 }
+.page-accordion{
+	margin-bottom: 3em;azimuth
+}
 .wrapper {
-    background-color: #ffffff;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    /* background-color: #ffffff; */
+    padding: 0.2em 0;
+    margin-bottom: 0.2em;
+	border-bottom: 0.5px solid;
+    /*border-radius: 5px;
     -webkit-box-shadow: 0 5px 25px rgba(0, 0, 50, 0.1);
-    box-shadow: 0 5px 25px rgba(0, 0, 50, 0.1);
+    box-shadow: 0 5px 25px rgba(0, 0, 50, 0.1);*/
 }
 .toggle, .toggle_link {
     background-color: transparent;
@@ -1729,6 +1893,10 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     outline: none;
     cursor: pointer;
     padding: 5px 0;
+}
+
+.toggle h3, .toggle_link h3{
+	font-family: "Montserrat";
 }
 .toggle h3, .toggle_link h3,
 .all-sell i.icon, .all-sell i.icon_link {
@@ -1779,6 +1947,16 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     flex-wrap: wrap;
     margin: 0 -10px;
 }
+.page-id-14626 .sponsor-boxes {
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+.sigma-foundation-sponsering-tabs .elementor-widget:not(:last-child) {
+    margin-bottom: 0;
+}
+.sigma-foundation-sponsering-tabs .toggle h3 {
+    color: #ed1a3b;
+}
 .single-sponsor {
     width: -webkit-calc(20% - 20px);
     width: -moz-calc(20% - 20px);
@@ -1805,6 +1983,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     line-height: 17px;
     font-weight: 400;
     margin: 10px 0;
+	font-family: "Montserrat";
 }
 .single-sponsor .bottom {
     background-color: #44c156;
@@ -1930,6 +2109,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-size: 18px;
     margin: 0;
     font-weight: 400;
+	font-family: "Montserrat";
 }
 .single-package .mid {
     background-color: #eee;
@@ -1966,8 +2146,19 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .double-line {
     width: 49%;
 }
-.single-workshop {
+.single-workshop .mainDiv {
     display: flex;
+    width: 100%;
+    position: relative;
+}
+.single-workshop .sponsor.expandDiv.open {
+    display: flex;
+    width: 100%;
+    float: none;
+    padding: 20px;
+}
+.single-workshop {
+    /*display: flex;*/
     background: #f2f2f2;
     min-height: 90px;
     border-radius: 10px;
@@ -2017,6 +2208,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-size: 16px;
     font-weight: 400;
     margin: 10px 0;
+	font-family: "Montserrat";
 }
 .amount {
     display: flex;
@@ -2026,6 +2218,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     font-size: 20px;
     font-weight: 600;
     margin-right: 30px;
+	font-family: "Montserrat";
 }
 .sponsorCount {
     color: #FFF;
@@ -2097,10 +2290,11 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     border-radius: 10px;
 }
 .modal-content h4 {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 30px;
     margin: 10px 0;
+	font-family: "Montserrat";
 }
 .post_content p {
     margin-bottom: 20px;
@@ -2224,7 +2418,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 .winner-single-slide {
     text-align: center;
-    background: url(/wp-content/uploads/2021/06/startup-winner-bg.jpg);
+    background: url(/fileadmin/startup-winner-bg.png);
     background-position: center center;
     background-size: cover;
     border-bottom: 1px solid #dbdbdb;
@@ -2684,7 +2878,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .get-in-touch-txt::before {
     top: 140px;
     left: 0;
-    background-image: url(/wp-content/uploads/2021/06/git-2.png);
+    background-image: url(/fileadmin/git-2.png);
     background-repeat: no-repeat;
     background-size: contain;
     height: 160px;
@@ -2693,7 +2887,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .get-in-touch-txt::after {
     top: 50px;
     right: 0;
-    background-image: url(/wp-content/uploads/2021/06/git-1.png);
+    background-image: url(/fileadmin/git-1.png);
     background-repeat: no-repeat;
     background-size: contain;
     height: 110px;
@@ -3202,9 +3396,9 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin-bottom: 10px;
     padding-left: 25px;
 }
-.gametypes p:before,
-.casino-qt p:before,
-.year-est p:before {
+.gametypes p:not(.title):before,
+.casino-qt p:not(.title):before,
+.year-est p:not(.title):before {
     position: absolute;
     content: '';
     width: 16px;
@@ -3335,7 +3529,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .igaming-single {
     width: -webkit-calc(25% - 20px * 2);
     width: -moz-calc(25% - 20px * 2);
-    width: calc(25% - 20px * 2);
+    width: calc(25% - 15px * 2);
         border: 1px solid #c4c4c4;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -3345,6 +3539,10 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     vertical-align: top;
     margin-right:  30px;
     min-height: 200px;
+    margin-bottom: 40px;
+}
+.igaming-lists .igaming-single::nth-child(4){
+    margin-right:  0;
 }
 .igaming-lists .igaming-box .expert-img  {
     height: 80px;
@@ -3419,6 +3617,93 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 
 /*** Job Listing css end*/
+
+/* Home page popup css start */
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        margin: 0;
+        z-index: 11111111;
+        background: #1b1818b3;
+    }
+    .popupinner img {
+        width: 100%;
+    }
+    .popup .tl, .popup .tr, .popup .br, .popup .bl {
+        width: 125px;
+        position: absolute;
+        height: 100px;
+        z-index: 111;
+        top: 0;
+    }
+    .popup .tl {
+        left: 25px;
+        top: 115px;
+    }
+    .popup .tr {
+        top: 115px;
+        left: 50%;
+    }
+    .popup .bl {
+        top: calc(50% + 50px);
+        left: 25px;
+    }
+    .popup .br {
+        top: calc(50% + 50px);
+        left: 50%;
+    }
+    .popup .close {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: #fff;
+        right: 0;
+        top: 0;
+        border-radius: 50% 0 50% 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 111111;
+        cursor: pointer;
+    }
+    .popup.open {
+        display: block;
+    }
+    .popup.close {
+        display: none;
+    }
+    @media (max-width: 849px) {
+        .popupinner {
+            width: 300px;
+            max-width: 90%;
+            height: 350px;
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    @media (min-width: 850px) {
+        .popupinner {
+            width: 300px;
+            max-width: 90%;
+            height: 350px;
+            position: absolute;
+            top: unset;
+            left: unset;
+            right: 25px;
+            bottom: 25px;
+            transform: none;
+        }
+    }
+    /* Home page popup css end */
 
 /*** Gallery Page ***/
 
@@ -3611,6 +3896,9 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .past-winner .wrapper .toggle h3 {
     color: #fff;
     padding:  13px 15px 10px;
+}
+.register-choose-edition.map-label{
+	z-index: 999 !important;
 }
 .register-choose-edition.map-label a::before {
     border-color: #fe870e;
@@ -4407,7 +4695,7 @@ body.call-speakers .call-for-speakers-db {
 }
 .startatagendatime h4::after{
     content:'\f063';
-    font-family:'FontAwesome';
+    font-family: "Font Awesome 5 Free";
     position:absolute;
     left:38%;
     bottom:-14px;
@@ -4808,7 +5096,7 @@ ul.agenda-submenu li a::after{
 }
 .single-conf .conf-name:after{
     content:'\f101';
-    font-family:'FontAwesome';
+    font-family: "Font Awesome 5 Free";
     position:absolute;
     top:50%;
     right:10px;
@@ -5251,6 +5539,13 @@ ul.agenda-submenu li a::after{
     color: #fff;
 }
 
+.sponsor.expandDiv {
+    display: none;
+}
+.sponsor.expandDiv.open {
+    display: inline-block;
+}
+
 //********************/
 
 @media(max-width:1025px) {
@@ -5331,6 +5626,7 @@ ul.agenda-submenu li a::after{
     .gallery-album .single-gallery {
         max-width: 100%;
         padding: 1%;
+        width: 100%;
     }
     #gallery-page-tab .elementor-tabs .elementor-tabs-wrapper {
         display:  inline-block;
@@ -5342,6 +5638,7 @@ ul.agenda-submenu li a::after{
         width: 100%;
         display: inline-block;
         padding: 20px;
+        margin:  0;
     }
 }
 
@@ -5450,6 +5747,32 @@ ul.agenda-submenu li a::after{
 .date-box .wrapper .col {
 	position:relative
 }
+
+
+.calendar-event .eventbtn {
+    margin-top: 10px;
+    box-sizing: border-box !important;
+    border: 1px solid #ed1a3b;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ed1a3b;
+    width: 28%;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    transition: all .4s;
+    text-decoration: none !important;
+    background: #ed1a3b !important;
+    color: #fff !important;
+    border-radius: 40px;
+    max-width: 250px !important;
+    width: 100%;
+    display: inline-block !important;
+    text-align: center !important;
+    font-family: "Montserrat";
+}
+
+
 @media(max-width:767px) {
 	.date-box .wrapper .col {
 		font-size: 12px
@@ -5465,6 +5788,12 @@ ul.agenda-submenu li a::after{
     .sponsor-boxes .bottom .prcie {
         font-size: 12px;
     }
+    #gallery-page-tab.elementor-widget-tabs .elementor-tabs {
+        text-align: center;
+    }
+    #gallery-page-tab.elementor-widget-tabs .elementor-tabs .elementor-tabs-wrapper {
+        display: block;
+    }
 }
 @media(max-width:550px) {
 	.date-box .wrapper .col {
@@ -5476,6 +5805,36 @@ ul.agenda-submenu li a::after{
         width:  100%;
     }
 }
+
+.podcast-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: 11111111;
+    background: #1b1818b3;
+}
+.podcast-popupinner {
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    max-width: 700px;
+    padding-right: 6%;
+    padding-left: 3%;
+}
+.podcast-popup.close {
+    display: none;
+}
+
+
 .date-box .wrapper .col:after {
 	display:block;
 	height:50px;
@@ -5646,7 +6005,7 @@ ul.agenda-submenu li a::after{
 }
 .date-box .row-top .title .wrapper .col--2::before {
 	content:'\f103';
-	font-family:'FontAwesome';
+    font-family: "Font Awesome 5 Free";
 	position:absolute;
 	top:50%;
 	right:0px;
@@ -5879,10 +6238,26 @@ ul.agenda-submenu li a::after{
 .page-template-exhibit .suppliers .every-single-supply .supply-txt {
     display: inline-block;
     vertical-align: middle;
+    font-weight: bold;
+    color: #5e5e5e;
+    font-size: 12px;
+    font-family: "Montserrat";
+}
+.page-template-exhibit .suppliers .every-single-supply .supply-txt a {
+    text-decoration: underline;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    transition: all .3s linear;
+    display: inline-block;
+    color: #ed1a3b;
+    font-weight: inherit;
+    margin: 0px 0 20px;
+        margin-bottom: 20px;
 }
 .page-template-exhibit .suppliers .every-single-supply .supplier-single {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
 }
 .page-template-exhibit .single-logo-supply {
     border-top: 1px solid #c9c9c9;
