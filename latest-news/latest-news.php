@@ -178,8 +178,10 @@ $asia = '<section class="home-blog">
 				<div class="h-title"><a href="#">'.
 						__('Publications', 'sigmaigaming') . '<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</a></div>
-				<div class="blog-listing-module">
-					<p>Element under construction</p>
+				<div class="blog-listing-module">';
+                    $asia .= do_shortcode('[sigma-mt-magazines appearance=latest-news post_per_page=2 term_id=1149]');
+                    $asia .= do_shortcode('[sigma-mt-magazines appearance=latest-news post_per_page=2 term_id=1148]');
+                    $asia .= '
 				</div>
 			</div>
 		</div>

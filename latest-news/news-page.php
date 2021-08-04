@@ -290,17 +290,27 @@ if ($desktop_banner){ ?>
 	<!-- News Image slider end -->
 
 	<?php sigma_mt_get_continent_order($page_id); ?>
-		
-		
+	
 	<!-- Latest blog bottom -->
 	<section class="home-blog">
 		<div class="container">
 			<div class="home-news">
-				<div class="latest-news hp-left">
+				<div class="latest-news hp-left news-alpha-bootcamp-section">
 					<div class="h-title">
 						<a href="#"><?php echo __('Alpha Boot Camp', 'sigmaigaming'); ?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
 					</div>
 					<div class="blog-listing-module">'
+						<div class="alpha-boot-camp-top">
+					     	<img class="abc-logo" src="/wp-content/uploads/2021/08/abc-logo.png">
+					      	<h6 class="abc-title">
+					        	UNDERSTANDING PAYMENTS FOR GAMING IN INDIA.
+					      	</h6>
+					    </div>
+					    <div class="alpha-boot-camp-mid">
+					    	<p class="abc-desc">
+					    		Welcome to the inaugural ABC; a forum where sensitive topics are discussed and total anonymity is guaranteed. The first 10 subscribers will join experts on payments in India, learn about pitfalls and opportunities. Ask anything! Enroll today.
+					    	</p>
+					    </div>
 						<?php echo do_shortcode('[hubspot type=form portal=6357768 id=e17ce10f-9e94-448e-a63b-6c00bfee2be1]'); ?>
 					</div>
 				</div>

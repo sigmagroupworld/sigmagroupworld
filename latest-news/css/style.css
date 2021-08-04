@@ -1042,6 +1042,65 @@ body {
 /* Search css end */
 /* news menu css end */
 /* Testimonial css start */
+
+.magazines-news .testimonial-slide-home .testimonial img.latest {
+    position: absolute !important;
+    height: auto !important;
+}
+
+.magazines-news .testimonial-slide-home .testimonial img {
+    border-radius: 0 !important;
+    height: 100%;
+    width: 100%;
+}
+
+.magazines-news .testimonial-slide-home .testimonial {
+    position: relative;
+    padding-top: 0;
+    margin: 0;
+}
+
+.magazines-news .testimonial-slide-home .title {
+    text-align: center;
+    padding: 8px 30px;
+    margin: 0;
+}
+
+.magazines-news .testimonial-slide-home .block-section:nth-child(3) .title {
+    padding-top: 20px;
+}
+
+.magazines-news .testimonial-slide-home .title h5 {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: .025em;
+    text-transform: capitalize;
+    font-family: 'Montserrat';
+}
+
+.magazines-news .testimonial-slide-home .title h6 {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    letter-spacing: .025em;
+    font-family: 'Montserrat';
+}
+
+.magazines-news .testimonial-slide-home .slick-prev,
+.magazines-news .testimonial-slide-home .slick-arrow.slick-next {
+    top: unset;
+    bottom: 10px;
+}
+
 .testimonial-slide-home {
 	background-color: #f1f1f2;
 	margin-top: 10px;
@@ -1185,6 +1244,7 @@ body {
     top: unset;
     bottom: 10px;
 }
+
 /* Magezine slider css end */
 .autocomplete-suggestions .autocomplete-suggestion b {
     font-weight: bold;
@@ -1599,6 +1659,10 @@ body .slick-dots li button {
     .magazine-section .testimonial-slide-home .slick-list,
     .magazine-section .testimonial-slide-home .slick-track {
         height: 100%;
+    }
+
+    .magazines-news .testimonial-slide-home {
+        max-height: 100% !important;
     }
 }
 @media (max-width: 768px) {
