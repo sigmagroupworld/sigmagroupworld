@@ -113,6 +113,7 @@ jQuery(document).ready(function($) {
 		slidesToScroll: 1,
 		autoplay: false,
 		autoplaySpeed: 1500,
+		infinite: false,
 		arrows: true,
 		responsive: [{
 			breakpoint: 850,
