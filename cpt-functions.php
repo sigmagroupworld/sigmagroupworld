@@ -1,5 +1,6 @@
 <?php
 // Update posts slug
+/*
 add_action( 'init', 'sigma_mt_update_posts_slug' );
 function sigma_mt_update_posts_slug() {
     $posts = get_posts( array (  'numberposts' => -1, 'post_type'   => array('news-items', 'post', 'page')) );
@@ -16,7 +17,7 @@ function sigma_mt_update_posts_slug() {
         }
     }
 }
-
+*/
 // create widgets for sidebar
 add_action( 'widgets_init', 'sigma_mt_widgets_init' );
 function sigma_mt_widgets_init() {
@@ -79,7 +80,8 @@ function sigma_mt_taxonomies_news(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
-			'rewrite' => array('slug' => 'latest-news')
+			'rewrite' => array('slug' => 'latest-news'),
+        	'show_admin_column' => true
 		)
 	);
 }
@@ -101,6 +103,7 @@ function sigma_mt_tags_news(){
 				'with_front' => false
 			],
 			'show_tagcloud' => true,
+        	'show_admin_column' => true,
 			'query_var'     => true
 		)
 	);
@@ -171,6 +174,7 @@ function sigma_mt_taxonomies_videos(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'sm-Video')
 		)
 	);
@@ -216,6 +220,7 @@ function sigma_mt_taxonomies_conference(){
 				'new_item_name' => __('New Conference Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'sm-conference')
 		)
 	);
@@ -261,6 +266,7 @@ function sigma_mt_taxonomies_testimonial(){
 				'new_item_name' => __('New Testimonials Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'sm-testimonial')
 		)
 	);
@@ -306,6 +312,7 @@ function sigma_mt_taxonomies_magazines(){
 				'new_item_name' => __('New Magazine Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'magazines-cat')
 		)
 	);
@@ -351,6 +358,7 @@ function sigma_mt_taxonomies_casinos(){
 				'new_item_name' => __('New Casinos Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-casinos')
 		)
 	);
@@ -398,6 +406,7 @@ function sigma_mt_jobs_categories(){
 			'new_item_name' => __('New Job Category', 'sigmaigaming')
 		),
 		'show_ui' => true,
+		'show_admin_column' => true,
 		'rewrite' => array('slug' => 'latest-jobs')
 	   )
 	);
@@ -445,6 +454,7 @@ function sigma_mt_speaker_categories(){
 			'new_item_name' => __('New Speaker Category', 'sigmaigaming')
 		),
 		'show_ui' => true,
+		'show_admin_column' => true,
 		'rewrite' => array('slug' => 'latest-speakers')
 	   )
 	);
@@ -493,6 +503,7 @@ function sigma_mt_taxonomies_people(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-people')
 		)
 	);
@@ -540,6 +551,7 @@ function sigma_mt_taxonomies_company(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-company')
 		)
 	);
@@ -585,6 +597,7 @@ function sigma_mt_taxonomies_sponsoring(){
 				'new_item_name' => __('New Sponsoring Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-sponsoring')
 		)
 	);
@@ -607,6 +620,7 @@ function sigma_mt_tags_sponsoring(){
 				'with_front' => false
 			],
 			'show_tagcloud' => true,
+			'show_admin_column' => true,
 			'query_var'     => true
 		)
 	);
@@ -652,7 +666,8 @@ function sigma_mt_taxonomies_sidebar_elements(){
 				'new_item_name' => __('New Sidebar Element Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'rewrite' => array('slug' => 'latest-sidebar-elements')
+			'rewrite' => array('slug' => 'latest-sidebar-elements'),
+			'show_admin_column' => true
 		)
 	);
 }
@@ -697,6 +712,7 @@ function sigma_mt_taxonomies_hotel(){
 				'new_item_name' => __('New Hotel Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-hotel')
 		)
 	);
@@ -742,6 +758,7 @@ function sigma_mt_taxonomies_award(){
 				'new_item_name' => __('New Award Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-award')
 		)
 	);
@@ -790,6 +807,7 @@ function sigma_mt_taxonomies_gallery(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-gallery')
 		)
 	);

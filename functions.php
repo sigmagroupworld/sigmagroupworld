@@ -27,7 +27,7 @@ function sigma_mt_enqueue_styles() {
     wp_enqueue_style( 'child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array( $parent_style ),
-        time()
+        '1.0.0'
     );   
     wp_enqueue_style('sigmamt-responsive', CHILD_DIR . '/assets/css/responsive.css');
     wp_enqueue_style('sigmamt-slick', CHILD_DIR . '/assets/css/slick.css');
@@ -47,7 +47,7 @@ function sigma_mt_scripts() {
     wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css', array(), '1.0.0');
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script( 'jquery-ui-datepicker' );    
-    wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), time(), true );    
+    wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
     wp_enqueue_script('sigmamt-slick-script', CHILD_DIR . '/assets/js/slick.min.js', array(), '1.0.0', true );
     wp_enqueue_script('sigmamt-slick-lightbox-script', CHILD_DIR . '/assets/js/slick-lightbox.js', array(), '1.0.0', true );
 
@@ -643,7 +643,7 @@ function sigma_mt_get_people_list($atts) {
     $person_phone       = isset($atts['person_phone']) ? $atts['person_phone'] : 'no';
     $person_skype       = isset($atts['person_skype']) ? $atts['person_skype'] : 'no';
     $telegram           = isset($atts['telegram']) ? $atts['telegram'] : 'no';
-    $fullclass          = isset($atts['fullClass']) ? $atts['fullClass'] : '';
+    $fullclass          = isset($atts['fullclass']) ? $atts['fullclass'] : 'NO';
     $load_more = __( 'Load More', 'sigmaigaming' );
     $hosts = get_field('hosts');
     $judges = get_field('judges');
@@ -711,11 +711,9 @@ function sigma_mt_get_people_list($atts) {
         $sub_class = 'db-items-wrapper';
     }
 
-    if($fullclass === 'YES') {
-        echo '<pre>'; print_r($fullclass);
+    if($fullclass == 'YES') {
         $fullclass = 'full';
     } else {
-        echo '<pre>'; print_r($fullclass);
         $fullclass = '';
     }
 	
@@ -793,7 +791,7 @@ function sigma_mt_get_people_list($atts) {
         );
         $get_posts = get_posts($post_args);
     }
-    //echo '<pre>'; print_r($post_args); echo '</pre>';
+    
 	$content .= '<section class="'.$main_class.' '.$colorClass.'">
                         <div class="container">
                             <div class="about-section-title">
@@ -946,6 +944,7 @@ function sigma_mt_get_people_list($atts) {
                                 $content .= '</div></div>
                             </div>';
             } else if($appearance == $appearanceSponsorsExhabitors) {
+                //echo '<pre>'; print_r($fullclass); echo '</pre>';
                 $content .= '<div id="" class="single-sponsors-exhibitors'.$post->ID.' item '.$fullclass.'">';
                                 if($fullclass === '') {
                                     $content .= '<div class="btn" onclick="openSponsorsExhibitors(\'single-sponsors-exhibitors'.$post->ID.'\')">
@@ -2755,9 +2754,24 @@ add_shortcode( 'sigma-mt-related-articles', 'sigma_mt_related_articles' );
 function sigma_mt_related_articles($atts) {
     $content = '';
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $author_id = isset($atts['author_id']) ? $atts['author_id'] : '';
     $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     $term_name = isset($atts['term_name']) ? $atts['term_name'] : '';
-    if(isset($term_id) && $term_id != '') {
+    if(isset($author_id) && $author_id != '') {
+        $post_args = array(
+          'posts_per_page' => -1,
+          'post_type' => 'news-items',
+          'orderby'        => 'publish_date',
+		  'order'          => 'DESC',
+          'meta_query' => array(
+				array(
+					'key'	  	=> 'author',
+					'value'	  	=> $author_id,
+					'compare' 	=> '=',
+				),
+			),
+        );
+    } else if(isset($term_id) && $term_id != '') {
         $post_args = array(
           'posts_per_page' => $count,
           'post_type' => 'news-items',
@@ -2796,30 +2810,48 @@ function sigma_mt_related_articles($atts) {
     }
     $relatedArticles = get_posts($post_args);
     if(!empty($relatedArticles)) {
-        $content .= '<!-- Related Article Section -->
-                        <div class="pitch-articles related-articles">
-                            <div class="articles-slide">';
-                                foreach($relatedArticles as $k => $item) {
-                                    $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
-                                    if(!empty($featured_image[0])) {
-                                        $featured_image = $featured_image[0];
-                                        $featured_title = $item->post_title;
-                                    } else {
-                                        $featured_image = '';
-                                        $featured_title = 'No Image Available';
-                                    }
-                                    $content .= '<a href="'.get_permalink($item->ID).'"><div class="testimonial">
-                                                    <div class="testi-details">
-                                                        <img src="'.$featured_image.'" alt="'.$featured_title.'" />
-                                                        <div class="post-title">
-                                                            <h3>'.$item->post_title.'</h3>
-                                                        </div>
-                                                    </div>
-                                                </div></a>';
-                                }
-                            $content .= '</div>
-                        </div>
-                    <!-- Related Article Section end -->';
+		if(isset($author_id) && $author_id != '') {
+			foreach($relatedArticles as $k => $item) {
+				$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
+				$content .= 
+							'<div class="item item--post">
+								<a class="more" href="' . get_permalink($item->ID); 
+				if(!empty($featured_image)){
+					$content .= '" style="background-image:url(' . "'" . $featured_image[0] . "'" . ')"';
+				}
+				$content .= 'target="_blank">
+									<div class="post-desc">
+										<h2>' . $item->post_title . '</h2>
+									</div>
+								</a>
+							</div>';
+			}
+		} else {
+			$content .= '<!-- Related Article Section -->
+							<div class="pitch-articles related-articles">
+								<div class="articles-slide">';
+									foreach($relatedArticles as $k => $item) {
+										$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
+										if(!empty($featured_image[0])) {
+											$featured_image = $featured_image[0];
+											$featured_title = $item->post_title;
+										} else {
+											$featured_image = '';
+											$featured_title = 'No Image Available';
+										}
+										$content .= '<a href="'.get_permalink($item->ID).'"><div class="testimonial">
+														<div class="testi-details">
+															<img src="'.$featured_image.'" alt="'.$featured_title.'" />
+															<div class="post-title">
+																<h3>'.$item->post_title.'</h3>
+															</div>
+														</div>
+													</div></a>';
+									}
+								$content .= '</div>
+							</div>
+						<!-- Related Article Section end -->';
+		}
     }
     return $content;
 }
@@ -3424,7 +3456,7 @@ function sigma_mt_calendar_subentries($atts) {
 												foreach($speakers as $speakerkey => $speaker){
 													if(isset($speaker["speaker"]) && $speaker["speaker"] != ''){
 														$speaker_id = $speaker["speaker"];
-														$company = get_field('image_icon', $speaker_id);
+														$company = get_field('company', $speaker_id);
 														$person_image = get_field('image_icon', $speaker_id);
 														$designation = get_field('designation', $speaker_id);
 														$event_data .= '<div class="speaker-wrapper">

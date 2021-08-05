@@ -13,6 +13,12 @@ get_header();
 $term = get_queried_object();
 $featured_image = get_field('featured', $term);
 $header_image = get_field('header', $term);
+$fallback_sidebars_left = '100427';
+$fallback_sidebars_right = '22586, 22578, 22549, 22583';
+$sidebars_left = get_field('left_sidebar', $term);
+$sidebars_right = get_field('right_sidebar', $term);
+$sidebars_left_final = !empty($sidebars_left) ? implode(', ', $sidebars_left) : $fallback_sidebars_left;
+$sidebars_right_final = !empty($sidebars_right) ? implode(', ', $sidebars_right) : $fallback_sidebars_right;
 ?>
 
 <style>
@@ -220,7 +226,7 @@ div.item--post:nth-child(2n+1) {
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="100427"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="'.$sidebars_left_final.'"]'); ?>
 			</div>
 			<!-- Leftbar end -->
 
@@ -252,7 +258,7 @@ div.item--post:nth-child(2n+1) {
 
 			<!-- Rightbar start -->
 			<div class="blog-rightbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22586, 22578, 22549, 22583"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="'.$sidebars_right_final.'"]'); ?>
 			</div>
 			<!-- Rightbar end -->
 		</div>

@@ -9,21 +9,36 @@
 
 get_header();
 
-$featured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
-if ($featured_image_url) {
-    $image_id = get_image_id_by_url($featured_image_url[0]);
-    $image_info = wp_get_attachment_metadata($image_id);
-    $image_title = get_the_title($image_id);
+$post = get_post();
+$fallback_sidebars_left = '22554, 22581, 22553';
+$fallback_sidebars_right = '22578, 22577, 22582, 22549, 22583';
+$terms = get_the_terms($post, 'news-cat');
+$featured_image;
+$sidebars_left_final;
+$sidebars_right_final;
+$featured_image_post = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+$firstcategory = !empty($terms) ? $terms[0] : null;
+if($firstcategory != null){
+	$featured_image_category = get_field('header', $firstcategory);
+	$featured_image = ($featured_image_category != '' ? $featured_image_category : (!empty($featured_image_post) ? $featured_image_post[0] : ''));
+	
+	$sidebars_left = get_field('left_sidebar_children', $firstcategory);
+	$sidebars_right = get_field('right_sidebar_children', $firstcategory);
+	$sidebars_left_final = !empty($sidebars_left) ? implode(', ', $sidebars_left) : $fallback_sidebars_left;
+	$sidebars_right_final = !empty($sidebars_right) ? implode(', ', $sidebars_right) : $fallback_sidebars_right;
+} else {
+	$featured_image = (!empty($featured_image_post) ? $featured_image_post[0] : '');
+	$sidebars_left_final = $fallback_sidebars_left;
+	$sidebars_right_final = $fallback_sidebars_right;
 }
-
 ?>
 
 <section>
 	<!-- News Banner start -->
-    <?php if ($featured_image_url) { ?>
+    <?php if ($featured_image != '') { ?>
         <div class="blog-banner">
             <a href="#">
-                <img src="<?php echo $featured_image_url[0]; ?>" alt="<?php echo $image_title; ?>">
+                <img src="<?php echo $featured_image; ?>">
             </a>
         </div>
     <?php } ?>
@@ -34,7 +49,7 @@ if ($featured_image_url) {
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22554, 22581, 22553"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="'.$sidebars_left_final.'"]'); ?>
 			</div>
 			<!-- Leftbar end -->
 
@@ -71,9 +86,9 @@ if ($featured_image_url) {
 								</strong>
 							</a>
 						<?php } else { ?>
-							<a class="author-link" href="#">
+							<a class="author-link" href="<?php echo get_the_permalink($author->ID); ?>">
 								<strong>
-									<?php echo $author[0]->post_title; ?>
+									<?php echo $author->post_title; ?>
 								</strong>
 							</a>
 						<?php } ?>
@@ -155,7 +170,7 @@ if ($featured_image_url) {
 
 			<!-- Rightbar start -->
 			<div class="blog-rightbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22578, 22577, 22582, 22549, 22583"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="'.$sidebars_right_final.'"]'); ?>
 			</div>
 			<!-- Rightbar end -->
 		</div>
@@ -164,3 +179,4 @@ if ($featured_image_url) {
 </section>
 
 <?php get_footer(); ?>
+

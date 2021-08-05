@@ -5503,6 +5503,18 @@ ul.agenda-submenu li a::after{
 
 /* Roadshow */
 
+#register-blue a, #register-green a , #register-red a {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: .025em;
+    font-family: 'MOntserrat';
+    font-weight: 600;
+    padding: 13px 20px;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
 .sim-sim-single-conf {
 	display: flex;
 	flex-direction: column;
@@ -5838,7 +5850,7 @@ ul.agenda-submenu li a::after{
 	padding: 10px;
 	font-size: 14px;
 	line-height: 16px;
-	min-width: 100px;
+	min-width: 90px;
 	min-height: 100px;
 	display: grid;
 	align-items: center
@@ -5867,6 +5879,11 @@ ul.agenda-submenu li a::after{
 	}
 }
 
+.agenda-roadshow-menu ul li:not(:nth-child(6)):not(:nth-child(7)):not(:nth-child(8)):before,
+.agenda-roadshow-menu ul li:not(:nth-child(6)):not(:nth-child(7)):not(:nth-child(8)):after {
+    border-color: gray !important;
+}
+
 .agenda-roadshow-menu ul li::after,
 .agenda-roadshow-menu ul li::before {
 	content: '';
@@ -5874,14 +5891,14 @@ ul.agenda-submenu li a::after{
 	top: 0;
 	border-radius: 20px;
 	padding: 0;
-	width: 2px;
-	height: 14px;
+	width: 10px;
+	height: 24px;
 	border-style: solid;
 	border-width: 4px;
 	border-color: inherit;
 	z-index: 1;
-	background-color: #fff;
-	box-shadow: 0px 0px 1px #fff
+	background-color: #fff !important;
+	box-shadow: 0px 0px 1px #fff !important;
 }
 
 .agenda-roadshow-menu ul li::after {
@@ -6765,7 +6782,8 @@ ul.agenda-submenu li a::after{
 	text-align: center;
 	border: 1px solid #4786be;
 	padding: 20px 0;
-	margin-top: 40px
+	margin-top: 40px;
+	font-weight: bold;
 }
 
 .intrestedIn a {
@@ -7630,6 +7648,27 @@ ul.agenda-submenu li a::after{
 .sport-betting-single .slider-related .slick-next {
 	background-image: url('https://www.sigma.com.mt/hubfs/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')
 }
+
+/*********** Css for Media Opportunities ****/
+
+.mo-social-media-stats {
+    border: 1px solid #c4c4c4;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 20px;
+    height: 100%;
+}
+.mo-social-media-stats .elementor-icon-list-text span, .mo-social-media-stats .elementor-icon-list-icon i {
+    color: #ed1a3b;
+    font-weight: bold;
+}
+.mo-social-media-stats .elementor-widget-image img {
+    vertical-align: middle;
+    display: inline-block;
+    max-height: 45px !important;
+}
+/*********** Css for Media Opportunities end *****/
 
 @media(max-width:767px) {
 	.detailblk .title span {
