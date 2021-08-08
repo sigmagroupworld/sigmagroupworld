@@ -7,6 +7,16 @@ jQuery(document).ready(function($) {
   		//itemSelector: '.img-gallery img'
 	});
 
+	$('.video-slider-mo').slick({
+      		slidesToScroll: 1,
+      		autoplay: true,
+      		autoplaySpeed: 3000,
+      		dots: false,
+      		infinite: true,
+      		adaptiveHeight: true,
+      		arrows: true
+	  });
+
 	/**** Scroll To Top ***/
 	$(".scroll-to-top").click(function() {
 	    $("html, body").animate({ 
@@ -84,7 +94,7 @@ jQuery(document).ready(function($) {
 	setTimeout( function(){
 		$( '.home-page.popup' ).removeClass( 'close' );
 		$( '.home-page.popup' ).addClass( 'open' );
-	}, 2000);
+	}, 30000);
 
 	/** Sponsors Exhibitors Toggle ***/
 	openSponsorsExhibitors = (elementId) => {
@@ -757,6 +767,7 @@ for (let i = 0; i < toggles.length; i++) {
 	  }
 	});
 }
+
 
 function openModal(elementId, modalId, closeId) {
     let popup = document.getElementById(elementId);
