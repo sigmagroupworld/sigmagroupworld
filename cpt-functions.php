@@ -1,5 +1,6 @@
 <?php
 // Update posts slug
+/*
 add_action( 'init', 'sigma_mt_update_posts_slug' );
 function sigma_mt_update_posts_slug() {
     $posts = get_posts( array (  'numberposts' => -1, 'post_type'   => array('news-items', 'post', 'page')) );
@@ -16,7 +17,7 @@ function sigma_mt_update_posts_slug() {
         }
     }
 }
-
+*/
 // create widgets for sidebar
 add_action( 'widgets_init', 'sigma_mt_widgets_init' );
 function sigma_mt_widgets_init() {
@@ -79,7 +80,8 @@ function sigma_mt_taxonomies_news(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
-			'rewrite' => array('slug' => 'latest-news')
+			'rewrite' => array('slug' => 'latest-news'),
+        	'show_admin_column' => true
 		)
 	);
 }
@@ -101,6 +103,7 @@ function sigma_mt_tags_news(){
 				'with_front' => false
 			],
 			'show_tagcloud' => true,
+        	'show_admin_column' => true,
 			'query_var'     => true
 		)
 	);
@@ -171,6 +174,7 @@ function sigma_mt_taxonomies_videos(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'sm-Video')
 		)
 	);
@@ -216,6 +220,7 @@ function sigma_mt_taxonomies_conference(){
 				'new_item_name' => __('New Conference Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'sm-conference')
 		)
 	);
@@ -261,6 +266,7 @@ function sigma_mt_taxonomies_testimonial(){
 				'new_item_name' => __('New Testimonials Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'sm-testimonial')
 		)
 	);
@@ -306,6 +312,7 @@ function sigma_mt_taxonomies_magazines(){
 				'new_item_name' => __('New Magazine Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'magazines-cat')
 		)
 	);
@@ -351,6 +358,7 @@ function sigma_mt_taxonomies_casinos(){
 				'new_item_name' => __('New Casinos Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+        	'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-casinos')
 		)
 	);
@@ -398,6 +406,7 @@ function sigma_mt_jobs_categories(){
 			'new_item_name' => __('New Job Category', 'sigmaigaming')
 		),
 		'show_ui' => true,
+		'show_admin_column' => true,
 		'rewrite' => array('slug' => 'latest-jobs')
 	   )
 	);
@@ -445,6 +454,7 @@ function sigma_mt_speaker_categories(){
 			'new_item_name' => __('New Speaker Category', 'sigmaigaming')
 		),
 		'show_ui' => true,
+		'show_admin_column' => true,
 		'rewrite' => array('slug' => 'latest-speakers')
 	   )
 	);
@@ -493,6 +503,7 @@ function sigma_mt_taxonomies_people(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-people')
 		)
 	);
@@ -540,6 +551,7 @@ function sigma_mt_taxonomies_company(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-company')
 		)
 	);
@@ -585,6 +597,7 @@ function sigma_mt_taxonomies_sponsoring(){
 				'new_item_name' => __('New Sponsoring Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-sponsoring')
 		)
 	);
@@ -607,6 +620,7 @@ function sigma_mt_tags_sponsoring(){
 				'with_front' => false
 			],
 			'show_tagcloud' => true,
+			'show_admin_column' => true,
 			'query_var'     => true
 		)
 	);
@@ -652,7 +666,8 @@ function sigma_mt_taxonomies_sidebar_elements(){
 				'new_item_name' => __('New Sidebar Element Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
-			'rewrite' => array('slug' => 'latest-sidebar-elements')
+			'rewrite' => array('slug' => 'latest-sidebar-elements'),
+			'show_admin_column' => true
 		)
 	);
 }
@@ -697,6 +712,7 @@ function sigma_mt_taxonomies_hotel(){
 				'new_item_name' => __('New Hotel Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-hotel')
 		)
 	);
@@ -742,6 +758,7 @@ function sigma_mt_taxonomies_award(){
 				'new_item_name' => __('New Award Category', 'sigmaigaming')
 			),
 			'show_ui' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-award')
 		)
 	);
@@ -790,11 +807,34 @@ function sigma_mt_taxonomies_gallery(){
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_in_rest' => true,
+			'show_admin_column' => true,
 			'rewrite' => array('slug' => 'latest-gallery')
 		)
 	);
 }
 
+// create a Custom post type Gallery
+add_action('init', 'sigma_mt_m_and_a_custom_posts');
+function sigma_mt_m_and_a_custom_posts() {
+	register_post_type('m-and-a-deals', array(
+		'labels' => array(
+			'name' => __('M&A Deals', 'sigmaigaming'),
+			'singular_name' => __('M&A Deal', 'sigmaigaming'),
+			'menu_name' => __('M&A Deals', 'sigmaigaming'),
+			'add_new' => __('Add M&A Deal', 'sigmaigaming'),
+			'add_new_item' => __('Add M&A Deals', 'sigmaigaming'),
+			'edit_item' => __('Edit M&A Deal', 'sigmaigaming'),
+			'new_item' => __('M&A Deals', 'sigmaigaming'),
+			'view_item' => __('View M&A Deal', 'sigmaigaming'),
+			'search_items' => __('Search M&A Deals', 'sigmaigaming'),
+			'not_found' => __('No M&A Deals found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No M&A Deals found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'm-and-a'),		
+		'supports' => array( 'title', 'thumbnail', 'custom-fields' ),
+	));
+}
 
 // Shortcode for iGaming Gallery
 add_shortcode( 'sigma-mt-igaming-gallery-new', 'sigma_mt_igaming_gallery_new' );
@@ -914,4 +954,24 @@ function load_gallery_by_ajax_callback() {
 	    }
 	    exit;
 	}
+}
+
+function sigma_mt_disable_autoupdate_slug($post_ID, $post, $update)
+{
+    if ($post->post_type == 'news-items') {
+        $disable_autoupdate = get_post_meta($post->ID, 'disable_autoupdate_slug', true);
+
+        if (empty($disable_autoupdate)) {
+            // check the slug and run an update if necessary
+            $new_slug = sanitize_title($post->post_title);
+            if ($post->post_name != $new_slug) {
+                wp_update_post(
+                    array(
+                        'ID' => $post->ID,
+                        'post_name' => $new_slug
+                    )
+                );
+            }
+        }
+    }
 }

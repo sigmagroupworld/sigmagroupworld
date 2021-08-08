@@ -85,13 +85,13 @@ get_header();
 					<ul>
 						<li>Share Article</li>
 						<li>
-							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fab fa-twitter" aria-hidden="true"></i></a>
 						</li>
 					</ul>
 				</div>
@@ -105,13 +105,13 @@ get_header();
 					<ul>
 						<li>Share Article</li>
 						<li>
-							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fab fa-twitter" aria-hidden="true"></i></a>
 						</li>
 					</ul>
 				</div>
@@ -130,24 +130,21 @@ get_header();
 							'post_type' => 'news-items',
 							'posts_per_page' => 6,
 					   ));?>
-					    <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-						<article class="post-item">
-						<div class="thumb" style="background-image: url('<?php echo wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ); ?>')">
-							<a href="<?php echo get_permalink();?>"></a>
-						</div>
-						<div class="content-wrapper">
-							<h2><a href="<?php echo get_permalink();?>"><?php the_title(); ?></a></h2>
-							<p>
-							<?php 	$content = get_the_content('read more', true);
-									$content = substr($content,0,250);
-									$content = apply_filters('the_content', $content.'...' );
-									//$content = $content . '<a href="'.get_permalink().'">(Read More...)</a>'; 
-									   echo $content;  ?>
-							</p>
-						</div>
-						</article>
-						  <?php endwhile; 
-					  wp_reset_postdata(); ?>
+                        <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                            <article class="post-item">
+                                <div class="thumb"
+                                     style="background-image: url('<?php echo wp_get_attachment_url(get_post_thumbnail_id(get_the_ID())); ?>')">
+                                    <a href="<?php echo get_the_permalink(); ?>"></a>
+                                </div>
+                                <div class="content-wrapper">
+                                    <h2><a href="<?php echo get_the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                                    <p>
+
+                                    </p>
+                                </div>
+                            </article>
+                        <?php endwhile;
+                        wp_reset_postdata(); ?>
 					</div> 
 				</div>
 

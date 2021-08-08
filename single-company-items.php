@@ -14,10 +14,13 @@ $thumbnail = get_field('single_thumbnail', $post_id);
 $content = get_field('company_content', $post_id);
 $migrated = get_field('fully_migrated', $post_id);
 $key_metrics = get_field('key_metrics', $post_id);
-$game_provider_review = get_field('game_provider_review', $post_id);
-$certified_by = get_field('certified_by', $post_id);
-$awards_won = get_field('awards_won', $post_id);
-$games = get_field('games', $post_id);
+$platform_provider = get_field('platform_provider', $post_id);
+$payment_provider = get_field('payment_provider', $post_id);
+$game_provider = get_field('game_provider', $post_id);
+$shared_fields = get_field('shared_fields', $post_id);
+
+$color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
+
 ?>
 
 <section>
@@ -31,7 +34,7 @@ $games = get_field('games', $post_id);
 			<!-- Leftbar end -->
 
 			<!-- Middle Detail News start -->
-			<div class="blog-details">
+			<div class="blog-details <?php echo $color; ?>">
 				<div class="featured-img">
 					<?php echo '<img src="' . $thumbnail . '">'; ?>
 				</div>
@@ -53,144 +56,299 @@ $games = get_field('games', $post_id);
 								
 								<div class="Keymatricswraper">
 									
-									<h2 class="sectiontitle">Key Metrics</h2>
+									<h2 class="sectiontitle"><?php echo __('Key Metrics', 'sigmaigaming'); ?></h2>
 									
+										
+									<?php if(isset($payment_provider) && isset($payment_provider['type']) && !empty($payment_provider['type'])) { ?>
+										<div class="key_choices">
+											<?php 
+											$arrayVal = array();
+								 			$options = array('PSP', 'Aggregator', 'Acquire');
+											foreach($payment_provider['type'] as $val) {
+												$arrayVal[] = $val;
+											}
+											foreach($options as $val) {
+												$class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  		 	echo '<div class="keyitem detail'.$class.'"><span>'.$val.'</span></div>';
+											} ?>
+										</div>
+									<?php } ?>
+										
+									<?php if(isset($payment_provider) && isset($payment_provider['regions_served']) && $payment_provider['regions_served'] != '') { ?>
+										<div class="keyabout">
+											<p class="region">
+												<span><?php echo __('Regions served', 'sigmaigaming'); ?>: </span><?php echo $payment_provider['regions_served']; ?>
+										  	</p>
+									 	 </div>
+									<?php } ?>
+									
+									<?php if(isset($shared_fields) && isset($shared_fields['licences']) && $shared_fields['licences'] != '') { ?>
 									<div class="lj_text">
 										<p class="title"><?php echo __('Licences', 'sigmaigaming'); ?>:</p>
-										<p class="detail">Malta Gaming Authority, Romanian National Gambling Office (ONJN), United Kingdom Gambling Commission</p>
+										<p class="detail"><?php echo $shared_fields['licences']; ?></p>
 									</div>
+									<?php } ?>
 									
 									<div class="km_content">
+										
 										<div class="left">
-											<div class="gametypes">
-												<p class="title">Platform Types:</p>
-												<p class="gametypeitem selected detail">Licensed platform</p>
-												<p class="gametypeitem selected detail">White Label provider</p>
-											</div>
 											
-											<div class="gametypes">
-												<p class="title">Platform Product:</p>
-												<p class="gametypeitem detail">Casino platform provider</p>
-												<p class="gametypeitem selected detail">Sportsbook provider</p>
-
+											<?php if(isset($game_provider) && isset($game_provider['number_of_games']) && !empty($game_provider['number_of_games'])) { ?>
+											<div class="nogames">
+												<p class="title"><?php echo __('Number of Games', 'sigmaigaming'); ?>:</p>
+												<p class="detail"><?php echo $game_provider['number_of_games']; ?></p>
 											</div>
+											<?php } ?>
+											
+											<?php if(isset($game_provider) && isset($game_provider['game_types']) && !empty($game_provider['game_types'])) { ?>
 											<div class="gametypes">
-												<p class="title">LANDBASED/RETAIL PLATFORM:</p>
-												<p class="gametypeitem selected detail">Yes</p>
-												<p class="gametypeitem detail">No</p>
+												<p class="title"><?php echo __('Game Types:', 'sigmaigaming'); ?></p>
+												<?php 
+												  $arrayVal = array();
+								 				  $options = array('Slots', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette)', 'Keno, Lottery', 'Video Poker', 'Scratchcard Games', 'Branded Games', 'VR', 'Others');
+												  foreach($game_provider['game_types'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
 											</div>
+											<?php } ?>
+											
+											<?php if(isset($platform_provider) && isset($platform_provider['platform_types']) && !empty($platform_provider['platform_types'])) { ?>
+											<div class="gametypes">
+												<p class="title"><?php echo __('Platform Types:', 'sigmaigaming'); ?></p>
+												<?php 
+												  $arrayVal = array();
+								 				  $options = array('Licensed platform', 'White Label provider');
+												  foreach($platform_provider['platform_types'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
+											</div>
+											<?php } ?>
+											
+											<?php if(isset($platform_provider) && isset($platform_provider['platform_product']) && !empty($platform_provider['platform_product'])) { ?>
+											<div class="gametypes">
+												<p class="title"><?php echo __('Platform Product:', 'sigmaigaming'); ?></p>
+												<?php 
+												  $arrayVal = array();
+								 				  $options = array('Casino platform provider', 'Sportsbook provider');
+												  foreach($platform_provider['platform_product'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
+											</div>
+											<?php } ?>
+											
+											<?php if(isset($platform_provider) && isset($platform_provider['landbasedretail_platform']) && $platform_provider['landbasedretail_platform'] != '') { ?>
+											<div class="gametypes">
+												<p class="title"><?php echo __('Landbased / Retail Platform:', 'sigmaigaming'); ?></p>
+												<?php 
+								 				  $options = array('Yes', 'No');
+												  foreach($options as $val) {
+													  $class = ($platform_provider['landbasedretail_platform'] == $val ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
+											</div>
+											<?php } ?>
+											<?php if(isset($platform_provider) && isset($platform_provider['service_included_in_the_platform']) && !empty($platform_provider['service_included_in_the_platform'])) { ?>
+											<div class="gametypes">
+												<p class="title"><?php echo __('Services included in the platform:', 'sigmaigaming'); ?></p>
+												<?php 
+												  $arrayVal = array();
+								 				  $options = array('24/7 customer service', 'CRM tool', 'CRM service', 'Payment gateway', 'Anti-Fraud tools', 'KYC services', 'Affiliate Platform' ,'Licences (certifications)' ,'Marketing options (bonuses, jackpots cashbacks, free spins) Other', 'Games aggregator as B2B', 'Blockchain &amp; smart contract solution');
+												  
+												  foreach($platform_provider['service_included_in_the_platform'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
+											</div>
+											<?php } ?>
+											
+											<?php if(isset($payment_provider) && isset($payment_provider['payment_methods_type']) && !empty($payment_provider['payment_methods_type'])) { ?>
+											<div class="gametypes">
+												<p class="title"><?php echo __('Payment Methods Type', 'sigmaigaming'); ?>:</p>
+												<?php 
+												  $arrayVal = array();
+								 				  $options = array('Visa/Mastercard', 'E-wallets', 'Prepaid Cards and Vouchers', 'Direct Bank', 'Agents', 'Cash on delivery', 'Crypto', 'Mobile Payments');
+												  foreach($payment_provider['payment_methods_type'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
+											</div>
+											<?php } ?>
+											
+											<?php if(isset($payment_provider) && isset($payment_provider['payment_services']) && !empty($payment_provider['payment_services'])) { ?>
+											<div class="gametypes">
+												<p class="title"><?php echo __('Payment Services', 'sigmaigaming'); ?>:</p>
+												<?php 
+												  $arrayVal = array();
+								 				  $options = array('Payment facilitator', 'Risk management', 'Fraud protection', 'Multi-currency processing', 'Retail');
+												  foreach($payment_provider['payment_services'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
+											</div>
+											<?php } ?>
 										</div>
 										<div class="right">
 											<div class="casino_qt">
-												<p class="title">OPERATORS INTEGRATED:</p>
-												<p class="qtyitem detail">0-10</p>
-												<p class="qtyitem selected detail">10-50</p>
-												<p class="qtyitem detail">&gt;50</p>
+											<?php if(isset($shared_fields) && isset($shared_fields['operators_integrated']) && $shared_fields['operators_integrated'] != '') { ?>
+												<p class="title"><?php echo __('Operators Integrated:', 'sigmaigaming'); ?></p>
+												<?php 
+								 				  $options = array('< 10', '11-25', '26-50', '51-100', '>101');
+												  foreach($options as $val) {
+													  $class = ($shared_fields['operators_integrated'] == $val ? ' selected' : '');
+									  				  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
 											</div>
+											<?php } ?>
+											<?php if(isset($shared_fields) && isset($shared_fields['years_in_business']) && $shared_fields['years_in_business'] != '') { ?>
 											<div class="year_est">
-												<p class="title">YEARS IN BUSINESS:</p>
-												<p class="yearitem detail">&lt;2</p>
-												<p class="yearitem detail">3-5</p>
-												<p class="yearitem selected detail">6-10</p>
-												<p class="yearitem detail">&gt;10</p>
+												<p class="title"><?php echo __('Years in Business:', 'sigmaigaming'); ?></p>
+												<?php 
+												  $options = array('< 2', '3-5', '6-10', '>10');
+												  foreach($options as $val) {
+													  $class = ($shared_fields['years_in_business'] == $val ? ' selected' : '');
+									  				  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
 											</div>
-										</div>
-									</div>
-									
-									<div class="km_content">
-										<div class="left">
+											<?php } ?>
+											<?php if(isset($platform_provider) && isset($platform_provider['types_of_bet']) && !empty($platform_provider['types_of_bet'])) { ?>
 											<div class="gametypes">
-												<p class="title">Services included in the platform:</p>
-												<p class="gametypeitem selected detail">24/7 customer service</p>
-												<p class="gametypeitem detail">CRM tool</p>
-												<p class="gametypeitem selected detail">CRM service</p>
-												<p class="gametypeitem selected detail">Payment gateway</p>
-												<p class="gametypeitem selected detail">Anti-Fraud tools</p>
-												<p class="gametypeitem detail">KYC services</p>
-												<p class="gametypeitem detail">Affiliate Platform</p>
-												<p class="gametypeitem selected detail">Licences (certifications)</p>
-												<p class="gametypeitem detail">Marketing options (bonuses, jackpots cashbacks, free spins) Other</p>
-												<p class="gametypeitem detail">Games aggregator as B2B</p>
-												<p class="gametypeitem detail">Blockchain &amp; smart contract solution</p>
+												<p class="title"><?php echo __('Types of bet:', 'sigmaigaming'); ?></p>
+												<?php 
+												  $arrayVal = array();
+												  $options = array('Sportsbook', 'E-sports', 'Virtual Sports', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette, Poker)', 'Keno,Lottery', 'Video Poker', 'Scratch card Games');
+												  foreach($platform_provider['types_of_bet'] as $val) {
+													  $arrayVal[] = $val;
+												  }
+												  foreach($options as $val) {
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+												  } ?>
 											</div>
-										</div>
-										<div class="right">
-											<div class="gametypes">
-												<p class="title">Types of bet:</p>
-												<p class="gametypeitem selected detail">Sportsbook</p>
-												<p class="gametypeitem selected detail">E-sports</p>
-												<p class="gametypeitem selected detail">Virtual Sports</p>
-												<p class="gametypeitem detail">Live Casino Games</p>
-												<p class="gametypeitem detail">Dice Games</p>
-												<p class="gametypeitem detail">Table games (Blackjack, Baccarat, Roulette, Poker)</p>
-												<p class="gametypeitem detail">Keno,Lottery</p>
-												<p class="gametypeitem detail">Video Poker</p>
-												<p class="gametypeitem detail">Scratch card Games</p>
 											</div>
+								
+											<?php } ?>
 										</div>
-									</div>
-									
+									</div>	
 								</div>
 								
+								<?php if(isset($shared_fields) && isset($shared_fields['review_video_url']) && !empty($shared_fields['review_video_url'])) { ?>
+								<div class="gameReviewwrapper">
+								  <h2 class="sectiontitle">Game Provider Review</h2>
+								  <div class="gameReviewContent">
+									<iframe width="560" height="315" src="<?php echo $shared_fields['review_video_url']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+								  </div>
+								</div>
+								<br />
+								<?php } ?>
+								
+								<?php if(isset($shared_fields) && isset($shared_fields['certified_by']) && !empty($shared_fields['certified_by'])) { ?>
+								<div class="certifiedWrap">
+								  <h2 class="sectiontitle"><?php echo __('Certified By:', 'sigmaigaming'); ?></h2>
+								  <div class="certifiedcontent">
+									<p>
+										<?php foreach($shared_fields['certified_by'] as $certified) { 
+											$featured = wp_get_attachment_image_src( get_post_thumbnail_id( $certified ), 'full' );
+											if(!empty($featured)){ ?>
+												<img src="<?php echo $featured[0]; ?>" width="177" style="width: 177px;" sizes="(max-width: 177px) 100vw, 177px">&nbsp;
+										<?php }
+										} ?>
+									</p>
+								  </div>
+								</div>
+								<br />
+								<?php } ?>
+								
+								<?php if(isset($shared_fields) && isset($shared_fields['awards_won']) && !empty($shared_fields['awards_won'])) { ?>
 								<div class="latestawardWrap">
-									<h2 class="sectiontitle">Awards Won</h2>
+									<h2 class="sectiontitle"><?php echo __('Awards won:', 'sigmaigaming'); ?></h2>
 									<div class="awardcontent">
 										<div class="awards-won-list slick-initialized slick-slider">
 											<div class="slick-list draggable">
 												<div class="slick-track" style="opacity: 1; width: 592px; transform: translate3d(0px, 0px, 0px);">
+													<?php foreach($shared_fields['awards_won'] as $award) { ?>
 													<div class="slick-slide slick-current slick-active" style="width: 148px;" data-slick-index="0" aria-hidden="false">
 														<div>
-															<div class="award-won" style="width: 100%; display: inline-block;" data-order="Best Technology Provider of 2019 ">
-																<img class="awardicon" src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Game%20Provider%20awards/rootz-news-migea_uid_5fbe2cf44faa9.jpg" />
-																<h4 class="awardtitle">Best Technology Provider of 2019</h4>
+															<div class="award-won" style="width: 100%; display: inline-block;" data-order="<?php echo $award['award_name']; ?>">
+																<img class="awardicon" src="<?php echo $award['award_logo']; ?>" />
+																<h4 class="awardtitle"><?php echo $award['award_name']; ?></h4>
 															</div>
 														</div>
 													</div>
-													<div class="slick-slide slick-active" style="width: 148px;" data-slick-index="1" aria-hidden="false">
-														<div>
-															<div class="award-won" style="width: 100%; display: inline-block;" data-order="Rising Star in Sports Betting Tech 2019 ">
-																<img class="awardicon" src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Game%20Provider%20awards/the%20Baltic%20and%20Scandinavian%20Gaming%20Awards%20Logo.png" />
-																<h4 class="awardtitle">Rising Star in Sports Betting Tech 2019</h4>
-															</div>
-														</div>
-													</div>
-
-													<div class="slick-slide slick-active" style="width: 148px;" data-slick-index="2" aria-hidden="false">
-														<div>
-															<div class="award-won" style="width: 100%; display: inline-block;" data-order="Rising Star in Sports Betting Tech 2019 ">
-																<img class="awardicon" src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Game%20Provider%20awards/147.jpg" />
-																<h4 class="awardtitle">Rising Star in Sports Betting Tech 2019</h4>
-															</div>
-														</div>
-													</div>
-													<div class="slick-slide slick-active" style="width: 148px;" data-slick-index="3" aria-hidden="false">
-														<div>
-															<div class="award-won" style="width: 100%; display: inline-block;" data-order="Rising Star in Sports Betting Tech 2020 ">
-																<img class="awardicon" src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Game%20Provider%20awards/the%20Baltic%20and%20Scandinavian%20Gaming%20Awards%20Logo.png" />
-																<h4 class="awardtitle">Rising Star in Sports Betting Tech 2020</h4>
-															</div>
-														</div>
-													</div>
+													<?php }?>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+								<br />
+								<?php } ?>
+								
+								<?php if(isset($game_provider) && isset($game_provider['games']) && !empty($game_provider['games'])) { ?>
+								<div class="gamesWrap">
+								  <h2 class="sectiontitle">GAMES</h2>
+								  <div class="gamescontent">
+									<div class="gameswrap load-more-items">
+									  <?php foreach($game_provider['games'] as $game) { ?>
+									  <div class="games on-page show-item">
+										<div class="gamesinner">
+										  <a target="_blank" href="<?php echo $game['game_url']; ?>">
+											<img src="<?php echo $game['game_image']; ?>" class="gameimg">                
+											<h4 class="gamelink">Play Now</h4>
+										  </a>
+										</div>
+									  </div>
+									  <?php } ?>
+									</div>
+								  </div>
+    							</div>
+								<br />
+								<?php } ?>
+								
+								<?php if(isset($shared_fields)) { ?>
 								<div class="intrestedIn">
-									Interested in Altenar?
-									<a href="https://www.sigma.com.mt/en/contact/?hsLang=en">Contact</a> Maria <a href="mailto:maria.r@SiGMA.World"><img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Icons/mail.png" /></a> <a href="tel:+447718137711"><img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Icons/call.png" /></a> <a href="skype:live:65e02cd06ffacb1a"><img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Icons/skype-icon.png" /></a>
-
+									<?php echo __('Interested in', 'sigmaigaming'); ?><?php echo ' ' . get_the_title($post_id); ?>?<br />
+									<a href="https://www.sigma.world/contact">Contact</a> <?php echo $shared_fields['contact_person']; ?> 
+									<?php if(isset($shared_fields['email']) && $shared_fields['email'] != '') { ?>
+										&nbsp;<a href="mailto:<?php echo $shared_fields['email']; ?>"><img src="/fileadmin/mail.png" /></a>
+									<?php } ?>
+									<?php if(isset($shared_fields['phone']) && $shared_fields['phone'] != '') { ?>
+										&nbsp;<a href="tel:<?php echo $shared_fields['phone']; ?>"><img src="/fileadmin//call.png" /></a>
+									<?php if(isset($shared_fields['skype']) && $shared_fields['skype'] != '') { ?>
+									<?php } ?>
+										&nbsp;<a href="skype:<?php echo $shared_fields['skype']; ?>"><img src="/fileadmin//skype-icon.png" /></a>
+									<?php } ?>
 								</div>
+								<?php } ?>
 							</div>
 						</div>
-					</div>
 					<?php } ?>
+					</div>
+					<div class="releted-post">
+						<br />
+						<?php echo do_shortcode('[sigma-mt-related-articles term_name="'.get_the_title().'" post_per_page = 10]'); ?>
+					</div>
 				</div>
-				<div class="releted-post">
-					<br />
-					<?php echo do_shortcode('[sigma-mt-related-articles term_name="'.get_the_title().'" post_per_page = 10]'); ?>
-				</div>
-			</div>
 			<!-- Middle Detail News end -->
 
 			<!-- Rightbar start -->

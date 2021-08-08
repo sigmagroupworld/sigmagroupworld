@@ -347,7 +347,7 @@ $americas = '<section class="home-blog">
 					$row++;
 					wp_reset_postdata();
 				}
-			$americas .= '</div>
+$americas .= '</div>
 			<div class="affiliate hp-center">';
 				$news_tags = sigma_mt_get_news_tags_data(1914, $taxonomy, 5);
 				$americas .= '<div class="h-title">
@@ -393,7 +393,9 @@ $americas = '<section class="home-blog">
 						}
 						$row++; 
 					}
-				$americas .= '</div>
+$americas .= do_shortcode('[sigma-mt-get-testimonials appearance="broker" term_id=4675]');
+
+$americas .= '</div>
 			</div>
 			<div class="spotify hp-right">';
 				$news_tags = sigma_mt_get_news_tags_data(1936, $taxonomy, 12);

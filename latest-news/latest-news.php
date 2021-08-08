@@ -38,7 +38,7 @@ $europe = '<section class="home-blog">
 				}
 			$europe .= '</div>
 			<div class="affiliate hp-center">';
-				$news_tags = sigma_mt_get_news_tags_data(1944, $taxonomy, 9);
+				$news_tags = sigma_mt_get_news_tags_data(1907, $taxonomy, 11);
 				$europe .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -62,39 +62,17 @@ $europe = '<section class="home-blog">
 						} else {
 							$europe .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
 						$row++; 
 					}
-				$europe .= '</div>
-				<div class="magazine-section">
-					<div class="sigma-magazines testimonial-slide-home">';
-						$sigma_magazines = sigma_mt_get_magazines(1149);
-						foreach($sigma_magazines as $k => $item) {
-							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
-							$europe .= '<figure class="testimonial">
-								<img src="' . $featured_image[0] . '" alt="' . $item->post_title . '" />
-							</figure>';
-						}
-					$europe .= '</div>
-					<div class="block-magazines testimonial-slide-home">';
-						$sigma_magazines = sigma_mt_get_magazines(1148);
-						foreach($sigma_magazines as $k => $item) {
-							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $item->ID ), 'full' );
-							$europe .= '<figure class="testimonial">
-								<img src="' . $featured_image[0] . '" alt="' . $item->post_title . '" />
-							</figure>';
-						}
-					$europe .= '</div>
+				$europe .= '
 				</div>
 			</div>
 			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(2057, $taxonomy, 12);
+				$news_tags = sigma_mt_get_news_tags_data(1882, $taxonomy, 11);
 				$europe .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -104,7 +82,6 @@ $europe = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
                         $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$europe .= '<div class="post-item">
@@ -117,13 +94,8 @@ $europe = '<section class="home-blog">
 							</div>';
 						} else {
 							$europe .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">';
-							if ($featured_image_thumb) {
-                                $europe .= '<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>';
-                            }
-							$europe .= '<h2>' . $post->post_title . '</h2>
+								<a href="' . get_permalink($post) . '">
+									<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
@@ -171,7 +143,7 @@ $asia = '<section class="home-blog">
 				}
 			$asia .= '</div>
 			<div class="affiliate hp-center">';
-				$news_tags = sigma_mt_get_news_tags_data(1907, $taxonomy, 6);
+				$news_tags = sigma_mt_get_news_tags_data(1944, $taxonomy, 11);
 				$asia .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -182,7 +154,6 @@ $asia = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
                         $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$asia .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -195,53 +166,23 @@ $asia = '<section class="home-blog">
 						} else {
 							$asia .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
 						$row++; 
 					}
-					$asia .= do_shortcode('[sigma-mt-get-testimonials appearance="frontpage" term_id=1307]');
 				$asia .= '</div>
 			</div>
-			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(1882, $taxonomy, 12);
-				$asia .= '<div class="h-title">
-					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
-						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</a>
-				</div>
+			<div class="spotify hp-right">
+				<div class="h-title"><a href="#">'.
+						__('Publications', 'sigmaigaming') . '<i class="fa fa-angle-right" aria-hidden="true"></i>
+				</a></div>
 				<div class="blog-listing-module">';
-					$row = 0;
-					foreach ( $news_tags['term_data'] as $k => $post ) {
-			        	setup_postdata( $post );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
-                        $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			        	if($row === 0) {
-							$asia .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-	                    			<h2>' . $post->post_title . '</h2>
-								</a>
-							</div>';
-						} else {
-							$asia .= '<div class="post-item">
-								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
-		                    		<h2>' . $post->post_title . '</h2>
-								</a>
-							</div>';
-						}
-						$row++; 
-					}
-				$asia .= '</div>
+                    $asia .= do_shortcode('[sigma-mt-magazines appearance=latest-news post_per_page=2 term_id=1149]');
+                    $asia .= do_shortcode('[sigma-mt-magazines appearance=latest-news post_per_page=2 term_id=1148]');
+                    $asia .= '
+				</div>
 			</div>
 		</div>
 	</div>
@@ -283,7 +224,7 @@ $americas = '<section class="home-blog">
 				}
 			$americas .= '</div>
 			<div class="affiliate hp-center">';
-				$news_tags = sigma_mt_get_news_tags_data(1914, $taxonomy, 5);
+				$news_tags = sigma_mt_get_news_tags_data(1893, $taxonomy, 5);
 				$americas .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -294,7 +235,6 @@ $americas = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
                         $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -307,21 +247,18 @@ $americas = '<section class="home-blog">
 						} else {
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">';
-                            if ($featured_image_thumb) {
-                                $americas .= '<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>';
-                            }
 	                    			$americas .= '<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
 						}
 						$row++; 
 					}
-				$americas .= '</div>
+				$americas .= do_shortcode('[sigma-mt-get-testimonials appearance="frontpage" term_id=1307]');
+
+                $americas .= '</div>
 			</div>
 			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(1936, $taxonomy, 12);
+				$news_tags = sigma_mt_get_news_tags_data(1936, $taxonomy, 11);
 				$americas .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -331,7 +268,6 @@ $americas = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
                         $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$americas .= '<div class="post-item">
@@ -345,9 +281,6 @@ $americas = '<section class="home-blog">
 						} else {
 							$americas .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
 		                    		<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
@@ -366,7 +299,7 @@ $americas = '<section class="home-blog">
 $africa = '<section class="home-blog">
 	<div class="container">
 		<div class="home-news">';
-			$news_tags = sigma_mt_get_news_tags_data(1889, $taxonomy, 13);
+			$news_tags = sigma_mt_get_news_tags_data(1889, $taxonomy, 15);
 			$africa .= '<div class="latest-news hp-left">
 				<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' . 
@@ -396,7 +329,7 @@ $africa = '<section class="home-blog">
 				}
 			$africa .= '</div>
 			<div class="affiliate hp-center">';
-				$news_tags = sigma_mt_get_news_tags_data(1937, $taxonomy, 12);
+				$news_tags = sigma_mt_get_news_tags_data(1937, $taxonomy, 13);
 				$africa .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -407,7 +340,6 @@ $africa = '<section class="home-blog">
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
                         $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
 						if($row === 0) {
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
@@ -420,9 +352,6 @@ $africa = '<section class="home-blog">
 						} else {
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
 	                    			<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';
@@ -432,7 +361,7 @@ $africa = '<section class="home-blog">
 				$africa .= '</div>
 			</div>
 			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(1942, $taxonomy, 12);
+				$news_tags = sigma_mt_get_news_tags_data(2057, $taxonomy, 13);
 				$africa .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -442,7 +371,6 @@ $africa = '<section class="home-blog">
 					$row = 0;
 					foreach ( $news_tags['term_data'] as $k => $post ) {
 			        	setup_postdata( $post );
-                        $featured_image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
                         $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			        	if($row === 0) {
 							$africa .= '<div class="post-item">
@@ -456,9 +384,6 @@ $africa = '<section class="home-blog">
 						} else {
 							$africa .= '<div class="post-item">
 								<a href="' . get_permalink($post) . '">
-									<div class="thumb-img">
-		                        		<img src="' . $featured_image_thumb[0] . '" alt="' . $post->post_title . '">
-		                    		</div>
 		                    		<h2>' . $post->post_title . '</h2>
 								</a>
 							</div>';

@@ -9,21 +9,40 @@
 
 get_header();
 
-$featured_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
-if ($featured_image_url) {
-    $image_id = get_image_id_by_url($featured_image_url[0]);
-    $image_info = wp_get_attachment_metadata($image_id);
-    $image_title = get_the_title($image_id);
+$post = get_post();
+$fallback_sidebars_left = '22554, 22581, 22553';
+$fallback_sidebars_right = '22578, 22577, 22582, 22549, 22583';
+$terms = get_the_terms($post, 'news-cat');
+$featured_image;
+$featured_image;
+$sidebars_left_final;
+$sidebars_right_final;
+$featured_image_post = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+$firstcategory = !empty($terms) ? $terms[0] : null;
+if($firstcategory != null){
+	$featured_image_category = get_field('header', $firstcategory);
+	$featured_image = ($featured_image_category != '' ? $featured_image_category : (!empty($featured_image_post) ? $featured_image_post[0] : ''));
+	
+	$sidebars_left = get_field('left_sidebar_children', $firstcategory);
+	$sidebars_right = get_field('right_sidebar_children', $firstcategory);
+	$sidebars_right = get_field('right_sidebar_children', $firstcategory);
+	$sidebars_left_final = !empty($sidebars_left) ? implode(', ', $sidebars_left) : $fallback_sidebars_left;
+	$sidebars_right_final = !empty($sidebars_right) ? implode(', ', $sidebars_right) : $fallback_sidebars_right;
+	$header_link = get_field('header_link', $firstcategory);
+} else {
+	$featured_image = (!empty($featured_image_post) ? $featured_image_post[0] : '');
+	$sidebars_left_final = $fallback_sidebars_left;
+	$sidebars_right_final = $fallback_sidebars_right;
+	$header_link = '';
 }
-
 ?>
 
 <section>
 	<!-- News Banner start -->
-    <?php if ($featured_image_url) { ?>
+    <?php if ($featured_image != '') { ?>
         <div class="blog-banner">
-            <a href="#">
-                <img src="<?php echo $featured_image_url[0]; ?>" alt="<?php echo $image_title; ?>">
+            <a href="<?php echo ($header_link != '' ? ($header_link . '" target="_blank"') : '#"'); ?>">
+                <img src="<?php echo $featured_image; ?>">
             </a>
         </div>
     <?php } ?>
@@ -34,7 +53,7 @@ if ($featured_image_url) {
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22817, 22581, 22553"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="'.$sidebars_left_final.'"]'); ?>
 			</div>
 			<!-- Leftbar end -->
 
@@ -43,7 +62,7 @@ if ($featured_image_url) {
 				<h2 class="blog-title"><?php the_title(); ?></h2>
 				<div class="info">
 					<span id="publish-date">
-						Added: <strong><?php echo get_the_date( 'M d, Y' ); ?> <?php the_time( 'H:i' );?></strong>
+						<?php echo __('Posted:', 'sigmaigaming'); ?>: <strong><?php echo get_the_date( 'M d, Y' ); ?> <?php the_time( 'H:i' );?></strong>
 					</span>
 					<span id="tags">
 						Category: 
@@ -59,26 +78,37 @@ if ($featured_image_url) {
 					</span>
 					<?php $avatar_url = get_avatar_url(get_the_author_meta( 'ID' ), array('size' => 450)); ?>
 					<span class="author" id="author">
-						Posted by
-						<div class="avatar" style="background-image:url('<?php echo esc_url( $avatar_url ); ?>')"> </div> 
-						<a class="author-link" href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
-							<strong>
-								<?php echo get_the_author(); ?>
-							</strong>
-						</a>
+						<?php echo __('Posted by', 'sigmaigaming'); ?>
+						<?php 
+						$post_id = get_the_ID();
+						$author = get_field('author', $post_id);
+						if(empty($author)) { ?>
+							<div class="avatar" style="background-image:url('<?php echo esc_url( $avatar_url ); ?>')"> </div> 
+							<a class="author-link" href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
+								<strong>
+									<?php echo get_the_author(); ?>
+								</strong>
+							</a>
+						<?php } else { ?>
+							<a class="author-link" href="<?php echo get_the_permalink($author->ID); ?>">
+								<strong>
+									<?php echo $author->post_title; ?>
+								</strong>
+							</a>
+						<?php } ?>
 					</span>
 				</div>
 				<div class="social-sharing">
 					<ul>
 						<li>Share Article</li>
 						<li>
-							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fab fa-twitter" aria-hidden="true"></i></a>
 						</li>
 					</ul>
 				</div>
@@ -92,13 +122,13 @@ if ($featured_image_url) {
 					<ul>
 						<li>Share Article</li>
 						<li>
-							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+							<a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo get_permalink(); ?>"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+							<a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo get_permalink(); ?>"><i class="fab fa-twitter" aria-hidden="true"></i></a>
 						</li>
 					</ul>
 				</div>
@@ -121,20 +151,14 @@ if ($featured_image_url) {
 						<?php
 						if ( $the_query->have_posts() ) :
 							while ( $the_query->have_posts() ) : $the_query->the_post();?>
-								<a href="'.get_permalink().'"><article class="post-item">
+								<a href="<?php echo get_the_permalink(); ?>"><article class="post-item">
 									<div class="thumb" style="background-image: url('<?php echo wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ); ?>')">
-										<a href="<?php echo get_permalink();?>"></a>
+										<a href="<?php echo get_the_permalink();?>"></a>
 									</div>
 									<div class="content-wrapper">
-										<h2><a href="<?php echo get_permalink();?>"><?php the_title(); ?></a></h2>
+										<h2><a href="<?php echo get_the_permalink();?>"><?php echo wp_trim_words(get_the_title(), 5); ?></a></h2>
 										<p>
-											<?php 	
-											$content = the_content('read more', true);
-											$content = substr($content,0,50);
-											$content = apply_filters('the_content', $content.'...' );
-											//$content = $content . '<a href="'.get_permalink().'">(Read More...)</a>'; 
-											echo $content;  
-											?>
+                                            <?php echo wp_trim_words(get_the_content(), 20); ?>
 										</p>
 									</div>
 								</article></a>
@@ -150,7 +174,7 @@ if ($featured_image_url) {
 
 			<!-- Rightbar start -->
 			<div class="blog-rightbar">
-				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22578, 22577, 22582, 22549, 22583"]'); ?>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="'.$sidebars_right_final.'"]'); ?>
 			</div>
 			<!-- Rightbar end -->
 		</div>
@@ -159,3 +183,4 @@ if ($featured_image_url) {
 </section>
 
 <?php get_footer(); ?>
+

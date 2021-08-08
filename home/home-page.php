@@ -64,7 +64,7 @@ if ($desktop_banner){ ?>
 			 		    	<div class="inner-map-label">
 			 		    		<?php
 								foreach($desktop_banner['countries'] as $key => $value) { ?>
-									<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>">
+									<a class="<?php echo $value['country_name']; ?>" href="<?php echo $value['country_link']; ?>" target="_blank">
 										<?php 
 						 	    		if( !empty( $value['country_logo'] ) ){ ?>
 									    	<img src="<?php echo $value['country_logo']['url']; ?>" alt="<?php echo $value['country_logo']['alt']; ?>">
@@ -92,7 +92,7 @@ if ($desktop_banner){ ?>
 					foreach($desktop_banner['countries'] as $key => $value) { ?>
 						<div class="all-country <?php echo $value['country_name']; ?>">
 							<div class="event-box">
-								<a href="<?php echo $value['country_link']; ?>">
+								<a href="<?php echo $value['country_link']; ?>" target="_blank">
 									<span class="img">
 										<?php 
 						 	    		if( !empty( $value['country_logo'] ) ){ ?>
@@ -333,6 +333,19 @@ if ($desktop_banner){ ?>
 <?php
 }
 ?>
+
+<div class="home-page popup close">
+	<div class="popupinner">
+		<img src="/wp-content/uploads/2021/08/Malta-Week-Pop-up-Banner.webp">
+		<a href="https://sigmamalta.events/sigma-malta-2021" target="_blank" class="tl"></a>
+		<a href="https://sigmamalta.events/aibc-europe" target="_blank" class="tr"></a>
+		<a href="https://sigmamalta.events/malta-affiliate-grand-slam" target="_blank" class="bl"></a>
+		<a href="https://sigmamalta.events/med-tech-europe" target="_blank" class="br"></a>
+		<div class="close">
+			<a class="close-popup">❌</a>
+		</div>
+	</div>
+</div>
 
 <?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
 

@@ -1160,6 +1160,7 @@ body {
     content: '\f105';
     padding: 2px 2px 3px 3px;
 }
+
 /* Testimonial css end */
 /* Magezine slider css start */
 .magazine-section {
@@ -1244,6 +1245,61 @@ body {
     color: #787878;
 }
 /* Media screen css start */
+
+/* Home page popup css start */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: 11111111;
+    background: #1b1818b3;
+}
+.popupinner img {
+    width: 100%;
+}
+.popup .tl {
+    left: 25px;
+    top: 115px;
+}
+.popup .close {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    right: 0;
+    top: 0;
+    border-radius: 50% 0 50% 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 111111;
+    cursor: pointer;
+}
+.popup.open {
+    display: block;
+}
+@media (min-width: 850px) {
+    .popupinner {
+        width: 300px;
+        max-width: 90%;
+        height: 350px;
+        position: absolute;
+        top: unset;
+        left: unset;
+        right: 25px;
+        bottom: 25px;
+        transform: none;
+    }
+}
+/* Home page popup css end */
+
 @media (max-width: 1600px) {
     /* World Gaming Festival Image css start */
 	.label-wrap-map span {
