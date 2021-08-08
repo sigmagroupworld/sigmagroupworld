@@ -813,6 +813,29 @@ function sigma_mt_taxonomies_gallery(){
 	);
 }
 
+// create a Custom post type Gallery
+add_action('init', 'sigma_mt_m_and_a_custom_posts');
+function sigma_mt_m_and_a_custom_posts() {
+	register_post_type('m-and-a-deals', array(
+		'labels' => array(
+			'name' => __('M&A Deals', 'sigmaigaming'),
+			'singular_name' => __('M&A Deal', 'sigmaigaming'),
+			'menu_name' => __('M&A Deals', 'sigmaigaming'),
+			'add_new' => __('Add M&A Deal', 'sigmaigaming'),
+			'add_new_item' => __('Add M&A Deals', 'sigmaigaming'),
+			'edit_item' => __('Edit M&A Deal', 'sigmaigaming'),
+			'new_item' => __('M&A Deals', 'sigmaigaming'),
+			'view_item' => __('View M&A Deal', 'sigmaigaming'),
+			'search_items' => __('Search M&A Deals', 'sigmaigaming'),
+			'not_found' => __('No M&A Deals found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No M&A Deals found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'm-and-a'),		
+		'supports' => array( 'title', 'thumbnail', 'custom-fields' ),
+	));
+}
+
 // Shortcode for iGaming Gallery
 add_shortcode( 'sigma-mt-igaming-gallery-new', 'sigma_mt_igaming_gallery_new' );
 function sigma_mt_igaming_gallery_new($atts) {
@@ -931,4 +954,24 @@ function load_gallery_by_ajax_callback() {
 	    }
 	    exit;
 	}
+}
+
+function sigma_mt_disable_autoupdate_slug($post_ID, $post, $update)
+{
+    if ($post->post_type == 'news-items') {
+        $disable_autoupdate = get_post_meta($post->ID, 'disable_autoupdate_slug', true);
+
+        if (empty($disable_autoupdate)) {
+            // check the slug and run an update if necessary
+            $new_slug = sanitize_title($post->post_title);
+            if ($post->post_name != $new_slug) {
+                wp_update_post(
+                    array(
+                        'ID' => $post->ID,
+                        'post_name' => $new_slug
+                    )
+                );
+            }
+        }
+    }
 }

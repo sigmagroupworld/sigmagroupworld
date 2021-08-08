@@ -111,7 +111,7 @@ if ($desktop_banner){ ?>
         <div class="container">
         	<div class="single-news">
 	        	<?php
-                if (isset($desktop_banner["sigma_top_add"])) {
+                if (!empty($desktop_banner["sigma_top_add"]) && isset($desktop_banner["sigma_top_add"])) {
                     foreach ($desktop_banner["sigma_top_add"] as $value) { ?>
                         <div class="all-news">
                             <a href="<?php echo $value['link']; ?>" target="_blank">
@@ -277,13 +277,15 @@ if ($desktop_banner){ ?>
         <div class="container">
         	<div class="single-news">
 	        	<?php
-                foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
-	                <div class="all-news">
-	                    <a href="#">
-	                        <img src="<?php echo $value['latest_news_bottom_image']; ?>" alt="">
-	                    </a>
-	                </div>
-		        <?php } ?>
+	        	if (!empty($desktop_banner["sigma_top_add"]) && isset($desktop_banner["sigma_top_add"])) {
+	                foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
+		                <div class="all-news">
+		                    <a href="#">
+		                        <img src="<?php echo $value['latest_news_bottom_image']; ?>" alt="">
+		                    </a>
+		                </div>
+			        <?php }
+			    } ?>	
 	    	</div>
         </div>
     </section>

@@ -27,7 +27,7 @@ function sigma_mt_enqueue_styles() {
     wp_enqueue_style( 'child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array( $parent_style ),
-        '1.0.0'
+        time()
     );   
     wp_enqueue_style('sigmamt-responsive', CHILD_DIR . '/assets/css/responsive.css');
     wp_enqueue_style('sigmamt-slick', CHILD_DIR . '/assets/css/slick.css');
@@ -44,7 +44,7 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
-    wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css', array(), '1.0.0');
+    wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css', array(), time());
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script( 'jquery-ui-datepicker' );    
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
@@ -73,6 +73,25 @@ function is_post_type($type){
     if($type == get_post_type($wp_query->post->ID)) 
         return true;
     return false;
+}
+
+/**
+ * Removes the "Trash" link on the individual post's "actions" row on the posts
+ * edit page.
+ */
+add_filter( 'post_row_actions', 'remove_row_actions_post', 10, 2 );
+function remove_row_actions_post( $actions, $post ) {
+    /*$post_types = get_post_types([], 'objects');
+    $posts = array();
+    foreach ($post_types as $post_type) {
+        $posts[] = $post_type->name;
+    }
+    echo '<pre>'; print_r($posts); echo '</pre>'; exit;*/
+    if( $post->post_type === 'news-items' && !empty($_GET['lang']) && $_GET['lang'] !== 'en') {
+        unset( $actions['clone'] );
+        unset( $actions['trash'] );
+    }
+    return $actions;
 }
 
 // Shortcode for search form
@@ -229,7 +248,7 @@ function sigma_mt_banner_adds($atts) {
 		if(!empty($banners)){
 			foreach($banners as $banner) {
 							$output .= '<div class="all-news">
-								<a href="' . $banner['link'] . '" target="_blank">
+								<a href="' . $banner['link'] . '" target="_blank" rel="noreferrer noopener">
 									<img src="' . $banner['image'] . '" alt="">
 								</a>
 							</div>';
@@ -243,7 +262,7 @@ function sigma_mt_banner_adds($atts) {
 					<div class="container">
 						<div class="single-news">
 							<div class="all-news">
-								<a href="' . $banner_link . '" target="_blank">
+								<a href="' . $banner_link . '" target="_blank" rel="noreferrer noopener">
 									<img src="' . $banner_image . '" alt="">
 								</a>
 							</div>
@@ -540,7 +559,7 @@ function sigma_mt_casino_providers($atts) {
                                                 $content .= '</ul>
                                             </div>
                                             <div class="casino-buttons">
-                                                <a href="'.(isset($casino_provider['play_link']) ? $casino_provider['play_link'] : '').'" class="play" target="_blank">'.__( 'Play', 'sigmaigaming' ).'</a>
+                                                <a href="'.(isset($casino_provider['play_link']) ? $casino_provider['play_link'] : '').'" class="play" target="_blank" rel="noopener noreferrer">'.__( 'Play', 'sigmaigaming' ).'</a>
                                                 <a href="'.get_permalink($post->ID).'" class="review" target="_blank">'. __( 'Review', 'sigmaigaming' ).'</a>
                                             </div>
                                             <div class="payment-options">';
@@ -969,7 +988,7 @@ function sigma_mt_get_people_list($atts) {
                                     <div class="top">
                                         <div class="website">
                                             <span>Website</span>
-                                            <a href="'.$person_website.'" target="_blank">'.$person_website.'</a>
+                                            <a href="'.$person_website.'" target="_blank" rel="noreferrer noopener">'.$person_website.'</a>
                                         </div>
 										<div class="emial">
 											<span>Email</span>
@@ -1143,6 +1162,21 @@ function sigma_mt_get_about_videos($atts) {
                                     foreach($get_videos as $k => $video) {
                                         $youtube_video_link = get_field('youtube_video_link',  $video->ID);
                                          $content .= '<div class="video-single">
+                                                        <iframe src="'.$youtube_video_link.'" width="560" height="315" data-service="youtube" allowfullscreen="1"></iframe>
+                                                      </div>';     
+                                    }
+                                $content .= '</div>
+                            </div>
+                        </section>';
+        } else if($appearance === 'MediaOpportunities') {
+            $content .= '<section class="video slider media-opportunities-video">
+                            <div class="container">
+                                <div class="video-slider-mo">';
+                                    foreach($get_videos as $k => $video) {
+                                        $youtube_video_link = get_field('youtube_video_link',  $video->ID);
+                                        $youtube_video_desc = get_field('description',  $video->ID);
+                                         $content .= '<div class="video-single">
+                                                        <h3 class="desc">'.$youtube_video_desc.'</h3>
                                                         <iframe src="'.$youtube_video_link.'" width="560" height="315" data-service="youtube" allowfullscreen="1"></iframe>
                                                       </div>';     
                                     }
@@ -1347,7 +1381,7 @@ function sigma_mt_get_company($atts) {
                                         $content .= '<div class="winer-slide"><div class="winner-single-slide">
                                                         <div class="winner-label">WINNER '.$year.'</div>
                                                         <div class="winner-content">';
-                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a></div>'; }
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank" rel="noreferrer noopener"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a></div>'; }
                                                             if(!empty($company_details)) { $content .= '<div class="winner-disc">&nbsp;<br /><p>'.$post->post_content.'</p></div>'; }
                                                     $content .= '</div></div>
                                                 </div>';
@@ -1364,7 +1398,7 @@ function sigma_mt_get_company($atts) {
                                     $content .= '<div class="igaming-single">
                                                     <div class="igaming-box">
                                                         <div class="expert-img">';
-                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a></div>'; }
+                                                            if(!empty($company_details)) { $content .= '<div class="winner-logo"><a href="'.$url.'" target="_blank" rel="noreferrer noopener"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a></div>'; }
                                                         $content .= '</div>
                                                         <div class="expert-info">';
                                                             $content .= '<h2>'.$post->post_title.'</h2>';
@@ -1400,7 +1434,7 @@ function sigma_mt_get_company($atts) {
                                             $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
                                             if(!empty(wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0])) {
                                                 $content .= '<div class="'.$single_class.'" >';
-                                                $content .= '<a href="'.$url.'" target="_blank"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a>';
+                                                $content .= '<a href="'.$url.'" target="_blank" rel="noreferrer noopener"><img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'"></a>';
                                             	$content .= '</div>';
                                             } else {
                                                 $content .= '<div class="'.$single_class.'">';
@@ -1443,7 +1477,7 @@ function sigma_mt_get_company($atts) {
                                             if(!empty(wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0])) {
                                                 $content .= '<div class="'.$single_class.'">';
 												if($url != '' && $url != '#'){
-                                                	$content .= '<a href="'.$url.'" target="_blank">';
+                                                	$content .= '<a href="'.$url.'" target="_blank" rel="noreferrer noopener">';
 												}
 												$content .= '<img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'">';
 												if($url != '' && $url != '#'){
@@ -1502,7 +1536,7 @@ function sigma_mt_get_single_company_row($atts) {
 			if(!empty($logo)){
 				$content .= '<div class="supplier-single">';
 				if($url != '' && $url != '#'){
-					$content .= '<a href="'.$url.'" target="_blank">';
+					$content .= '<a href="'.$url.'" target="_blank" rel="noreferrer noopener">';
 				}
 				$content .= '<img src="'. $logo[0] .'" style="max-height:60px;">';
 				if($url != '' && $url != '#'){
@@ -3040,7 +3074,7 @@ function sigma_mt_magazines($atts) {
             $magazineLink = get_field('link', $magazine->ID);
             $magazineLink = isset($magazineLink) ? $magazineLink : '#';
             $content .= '<div class="magazine-widget">
-                                            <a href="' . $magazineLink . '">
+                                            <a href="' . $magazineLink . '" rel="noopener noreferrer">
                                                 <img src="' . $featured_image[0] . '">
                                             </a>
                                         </div>';
@@ -3088,7 +3122,8 @@ function sigma_mt_game_providers($atts) {
 								$logo = wp_get_attachment_image_src( get_post_thumbnail_id( $game->ID ), 'full' );
                                 $content .= '<div class="single-directory">';
 								if($link != 'NO'){
-                                	$link = get_permalink($game->ID) ;
+                                	//$link = get_permalink($game->ID);
+                                    $link = esc_url( add_query_arg( 'appearance', $appearance, get_permalink($game->ID) ) );
 									$content .= '<a href="'.$link.'" target="_blank">';
 								} else {
 									$content .= '<a href="#">';
@@ -3248,7 +3283,7 @@ function sigma_mt_show_sidebar_casinos($atts) {
 							}
                             $content .= '</div>
                             <div class="linkwrap">
-                              <a class="playbtn" target="_blank" href="'.(isset($casino_provider["play_link"]) ? $casino_provider["play_link"] : '#').'">'.__('*Play now', 'sigmaigaming').'</a>
+                              <a class="playbtn" target="_blank" rel="noreferrer noopener" href="'.(isset($casino_provider["play_link"]) ? $casino_provider["play_link"] : '#').'">'.__('*Play now', 'sigmaigaming').'</a>
                               <a class="tnclink" href="'.(isset($casino_provider["tc_url"]) ? $casino_provider["tc_url"] : '#').'">'.__('*T&amp;C Apply', 'sigmaigaming').'</a>
                             </div>
                           </div>';
@@ -3312,6 +3347,46 @@ function sigma_mt_show_sidebar($atts) {
     return $content;
 }
 
+
+// Shortcode for the entire sidebar
+add_shortcode( 'sigma_mt_show_affiliates_sidebar', 'sigma_mt_show_affiliates_sidebar' );
+function sigma_mt_show_affiliates_sidebar($atts) {
+    $content = '<div class="sidebar">';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
+    $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '';
+    $post_args = array(
+      'posts_per_page' => $posts_per_page,
+      'post_type' => 'company-items',
+      'order'        => 'DESC',
+      'post_status'    => 'publish',
+      'tax_query' => array(
+              array(
+                  'taxonomy' => 'company-cat',
+                  'field' => 'term_id',
+                  'terms' => $term_id,
+              )
+          )
+    );
+    $get_posts = get_posts($post_args);
+    if(!empty($get_posts)) {
+        foreach($get_posts as $k => $post) {
+            $content .= '<div class="affiliates-single">
+                            <article class="" style="margin-bottom:15px;">
+                                <a href="'.get_permalink($post->ID).'">
+                                    <div class="thumb2">
+                                        <img src="'. wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' )[0] .'">
+                                    </div>
+                                    <div>
+                                        <h2 class="big">'.$post->post_title.'</h2>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>';
+        }
+    }
+    $content .= "</div>";
+    return $content;
+}
 
 // Shortcode for calendar subentries (intra-day events)
 add_shortcode( 'sigma-mt-calendar-subentries', 'sigma_mt_calendar_subentries' );
@@ -3912,3 +3987,5 @@ function podcast_custom_popup_content() {
         </div>
     </div>';
 }
+
+add_action( 'save_post', 'sigma_mt_disable_autoupdate_slug', 10, 3 );

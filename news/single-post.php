@@ -14,6 +14,7 @@ $fallback_sidebars_left = '22554, 22581, 22553';
 $fallback_sidebars_right = '22578, 22577, 22582, 22549, 22583';
 $terms = get_the_terms($post, 'news-cat');
 $featured_image;
+$featured_image;
 $sidebars_left_final;
 $sidebars_right_final;
 $featured_image_post = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
@@ -24,12 +25,15 @@ if($firstcategory != null){
 	
 	$sidebars_left = get_field('left_sidebar_children', $firstcategory);
 	$sidebars_right = get_field('right_sidebar_children', $firstcategory);
+	$sidebars_right = get_field('right_sidebar_children', $firstcategory);
 	$sidebars_left_final = !empty($sidebars_left) ? implode(', ', $sidebars_left) : $fallback_sidebars_left;
 	$sidebars_right_final = !empty($sidebars_right) ? implode(', ', $sidebars_right) : $fallback_sidebars_right;
+	$header_link = get_field('header_link', $firstcategory);
 } else {
 	$featured_image = (!empty($featured_image_post) ? $featured_image_post[0] : '');
 	$sidebars_left_final = $fallback_sidebars_left;
 	$sidebars_right_final = $fallback_sidebars_right;
+	$header_link = '';
 }
 ?>
 
@@ -37,7 +41,7 @@ if($firstcategory != null){
 	<!-- News Banner start -->
     <?php if ($featured_image != '') { ?>
         <div class="blog-banner">
-            <a href="#">
+            <a href="<?php echo ($header_link != '' ? ($header_link . '" target="_blank"') : '#"'); ?>">
                 <img src="<?php echo $featured_image; ?>">
             </a>
         </div>

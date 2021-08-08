@@ -18,6 +18,9 @@ $platform_provider = get_field('platform_provider', $post_id);
 $payment_provider = get_field('payment_provider', $post_id);
 $game_provider = get_field('game_provider', $post_id);
 $shared_fields = get_field('shared_fields', $post_id);
+
+$color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
+
 ?>
 
 <section>
@@ -31,7 +34,7 @@ $shared_fields = get_field('shared_fields', $post_id);
 			<!-- Leftbar end -->
 
 			<!-- Middle Detail News start -->
-			<div class="blog-details">
+			<div class="blog-details <?php echo $color; ?>">
 				<div class="featured-img">
 					<?php echo '<img src="' . $thumbnail . '">'; ?>
 				</div>
@@ -242,10 +245,11 @@ $shared_fields = get_field('shared_fields', $post_id);
 													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
+											</div>
+								
 											<?php } ?>
 										</div>
-									</div>
-									
+									</div>	
 								</div>
 								
 								<?php if(isset($shared_fields) && isset($shared_fields['review_video_url']) && !empty($shared_fields['review_video_url'])) { ?>
@@ -338,14 +342,13 @@ $shared_fields = get_field('shared_fields', $post_id);
 								<?php } ?>
 							</div>
 						</div>
-					</div>
 					<?php } ?>
+					</div>
+					<div class="releted-post">
+						<br />
+						<?php echo do_shortcode('[sigma-mt-related-articles term_name="'.get_the_title().'" post_per_page = 10]'); ?>
+					</div>
 				</div>
-				<div class="releted-post">
-					<br />
-					<?php echo do_shortcode('[sigma-mt-related-articles term_name="'.get_the_title().'" post_per_page = 10]'); ?>
-				</div>
-			</div>
 			<!-- Middle Detail News end -->
 
 			<!-- Rightbar start -->

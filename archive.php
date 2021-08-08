@@ -13,6 +13,7 @@ get_header();
 $term = get_queried_object();
 $featured_image = get_field('featured', $term);
 $header_image = get_field('header', $term);
+$header_link = get_field('header_link', $term);
 $fallback_sidebars_left = '100427';
 $fallback_sidebars_right = '22586, 22578, 22549, 22583';
 $sidebars_left = get_field('left_sidebar', $term);
@@ -214,7 +215,7 @@ div.item--post:nth-child(2n+1) {
 	<!-- News Banner start -->
     <?php if ($featured_image) { ?>
         <div class="blog-banner">
-            <a href="#">
+            <a href="<?php echo ($header_link != '' ? ($header_link . '" target="_blank"') : '#"'); ?>">
                 <img src="<?php echo $featured_image; ?>">
             </a>
         </div>
