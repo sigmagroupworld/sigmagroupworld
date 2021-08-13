@@ -96,7 +96,9 @@ get_header();
 					</ul>
 				</div>
 				<div class="featured-img">
-					<?php the_post_thumbnail(); ?>
+					<?php the_post_thumbnail();
+//                    set_post_thumbnail_from_content();
+                    ?>
 				</div>
 				<div class="post-body">
 					<?php the_content(); ?>

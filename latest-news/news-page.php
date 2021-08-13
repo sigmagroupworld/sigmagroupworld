@@ -44,10 +44,13 @@ if ($desktop_banner){ ?>
                     <?php if ($banner) {?>
                         <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
                            style="background-image:url('<?php echo $banner; ?>') ">
-                        <?php } else { ?>
-                            <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
-                               style="background-image:url('<?php echo $placeholder_full; ?>') ">
-                            <?php }?>
+<!--                    --><?php //} elseif (get_the_post_thumbnail($featured_post->ID)) {?>
+<!--                        <a href="--><?php //echo get_the_permalink($featured_post->ID); ?><!--"-->
+<!--                           style="background-image:url('--><?php //echo get_the_post_thumbnail_url($featured_post->ID, 'full'); ?>/*') ">*/
+                    <?php } else { ?>
+                        <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
+                           style="background-image:url('<?php echo $placeholder_full; ?>') ">
+                    <?php }?>
                             <div class="container">
                             <div>
                                 <div class="top">
@@ -253,7 +256,7 @@ if ($desktop_banner){ ?>
 								<?php } else { ?>
 									<a href="<?php echo $youtube_video_link; ?>" data-video-id='<?php echo $split_video_ink; ?>' class="js-video-button" id="video_player">
 										<div class="thumb-img">
-			                        		<div class="top" style="background-image: url('<?php echo $featured_image[0] ?>')">
+			                        		<div class="top" style="background-image: url('<?php echo $featured_image ? $featured_image[0] : '' ?>')">
 												<div class="play-btn"></div>
 											</div>
 			                    		</div>

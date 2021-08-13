@@ -45,6 +45,7 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 				</div>
 				<div class="post-body">
 					<div class="post-content">
+						<?php the_content(); ?>
 						<?php if(!empty($responsibilities_section['responsibilities'])) { ?>
 							<div class="requirements">
 								<h3><?php echo $responsibilities_section['title']; ?></h3>

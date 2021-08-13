@@ -393,9 +393,11 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
     $post_data = array();
     $tag_category = get_term_by('id', $tag_id, $taxonomy);
     if(isset($tag_id) && !empty($tag_id)) {
-        $post_tag_args = array(
+        /*$post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'news-items',
+          'suppress_filters' => false,
+          //'language' => 'en',
 		  'post_status' => 'publish',
 		  'orderby' => 'publish_date',
 		  'order' => 'DESC',
@@ -406,11 +408,29 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
                   'terms' => $tag_category->term_id,
               )
           )
+        );*/
+        $post_tag_args = array(
+            'posts_per_page' => $count,
+            'post_type' => 'news-items',
+            'suppress_filters' => false,
+            'language' => ICL_LANGUAGE_CODE,
+            'post_status' => 'publish',
+            'orderby' => 'publish_date',
+            'order' => 'DESC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'news-cat',
+                    'field' => 'term_id',
+                    'terms' => $tag_category->term_id,
+                )
+            )
         );
     } else {
         $post_tag_args = array(
           'posts_per_page' => $count,
           'post_type' => 'news-items',
+          'suppress_filters' => false,
+          //'language' => 'en',
           'orderby'        => 'rand',
           'post_status'    => 'publish',
 		  'post_status' => 'publish',
@@ -1794,7 +1814,29 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
 											</div>
 											<div class="work-content">
 												<h5>'.$sponsoring->post_title.'</h5>
-												<div class="amount">
+                                                <div class="description">';
+                                                    if(!empty($style) && $style === $styleExpand) {
+                                                        $content .= '<div id="sponsorExpand'.$sponsoring->ID.'" class="sponsor expandDiv">
+                                                                    <div class="">
+                                                                        <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>';
+                                                                        if(!empty($companies)){
+                                                                            $content .= '<p class="ntw_item_main_title_row">';
+                                                                            foreach($companies as $k => $companyid){
+                                                                                $featured_image_company = wp_get_attachment_image_src( get_post_thumbnail_id( $companyid ), 'full' );
+                                                                                if(!empty($featured_image_company)){
+                                                                                    $content .= '<img class="igathering_img" src="'.$featured_image_company[0].'">';
+                                                                                }
+                                                                            }
+                                                                            $content .= '</p>';
+                                                                        }
+                                                                        if(!empty($sponsoring->post_content)) {
+                                                                            $content .='<div class="post_content">'.wpautop( $sponsoring->post_content, true ).'</div>';
+                                                                        }
+                                                                    $content .= '</div>
+                                                                </div>';
+                                                    }
+
+												$content .= '</div><div class="amount">
 													<h3>'.$sponsors_amount.'</h3>
 													<span class="status">'.$sponsors_count.'</span>
 												</div>
@@ -1807,35 +1849,8 @@ function sigma_mt_get_sponsors_accordian_tabs_data($atts) {
 													<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 												</div>
 											</div>
-                                        </div>';
-                                        if(!empty($style) && $style === $styleExpand) {
-                                                $content .= '<div id="sponsorExpand'.$sponsoring->ID.'" class="sponsor expandDiv">
-                                                            <div class="">
-                                                                <span class="close" id="closeSponsor'.$sponsoring->ID.'">&times;</span>';
-                                                                if(!empty($companies)){
-                                                                    $content .= '<p class="ntw_item_main_title_row">';
-                                                                    foreach($companies as $k => $companyid){
-                                                                        $featured_image_company = wp_get_attachment_image_src( get_post_thumbnail_id( $companyid ), 'full' );
-                                                                        if(!empty($featured_image_company)){
-                                                                            $content .= '<img class="igathering_img" src="'.$featured_image_company[0].'">';
-                                                                        }
-                                                                    }
-                                                                    $content .= '</p>';
-                                                                }
-                                                                $content .= '<h4>'.$sponsoring->post_title.'</h4>';
-                                                                if(!empty($sponsoring->post_content)) {
-                                                                    $content .='<div class="post_content">'.wpautop( $sponsoring->post_content, true ).'</div>';
-                                                                }
-                                                                if(!empty($sponsors_amount)) {
-                                                                    $content .='<div class="bottom '.$class.'">
-                                                                        <span class="prcie">'.$sponsors_amount.'</span>
-                                                                        <span class="status">'.$sponsors_count.'</span>
-                                                                    </div>';
-                                                                }
-                                                            $content .= '</div>
-                                                        </div>';
-                                            }
-									$content .= '</div>
+                                        </div>
+									</div>
                                 </div>';
                 }
                 if($appearance === $appearanceName ) {
@@ -2402,21 +2417,21 @@ function sigma_mt_igaming_gallery($atts) {
     $content = '';
     $posts_by_year = [];
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
-    $post_id = isset($atts['post_id']) ? $atts['post_id'] : '';
+    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
     $page_id = $wp_query->get_queried_object()->ID;
     $post_args = array(
       'posts_per_page' => $count,
       'post_type' => 'gallery-items',
       'order'        => 'DESC',
       'post_status'    => 'publish',
-      /*'tax_query' => array(
+      'tax_query' => array(
                 array(
-                    'taxonomy' => 'gt3_gallery_category',
+                    'taxonomy' => 'gallery-cat',
                     'field'    => 'term_id',
                     'terms'    => $term_id,
                     'operator' => 'IN'
                 ),
-            ),*/
+            ),
     );
     $gallery = new WP_Query($post_args);
     //echo '<pre>'; print_r($gallery);
@@ -2425,24 +2440,170 @@ function sigma_mt_igaming_gallery($atts) {
         while ($gallery->have_posts()) {
             $gallery->the_post();
             $year = get_the_date('Y');
-            $posts_by_year[$year][] = ['ID' => $post_id, 'title' => get_the_title(), 'content' => get_the_content(), 'link' => get_the_permalink(), 'Year' => $year,];
+            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
         }
     }
+    $counter = 0; 
     $content .= '<div class="directory-gallery">
                     <div class="all-gallery gallery-directories">';
                         foreach($posts_by_year as $posts) {
+                            ( $counter > 0 ) ? $style = 'display: none;' : $style = '';
+                            $content .= '<div style="'.$style.'" data-div-term-id="'.$term_id.'" data-year='.$posts[0]['Year'].'>';
                             $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
                             foreach($posts as $post) {
                                 $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
                                 $content .= '<div class="single-gallery">
                                                 <a href="'.get_permalink($post['ID']).'" target="_blank">
                                                     <h3>'.$post['title'].'</h3>
+                                                    <div class="featured-image">
+                                                        <img src="'.$featured_image[0].'" alt="">
+                                                    </div>
                                                 </a>
                                             </div>';
                             }
+                            $counter++;
+                            $content .= '</div> ';
                         }
-                    $content .= '</div>
+                        $content .= '<input type="hidden" value="'.$term_id.'" id="termID">
+                        <input type="hidden" value="'.$count.'" id="posts_per_page">
+                        <input type="hidden" value="'.$post['title'].'" id="gallery_title">
+                        <input type="hidden" value="'.$featured_image[0].'" id="featured_image">';
+                    $content .= '<div class="load-gallery"><button class="load-more gallery-load-more" id="gallery-load-more" data-button-term-id="'.$term_id.'">Load More</button></div></div></div>
                 </div>';
+    }
+    return $content;
+}
+
+// Shortcode for M and A Action
+add_shortcode( 'sigma-mt-m-and-a-deals', 'sigma_mt_a_and_a_deals' );
+function sigma_mt_a_and_a_deals($atts) {
+    $content = '';
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $post_tag_args = array(
+        'posts_per_page'    => $count,
+        'post_type'         => 'm-and-a-deals',
+        'orderby'           => 'post-date',
+        'order'             => 'DESC',
+    );
+    $get_posts = get_posts($post_tag_args);
+    if(!empty($get_posts)) {
+        $content .= '<section class="m-and-a-action">
+                        <div class="container nw-slider">';
+                            foreach($get_posts as $post) { 
+                                $biz_type = get_field('biz_type', $post->ID);
+                                $market = get_field('market', $post->ID);
+                                $valuation = get_field('valuation', $post->ID);
+                                $closed = get_field('closed', $post->ID);
+                                $broker = get_field('broker', $post->ID);
+                                $reference_number = get_field('reference_number', $post->ID);
+                                //echo '<pre>'; print_r($closed); echo '</pre>';
+                                if($closed[0] == 'TRUE') {
+                                    $class = "card-closed";
+                                } else {
+                                    $class = "";
+                                }
+                                $content .= '<div class="card-item '.$class.'">
+                                                <a class="card-inneritem" href="mailto:eman@sigma.world">';
+                                                    $image_icon = get_field('image_icon', $broker->ID);
+                                                    $email = get_field('email', $broker->ID);
+                                                    $content .= '<div class="profile-card">
+                                                        <div class="leftinner"> 
+                                                            <div class="left">
+                                                                <h5 class="dealtitle">BROKER:</h5>
+                                                                <div class="picture">
+                                                                    <img src="'.$image_icon.'">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="rightinner">
+                                                            <div class="right">
+                                                                <div class="imgblk">
+                                                                    <img src="/wp-content/uploads/2021/08/Mockup-sigma-logo.png">
+                                                                </div>
+                                                                <p class="dealstext dealer-name">'.$broker->post_title.'</p>';
+                                                                if(!empty($email)) { $content .= '<p class="dealstext deal-email">'.$email.'</p>'; }
+                                                            $content .= '</div>
+                                                        </div>
+                                                        <div class="reference-id">'.$reference_number.'</div>
+                                                    </div>';
+                                                    $content .= '<div class="infoSection">
+                                                        <div class="info">
+                                                            <div class="biz">
+                                                                <img class="icon" src="/wp-content/uploads/2021/08/Biz-Type-09.png">
+                                                                <p class="desc">
+                                                                    <span>BIZ TYPE:</span> 
+                                                                    <span class="operator-type">'.$biz_type.'</span> 
+                                                                </p>
+                                                            </div>
+                                                            <div class="biz">
+                                                                <img class="icon" src="/wp-content/uploads/2021/08/Market.webp">
+                                                                <p class="desc">
+                                                                    <span>MARKET</span> 
+                                                                    <span class="operator-type">'.$market.'</span> 
+                                                                </p>
+                                                            </div>
+                                                            <div class="biz">
+                                                                <img class="icon" src="/wp-content/uploads/2021/08/Valuation.webp">
+                                                                <p class="desc">
+                                                                    <span>VALUATION</span> 
+                                                                    <span class="operator-type">'.$valuation.'</span> 
+                                                                </p>
+                                                            </div>          
+                                                        </div>
+                                                    </div>
+                                                </a>';
+                                                if($closed[0] == 'TRUE') {
+                                                    $content .= '<div class="container-close" data-ribbon="Closed" style="--d:8px;--c:red"></div>';
+                                                }                                        
+                                            $content .= '</div>';
+                            }
+                        $content .= '</div>
+                    </section>';
+    }
+    return $content;
+}
+
+// Shortcode for M and A Action
+add_shortcode( 'sigma-mt-m-and-a-brokers', 'sigma_mt_a_and_a_brokers' );
+function sigma_mt_a_and_a_brokers($atts) {
+    $content = '';
+    $term_id = $atts['term_id'];
+    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
+    $post_tag_args = array(
+        'posts_per_page'    => $count,
+        'post_type'         => 'company-items',
+        'tax_query'         => array(
+            array(
+                'taxonomy' => 'company-cat',
+                'field' => 'term_id',
+                'terms' => $term_id,
+            )
+        )
+    );
+    $get_posts = get_posts($post_tag_args);
+    if(!empty($get_posts)) {
+        $content .= '<section class="m-and-a-action">
+                        <div class="container broker-slider">';
+                            foreach($get_posts as $post) { 
+                                $company_details = get_field('company_details', $post->ID);
+                                $url = isset($company_details['company_url']['url']) ? $company_details['company_url']['url'] :'';
+                                $single_thumbnail = get_field('single_thumbnail', $post->ID);
+                                $content .= '<div class="brokerItem">
+                                              <div class="brokerItemInner">
+                                                
+                                                <a class="btn" target="_blank" href="'.$url.'" tabindex="0"><div> </div> </a>
+                                                
+                                                <div class="brokerImg">
+                                                  <img src="'.$single_thumbnail.'">
+                                                </div>
+                                                <div class="brokerDescription">
+                                                  <p>'.$post->post_content.'</p>
+                                                </div>
+                                              </div>
+                                            </div>';
+                            }
+                        $content .= '</div>
+                    </section>';
     }
     return $content;
 }
@@ -3989,3 +4150,85 @@ function podcast_custom_popup_content() {
 }
 
 add_action( 'save_post', 'sigma_mt_disable_autoupdate_slug', 10, 3 );
+
+function get_attachment_id($url)
+{
+    $attachment_id = 0;
+
+    $dir = wp_upload_dir();
+
+    if (false !== strpos($url, $dir['baseurl'] . '/')) { // Is URL in uploads directory?
+
+        $file = basename($url);
+
+        $query_args = array(
+            'post_type' => 'attachment',
+            'post_status' => 'inherit',
+            'fields' => 'ids',
+            'meta_query' => array(
+                array(
+                    'value' => $file,
+                    'compare' => 'LIKE',
+                    'key' => '_wp_attachment_metadata',
+                ),
+            )
+        );
+
+        $query = new WP_Query($query_args);
+
+        if ($query->have_posts()) {
+
+            foreach ($query->posts as $post_id) {
+
+                $meta = wp_get_attachment_metadata($post_id);
+
+                $original_file = basename($meta['file']);
+                $cropped_image_files = wp_list_pluck($meta['sizes'], 'file');
+
+                if ($original_file === $file || in_array($file, $cropped_image_files)) {
+                    $attachment_id = $post_id;
+                    break;
+                }
+            }
+        }
+    }
+    return $attachment_id;
+}
+
+function check_if_media_exists($filename)
+{
+    global $wpdb;
+    $query = "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename'";
+    return ($wpdb->get_var($query) > 0);
+}
+
+function set_post_thumbnail_from_content()
+{
+    global $post, $posts;
+    ob_start();
+    ob_end_clean();
+
+    require_once(ABSPATH . 'wp-admin/includes/media.php');
+    require_once(ABSPATH . 'wp-admin/includes/file.php');
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+    if (!get_the_post_thumbnail($post->ID)) {
+        preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+
+        $image_url = $matches[1][0];
+
+        $media_file = check_if_media_exists($image_url);
+
+        if (!$media_file) {
+            $image_id = media_sideload_image($image_url, $post->ID, '', 'id');
+        } else {
+            $image_id = attachment_url_to_postid($image_url);
+
+            if (empty($image_id)) {
+                $image_id = get_attachment_id($image_url);
+            }
+        }
+
+        return set_post_thumbnail($post->ID, $image_id);
+    }
+}

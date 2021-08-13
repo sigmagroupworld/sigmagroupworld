@@ -122,11 +122,8 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<?php 
 												  $arrayVal = array();
 								 				  $options = array('Licensed platform', 'White Label provider');
-												  foreach($platform_provider['platform_types'] as $val) {
-													  $arrayVal[] = $val;
-												  }
 												  foreach($options as $val) {
-													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+													  $class = ($val == $platform_provider['platform_types'] ? ' selected' : '');
 									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
@@ -138,11 +135,8 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<?php 
 												  $arrayVal = array();
 								 				  $options = array('Casino platform provider', 'Sportsbook provider');
-												  foreach($platform_provider['platform_product'] as $val) {
-													  $arrayVal[] = $val;
-												  }
 												  foreach($options as $val) {
-													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+													  $class = ($val == $platform_provider['platform_product'] ? ' selected' : '');
 									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>

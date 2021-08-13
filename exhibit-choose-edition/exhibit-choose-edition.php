@@ -10,6 +10,7 @@ get_header();
 ?>
 <?php  ob_start(); $exhibit = get_field('exhibit_banner');
 global $post;
+//set_featured_image_from_custom_fields($post->ID);
 
 if ($exhibit){
 ?>

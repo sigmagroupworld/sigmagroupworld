@@ -7,7 +7,7 @@ body {
 /* Blog Banner css start */
 .blog-banner a {
     display: block;
-    height: 360px;
+    /*height: 360px;*/
 }
 .blog-banner img {
     width: 100%;

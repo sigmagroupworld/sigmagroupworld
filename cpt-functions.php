@@ -813,7 +813,7 @@ function sigma_mt_taxonomies_gallery(){
 	);
 }
 
-// create a Custom post type Gallery
+// create a Custom post type M and A
 add_action('init', 'sigma_mt_m_and_a_custom_posts');
 function sigma_mt_m_and_a_custom_posts() {
 	register_post_type('m-and-a-deals', array(
@@ -836,126 +836,6 @@ function sigma_mt_m_and_a_custom_posts() {
 	));
 }
 
-// Shortcode for iGaming Gallery
-add_shortcode( 'sigma-mt-igaming-gallery-new', 'sigma_mt_igaming_gallery_new' );
-function sigma_mt_igaming_gallery_new($atts) {
-    global $wp_query;
-    $content = '';
-    $posts_by_year = [];
-    $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
-    $term_id = isset($atts['term_id']) ? $atts['term_id'] : '';
-    $page_id = $wp_query->get_queried_object()->ID;
-    $post_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'gallery-items',
-      'order'        => 'DESC',
-      'post_status'    => 'publish',
-      'tax_query' => array(
-                array(
-                    'taxonomy' => 'gallery-cat',
-                    'field'    => 'term_id',
-                    'terms'    => $term_id,
-                    'operator' => 'IN'
-                ),
-            ),
-    );
-    $gallery = new WP_Query($post_args);
-    //echo '<pre>'; print_r($gallery);
-    if(!empty($gallery)) {
-        if ($gallery->have_posts()) {
-        while ($gallery->have_posts()) {
-            $gallery->the_post();
-            $year = get_the_date('Y');
-            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
-        }
-    }
-    $counter = 0; 
-    $content .= '<div class="directory-gallery">
-                    <div class="all-gallery gallery-directories">';
-                        foreach($posts_by_year as $posts) {
-                        	( $counter > 0 ) ? $style = 'display: none;' : $style = '';
-                        	$content .= '<div style="'.$style.'" data-div-term-id="'.$term_id.'" data-year='.$posts[0]['Year'].'>';
-                            $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
-                            foreach($posts as $post) {
-                                $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
-                                $content .= '<div class="single-gallery">
-                                                <a href="'.get_permalink($post['ID']).'" target="_blank">
-                                                    <h3>'.$post['title'].'</h3>
-                                                    <div class="featured-image">
-                                                        <img src="'.$featured_image[0].'" alt="">
-                                                    </div>
-                                                </a>
-                                            </div>';
-                            }
-                            $counter++;
-                        	$content .= '</div>	';
-                        }
-                        $content .= '<input type="hidden" value="'.$term_id.'" id="termID">
-				        <input type="hidden" value="'.$count.'" id="posts_per_page">
-				        <input type="hidden" value="'.$post['title'].'" id="gallery_title">
-				        <input type="hidden" value="'.$featured_image[0].'" id="featured_image">';
-                    $content .= '<div class="load-gallery"><button class="load-more gallery-load-more" id="gallery-load-more" data-button-term-id="'.$term_id.'">Load More</button></div></div></div>
-                </div>';
-    }
-    return $content;
-}
-
-add_action('wp_ajax_load_gallery_by_ajax', 'load_gallery_by_ajax_callback');
-add_action('wp_ajax_nopriv_load_gallery_by_ajax', 'load_gallery_by_ajax_callback');
-function load_gallery_by_ajax_callback() {
-    check_ajax_referer('load_more_gallery', 'gallerySecurity'); 
-    echo '<pre>'; print_r($_POST); exit;
-    $content = '';
-    $taxonomy = 'people-cat';
-    $post_type = 'people-items';
-    $paged = $_POST['page'];
-    $term_id            = $_POST['term_id'];
-    $posts_per_page     = $_POST['posts_per_page'];
-    $gallery_title        = $_POST['gallery_title'];
-    $featured_image       = $_POST['featured_image'];
-    $post_args = array(
-      'posts_per_page' => $count,
-      'post_type' => 'gallery-items',
-      'order'        => 'DESC',
-      'post_status'    => 'publish',
-      'tax_query' => array(
-                array(
-                    'taxonomy' => 'gallery-cat',
-                    'field'    => 'term_id',
-                    'terms'    => $term_id,
-                    'operator' => 'IN'
-                ),
-            ),
-    );
-    $gallery = new WP_Query($post_args);
-    
-    if(!empty($gallery)) {
-        if ($gallery->have_posts()) {
-	        while ($gallery->have_posts()) {
-	            $gallery->the_post();
-	            $year = get_the_date('Y');
-	            $posts_by_year[$year][] = ['ID' => get_the_ID(), 'title' => get_the_title(), 'link' => get_the_permalink(), 'Year' => $year,];
-	        }
-	    }
-	    foreach($posts_by_year as $posts) {
-	        $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
-	        foreach($posts as $post) {
-	            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
-	            $content .= '<div class="single-gallery">
-	                            <a href="'.get_permalink($post['ID']).'" target="_blank">
-	                                <h3>'.$post['title'].'</h3>
-	                                <div class="featured-image">
-	                                    <img src="'.$featured_image[0].'" alt="">
-	                                </div>
-	                            </a>
-	                        </div>';
-	        }
-	        echo $content;
-	    }
-	    exit;
-	}
-}
-
 function sigma_mt_disable_autoupdate_slug($post_ID, $post, $update)
 {
     if ($post->post_type == 'news-items') {
@@ -974,4 +854,73 @@ function sigma_mt_disable_autoupdate_slug($post_ID, $post, $update)
             }
         }
     }
+}
+
+// create a Custom post type Games
+add_action('init', 'sigma_mt_games_custom_posts');
+function sigma_mt_games_custom_posts() {
+    register_post_type('game-items', array(
+        'labels' => array(
+            'name' => __('Games', 'sigmaigaming'),
+            'singular_name' => __('Game', 'sigmaigaming'),
+            'menu_name' => __('Games', 'sigmaigaming'),
+            'add_new' => __('Add Game Item', 'sigmaigaming'),
+            'add_new_item' => __('Add Game Item', 'sigmaigaming'),
+            'edit_item' => __('Edit Game Item', 'sigmaigaming'),
+            'new_item' => __('Game Items', 'sigmaigaming'),
+            'view_item' => __('View Game Items', 'sigmaigaming'),
+            'search_items' => __('Search Game Items', 'sigmaigaming'),
+            'not_found' => __('No Game Items found', 'sigmaigaming'),
+            'not_found_in_trash' => __('No Game Items found in Trash', 'sigmaigaming'),
+        ),
+        'public' => TRUE,
+        'rewrite' => array('slug' => 'games'),
+        'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+    ));
+}
+
+// create a Custom post taxonomy for Games post
+add_action( 'init', 'sigma_mt_taxonomies_games', 0 );
+function sigma_mt_taxonomies_games(){
+    register_taxonomy('game-cat', array('game-items'), array('hierarchical' => true,
+            'labels' => array(
+                'name' => __('Game Categories', 'sigmaigaming'),
+                'singular_name' => __('Game Category', 'sigmaigaming'),
+                'search_items' => __('Search Games Category', 'sigmaigaming'),
+                'all_items' => __('All Games Categories', 'sigmaigaming'),
+                'parent_item' => __('Parent Game Category', 'sigmaigaming'),
+                'parent_item_colon' => __('Parent Game Category:', 'sigmaigaming'),
+                'edit_item' => __('Edit Game Category', 'sigmaigaming'),
+                'update_item' => __('Refresh Game Category', 'sigmaigaming'),
+                'add_new_item' => __('Add Game Category', 'sigmaigaming'),
+                'new_item_name' => __('New Game Category', 'sigmaigaming')
+            ),
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'rewrite' => array('slug' => 'latest-games')
+        )
+    );
+}
+
+// create a Custom post tags for Games post
+add_action( 'init', 'sigma_mt_tags_games', 0 );
+function sigma_mt_tags_games(){
+    register_taxonomy('game-tag','game-items',
+        array(
+            'hierarchical'  => true,
+            'labels' => array(
+                'add_new_item' => __('Add Game Tag', 'sigmaigaming'),
+                'new_item_name' => __('Game Tag', 'sigmaigaming')
+            ),
+            'label'         => __('Game Tags', 'sigmaigaming'),
+            'singular_name' => __('Game Tag', 'sigmaigaming'),
+            'rewrite'       => [
+                'slug' => 'tags',
+                'with_front' => false
+            ],
+            'show_tagcloud' => true,
+            'show_admin_column' => true,
+            'query_var'     => true
+        )
+    );
 }

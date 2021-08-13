@@ -123,6 +123,28 @@ p:last-child {
   column-count: 3;
   column-gap: 20px;
 }
+
+blockquote {
+    display: block;
+    color: #ed1a3b;
+    border-left: 1px solid #ed1a3b;
+    font-size: 3.6rem;
+    padding: 0px 100px 15px 25px;
+    margin: 60px 0px 60px 90px;
+    position: relative;
+}
+blockquote::before {
+    content: '\f10e';
+    font-family: "Font Awesome 5 Free";
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 0px;
+    left: -95px;
+    font-size: 4.5rem;
+    line-height: 1;
+}
+
 /* Footer Menu css End */
 /* Footer Logo & Social Icon css start */
 .footer-social .elementor-social-icons-wrapper {
@@ -2182,6 +2204,10 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin-bottom: 20px;
     justify-content: space-between;
 }
+.content.expandHeight .double-line .single-workshop {
+	max-height: 300px;
+	overflow-y: scroll;
+}
 .single-workshop .label {
     min-width: 35px;
     width: 35px;
@@ -2226,6 +2252,12 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     margin: 10px 0;
 	font-family: "Montserrat";
 }
+.job-details {
+	padding: 35px;
+}
+/*.wrapper .content {
+    height:  auto !important;
+}*/
 .amount {
     display: flex;
 }
@@ -4668,9 +4700,10 @@ body.call-speakers .call-for-speakers-db {
     width: calc(20% - 15px);
     margin: 7px;
     padding: 15px 10px;
-    height: 95px;
+    height: auto;
     align-items: center;
-    display: flex;
+    display: grid;
+    text-align: center;
 }
 /* Supplier Logo End */
 
@@ -5877,6 +5910,9 @@ ul.agenda-submenu li a::after{
 	.slick-track {
 		width: 230px
 	}
+    .m-and-a-action .card-item {
+        flex-basis: calc(100% - 0px);
+    }
 }
 
 .agenda-roadshow-menu ul li:not(:nth-child(6)):not(:nth-child(7)):not(:nth-child(8)):before,
@@ -6033,6 +6069,27 @@ ul.agenda-submenu li a::after{
     display: none;
 }
 
+
+.price-box .content .description.show {
+    max-height: 600px;
+    overflow: auto;
+    -webkit-transition: max-height .5s ease-in-out;
+    -o-transition: max-height .5s ease-in-out;
+    -moz-transition: max-height .5s ease-in-out;
+    transition: max-height .5s ease-in-out;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.price-box .content .description {
+    color: #636363;
+    font-size: 12px;
+    -webkit-transition: max-height .5s cubic-bezier(0,1,0,1);
+    -o-transition: max-height .5s cubic-bezier(0,1,0,1);
+    -moz-transition: max-height .5s cubic-bezier(0,1,0,1);
+    transition: max-height .5s cubic-bezier(0,1,0,1);
+    max-height: 0;
+    overflow: hidden;
+}
 
 .date-box .wrapper .col:after {
 	display:block;
@@ -7239,6 +7296,243 @@ ul.agenda-submenu li a::after{
 	margin-bottom: 1em;
 }
 
+.manda-let-us-help {
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.27),0 0 40px rgba(0,0,0,0.06) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.27),0 0 40px rgba(0,0,0,0.06) inset;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.27),0 0 40px rgba(0,0,0,0.06) inset;
+    background: #fff;
+    min-height: 300px;
+}
+
+/*** M and A Deaks ***/
+
+.m-and-a-action .nw-slider {
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.m-and-a-action .card-item {
+    margin: 5px;
+        margin-bottom: 5px;
+    margin-bottom: 15px;
+}
+.m-and-a-action .card-item {
+    flex-basis: calc(24% - 0px);
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 10px #0000008c;
+    margin-bottom: 20px;
+    position: relative;
+}
+.m-and-a-action .card-inneritem {
+    background-color: #fff;
+    box-shadow: 2px 6px 10pz #a5a5a5;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+}
+.m-and-a-action .profile-card {
+    min-height: 200px;
+    background-image: url("/wp-content/uploads/2021/08/Background-Broker.webp");
+    padding: 10px 0 10px 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.m-and-a-action .leftinner {
+    flex-basis: 45%;
+}
+.m-and-a-action .left {
+    margin: 10px 10px;
+}
+.m-and-a-action .nw-slider .dealtitle::before {
+    content: "";
+    width: 35px;
+    height: 2px;
+    background: #fff;
+    bottom: -7px;
+    left: 5px;
+    z-index: 11;
+    position: absolute;
+}
+.m-and-a-action .nw-slider .dealtitle {
+    font-family: "Montserrat";
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    color: #fff;
+    text-transform: uppercase;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+}
+.m-and-a-action .nw-slider .dealtitle {
+    position: relative;
+}
+.m-and-a-action .profile-card .picture {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.m-and-a-action .nw-slider .profile-card .left img {
+    border: 3px solid #fff;
+    border-radius: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.m-and-a-action .nw-slider .rightinner {
+    flex-basis: 75%;
+    word-break: break-word;
+}
+.m-and-a-action .right {
+    margin: 35px 5px 10px 5px;
+}
+.m-and-a-action .rightinner p, .m-and-a-action .profile-card .imgblk {
+    text-align: left;
+}
+.m-and-a-action .profile-card .imgblk {
+    width: 100%;
+    height: 50px;
+}
+.m-and-a-action .nw-slider .profile-card .right img {
+    max-width: 100%;
+}
+.m-and-a-action .profile-card .right img {
+    max-width: 96px;
+    max-height: 35px;
+    object-fit: contain;
+    width: auto;
+}
+.m-and-a-action .nw-slider .dealstext {
+    font-weight: 600;
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 3px;
+}
+.m-and-a-action .dealstext.dealer-name {
+    font-size: 13px;
+}
+.m-and-a-action .rightinner p, .profile-card .imgblk {
+    text-align: left;
+}
+.m-and-a-action .dealstext.deal-email {
+    font-size: 11px !important;
+    font-weight: 400 !important;
+}
+.m-and-a-action .reference-id {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: #fff;
+    z-index: 11;
+}
+.m-and-a-action .infoSection {
+    min-height: 200px;
+    background: #fff;
+    padding: 10px 10px 0 10px;
+    max-width: 240px;
+}
+.m-and-a-action .info {
+    text-align: center;
+    border-bottom: none;
+    overflow: auto;
+}
+.m-and-a-action .nw-slider .biz {
+    display: flex;
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+.m-and-a-action .nw-slider .biz .icon {
+    max-width: 35px;
+    max-height: 35px;
+}
+.m-and-a-action .desc {
+    font-size: 13px;
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-left: 10px;
+    color: #281f75;
+}
+.m-and-a-action .desc span {
+    font-size: 11px;
+}
+.m-and-a-action .desc .operator-type {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.m-and-a-action .dealtitle {
+    font-family: "Montserrat";
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-transform: uppercase;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+}
+.m-and-a-action .container-close::before {
+    content: attr(data-ribbon);
+    position: absolute;
+    font-size: 12px;
+    top: 0;
+    right: 0;
+    transform: translate(29.29%,-100%) rotate(45deg);
+    color: #fff;
+    text-align: center;
+    border: 1px solid transparent;
+        border-bottom-color: transparent;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    border-bottom: 0;
+    transform-origin: bottom left;
+    padding: 5px 35px calc(var(--d) + 5px);
+    background: linear-gradient(rgba(0,0,0,0.5) 0 0) bottom/100% var(--d) no-repeat var(--c);
+    background-clip: padding-box;
+    clip-path: polygon(0 0,100% 0,100% 100%,calc(100% - var(--d)) calc(100% - var(--d)),var(--d) calc(100% - var(--d)),0 100%);
+    -webkit-mask: linear-gradient(135deg,transparent calc(50% - var(--d) * 0.707),#fff 0) bottom left,linear-gradient(-135deg,transparent calc(50% - var(--d) * 0.707),#fff 0)bottom right;
+    -webkit-mask-size: 300vmax 300vmax;
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    text-transform: uppercase;
+}
+
+.m-and-a-action .slick-arrow.slick-prev::before {
+    content: "\f137";
+}
+.m-and-a-action .slick-arrow.slick-prev::before, .m-and-a-action .slick-arrow.slick-next::before {
+    font-family: "Font Awesome 5 Free";
+    color: #ED1A3B;
+    font-weight: bold;
+}
+.m-and-a-action .slick-arrow.slick-next::before {
+    content: "\f138";
+}
+.m-and-a-action .slick-arrow.slick-prev::before, .m-and-a-action .slick-arrow.slick-next::before {
+    font-family: "Font Awesome 5 Free";
+    color: #ED1A3B;
+    font-weight: bold;
+}
+
+/*** M and A Deaks end ***/
+
 @media(max-width:1100px) {
 	.relatedcontent {
 		margin: 14px 20px
@@ -7257,6 +7551,9 @@ ul.agenda-submenu li a::after{
 		max-width: 31%;
 		margin: 2% 0
 	}
+    .m-and-a-action .card-item {
+        flex-basis: calc(30% - 0px);
+    }
 }
 
 @media(max-width:680px) {
@@ -7278,6 +7575,9 @@ ul.agenda-submenu li a::after{
 	.km_content>div {
 		flex-basis: 100%
 	}
+    .m-and-a-action .card-item {
+        flex-basis: calc(40% - 0px);
+    }
 }
 
 @media(max-width:550px) {
@@ -7289,6 +7589,9 @@ ul.agenda-submenu li a::after{
 		max-width: 48%;
 		margin: 2% 0
 	}
+    .m-and-a-action .card-item {
+        flex-basis: calc(100% - 0px);
+    }
 }
 
 .casinocontent {
@@ -7649,6 +7952,11 @@ ul.agenda-submenu li a::after{
 	background-image: url('https://www.sigma.com.mt/hubfs/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')
 }
 
+/** css for single game **/
+.single-game-wrapper {
+    padding: 25px 0;
+}
+
 /*********** Css for Media Opportunities ****/
 
 .mo-social-media-stats .elementor-icon-list-text span, .mo-social-media-stats .elementor-icon-list-icon i {
@@ -7740,6 +8048,82 @@ ul.agenda-submenu li a::after{
 .media-oppotunies-sponsors .charity-items .single-item .img-wrapper img {
     max-height: auto;
     height: 50px;
+}
+
+.mo-social-media-stats.elementor-column.elementor-col-50 {
+    border: 1px solid #c4c4c4;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 20px;
+    height: 100%;
+    width: calc(50% - 20px * 2);
+    margin-right: 40px;
+}
+.our-media-opportunities-tab .elementor-widget-shortcode {
+    margin-bottom: 0;
+}
+.our-media-opportunities-tab .elementor-shortcode {
+    margin-bottom: 15px;
+}
+.our-media-opportunities-tab .elementor-shortcode .wrapper 
+{
+    border-bottom: none;
+}
+.our-media-opportunities-tab .elementor-shortcode .wrapper .toggle {
+    border-bottom: unset !important;
+    background: #295487;
+    border-radius: 22px;
+}
+.our-media-opportunities-tab .elementor-shortcode .sponsor-boxes, .our-media-opportunities-tab .elementor-shortcode .all-workshops {
+    margin-top: 30px;
+}
+.our-media-opportunities-tab .elementor-shortcode .wrapper .toggle h3 {
+    color: #ffffff;
+    margin-left: 24px;
+}
+.our-media-opportunities-tab .elementor-shortcode .wrapper i.fa-plus, .our-media-opportunities-tab .elementor-shortcode .wrapper i.fa-minus {
+    color: #ffffff;
+    margin-right: 24px;
+}
+.our-media-opportunities-tab .elementor-shortcode .wrapper .all-sell .sell {
+    display: none !important;
+}
+.media-oppotunies-sponsors .charity-items .single-item {
+    width: calc(25% - 15px * 2);
+    padding: 20px;
+}
+.media-oppotunies-sponsors .charity-items .single-item .img-wrapper {
+    height: auto;
+}
+.media-oppotunies-sponsors .charity-items .single-item .img-wrapper img {
+    max-height: auto;
+    height: 50px;
+}
+.video-slider-mo {
+    padding: 10px;
+    width: 70% !important;
+    margin: 0 auto;
+}
+.video-slider-mo .video-single h3 {
+    color: #ed1a3b;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.video-slider-mo .slick-arrow::before, .video-slider-mo .slick-arrow::before {
+    font-size: 22px !important;
+    line-height: 24px !important;
+    opacity: 1 !important;
+    color: #fff !important;
+    font-weight: 400 !important;
+    height: 26px !important;
+    width: 24px !important;
+    background-image: unset !important;
+    background-color: #ed1a3b !important;
+    font-family: 'FontAwesome' !important;
 }
 
 /*********** Css for Media Opportunities end *****/
@@ -8199,3 +8583,172 @@ body {
 
 
 }
+
+
+.brokerItem {
+    height: auto;
+    float: left;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0 0 40px 0;
+    width: 100%;
+    background: #fff;
+}
+.brokerItem .brokerItemInner {
+    position: relative;
+}
+.brokerItemInner {
+    padding: 0 0 20px 0;
+    text-align: center;
+    margin: 0 20px;
+    box-shadow: 4px 4px 12px #9b9b9b;
+    border-radius: 6%;
+    max-height: 270px;
+    height: 270px;
+}
+.brokerItem .brokerItemInner .btn {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    background-color: #fcd72a;
+    position: absolute;
+    bottom: 30px;
+    right: -17px;
+    cursor: pointer;
+}
+.brokerItem .brokerItemInner .btn div::after {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.brokerItem .brokerItemInner .btn div::before, .brokerItem .brokerItemInner .btn div::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    top: 16px;
+    left: 8px;
+}
+.brokerImg {
+    width: auto;
+    height: 70px;
+    margin-bottom: 10px;
+    display: flex;
+    align-content: center;
+}
+.brokerImg img {
+    width: auto;
+    max-height: 70px;
+    max-width: 200px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding-top: 10px;
+    object-fit: contain;
+}
+.brokerDescription p {
+    margin: 0px 30px 20px !important;
+    padding: 16px 0 0 !important;
+}
+
+/********* New Layout Css ********/
+.new-home-layout .home-news {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: -webkit-calc(100% + 40px);
+    width: -moz-calc(100% + 40px);
+    width: calc(100% + 40px);
+    margin-left: -20px !important;
+}
+.home-news .left-sidebar {
+    width: -webkit-calc(25% - 40px);
+    width: -moz-calc(25% - 40px);
+    width: calc(25% - 40px);
+    padding-left: 20px;
+}
+.home-news .home-middle-content {
+    width: -webkit-calc(50% - 40px);
+    width: -moz-calc(50% - 40px);
+    width: calc(50% - 40px);
+}
+.home-news .home-middle-content .right-sidebar {
+    width: -webkit-calc(25% - 40px);
+    width: -moz-calc(25% - 40px);
+    width: calc(25% - 40px);
+    margin-right:  0;
+}
+.home-news .left-sidebar, .home-news .home-middle-content, .home-news .right-sidebar {
+    margin: 10px 15px;
+}
+.new-home-layout .blog-listing-module h1 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Montserrat";
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.new-home-layout .blog-listing-module .post-item {
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e21735;
+}
+.new-home-layout .blog-listing-module.section {
+    width: calc(50% - 10px);
+}
+.new-home-layout .blog-listing-module.section h2 { 
+    font-weight: 600;
+    margin-top: 15px;
+    font-size: 22px;
+}
+.new-home-layout .blog-listing-module.section:nth-child(odd) {
+    margin-right: 20px;
+}
+.new-home-layout .blog-listing-module .post-item a {
+    margin-bottom: 15px;
+}
+.new-home-layout .blog-listing-bellow {
+    display: flex;
+    flex-wrap: wrap;
+}
+.left-sidebar .casino-menu-lists a {
+    display: flex;
+}
+.left-sidebar .casino-menu-lists a .thumb2 {
+    background-color: #eee;
+    margin-right: 10px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+}
+.left-sidebar .casino-menu-lists a h2 {
+    font-size: 16px;
+    line-height: 1.31;
+    color: #010101;
+    font-weight: 600;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin-bottom: 0 !important;
+    -webkit-transition: .3s all;
+    -o-transition: .3s all;
+    -moz-transition: .3s all;
+    transition: .3s all;
+    margin-top: 5px;
+}
+/********* New Layout Css end ********/

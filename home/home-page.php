@@ -328,11 +328,10 @@ if ($desktop_banner){ ?>
     </section>
 	<!-- News Image slider end -->
 
-	<?php sigma_mt_get_continent_order($page_id); ?>
-
 <?php
 }
 ?>
+<?php sigma_mt_get_continent_order($page_id); ?>
 
 <div class="home-page popup close">
 	<div class="popupinner">
