@@ -1,11 +1,14 @@
 jQuery(document).ready(function($) {
 
+	$('.blog-listing-module.section').wrapAll('<div class="blog-listing-bellow"></div>');
+
 	$('.img-gallery').slickLightbox({
 		itemSelector        : 'img',
   		navigateByKeyboard  : true,
   		src		    : 'src',
   		//itemSelector: '.img-gallery img'
 	});
+
 
 	$('.video-slider-mo').slick({
       		slidesToScroll: 1,
@@ -162,6 +165,7 @@ jQuery(document).ready(function($) {
 	      ]
 	  });
 	  //deep tech insights slider end
+
 	  //expert slider start
 	  $('.expert-slider').slick({
 	      infinite: true,
@@ -194,6 +198,7 @@ jQuery(document).ready(function($) {
 	      slidesToShow: 3,
 	      slidesToScroll: 1,
 	      autoplay: true,
+		arrows: true,
 	      centerPadding: 10,
 	      responsive: [
 	        {
@@ -219,9 +224,17 @@ jQuery(document).ready(function($) {
       		infinite: true,
       		slidesToShow: 1,
       		slidesToScroll: 1,
-		autoplay: true,
-		autoplaySpeed: 2000,
+			autoplay: true,
+			autoplaySpeed: 2000,
   	});
+
+	$('.broker-slider').slick({
+      		infinite: true,
+      		slidesToShow: 3,
+      		slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 2000,
+	  });
 
 	/**** Related Articles Slider ***/
   	$(".casino .articles-slide").slick({
@@ -747,12 +760,15 @@ let sell = document.getElementsByClassName("sell");
 for (let i = 0; i < toggles.length; i++) {
 	toggles[i].addEventListener("click", () => {
 	  if (parseInt(contentDiv[i].style.height) != contentDiv[i].scrollHeight) {
-	    contentDiv[i].style.height = contentDiv[i].scrollHeight + "px";
+	    //contentDiv[i].style.height = contentDiv[i].scrollHeight + "px";
+	    contentDiv[i].style.height = 'auto';
+		jQuery(".page-accordion .wrapper .content").addClass("expandHeight");
 	    icons[i].classList.remove("fa-plus");
 	    icons[i].classList.add("fa-minus");
 	    sell[i].style.display = "flex";
 	  } else {
 	    contentDiv[i].style.height = "0px";
+		  jQuery(".page-accordion .wrapper .content").removeClass("expandHeight");
 	    icons[i].classList.remove("fa-minus");
 	    icons[i].classList.add("fa-plus");
 	    sell[i].style.display = "none";

@@ -31,7 +31,7 @@ class sigma_mt_widget extends WP_Widget {
         $wp_query = new WP_Query(array('showposts' => 5, 'nopaging' => 0, 'post_status' => 'publish', 'post_type' => 'news-items')); ?>
         <div class="blog-rightbar">
 			<div class="magazine-widget bottom-border">
-		        <?php if ($WP_Query->have_posts()) : ?>
+		        <?php if ($wp_query->have_posts()) : ?>
 		        	<?php echo $before_widget; ?>
 		        	<div class="blog-sub-title"><h3><?php if ( $title ) echo $before_title . $title . $after_title; ?></h3></div>
 		    		<ul>
