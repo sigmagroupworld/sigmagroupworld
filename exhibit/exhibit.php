@@ -43,7 +43,9 @@ $field = get_field('accordian_section', $page_id);
 	    <div class="accordion-main">
 	    	<!-- Roadshow opportunities -->
 	    	<?php
-			echo do_shortcode($field['roadshow_opportunities']['shortcode']);
+            if ($field['roadshow_opportunities']['shortcode']) {
+                echo do_shortcode($field['roadshow_opportunities']['shortcode']);
+            }
 			?>
 			<!-- Roadshow opportunities end -->
 
