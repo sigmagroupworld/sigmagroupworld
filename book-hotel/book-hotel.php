@@ -12,6 +12,7 @@ $page_id = $wp_query->get_queried_object()->ID;
 $flights_accommodation = get_field('flights_and_accommodation');
 $sigma_offical_hotels = get_field('sigma_offical_hotels');
 $show_flight_form = get_field('show_flight_form');
+$top_section = get_field('top_section');
 $hotel_listing = get_field('hotel_listing', $page_id);
 ?>
 
@@ -19,7 +20,28 @@ $hotel_listing = get_field('hotel_listing', $page_id);
 	<!-- book hotel page start -->
 	<section class="book-hotel-page">
 	  <div class="container">
-	    <!-- Flights & accomodation start -->
+	  	<!-- TOP SECTION START -->
+        <?php 
+          if(!empty($top_section) && !empty($top_section['banner_image'])){ ?>
+           <div class="book-pass-top" style="display: none;">
+               <div class="top-image">
+               	<img src="<?php echo $top_section['banner_image']; ?>">
+               </div>     
+               <?php
+               if(!empty($top_section['button_1_link']) && !empty($top_section['button_2_text'])){ ?>
+
+               <div class="btn-wrapper-hotel">
+               	 <a class="btn-one btn-hotel" href="<?php echo $top_section['button_1_link']; ?>"><?php echo $top_section['button_1_text'] ?></a>
+               	 <a class="btn-two btn-hotel" href="<?php echo $top_section['button_2_link']; ?>"><?php echo $top_section['button_2_text'] ?></a>
+
+               </div> 
+               <?php    	
+                }
+                ?>
+           </div>
+    
+         <?php } ?>
+			<!-- Flights & accomodation start -->
 	    <?php if(!empty($flights_accommodation['title'])) { ?>
 		    <div class="flights">
 		      <div class="page-title">

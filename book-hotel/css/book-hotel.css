@@ -1,4 +1,4 @@
-/* Book Flights Start */
+ Book Flights Start */
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], select {
     padding: 6px;
     display: inline-block;
@@ -146,7 +146,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 
 .ui-widget-header .ui-icon {
-	background-image: url(https://www.sigma.com.mt/hubfs/Icon/ui-icons-fff.png)
+	background-image: url(https://www.sigma.world/hubfs/Icon/ui-icons-fff.png)
 }
 
 .ui-icon {
@@ -264,7 +264,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     line-height: 20px !important;
     border-radius: 5px !important;
     float: left;
-    background-image: url(https://www.sigma.com.mt/hubfs/Icon/calendarIcon.png);
+    background-image: url(https://www.sigma.world/hubfs/Icon/calendarIcon.png);
     background-repeat: no-repeat;
     background-size: 14px 14px;
     background-position: top 8px right 6px;
@@ -629,12 +629,58 @@ input[type="submit"] {
     margin: 20px 0px 0px auto;
 }
 /* hotel reviews end */
+
+/* Element | https://sigma.world/en/europe/book-hotel/ */
+
+.book-pass-top {
+  /* display: none; */
+}
+
+/* Inline #56 | https://sigma.world/en/europe/book-hotel/ */
+
+.book-pass-top .top-image img {
+  width: 100%;
+}
+
+.book-pass-top .btn-wrapper-hotel {
+  padding: 40px 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.book-pass-top .btn-wrapper-hotel a {
+  background: transparent;
+  color: #ed1a3b;
+  font-weight: 501;
+  text-align: center;
+  width: clamp(140px,100%,650px);
+  border: 2px solid #ed1a3b;
+  margin-right: 30px;
+  padding: 17px 12px;
+  border-radius: 90px;
+  font-size: 23px;
+  text-transform: uppercase;
+  transition: 0.5s all;
+}
+.book-pass-top .btn-wrapper-hotel a:last-child {
+    margin-right: 0;
+}
+.book-pass-top .btn-wrapper-hotel a:hover {
+    background: #ed1a3b;
+    color: #fff;
+}
+
 /* Sigma official hotel end */
 
 /* Responsive Css Start */
 @media(max-width:1024px) {
     .single-hotel {
         width: calc(33.33% - 20px * 2);
+    }
+    .book-pass-top .btn-wrapper-hotel a{
+        font-size: 20px;
+        padding: 15px 12px;
     }
 }
 @media(max-width:767px) {
@@ -658,6 +704,11 @@ input[type="submit"] {
         width: calc(50% - 10px * 2);
         margin: 10px;
     }
+     .book-pass-top .btn-wrapper-hotel a{
+        padding: 12px 10px;
+        border-radius: 90px;
+        margin-right: 20px;
+    }
 }
 @media(max-width:650px) {
     .single-img {
@@ -672,6 +723,14 @@ input[type="submit"] {
     .hotel-reviews .long .buttons-wrapper {
         text-align: center;
     }
+    .book-pass-top .btn-wrapper-hotel {
+        flex-direction: column;
+    }
+    .book-pass-top .btn-wrapper-hotel a {
+        margin: 0 0 20px;
+        font-size: 16px;
+        padding: 10px;
+    }
     .img-gallery>a {
         margin-right: 0;
     }
@@ -683,4 +742,4 @@ input[type="submit"] {
         width: 100%;
     }
 }
-/* Responsive Css End */
+/* Responsive Css End 

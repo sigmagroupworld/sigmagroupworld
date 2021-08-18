@@ -14,14 +14,14 @@
     z-index: 1;
 }
 .deep-banner-img:before {
-    background-image: url(https://www.sigma.com.mt/hubfs/DeepTech/elements/3d-2.png);
+    background-image: url(https://www.sigma.world/hubfs/DeepTech/elements/3d-2.png);
     background-repeat: no-repeat;
     background-size: contain;
     bottom: -10%;
     left: -6% !important;
 }
 .deep-banner-img:after {
-    background-image: url(https://www.sigma.com.mt/hubfs/DeepTech/elements/3d-1.png);
+    background-image: url(https://www.sigma.world/hubfs/DeepTech/elements/3d-1.png);
     background-repeat: no-repeat;
     background-size: contain;
     top: -14%;

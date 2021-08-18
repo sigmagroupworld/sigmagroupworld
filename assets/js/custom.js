@@ -731,7 +731,6 @@ jQuery(document).ready(function($) {
 		}
 	});
 	/** Air Malta Form End ***/
-
 });
 
 /** Casino Provider Details Tab ***/
@@ -760,9 +759,9 @@ let sell = document.getElementsByClassName("sell");
 for (let i = 0; i < toggles.length; i++) {
 	toggles[i].addEventListener("click", () => {
 	  if (parseInt(contentDiv[i].style.height) != contentDiv[i].scrollHeight) {
-	    //contentDiv[i].style.height = contentDiv[i].scrollHeight + "px";
-	    contentDiv[i].style.height = 'auto';
-		jQuery(".page-accordion .wrapper .content").addClass("expandHeight");
+	    contentDiv[i].style.height = contentDiv[i].scrollHeight + "px";
+		jQuery(".page-accordion .wrapper .content").addClass("expandHeight" + i);
+		jQuery("expandHeight" + i).css("height", "100%"); 
 	    icons[i].classList.remove("fa-plus");
 	    icons[i].classList.add("fa-minus");
 	    sell[i].style.display = "flex";
@@ -800,3 +799,5 @@ function openModal(elementId, modalId, closeId) {
 	}
 }
 /** Sponsors modal popup Detail end ***/
+
+

@@ -19,7 +19,7 @@ $charity_auction_items = get_field('charity_auction_items', $page_id);
 $faq = get_field('faq', $page_id);
 $meet_the_past_winners = get_field('meet_the_past_winners', $page_id);
 $testimonials = get_field('testimonials', $page_id);
-set_featured_image_from_custom_fields($page_id);
+//set_featured_image_from_custom_fields($page_id);
 ?>
 <div class="europe-gaming-awards-template" id="<?php echo $post->post_name; ?>">
 	<!-- banner section start -->
