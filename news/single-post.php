@@ -18,7 +18,9 @@ $featured_image;
 $sidebars_left_final;
 $sidebars_right_final;
 $featured_image_post = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
-$firstcategory = !empty($terms) ? $terms[0] : null;
+
+$banner_category = get_field('banner_category', get_the_id());
+$firstcategory = (($banner_category != null && $banner_category != '') ? $banner_category : (!empty($terms) ? $terms[0] : null));
 if($firstcategory != null){
 	$featured_image_category = get_field('header', $firstcategory);
 	$featured_image = ($featured_image_category != '' ? $featured_image_category : (!empty($featured_image_post) ? $featured_image_post[0] : ''));

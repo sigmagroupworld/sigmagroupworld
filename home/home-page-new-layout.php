@@ -23,7 +23,7 @@ $page_id = $wp_query->get_queried_object()->ID;
 
 if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
-	<section class="home-banner" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
+	<section class="home-banner home-new-banner" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
 		<div class="banner-container">
 			<!-- Desktop banner start -->
 			<div class="desktop-banner">
@@ -110,66 +110,30 @@ if ($desktop_banner){ ?>
 		</div>
 	</section>
 	<!-- Home page banner End -->
-	<!-- News category menu start -->
-	<section>
-		<div class="container">
-			<div class="home-news-menu">
-				<div class="news-menu">
-					<div class="mobile-pick">
-						<ul>
-							<li><?php echo $desktop_banner["all_categories_title"]; ?></li>
-						</ul>
-						<div class="btn">
-							<div>
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
-							</div>
-						</div>
-					</div>
-					<?php
-					$menu_name = sigma_mt_get_tags_menu();
-					?>
-					<ul>
-						<?php foreach ( $menu_name as $k => $tag ) { ?>
-			  				<li>
-			  					<a href="<?php echo $tag->url; ?>"><?php echo $tag->title; ?></a>
-			  				</li>
-			  			<?php } ?>
-		 			</ul>
-				</div>
-				<div class="news-search">
-					<?php echo do_shortcode( '[sigma-mt-wpbsearch]' ); ?>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- News category menu end -->
-
 
 	<div class="new-home-layout">
 	    <!-- Latest blog section -->
 	    <section class="home-blog latest-news">
 	        <div class="page-container">
 	            <div class="home-news">
-
 	                <div class="left-sidebar">
-	                    <div class="h-title">
-	                        <a href="#">Directory</a>
+	                	<div class="space menus">
+							<?php echo do_shortcode('[sigma_mt_show_sidebar_sigma_directory]'); ?>
 	                    </div>
-	                    <div class="casino-menu-lists">
-                            <article>
-                                <a href="#">
-                                    <div class="thumb2">
-                                        <img src="#">
-                                    </div>
-                                    <div>
-                                        <h2 class="big">Online Casinos</h2>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
+	                    <div class="space sigma-print">
+	                    	<a href="#"><img src="/wp-content/uploads/2021/08/sigma-print-bg.png"></a>
+	                    </div>
+						<?php /*<div class="space">
+							<div class="sigma-college">
+								<div class="top-img">
+									<a href="<?php echo site_url(); ?>"><img src="/wp-content/uploads/2021/08/sigma-new-logo.png"></a>
+								</div>
+								<div class="text-event">M & A</div>
+							</div>
+	                    </div>*/ ?>
+	                    <div class="space sigma-college">
+	                    	<a href="<?php echo site_url(); ?>/sigma-college/"><img src="/wp-content/uploads/2021/08/sigma-college.png"></a>
+	                    </div>
 	                </div>
 
 	                <div class="home-middle-content">
@@ -199,7 +163,7 @@ if ($desktop_banner){ ?>
 			                        		    <img src="<?php echo $featured_image[0] ?>" alt="">
 											<?php } else { ?>
                                                 <img src="<?php echo $placeholder_full ?>" alt="">
-                                            <?php } ?>
+                                            <?php } ?> 
 			                    		</div>
 			                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
 									</a>
@@ -212,10 +176,12 @@ if ($desktop_banner){ ?>
 					</div>
 
 	                <div class="right-sidebar">
-	                    <div class="h-title">
-	                        <a href="#">Directory</a>
+	                    <div class="space">
+							<?php echo do_shortcode('[sigma_mt_show_sidebar_event appearance="NewLayout"]'); ?>
 	                    </div>
-	                    Right Sidebar
+	                    <div class="space sigma-multi-events">
+	                    	<?php echo do_shortcode('[sigma-mt-sidebar-event-logos]'); ?>
+	                    </div>
 	                </div>
 	            </div>
 	        </div>

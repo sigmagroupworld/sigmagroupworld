@@ -19,7 +19,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 			<div class="blog-leftbar">
 				<div class="single-banner-advert bottom-border">
 					<a href="#" target="_blank">
-                    	<img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Banners/Sold%20Banners/AGS-PM-Affiliate-Program-Left-Banner.png" alt="">       
+                    	<img src="https://www.sigma.world/hubfs/6M%20Sigma%20Files/Banners/Sold%20Banners/AGS-PM-Affiliate-Program-Left-Banner.png" alt="">       
     				</a>
 				</div>
 				<div class="affiliates bottom-border">
@@ -56,7 +56,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 						<h3>Latest Magazines</h3>
 					</div>
   					<a href="#" target="_blank">
-    					<img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Magazine/Magazine%20covers/Sigma%2013%20for%20web-1.png" alt="magazine"/>
+    					<img src="https://www.sigma.world/hubfs/6M%20Sigma%20Files/Magazine/Magazine%20covers/Sigma%2013%20for%20web-1.png" alt="magazine"/>
   					</a>
 				</div>
 				<div class="offers-wrapper">
@@ -66,7 +66,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 					<div class="offer-wrap">
 						<div class="offer-item">
 							<div class="img-wrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="link-wrap">
         						<a class="play-btn" target="_blank" href="#">Play Now</a>
@@ -75,7 +75,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 						</div>
 						<div class="offer-item">
 							<div class="img-wrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="link-wrap">
         						<a class="play-btn" target="_blank" href="#">Play Now</a>
@@ -84,7 +84,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 						</div>
 						<div class="offer-item">
 							<div class="img-wrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="link-wrap">
         						<a class="play-btn" target="_blank" href="#">Play Now</a>
@@ -93,7 +93,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 						</div>
 						<div class="offer-item">
 							<div class="img-wrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="link-wrap">
         						<a class="play-btn" target="_blank" href="#">Play Now</a>
@@ -102,7 +102,7 @@ $results = sigma_mt_get_casino_provider_data(); ?>
 						</div>
 						<div class="offeritem">
 							<div class="img-wrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="link-wrap">
         						<a class="play-btn" target="_blank" href="#">Play Now</a>

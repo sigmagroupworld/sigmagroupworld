@@ -155,7 +155,7 @@ if ($desktop_banner){ ?>
 					$news_tags = sigma_mt_get_news_tags_data('', $taxonomy, 14);
 					?>
 					<div class="h-title">
-						<a href="#"><?php echo $desktop_banner["latest_posts_title"]; ?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+						<a href="<?php get_permalink( '22585' );  ?>"><?php echo $desktop_banner["latest_posts_title"]; ?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
 					</div>
 		       		<?php
 	        		foreach ( $news_tags['term_data'] as $k => $post ) {

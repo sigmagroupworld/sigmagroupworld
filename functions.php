@@ -26,8 +26,7 @@ function sigma_mt_enqueue_styles() {
     $parent_style = 'adforest-style'; // This is 'adforest-style' for the AdForest theme.
     wp_enqueue_style( 'child-style',
         get_stylesheet_directory_uri() . '/style.css',
-        array( $parent_style ),
-        time()
+        array( $parent_style )
     );   
     wp_enqueue_style('sigmamt-responsive', CHILD_DIR . '/assets/css/responsive.css');
     wp_enqueue_style('sigmamt-slick', CHILD_DIR . '/assets/css/slick.css');
@@ -44,7 +43,7 @@ function sigma_mt_scripts() {
     wp_enqueue_style('sigmamt-dashicons', get_bloginfo('url') . '/wp-includes/css/dashicons.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-all-fontawesome', CHILD_DIR . '/assets/css/all.css', array(), '1.0.0', true);
     wp_enqueue_style('sigmamt-search-style', CHILD_DIR .'/assets/css/search.css');
-    wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css', array(), time());
+    wp_enqueue_style('home', CHILD_DIR .'/news/css/news.css', array());
     wp_enqueue_style('sigmamt-regular-fontawesome', CHILD_DIR . '/assets/css/regular.css', array(), '1.0.0', true);
     wp_enqueue_script( 'jquery-ui-datepicker' );    
     wp_enqueue_script('sigmamt-main-script', CHILD_DIR . '/assets/js/custom.js', array(), '1.0.0', true );    
@@ -52,8 +51,7 @@ function sigma_mt_scripts() {
     wp_enqueue_script('sigmamt-slick-lightbox-script', CHILD_DIR . '/assets/js/slick-lightbox.js', array(), '1.0.0', true );
 
     /****Autocomplete script ****/
-    wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', 
-        ['jquery', 'jquery-ui-autocomplete'], null, true);
+    wp_enqueue_script('autocomplete-search', get_stylesheet_directory_uri() . '/assets/js/autocomplete.js', ['jquery', 'jquery-ui-autocomplete'], null, true);
     wp_localize_script('autocomplete-search', 'AjaxRequest', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'ajax_nonce' => wp_create_nonce('autocompleteSearchNonce'),
@@ -241,22 +239,24 @@ function sigma_mt_banner_adds($atts) {
     $page_id = isset($atts['page_id']) ? $atts['page_id'] : '';
 	$output = '';
 	if($banner_image == '' && $banner_link == ''){
-		$banners = get_field('desktop_banner', $page_id)[$banner_field];
-		$output ='<section class="sigma-news">
+	    if ($banner_field) {
+            $banners = get_field('desktop_banner', $page_id)[$banner_field];
+            $output = '<section class="sigma-news">
 					<div class="container">
 						<div class="single-news">';
-		if(!empty($banners)){
-			foreach($banners as $banner) {
-							$output .= '<div class="all-news">
+            if (!empty($banners)) {
+                foreach ($banners as $banner) {
+                    $output .= '<div class="all-news">
 								<a href="' . $banner['link'] . '" target="_blank" rel="noreferrer noopener">
 									<img src="' . $banner['image'] . '" alt="">
 								</a>
 							</div>';
-			}
-		}
-		$output .= '  </div>
+                }
+            }
+            $output .= '  </div>
 					</div>
 				</section>';
+        }
 	} else {
 		$output ='<section class="sigma-news">
 					<div class="container">
@@ -932,8 +932,13 @@ function sigma_mt_get_people_list($atts) {
                                                             <div></div>
                                                         </div>';
                                         }
-                                    $content .= '</div>
-                                    <div class="person-detail">
+                                    $content .= '</div>';
+                                    if(!empty($companyLogo)) {
+                                        $content .= '<div class="investor-logo" style="padding-top: 10px !important;">
+                                            <img src="'.$companyLogo[0].'" alt="">
+                                        </div>';
+                                    }
+                                    $content .= '<div class="person-detail">
                                         <h3>'.$post->post_title.'</h3>
                                         <h4>'.$people_designation.'</h4>
                                     </div>
@@ -1033,7 +1038,7 @@ function sigma_mt_get_people_list($atts) {
 									</div>
                                     <div class="person-detail">
 										<h3>' . __('Are you our next Judge?', 'sigmaigaming') . '</h3>
-										<h4>' . __('Contact emily.d@sigma.world', 'sigmaigaming') . '</h4>
+										<h4>' . __('Contact', 'sigmaigaming') . ' <a href="mailto:emily.d@sigma.world">emily.d@sigma.world</a></h4>
                                     </div>
                                 </div>
                             </div>';
@@ -3112,7 +3117,15 @@ function sigma_mt_get_logos($atts) {
                                                         <div></div>
                                                     </div>
                                                 </a>';
-                                } else {
+                                }
+                                elseif($appearance === 'nolink' ) {
+                                    $content .= '<a> 
+                                                    <div class="btn">
+                                                        <div></div>
+                                                    </div>
+                                                </a>';
+                                }
+                                 else {
                                     if(!empty($item->post_content)) {
                                         $content .= '<div class="btn" onclick="openCharityDiv(\'single-item'.$k.'\')">
                                                         <div></div>
@@ -3363,7 +3376,7 @@ function sigma_mt_speakers($atts) {
 }
 
 
-// For upcoming news
+// For upcoming event
 add_shortcode('upcoming-event', 'sigma_mt_upcoming_event_shortcode');
 function sigma_mt_upcoming_event_shortcode(){
     $upcomingevent = get_field('upcoming_event', 'option');
@@ -3389,6 +3402,7 @@ add_shortcode( 'sigma_mt_show_sidebar_event', 'sigma_mt_show_sidebar_event' );
 function sigma_mt_show_sidebar_event($atts) {
     
     $taxonomy = 'tribe_events_cat';
+    $appearance = isset($atts['appearance']) ? $atts['appearance'] : '';
     $post_args = array(
         'posts_per_page' => 1,
         'post_type' => 'tribe_events',
@@ -3409,7 +3423,19 @@ function sigma_mt_show_sidebar_event($atts) {
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
         foreach($get_posts as $k => $post) {
-            $event_data =   '<div class="calendar-event">
+            if(!empty($appearance) && $appearance === 'NewLayout') {
+                $event_data = '<div class="h-title">
+                                    <a href="#">Next Events</a>
+                                </div>
+                                <div class="sigma-event">
+                                    <div class="top-img">
+                                        <a href="'.site_url().'"><img src="/wp-content/uploads/2021/08/sigma-new-logo.png"></a>
+                                    </div>
+                                    <div class="text-event">'.$post->post_title.'</div>
+                                    <div class="btn-book"><a href="'.get_permalink($post->ID).'" target="_blank">Book a <br />Pass Now</a></div>
+                                </div>';
+            } else {
+                $event_data =   '<div class="calendar-event">
                                 <h5>'.$post->post_title.'</h5> 
                                 <div class="date">'.date_format(new DateTime(get_field('_EventStartDate', $post->ID)), 'F d, Y').'</div>
                                 <div class="widget_type_rich-text">
@@ -3419,6 +3445,7 @@ function sigma_mt_show_sidebar_event($atts) {
                                 </div>
                                 <a class="eventbtn" href="'.get_permalink($post->ID).'" target="_blank">'.__('REGISTER FREE', 'sigmaigaming').'</a>
                             </div>';
+            }
             return $event_data;
         }
     }
@@ -3506,6 +3533,54 @@ function sigma_mt_show_sidebar($atts) {
     }
     $content .= "</div>";
     return $content;
+}
+
+// Shortcode for the entire sidebar
+add_shortcode( 'sigma_mt_show_sidebar_sigma_directory', 'sigma_mt_show_sidebar_sigma_directory' );
+function sigma_mt_show_sidebar_sigma_directory($atts) {
+    $menu = '6124';
+    $content = '';
+    $args = array(
+        'order'                  => 'ASC',
+        'orderby'                => 'menu_order',
+        'post_type'              => 'nav_menu_item',
+        'post_status'            => 'publish',
+        'output'                 => ARRAY_A,
+        'output_key'             => 'menu_order',
+        'nopaging'               => true,
+        'update_post_term_cache' => false );
+    $items = wp_get_nav_menu_items( $menu, $args );
+    $content .= '<div class="h-title">
+                    <a href="#">SiGMA Directory</a>
+                </div>
+                <div class="casino-menu-lists">';
+                foreach ( $items as $k => $menu ) {
+                    $content .= '<article>
+                                    <a href="'.$menu->url.'">
+                                        <div class="thumb2">
+                                            <img src="/wp-content/uploads/2021/08/icon1.png">
+                                        </div>
+                                        <div class="title">
+                                            <h2>'.$menu->title.'</h2>
+                                        </div>
+                                    </a>
+                                </article>';
+                }
+                $content .= '</div>';
+    return $content;
+}
+
+//Shortcode to get sidebar logos sigma event
+add_shortcode( 'sigma-mt-sidebar-event-logos', 'sigma_mt_sidebar_event_logos' );
+function sigma_mt_sidebar_event_logos() {
+    $output = '';
+    $sigma_events = get_field('sigma_events', 'option');
+    foreach($sigma_events as $event) {
+        $output .='<div class="sigma-event-logo">
+                        <a href="'.$event['link'].'"><img src="'.$event['upload_logo'].'"></a>
+                   </div>';
+    }
+    return $output;
 }
 
 
@@ -4215,7 +4290,18 @@ function set_post_thumbnail_from_content()
     if (!get_the_post_thumbnail($post->ID)) {
         preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
 
-        $image_url = $matches[1][0];
+        $image_url = (isset($matches[1][0])) ? $matches[1][0] : false;
+
+        if (!$image_url) {
+            preg_match_all("%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^\"&?/ ]{11})%i", $post->post_content, $matches);
+
+            $video_id = $matches[1][0];
+
+            // Get Thumbnail
+            $file_headers = get_headers('http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg');
+            $is_404 = $file_headers[0] == 'HTTP/1.0 404 Not Found' || false !== strpos($file_headers[0], '404 Not Found');
+            $image_url = $is_404 ? 'http://img.youtube.com/vi/' . $youtube_id . '/maxresdefault.jpg' : 'http://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
+        }
 
         $media_file = check_if_media_exists($image_url);
 

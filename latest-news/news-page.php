@@ -23,6 +23,8 @@ $post_count = '10';
 $featured_posts = get_posts(array(
     'numberposts' => 4,
     'post_type' => 'news-items',
+    'post_status' => 'publish',
+    'order' => 'DESC',
     'meta_query' => array(
         array(
             'key' => 'featured_post',
@@ -36,17 +38,16 @@ if ($desktop_banner){ ?>
     <div class="article-wrapper-slider">
         <?php foreach ($featured_posts as $featured_post) {
             $banner = get_field('banner_image', $featured_post->ID);
+            $test = get_field('featured_post', $featured_post->ID);
+            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $featured_post->ID ), 'full' );
             $terms = get_the_term_list( $featured_post->ID, 'news-cat', '<span>', ', ', '</span>');
             $terms = strip_tags( $terms );
             ?>
             <div>
                 <div class="post-item">
-                    <?php if ($banner) {?>
+                    <?php if ($featured_image) {?>
                         <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
-                           style="background-image:url('<?php echo $banner; ?>') ">
-<!--                    --><?php //} elseif (get_the_post_thumbnail($featured_post->ID)) {?>
-<!--                        <a href="--><?php //echo get_the_permalink($featured_post->ID); ?><!--"-->
-<!--                           style="background-image:url('--><?php //echo get_the_post_thumbnail_url($featured_post->ID, 'full'); ?>/*') ">*/
+                           style="background-image:url('<?php echo $featured_image[0]; ?>') ">
                     <?php } else { ?>
                         <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
                            style="background-image:url('<?php echo $placeholder_full; ?>') ">

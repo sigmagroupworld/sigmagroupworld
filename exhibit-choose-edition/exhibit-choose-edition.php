@@ -85,7 +85,7 @@ if ($exhibit){
 	  					<a href="<?php echo $exhibit['mobile_featured_section']['mobile_featured_image_link']; ?>" target="_blank">
 	  						<div class="img">
 	  							<?php 
-				 	    		if( !empty( $exhibit['mobile_featured_section'] ) ){ ?>
+				 	    		if( !empty( $exhibit['mobile_featured_section']['mobile_featured_image'] ) ){ ?>
 							    	<img src="<?php echo $exhibit['mobile_featured_section']['mobile_featured_image']['url']; ?>" alt="<?php echo $exhibit['mobile_featured_section']['mobile_featured_image']['alt']; ?>">
 								<?php } ?>
 		      				</div>

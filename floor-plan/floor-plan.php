@@ -27,7 +27,7 @@ $page_id = $wp_query->get_queried_object()->ID;
             <div class="single-country">
               <?php
               foreach ($plan['country_plan'] as $key => $value) { ?>
-                <a href="<?php echo $value['country_event_link']; ?>" class="europe <?php echo $value['country_name']; ?>">
+                <a href="<?php echo $value['country_event_link']; ?>" class="europe <?php echo $value['country_name']; ?>" target="_blank">
                   <?php if( !empty( $value['country_logo'] ) ){ ?>
                     <img src="<?php echo $value['country_logo']['url']; ?>" alt="<?php echo $value['country_logo']['alt']; ?>">
                   <?php } ?>
@@ -97,7 +97,7 @@ $page_id = $wp_query->get_queried_object()->ID;
                   <div class="explore-btns">
                     <?php if( !empty( $value['button_text'] ) ){ ?>
                       <span>
-                        <a href="<?php echo $value['button_link']; ?>"><?php echo $value['button_text']; ?></a>
+                        <a href="<?php echo $value['button_link']; ?>" target="_blank"><?php echo $value['button_text']; ?></a>
                       </span>
                     <?php } ?>
                   </div>

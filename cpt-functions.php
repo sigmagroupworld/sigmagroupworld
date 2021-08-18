@@ -413,6 +413,7 @@ function sigma_mt_jobs_categories(){
 }
 
 // create a Custom post type speakers
+/*
 add_action('init', 'sigma_mt_speakers_custom_posts');
 function sigma_mt_speakers_custom_posts(){
 
@@ -434,9 +435,10 @@ function sigma_mt_speakers_custom_posts(){
 		'rewrite' => array('slug' => 'speakers'),		
 		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
-}
+}*/
 
 // create a categories for Speaker
+/*
 add_action( 'init', 'sigma_mt_speaker_categories', 0 );
 function sigma_mt_speaker_categories(){
 	register_taxonomy('speaker-cat', array('speaker-items'), array(
@@ -459,6 +461,7 @@ function sigma_mt_speaker_categories(){
 	   )
 	);
 }
+*/
 
 //create a Custom post type People
 add_action('init', 'sigma_mt_people_custom_posts');

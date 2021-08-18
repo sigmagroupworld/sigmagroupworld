@@ -1,4 +1,3 @@
-/*
 Theme Name: Twenty Twenty-One-child
 Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. With new block patterns, which allow you to create a beautiful layout in a matter of seconds, this theme’s soft colors and eye-catching — yet timeless — design will let your work shine. Take it for a spin! See how Twenty Twenty-One elevates your portfolio, business website, or personal blog.
 Template: twentytwentyone
@@ -667,6 +666,9 @@ div.wpforms-container-full .wpforms-form input[type=email]::placeholder,
 .wpforms-container-full.footer-newsletter .wpforms-field-container input[type=email]::placeholder {
     font-size: 14px;
     color: #8dc3f1;
+}
+.header-clogo a {
+    display: block;
 }
 div.wpforms-container-full .wpforms-form button[type=submit] {
     display: block;
@@ -1600,6 +1602,28 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
     width: -moz-calc(100% - 200px);
     width: calc(100% - 200px);
 }
+/*  */
+.media-partner-logos .charity-items .single-item {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.media-partner-logos .charity-items .single-item.open {
+    flex-basis: 100%;
+}
+.media-partner-logos .charity-items .single-item.open > a .btn {
+    transform: rotate(45deg);
+}
+.media-partner-logos .charity-items .single-item.open .right {
+    display: block;
+    width: 70%;
+}
+.media-partner-logos .charity-items .single-item.open .left {
+    width: 30%;
+}
+
+
+
+/*  */
 .pitch-strartup .single-item .right {
     width: 100%;
 }
@@ -4377,7 +4401,7 @@ body.call-speakers .call-for-speakers-db {
 	width:-webkit-calc(100%+30px);
 	width:-moz-calc(100%+30px);
 	width:calc(100%+30px);
-	margin-left:-15px
+	/*margin-left:-15px*/
 }
 .sponsors-and-exibitors-wrapper .db-items-wrapper.list .item {
 	width:-webkit-calc(100% - 30px);
@@ -6029,6 +6053,16 @@ ul.agenda-submenu li a::after{
     .broker-testimonials img.closed {
         width: 6%;
     }
+    
+    .media-partner-logos .charity-items .single-item.open {
+        flex-direction: column;
+    }
+    .media-partner-logos .charity-items .single-item.open .right {
+        width: 100%;
+    }
+    .media-partner-logos .charity-items .single-item.open .left {
+        width: 100%;
+    }
 }
 @media(max-width:550px) {
 	.date-box .wrapper .col {
@@ -6654,11 +6688,11 @@ ul.agenda-submenu li a::after{
 }
 
 .platform::before {
-	background-image: url(https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Payment%20Provider/platform.png)
+	/*background-image: url(https://www.sigma.world/hubfs/6M%20Sigma%20Files/Payment%20Provider/platform.png)*/
 }
 
 .region::before {
-	background-image: url(https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Payment%20Provider/region.png)
+	/*background-image: url(https://www.sigma.world/hubfs/6M%20Sigma%20Files/Payment%20Provider/region.png)*/
 }
 
 .keyabout p span {
@@ -7799,31 +7833,31 @@ ul.agenda-submenu li a::after{
 }
 
 .casino_licences span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/licences.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/licences.png)*/
 }
 
 .casino_players span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/player.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/player.png)*/
 }
 
 .casino_deposite span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/method.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/method.png)*/
 }
 
 .casino_withdraw_method span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/method2.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/method2.png)*/
 }
 
 .casino_withdraw_limit span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/limit.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/limit.png)*/
 }
 
 .casino_type span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/casino.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/casino.png)*/
 }
 
 .casino_software span:before {
-	background-image: url(https://www.sigma.com.mt/hubfs/Online%20Casino%20Provider/icons/software.png)
+	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/software.png)*/
 }
 
 .casino_licences h4,
@@ -7944,12 +7978,12 @@ ul.agenda-submenu li a::after{
 
 .sport-betting-single .slider-related .slick-prev:hover,
 .sport-betting-single .slider-related .slick-prev {
-	background-image: url('https://www.sigma.com.mt/hubfs/MicrosoftTeams-image-2-1.png')
+	/*background-image: url('https://www.sigma.world/hubfs/MicrosoftTeams-image-2-1.png')*/
 }
 
 .sport-betting-single .slider-related .slick-next:hover,
 .sport-betting-single .slider-related .slick-next {
-	background-image: url('https://www.sigma.com.mt/hubfs/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')
+	/*background-image: url('https://www.sigma.world/hubfs/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')*/
 }
 
 /** css for single game **/
@@ -8092,6 +8126,7 @@ ul.agenda-submenu li a::after{
 .media-oppotunies-sponsors .charity-items .single-item {
     width: calc(25% - 15px * 2);
     padding: 20px;
+	display: inline-block !important;
 }
 .media-oppotunies-sponsors .charity-items .single-item .img-wrapper {
     height: auto;
@@ -8100,6 +8135,9 @@ ul.agenda-submenu li a::after{
     max-height: auto;
     height: 50px;
 }
+/*.page-accordion .content.expandHeight {
+	height: auto !important;
+}*/
 .video-slider-mo {
     padding: 10px;
     width: 70% !important;
@@ -8656,7 +8694,30 @@ body {
     padding: 16px 0 0 !important;
 }
 
+.blog-rightbar .magazine-widget.bottom-border {
+	width: auto;
+}
+
+
 /********* New Layout Css ********/
+.home-banner.home-new-banner .sigma-banner-wrapper {
+	height: calc( 60vh - 100px );
+}
+.home-banner.home-new-banner {
+    min-height: calc(60vh - 100px);
+	padding-bottom: 0;
+}
+.home-banner.home-new-banner .inner-animate, .inner-map-label {
+    width: 1000px;
+    height: 300px;
+    background-size: 600px 290px;
+}
+.home-banner.home-new-banner .label-wrap-map {
+	position: relative;
+	height: 60px;
+}
+
+
 .new-home-layout .home-news {
     display: -webkit-box;
     display: -webkit-flex;
@@ -8729,26 +8790,93 @@ body {
     margin-right: 10px;
     min-width: 40px;
     width: 40px;
-    height: 40px;
+    height: 30px;
+    display: flex;
+}
+.new-home-layout .left-sidebar .h-title a {
+    margin-bottom: 0;
+}
+.sigma-multi-events .sigma-event-logo {
+    margin-bottom: 10px;
+    padding: 20px;
+}
+.casino-menu-lists {
+    padding: 20px;
+	background: #f9f9f9;
+}
+.casino-menu-lists article {
+    margin-bottom:  15px;
+}
+.casino-menu-lists .title {
+    align-items: center;
+    align-content: center;
     display: flex;
 }
 .left-sidebar .casino-menu-lists a h2 {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.31;
-    color: #010101;
+    color: #e21735;
     font-weight: 600;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    margin-bottom: 0 !important;
-    -webkit-transition: .3s all;
-    -o-transition: .3s all;
-    -moz-transition: .3s all;
     transition: .3s all;
     margin-top: 5px;
+    text-transform: uppercase;
 }
-/********* New Layout Css end ********/
+.new-home-layout .left-sidebar .space, .new-home-layout .right-sidebar .space {
+	margin-bottom: 20px;
+}
+.new-home-layout .right-sidebar .space .sigma-event {
+    text-align: center;
+	padding: 20px;
+	background: #fdeed4;
+}
+.new-home-layout .right-sidebar .top-img {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 30px;
+}
+.new-home-layout .right-sidebar .text-event {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600;
+}
+.new-home-layout .right-sidebar .btn-book {
+    font-size: 18px;
+	font-weight: 500;
+	text-transform: uppercase;
+	width: 170px;
+	margin: 40px auto;
+	line-height: 22px;
+	background: #f8ae2c;
+	border-radius: 15px;
+	padding: 10px 5px;
+}
+.new-home-layout .space.sigma-print {
+    background: #e21735;
+    padding: 50px;
+}
+.new-home-layout .space.sigma-multi-events {
+    text-align: center;
+}
+.new-home-layout .right-sidebar .space .h-title a {
+	margin-bottom: 0;
+}
+
+@media (min-width: 580px) and (max-width: 850px) {
+	.new-home-layout .home-news .left-sidebar, .new-home-layout .home-news .right-sidebar {
+		width: 40%;
+	}
+	.new-home-layout .home-news .home-middle-content {
+		width: 50%;
+	}
+}
+@media (min-width: 300px) and (max-width: 579px) {
+	.new-home-layout .home-news .left-sidebar, .new-home-layout .home-news .right-sidebar {
+		width: 100%;
+		padding: 20px;
+	}
+	.new-home-layout .home-news .home-middle-content {
+		width: 100%;
+		padding: 20px;
+	}
+}
+/********* New Layout Css end *******

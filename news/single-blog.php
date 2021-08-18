@@ -33,7 +33,7 @@ get_header();
 			<div class="blog-leftbar">
 				<div class="singleBannerAdvert bottom-border">
 					<a href="#" target="_blank">
-                    	<img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Banners/Sold%20Banners/AGS-PM-Affiliate-Program-Left-Banner.png" alt="">       
+                    	<img src="https://www.sigma.world/hubfs/6M%20Sigma%20Files/Banners/Sold%20Banners/AGS-PM-Affiliate-Program-Left-Banner.png" alt="">       
     				</a>
 				</div>
 				<div class="affiliates bottom-border">
@@ -160,7 +160,7 @@ get_header();
 						<h3>Latest Magazines</h3>
 					</div>
   					<a href="#" target="_blank">
-    					<img src="https://www.sigma.com.mt/hubfs/6M%20Sigma%20Files/Magazine/Magazine%20covers/Sigma%2013%20for%20web-1.png" alt="magazine"/>
+    					<img src="https://www.sigma.world/hubfs/6M%20Sigma%20Files/Magazine/Magazine%20covers/Sigma%2013%20for%20web-1.png" alt="magazine"/>
   					</a>
 				</div>
 				<div class="offersWrapper">
@@ -170,7 +170,7 @@ get_header();
 					<div class="offerwrap">
 						<div class="offeritem">
 							<div class="imgwrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="linkwrap">
         						<a class="playbtn" target="_blank" href="#">Play Now</a>
@@ -179,7 +179,7 @@ get_header();
 						</div>
 						<div class="offeritem">
 							<div class="imgwrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="linkwrap">
         						<a class="playbtn" target="_blank" href="#">Play Now</a>
@@ -188,7 +188,7 @@ get_header();
 						</div>
 						<div class="offeritem">
 							<div class="imgwrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="linkwrap">
         						<a class="playbtn" target="_blank" href="#">Play Now</a>
@@ -197,7 +197,7 @@ get_header();
 						</div>
 						<div class="offeritem">
 							<div class="imgwrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="linkwrap">
         						<a class="playbtn" target="_blank" href="#">Play Now</a>
@@ -206,7 +206,7 @@ get_header();
 						</div>
 						<div class="offeritem">
 							<div class="imgwrap">
-          						<img src="https://www.sigma.com.mt/hubfs/1xbet-1.png" alt="offer"/>
+          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
         					</div>
         					<div class="linkwrap">
         						<a class="playbtn" target="_blank" href="#">Play Now</a>
