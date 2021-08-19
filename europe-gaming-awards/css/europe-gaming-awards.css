@@ -596,7 +596,7 @@
     content: '';
     bottom: -4%;
     left: 0;
-    background-image: url(https://www.sigma.world/hubfs/6M%20Sigma%20Files/Gaming%20Awards%20%28Europe%29/A-Element-left-side-bottom.png);
+    background-image: url('https://www.sigma.world/fileadmin/cssimg/A-Element-left-side-bottom.png');
     background-repeat: no-repeat;
     background-size: contain;
     z-index: -1;
@@ -767,7 +767,7 @@
     width: 30%;
 }
 .testimonial-slider .slick-arrow:before {
-    background-image: url(https://cdn2.hubspot.net/hubfs/6357768/DeepTech/elements/left.png);
+    background-image: url('https://www.sigma.world/fileadmin/cssimg/left.png');
     content: '';
     width: 30px;
     height: 30px;

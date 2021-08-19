@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: SigmaMT Europe Gaming Awards Page Layout
+ * Template Name: SigmaMT Gaming Awards Page Layout
  * Created By: Rinkal Petersen
  * Created at: 16 June 2021
  */

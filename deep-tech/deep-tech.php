@@ -11,6 +11,7 @@ $page_id = $wp_query->get_queried_object()->ID;
 $deep_tech_banner = get_field('banner', $page_id);
 $about_sigma_deep_tech = get_field('about_sigma_deep_tech', $page_id);
 $deep_tech_insights = get_field('deep_tech_insights', $page_id);
+$agenda = get_field('deep_tech_agenda', $page_id);
 $our_partners = get_field('our_partners', $page_id);
 $our_experts = get_field('our_experts', $page_id);
 //echo '<pre>'; print_r($our_partners); exit;
@@ -91,15 +92,18 @@ $testimonials = get_field('testimonials', $page_id);
 	<!-- deep tech insights section start -->
 
 	<!-- agenda section start -->
+	<?php if(!empty($agenda)) { ?>
 	<div id="deeptechagenda"></div>
 	<br />
 	<section class="our-partner">
 	  <div class="container">
 	    <div class="page-title">
-	      <h2>DEEP TECH AGENDA - 18 Nov 2021</h2>
+	      <h2><?php echo $agenda['title']; ?></h2>
 	    </div>
+	    <?php echo do_shortcode($agenda['shortcode']); ?>
 	  </div>
 	</section>
+	<?php } ?>
 	<!-- agenda section end -->
 
 	<!-- our experts section start -->

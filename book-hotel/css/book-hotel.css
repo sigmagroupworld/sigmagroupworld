@@ -146,7 +146,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 
 .ui-widget-header .ui-icon {
-	background-image: url(https://www.sigma.world/hubfs/Icon/ui-icons-fff.png)
+	background-image: url('https://www.sigma.world/fileadmin/cssimg/ui-icons-fff.png');
 }
 
 .ui-icon {
@@ -264,7 +264,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     line-height: 20px !important;
     border-radius: 5px !important;
     float: left;
-    background-image: url(https://www.sigma.world/hubfs/Icon/calendarIcon.png);
+    background-image: url('https://www.sigma.world/fileadmin/cssimg/calendarIcon.png');
     background-repeat: no-repeat;
     background-size: 14px 14px;
     background-position: top 8px right 6px;

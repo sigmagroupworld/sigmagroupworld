@@ -1,7 +1,10 @@
 jQuery(document).ready(function($) {
 
 	$('.blog-listing-module.section').wrapAll('<div class="blog-listing-bellow"></div>');
-
+	
+	// SW-83 Fix for iGathering - auto open first tab
+	$('.toggle-first').click();
+	
 	$('.img-gallery').slickLightbox({
 		itemSelector        : 'img',
   		navigateByKeyboard  : true,
@@ -19,6 +22,10 @@ jQuery(document).ready(function($) {
       		adaptiveHeight: true,
       		arrows: true
 	  });
+    // MEDIA PARTNER PAGE
+    $('.media-partner-logos .charity-items .single-item > a .btn').click(function(){
+    	$(this).parent().parent().toggleClass('open');
+    })
 
 	/**** Scroll To Top ***/
 	$(".scroll-to-top").click(function() {
@@ -799,5 +806,6 @@ function openModal(elementId, modalId, closeId) {
 	}
 }
 /** Sponsors modal popup Detail end ***/
+
 
 
