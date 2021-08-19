@@ -40,23 +40,8 @@ if(isset($term_url) && !empty($term_url)) {
 	<div class="blog-content">
 		<div class="page-container">
 			<div class="blog-leftbar">
-				<div class="singleBannerAdvert bottom-border">
-					<a href="#" target="_blank">
-                    	<img src="https://www.sigma.world/hubfs/6M%20Sigma%20Files/Banners/Sold%20Banners/AGS-PM-Affiliate-Program-Left-Banner.png" alt="">       
-    				</a>
-				</div>
-				<div class="affiliates bottom-border">
-					<div class="blog-sub-title">
-						<h3>Affiliates</h3>
-					</div>
-					<!-- Affliates blog -->
-				</div>
-				<div class="malta bottom-border">
-					<div class="blog-sub-title">
-						<h3>WHY MALTA?</h3>
-					</div>
-					<!-- video -->
-				</div>
+			<div class="blog-leftbar">
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22554, 22581, 22553"]'); ?>
 			</div>
 			<div class="blog-details">
 				<div class="blog-listing-wrapper">
@@ -86,93 +71,7 @@ if(isset($term_url) && !empty($term_url)) {
 			    </div>
 			<?php endif;*/ ?>
 			<div class="blog-rightbar">
-				<div class="magazine-widget bottom-border">
-					<div class="blog-sub-title">
-						<h3>Latest Magazines</h3>
-					</div>
-  					<a href="#" target="_blank">
-    					<img src="https://www.sigma.world/hubfs/6M%20Sigma%20Files/Magazine/Magazine%20covers/Sigma%2013%20for%20web-1.png" alt="magazine"/>
-  					</a>
-				</div>
-				<div class="offersWrapper">
-					<div class="blog-sub-title">
-						<h3>Casino Offers</h3>
-					</div>
-					<div class="offerwrap">
-						<div class="offeritem">
-							<div class="imgwrap">
-          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
-        					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
-        					</div>
-						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
-          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
-        					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
-        					</div>
-						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
-          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
-        					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
-        					</div>
-						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
-          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
-        					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
-        					</div>
-						</div>
-						<div class="offeritem">
-							<div class="imgwrap">
-          						<img src="https://www.sigma.world/hubfs/1xbet-1.png" alt="offer"/>
-        					</div>
-        					<div class="linkwrap">
-        						<a class="playbtn" target="_blank" href="#">Play Now</a>
-        						<a class="tnclink" href="#">*T&amp;C Apply</a>
-        					</div>
-						</div>
-					</div>
-				</div>
-				<div class="latest-news bottom-border">
-					<div class="blog-sub-title">
-						<h3>Latest News</h3>
-					</div>
-					<!-- Latest news blog -->
-				</div>
-				<div class="aftermovie bottom-border">
-					<div class="blog-sub-title">
-						<h3>SiGMA 2019 Aftermovie</h3>
-					</div>
-					<!-- Video -->
-				</div>
-				<div class="upcoming-event">
-					<div class="blog-sub-title">
-						<h3>Upcoming Events</h3>
-					</div>
-					<div class="calendar-event ">
-						<h5>SiGMA Europe (Malta)</h5> 
-    					<div class="date">  
-      						November 16, 2021
-    					</div>
-    					<div class="widget_type_rich-text">
-     						<p>Following the UK's December 2020 release of the Pfizer BioNTech vaccine, SIGMA Group will move its April event to November. SIGMA Europe, which will be based...</p>
-    					</div>
-    					<a class="eventbtn" href="#" target="_blank">REGISTER FREE</a>
-					</div>
-				</div>
+				<?php echo do_shortcode('[sigma_mt_show_sidebar elements="22578, 22577, 22582, 22549, 22583"]'); ?>
 			</div>
 		</div>
 	</div>

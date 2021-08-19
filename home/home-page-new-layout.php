@@ -120,20 +120,21 @@ if ($desktop_banner){ ?>
 	                	<div class="space menus">
 							<?php echo do_shortcode('[sigma_mt_show_sidebar_sigma_directory]'); ?>
 	                    </div>
-	                    <div class="space sigma-print">
-	                    	<a href="#"><img src="/wp-content/uploads/2021/08/sigma-print-bg.png"></a>
+	                    <div class="space">
+	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1148"]'); ?>
+							<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1149"]'); ?>
 	                    </div>
-						<?php /*<div class="space">
-							<div class="sigma-college">
+						<div class="space">
+							<a href="<?php echo site_url(); ?>/m-and-a-action/"><div class="sigma-college">
 								<div class="top-img">
-									<a href="<?php echo site_url(); ?>"><img src="/wp-content/uploads/2021/08/sigma-new-logo.png"></a>
+									<a href="<?php echo site_url(); ?>/m-and-a-action/"><img src="/wp-content/uploads/2021/08/New-Project.png"></a>
 								</div>
 								<div class="text-event">M & A</div>
-							</div>
-	                    </div>*/ ?>
-	                    <div class="space sigma-college">
-	                    	<a href="<?php echo site_url(); ?>/sigma-college/"><img src="/wp-content/uploads/2021/08/sigma-college.png"></a>
+								</div></a>
 	                    </div>
+	                    <?php /*<div class="space sigma-college">
+	                    	<a href="<?php echo site_url(); ?>/sigma-college/"><img src="/wp-content/uploads/2021/08/sigma-college.png"></a>
+	                    </div>*/ ?>
 	                </div>
 
 	                <div class="home-middle-content">

@@ -26,9 +26,10 @@
 		/**** Video pop up ***/
 	$(".js-video-button").modalVideo({
 		youtube:{
+			allowFullScreen : true,
 			controls:0,
 			nocookie: true
-		}
+		},
 	});
 	$('.single-news').slick({
   		autoplay: true,

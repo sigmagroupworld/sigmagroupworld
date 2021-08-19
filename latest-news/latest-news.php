@@ -362,9 +362,11 @@ $africa = '<section class="home-blog">
 			</div>
 			<div class="spotify hp-right">';
 				$news_tags = sigma_mt_get_news_tags_data(2057, $taxonomy, 13);
-				$africa .= '<div class="h-title">
-					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
-						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
+				$africa .= '<div class="h-title"><a href="';
+				$africa .= get_tag_link($news_tags['term_value']->term_id);
+				$africa .= '">';
+				$africa .= $news_tags['term_value']->name;
+				$africa .= '<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</a>
 				</div>
 				<div class="blog-listing-module">';

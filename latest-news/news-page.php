@@ -368,7 +368,7 @@ if ($desktop_banner){ ?>
 				<div class="spotify hp-right">
 					<?php $news_tags = sigma_mt_get_news_tags_data(1942, $taxonomy, 12); ?>
 					<div class="h-title">
-						<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">
+						<a href="<?php echo get_tag_link($news_tags['term_value']->term_id); ?>">
 							<?php echo $news_tags['term_value']->name; ?><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</a>
 					</div>

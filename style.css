@@ -710,6 +710,69 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 .footer-newsletter.wpforms-container-full {
     margin-bottom: 0;
 }
+
+/*HUBSPOT NEWSLETTER CSS START*/
+
+.newsletter-form #hbspt-form-1629371029000-1139413232 form {
+  position: relative;
+}
+
+.newsletter-form #hbspt-form-1629371029000-1139413232 form .hs-form-field label {
+  display: none;
+}
+
+.newsletter-form #hbspt-form-1629371029000-1139413232 form .hs-form-field .input {
+  margin: 0;
+  width: 75%;
+}
+
+.newsletter-form #hbspt-form-1629371029000-1139413232 form .hs-form-field .input input[type="email"] {
+  background: #414042;
+  outline: none;
+  border: none;
+  padding: 25px 12px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.newsletter-form .hbspt-form form .hs-form-field .input input[type="email"]::placeholder {
+  color: #38b6e9;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.newsletter-form .hbspt-form form .hs-submit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25%;
+}
+.newsletter-form .hbspt-form form .hs-submit .actions {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.newsletter-form .hbspt-form form * {
+    box-sizing: border-box;
+    font-family: var(--branding--color-text);
+}
+.newsletter-form .hbspt-form form .hs-submit .actions input[type="submit"] {
+    width: 100%;
+    padding: 19px 12px;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    background: #38b6e9;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-left: 4px;
+    font-weight: 400;
+}
+.newsletter-form .hbspt-form form .hs-submit .actions input[type="submit"]:hover {
+box-shadow: none;
+}
+
+/*HUBSPOT NEWSLETTER CSS END*/
 /* Newslatter form css end */
 .newsletter {
     background-repeat: repeat;
@@ -4176,7 +4239,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 .participation-form .wpforms-container-full .wpforms-form li.wpforms-selected input::after {
     border-color: #ed1a3b;
-    background-image: url("https://cdn2.hubspot.net/hubfs/532280/6Minded/check6m.svg");
+    background-image: url("https://sigma.world/fileadmin/cssimg/check6m.svg");
     background-color: #ed1a3b;
     background-position: center center;
     background-repeat: no-repeat;
@@ -4589,7 +4652,7 @@ body.call-speakers .call-for-speakers-db {
 	border-radius:100%;
 	margin:auto;
 	margin-top:10px;
-	background-image:url("https://cdn2.hubspot.net/hubfs/6357768/6M%20Sigma%20Files/Avatars/no-sponsor-icon.jpg");
+	background-image:url("https://sigma.world/fileadmin/cssimg/no-sponsor-icon.jpg");
 	-moz-background-size:cover;
 	background-size:cover;
 	background-position:center center;
@@ -6688,11 +6751,11 @@ ul.agenda-submenu li a::after{
 }
 
 .platform::before {
-	/*background-image: url(https://www.sigma.world/hubfs/6M%20Sigma%20Files/Payment%20Provider/platform.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/platform.png');
 }
 
 .region::before {
-	/*background-image: url(https://www.sigma.world/hubfs/6M%20Sigma%20Files/Payment%20Provider/region.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/region.png');
 }
 
 .keyabout p span {
@@ -7833,31 +7896,31 @@ ul.agenda-submenu li a::after{
 }
 
 .casino_licences span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/licences.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/licences.png')
 }
 
 .casino_players span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/player.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/player.png')
 }
 
 .casino_deposite span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/method.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/method.png')
 }
 
 .casino_withdraw_method span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/method2.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/method2.png')
 }
 
 .casino_withdraw_limit span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/limit.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/limit.png')
 }
 
 .casino_type span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/casino.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/casino.png')
 }
 
 .casino_software span:before {
-	/*background-image: url(https://www.sigma.world/hubfs/Online%20Casino%20Provider/icons/software.png)*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/software.png')
 }
 
 .casino_licences h4,
@@ -7978,12 +8041,12 @@ ul.agenda-submenu li a::after{
 
 .sport-betting-single .slider-related .slick-prev:hover,
 .sport-betting-single .slider-related .slick-prev {
-	/*background-image: url('https://www.sigma.world/hubfs/MicrosoftTeams-image-2-1.png')*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/MicrosoftTeams-image-2-1.png')
 }
 
 .sport-betting-single .slider-related .slick-next:hover,
 .sport-betting-single .slider-related .slick-next {
-	/*background-image: url('https://www.sigma.world/hubfs/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')*/
+	background-image: url('https://sigma.world/fileadmin/cssimg/MicrosoftTeams-image-Mar-26-2021-12-03-37-67-PM.png')
 }
 
 /** css for single game **/
@@ -8618,7 +8681,9 @@ body {
         padding-bottom: 120px;
     }
     /* Header Language dropdown End */
-
+    .newsletter-form .hbspt-form form .hs-submit,.newsletter-form .hbspt-form form .hs-form-field .input {
+        width: 50%;
+    }
 
 }
 
@@ -8824,17 +8889,27 @@ body {
 .new-home-layout .left-sidebar .space, .new-home-layout .right-sidebar .space {
 	margin-bottom: 20px;
 }
-.new-home-layout .right-sidebar .space .sigma-event {
+.new-home-layout .space .sigma-event {
     text-align: center;
 	padding: 20px;
 	background: #fdeed4;
 }
-.new-home-layout .right-sidebar .top-img {
+.new-home-layout .space .sigma-college {
+  text-align: center;
+	padding: 20px;
+	background: #00b8f1;
+}
+.sigma-multi-events .sigma-event-logo {
+    padding: 0;
+	width: 80%;
+	margin: 0 auto;
+}
+.new-home-layout .top-img {
     margin-top: 20px;
     margin-bottom: 40px;
     padding: 30px;
 }
-.new-home-layout .right-sidebar .text-event {
+.new-home-layout .text-event {
     text-transform: uppercase;
     font-size: 22px;
     font-weight: 600;
