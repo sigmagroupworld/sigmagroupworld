@@ -1190,9 +1190,9 @@ body {
     font-weight: bold;
     color: #787878;
 }
-.news-search {
+/*.news-search {
     width: 30%;
-}
+}*/
 #searchform.search-form {
     position: relative;
     float: right;

@@ -2,7 +2,7 @@
 define( 'CHILD_DIR', get_theme_file_uri() );
 define( 'PARENT_DIR', get_stylesheet_directory_uri() );
 define( 'SITE_URL', site_url() );
-
+   
 require_once get_stylesheet_directory().'/cpt-functions.php';
 require_once get_stylesheet_directory().'/class/class-custom-widget.php';
 
@@ -306,8 +306,8 @@ function sigma_mt_newsletter() {
     $output = '';
     $bg_image = get_field('newsletter_background_image', 'option');
     $newsletter_form_id = get_field('newsletter_form_shortcode', 'option');
-    $shortcode = do_shortcode( '[wpforms id = '.$newsletter_form_id.']' );
-    // $shortcode = do_shortcode( '[hubspot type=form portal=6357768 id=f7768496-b4de-4c86-96a4-a5d815bc1aa1]' );
+    // $shortcode = do_shortcode( '[wpforms id = '.$newsletter_form_id.']' );
+    $shortcode = do_shortcode( '[hubspot type=form portal=6357768 id=f7768496-b4de-4c86-96a4-a5d815bc1aa1]' );
     
     $output .='<div class="newsletter" style="background: url('.$bg_image.')">
                 <div class="container">
@@ -417,7 +417,7 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
 }
 
 //function to get news tags.
-function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
+function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count, $hide_featured = false) {
     $tag_data = array();
     $post_data = array();
     $tag_category = get_term_by('id', $tag_id, $taxonomy);
@@ -438,34 +438,81 @@ function sigma_mt_get_news_tags_data($tag_id, $taxonomy, $count) {
               )
           )
         );*/
-        $post_tag_args = array(
-            'posts_per_page' => $count,
-            'post_type' => 'news-items',
-            'suppress_filters' => false,
-            'language' => ICL_LANGUAGE_CODE,
-            'post_status' => 'publish',
-            'orderby' => 'publish_date',
-            'order' => 'DESC',
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'news-cat',
-                    'field' => 'term_id',
-                    'terms' => $tag_category->term_id,
-                )
-            )
-        );
+		if($hide_featured){
+			$post_tag_args = array(
+				'posts_per_page' => $count,
+				'post_type' => 'news-items',
+				'suppress_filters' => false,
+				'language' => ICL_LANGUAGE_CODE,
+				'post_status' => 'publish',
+				'orderby' => 'publish_date',
+				'order' => 'DESC',
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'news-cat',
+						'field' => 'term_id',
+						'terms' => $tag_category->term_id,
+					)
+				),
+				'meta_query' => array(
+					array(
+						'key' => 'featured_post',
+						'value' => 'yes',
+						'compare' => 'NOT LIKE'
+					)
+				)
+			);
+		} else {
+			$post_tag_args = array(
+				'posts_per_page' => $count,
+				'post_type' => 'news-items',
+				'suppress_filters' => false,
+				'language' => ICL_LANGUAGE_CODE,
+				'post_status' => 'publish',
+				'orderby' => 'publish_date',
+				'order' => 'DESC',
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'news-cat',
+						'field' => 'term_id',
+						'terms' => $tag_category->term_id,
+					)
+				)
+			);
+		}
     } else {
-        $post_tag_args = array(
-          'posts_per_page' => $count,
-          'post_type' => 'news-items',
-          'suppress_filters' => false,
-          //'language' => 'en',
-          'orderby'        => 'rand',
-          'post_status'    => 'publish',
-		  'post_status' => 'publish',
-		  'orderby' => 'publish_date',
-		  'order' => 'DESC',
-        );
+		if($hide_featured){
+			$post_tag_args = array(
+			  'posts_per_page' => $count,
+			  'post_type' => 'news-items',
+			  'suppress_filters' => false,
+			  //'language' => 'en',
+			  'orderby'        => 'rand',
+			  'post_status'    => 'publish',
+			  'post_status' => 'publish',
+			  'orderby' => 'publish_date',
+			  'order' => 'DESC',
+			  'meta_query' => array(
+					array(
+						'key' => 'featured_post',
+						'value' => 'yes',
+						'compare' => 'NOT LIKE'
+					)
+			  )
+			);
+		} else {
+			$post_tag_args = array(
+			  'posts_per_page' => $count,
+			  'post_type' => 'news-items',
+			  'suppress_filters' => false,
+			  //'language' => 'en',
+			  'orderby'        => 'rand',
+			  'post_status'    => 'publish',
+			  'post_status' => 'publish',
+			  'orderby' => 'publish_date',
+			  'order' => 'DESC',
+			);
+		}
     }
     $tag_data['term_value'] = $tag_category;
     $get_posts = get_posts($post_tag_args);
@@ -700,7 +747,7 @@ function sigma_mt_get_people_list($atts) {
 	$order_custom_field	= isset($atts['order_custom_field']) ? $atts['order_custom_field'] : 'no';
     $speakers_text 		= get_field('speakers_text');
     $show_empty_box     = isset($atts['show_empty_box']) ? $atts['show_empty_box'] : '';
-    $appearance         = isset($atts['appearance']) ? $atts['appearance'] : __( 'Default', 'sigmaigaming' );
+    $appearance         = isset($atts['appearance']) ? $atts['appearance'] : 'Default';
 	$affiliate_link		= isset($atts['affiliate_link']) ? $atts['affiliate_link'] : 'no';
     $person_name        = isset($atts['person_name']) ? $atts['person_name'] : 'no';
     $person_image       = isset($atts['person_image']) ? $atts['person_image'] : 'no';
@@ -819,7 +866,7 @@ function sigma_mt_get_people_list($atts) {
 					'post_status'    => '',
 					'paged'          => 1,
 					'meta_key'			=> $ordering_by,
-					'orderby'		 => 'meta_value',
+					'orderby'		 => 'meta_value_num',
 					'order'   		 => $sort_ordering,
                     'suppress_filters' => false,
                     'tax_query' => array(
@@ -837,7 +884,7 @@ function sigma_mt_get_people_list($atts) {
 					'post_type' => $post_type,
 					'post_status'    => '',
 					'paged'          => 1,
-					'orderby'		=> $ordering_by,
+					'orderby'		=> 'date',
 					'order'   		=> $sort_ordering,
                     'suppress_filters' => false,
                     'tax_query' => array(
@@ -856,6 +903,7 @@ function sigma_mt_get_people_list($atts) {
           'posts_per_page' => $posts_per_page,
           'post_type' => $post_type,
           'post_status'    => 'publish',
+		  'suppres_filters' => true,
           'paged' => 1,
             'suppress_filters' => false,
             'meta_key'			=> $ordering_by,
@@ -2497,12 +2545,18 @@ function sigma_mt_igaming_gallery($atts) {
     $content .= '<div class="directory-gallery">
                     <div class="all-gallery gallery-directories">';
                         foreach($posts_by_year as $posts) {
-                            ( $counter > 0 ) ? $style = 'display: none;' : $style = '';
+                            //( $counter > 0 ) ? $style = 'display: none;' : $style = '';
+                            $style = '';
                             $content .= '<div style="'.$style.'" data-div-term-id="'.$term_id.'" data-year='.$posts[0]['Year'].'>';
                             $content .= '<h2 class="elementor-heading-title">'.$posts[0]['Year'].'</h2>';
                             foreach($posts as $post) {
+                                if($term_id == '4659' && $counter == '0') {
+                                    $class = "full";
+                                } else {
+                                    $class = "";
+                                }
                                 $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post['ID'] ), 'full' );
-                                $content .= '<div class="single-gallery">
+                                $content .= '<div class="single-gallery '.$class.'">
                                                 <a href="'.get_permalink($post['ID']).'" target="_blank">
                                                     <h3>'.$post['title'].'</h3>
                                                     <div class="featured-image">
@@ -2510,15 +2564,16 @@ function sigma_mt_igaming_gallery($atts) {
                                                     </div>
                                                 </a>
                                             </div>';
+                                            $counter++;
                             }
-                            $counter++;
                             $content .= '</div> ';
                         }
                         $content .= '<input type="hidden" value="'.$term_id.'" id="termID">
                         <input type="hidden" value="'.$count.'" id="posts_per_page">
                         <input type="hidden" value="'.$post['title'].'" id="gallery_title">
                         <input type="hidden" value="'.$featured_image[0].'" id="featured_image">';
-                    $content .= '<div class="load-gallery"><button class="load-more gallery-load-more" id="gallery-load-more" data-button-term-id="'.$term_id.'">Load More</button></div></div></div>
+                    /*$content .= '<div class="load-gallery"><button class="load-more gallery-load-more" id="gallery-load-more" data-button-term-id="'.$term_id.'">Load More</button></div>';*/
+                    $content .= '</div></div>
                 </div>';
     }
     return $content;
@@ -3509,11 +3564,9 @@ function sigma_mt_show_sidebar_event($atts) {
 // Shortcode for an upcoming event
 add_shortcode( 'sigma_mt_show_sidebar_magazines', 'sigma_mt_show_sidebar_magazines' );
 function sigma_mt_show_sidebar_magazines($atts) {
-    $taxonomy = 'magazines-cat';
-    $term_id = $atts['term_id'];
-    $category = get_term_by('id', $term_id, $taxonomy);
+    /*$taxonomy = 'magazines-cat';
     $post_args = array(
-      'posts_per_page' => 1,
+      'posts_per_page' => -1,
       'post_type' => 'magazine-items',
       'orderby'        => 'rand',
       'post_status'    => 'publish',
@@ -3526,18 +3579,39 @@ function sigma_mt_show_sidebar_magazines($atts) {
               )
           )
     );
+    $magazines = '';
     $get_posts = get_posts($post_args);
     if(!empty($get_posts)) {
+        $magazines .= '<div class="home-sidebar-magazines testimonial-slide-home">';
         foreach($get_posts as $k => $post) {
-            $magazines = '<a href="'.get_permalink($post->ID).'"><div class="sigma-print">
-                            <div class="top-img">
-                                <img src="/wp-content/uploads/2021/08/New-Project.png">
-                            </div>
-                            <div class="text-event">'.$post->post_title.'</div>
-                        </div></a>';
-            return $magazines;
+            $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+            $magazines .= '<a href="'.get_permalink($post->ID).'">
+                                <div class="sigma-print" style="background-image: url('.$featured_image[0].');">
+                                    <div class="text-event"></div>
+                                </div>
+                            </a>';            
         }
-    }
+        $magazines .= '</div>';
+        return $magazines;
+    }*/
+    $magazines = '<div class="home-sidebar-magazines testimonial-slide-home">
+                        <a href="'.SITE_URL.'/magazines-cat/sigma-magazine">
+                            <div class="sigma-print">
+                                <img src="/wp-content/uploads/2021/09/SiGMA-Magazine-2.png" alt="">
+                            </div>
+                        </a>
+                        <a href="'.SITE_URL.'/magazines-cat/sigma-magazine">
+                            <div class="sigma-print">
+                                <img src="/wp-content/uploads/2021/08/SiGMA-Magazine-1.png" alt="">
+                            </div>
+                        </a>
+                        <a href="'.SITE_URL.'/magazines-cat/block-magazine">
+                            <div class="sigma-print">
+                                <img src="/wp-content/uploads/2021/08/SiGMA-Block-Magazine-2.png" alt="">
+                            </div>
+                        </a>
+                    </div>';
+    return $magazines;   
 }
 
 // Shortcode for the casino part of the sidebar
@@ -3647,9 +3721,6 @@ function sigma_mt_show_sidebar_sigma_directory($atts) {
                 foreach ( $items as $k => $menu ) {
                     $content .= '<article>
                                     <a href="'.$menu->url.'">
-                                        <div class="thumb2">
-                                            <img src="/wp-content/uploads/2021/08/icon1.png">
-                                        </div>
                                         <div class="title">
                                             <h2>'.$menu->title.'</h2>
                                         </div>
@@ -3665,6 +3736,9 @@ add_shortcode( 'sigma-mt-sidebar-event-logos', 'sigma_mt_sidebar_event_logos' );
 function sigma_mt_sidebar_event_logos() {
     $output = '';
     $sigma_events = get_field('sigma_events', 'option');
+    $output .='<div class="h-title">
+                    <a href="#">Next Events</a>
+                </div>';
     foreach($sigma_events as $event) {
         $output .='<div class="sigma-event-logo">
                         <a href="'.$event['link'].'"><img src="'.$event['upload_logo'].'"></a>
@@ -4302,12 +4376,14 @@ function sigma_mt_latest_news($atts) {
 add_shortcode( 'sigma-mt-deep-tech-insights', 'sigma_mt_deep_tech_insights' );
 function sigma_mt_deep_tech_insights($atts) {
     $content = '';
+    $slider = isset($atts['slider']) ? $atts['slider'] : '';
+    // $slider_class = $atts['slider'] == "slider" ? $atts['slider'] : '';
     $term_id = $atts['term_id'];
     $count = isset($atts['post_per_page']) ? $atts['post_per_page'] : -1;
     $post_tag_args = array(
         'posts_per_page'    => $count,
         'post_type'         => 'news-items',
-        'orderby'           => 'post-date',
+        'orderby'           => 'date',
         'order'             => 'DESC',
         'suppress_filters' => false,
         'tax_query'         => array(
@@ -4351,9 +4427,9 @@ function sigma_mt_deep_tech_insights($atts) {
 
 add_shortcode( 'podcast-custom-popup', 'podcast_custom_popup_content' );
 function podcast_custom_popup_content() {
-    echo '<div class="podcast-popup">
-        <div class="podcast-popupinner">
-            <iframe width="1366" height="800" src="https://www.youtube.com/embed/SCm76e0lPPA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    echo '<div id="podcast-popup" class="podcast-popup">
+        <div class="podcast-popupinner" id="podcast-popupinner">
+            <iframe src="https://open.spotify.com/embed/playlist/5cjVzYlwPoYdsQuPB0hu58?theme=0" width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
     </div>';
 }
@@ -4412,9 +4488,10 @@ function check_if_media_exists($filename)
     return ($wpdb->get_var($query) > 0);
 }
 
+//add_action('init', 'set_post_thumbnail_from_content');
+
 function set_post_thumbnail_from_content()
 {
-    global $post, $posts;
     ob_start();
     ob_end_clean();
 
@@ -4422,34 +4499,62 @@ function set_post_thumbnail_from_content()
     require_once(ABSPATH . 'wp-admin/includes/file.php');
     require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-    if (!get_the_post_thumbnail($post->ID)) {
-        preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+    $args = array(
+        'posts_per_page' => -1,
+        'post_type' => 'news-items',
+        'post_status' => 'publish',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'news-cat',
+                'field' => 'term_id',
+                'terms' => 2108,
+            )
+        )
+    );
 
-        $image_url = (isset($matches[1][0])) ? $matches[1][0] : false;
+    $get_posts = get_posts($args);
+//    var_dump('aaaaaaa');
 
-        if (!$image_url) {
-            preg_match_all("%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^\"&?/ ]{11})%i", $post->post_content, $matches);
+    foreach ($get_posts as $post) {
 
-            $video_id = $matches[1][0];
+        if (!get_the_post_thumbnail($post->ID)) {
+            preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
 
-            // Get Thumbnail
-            $file_headers = get_headers('http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg');
-            $is_404 = $file_headers[0] == 'HTTP/1.0 404 Not Found' || false !== strpos($file_headers[0], '404 Not Found');
-            $image_url = $is_404 ? 'http://img.youtube.com/vi/' . $youtube_id . '/maxresdefault.jpg' : 'http://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
-        }
+            file_put_contents(get_stylesheet_directory() . '/thumb.txt', $post->guid . '\n', FILE_APPEND);
+            $image_url = (isset($matches[1][0])) ? $matches[1][0] : false;
 
-        $media_file = check_if_media_exists($image_url);
+            if (!$image_url) {
+                preg_match_all("%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^\"&?/ ]{11})%i", $post->post_content, $matches);
 
-        if (!$media_file) {
-            $image_id = media_sideload_image($image_url, $post->ID, '', 'id');
-        } else {
-            $image_id = attachment_url_to_postid($image_url);
+                $video_id = $matches[1][0];
 
-            if (empty($image_id)) {
-                $image_id = get_attachment_id($image_url);
+                if (!$video_id) {
+                    continue;
+                }
+
+                // Get Thumbnail
+                $file_headers = get_headers('http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg');
+                $is_404 = $file_headers[0] == 'HTTP/1.0 404 Not Found' || false !== strpos($file_headers[0], '404 Not Found');
+                $image_url = $is_404 ? 'http://img.youtube.com/vi/' . $youtube_id . '/maxresdefault.jpg' : 'http://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
+            }
+
+            if ($image_url) {
+                $media_file = check_if_media_exists($image_url);
+
+                if (!$media_file) {
+                    $image_id = media_sideload_image($image_url, $post->ID, '', 'id');
+                    if (is_wp_error($image_id)) {
+                        continue;
+                    }
+                } else {
+                    $image_id = attachment_url_to_postid($image_url);
+
+                    if (empty($image_id)) {
+                        $image_id = get_attachment_id($image_url);
+                    }
+                }
+                return set_post_thumbnail($post->ID, $image_id);
             }
         }
-
-        return set_post_thumbnail($post->ID, $image_id);
     }
 }

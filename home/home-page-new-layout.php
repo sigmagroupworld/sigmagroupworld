@@ -23,16 +23,16 @@ $page_id = $wp_query->get_queried_object()->ID;
 
 if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
-	<section class="home-banner home-new-banner" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
+	<section class="home-banner home-new-banner new-layout" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
 		<div class="banner-container">
 			<!-- Desktop banner start -->
 			<div class="desktop-banner">
 				<div class="label-wrap-map">
 		 	  		<span>	
 		 	  			<?php 
-		 	    		if( !empty( $desktop_banner['desktop_featured_image'] ) ){ ?>
-					    	<img src="<?php echo $desktop_banner['desktop_featured_image']['url']; ?>" alt="<?php echo $desktop_banner['desktop_featured_image']['alt']; ?>">
-						<?php } ?>
+		 	    		//if( !empty( $desktop_banner['desktop_featured_image'] ) ){ ?>
+					    	<img src="https://sigma.world/wp-content/uploads/2021/08/SiGMA-2021-Homepage-Title1.png" alt="">
+						<?php //} ?>
 		 	  		</span>
 		 		</div>
 				<div class="sigma-banner-wrapper">
@@ -82,9 +82,9 @@ if ($desktop_banner){ ?>
 				<div class="mobile-label-map">
 					<span>
 						<?php 
-		 	    		if( !empty( $desktop_banner['mobile_featured_image'] ) ){ ?>
-					    	<img src="<?php echo $desktop_banner['mobile_featured_image']['url']; ?>" alt="<?php echo $desktop_banner['mobile_featured_image']['alt']; ?>">
-						<?php } ?>
+		 	    		//if( !empty( $desktop_banner['mobile_featured_image'] ) ){ ?>
+					    	<img src="https://sigma.world/wp-content/uploads/2021/08/Homepage-Mobile-Title-300x19-1.png&nocache=1" alt="">
+						<?php //} ?>
 					</span>
 				</div>
 				<div class="events-wrapper">
@@ -120,29 +120,31 @@ if ($desktop_banner){ ?>
 	                	<div class="space menus">
 							<?php echo do_shortcode('[sigma_mt_show_sidebar_sigma_directory]'); ?>
 	                    </div>
-	                    <div class="space">
-	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1148"]'); ?>
-							<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1149"]'); ?>
+	                    <div class="space desktop-magazine">
+	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines]'); ?>
+							<?php //echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1149"]'); ?>
 	                    </div>
 						<div class="space">
-							<a href="<?php echo site_url(); ?>/m-and-a-action/"><div class="sigma-college">
-								<div class="top-img">
-									<a href="<?php echo site_url(); ?>/m-and-a-action/"><img src="/wp-content/uploads/2021/08/New-Project.png"></a>
+							<a href="<?php echo site_url(); ?>/m-and-a-action/">
+								<div class="sigma-college">
+									<div class="top-img">
+										<img src="/wp-content/uploads/2021/08/SiGMA-MA-Tab.png">
+									</div>
 								</div>
-								<div class="text-event">M & A</div>
-								</div></a>
+							</a>
 	                    </div>
-	                    <?php /*<div class="space sigma-college">
-	                    	<a href="<?php echo site_url(); ?>/sigma-college/"><img src="/wp-content/uploads/2021/08/sigma-college.png"></a>
-	                    </div>*/ ?>
+	                    <div class="space mobile-magazine">
+	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines]'); ?>
+							<?php //echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1149"]'); ?>
+	                    </div>
 	                </div>
 
 	                <div class="home-middle-content">
 	                    <?php
-						$news_tags = sigma_mt_get_news_tags_data('', $taxonomy, 5);
+						$news_tags = sigma_mt_get_news_tags_data('', $taxonomy, 7);
 						?>
 						<div class="h-title">
-							<a href="#"><?php echo $desktop_banner["latest_posts_title"]; ?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							<a href="<?php echo site_url(); ?>/news"><?php echo $desktop_banner["latest_posts_title"]; ?></a>
 						</div>
 						<?php
 		        		foreach ( $news_tags['term_data'] as $k => $post ) {
@@ -158,28 +160,44 @@ if ($desktop_banner){ ?>
 				            ?>
 				            <div class="blog-listing-module <?php echo $main_class; ?>">								
 								<div class="post-item <?php echo $class; ?>">
-									<a href="<?php the_permalink(); ?>">
-										<div class="thumb-img">
-											<?php if(!empty($featured_image)){ ?>
-			                        		    <img src="<?php echo $featured_image[0] ?>" alt="">
-											<?php } else { ?>
-                                                <img src="<?php echo $placeholder_full ?>" alt="">
-                                            <?php } ?> 
-			                    		</div>
-			                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> ><?php the_title(); ?></h2>
-									</a>
-									<?php if($row === 0) { ?> <p><?php the_excerpt(); ?></p><?php } ?>
+									<div class="thumb-img" style="">
+										<div class="post-alignment">
+											<a href="<?php the_permalink(); ?>">
+												<?php if(!empty($featured_image)){ ?>
+				                        		    <img src="<?php echo $featured_image[0]; ?>" alt="">
+												<?php } else { ?>
+	                                                <img src="<?php echo $placeholder_full; ?>" alt="">
+	                                            <?php } ?>
+	                                            <div class="wi-WidgetOverlay"></div>
+	                                            <div class="news-content">										
+						                    		<h2 <?php if($row === 0) { ?> class="big" <?php } ?> >
+						                    			<?php echo $post->post_title; //the_title(); ?>
+						                    		</h2>
+						                    		<div class="category-lists">
+						                    			<?php $i = 0; 
+						                    			$categories = wp_get_post_terms( get_the_ID(),array( 'news-cat' ) );
+						                    			foreach($categories as $c) { 
+															$cat = get_category( $c );
+															?>
+														<a class="topic-link" href="<?php echo get_term_link($cat);?>"><?php echo $cat->name; ?></a>
+														<?php $i++;
+														if($i==3) break;
+													} ?>
+						                    		</div>
+						                    	</div>
+						                    </a>								
+										</div>
+									</div>
+									<?php if($row === 0) { ?> <div class="excerpt-content"><?php the_excerpt(); ?></div><?php } ?>
 								</div>
 							</div>							
 							<?php $row++; ?>
 							<?php wp_reset_postdata();
 						} ?>
+						<div class="load-articles"><a class="load-more-articles" href="<?php echo SITE_URL . '/news'; ?>" target="_blank">Show More</a></div>
 					</div>
 
 	                <div class="right-sidebar">
-	                    <div class="space">
-							<?php echo do_shortcode('[sigma_mt_show_sidebar_event appearance="NewLayout"]'); ?>
-	                    </div>
 	                    <div class="space sigma-multi-events">
 	                    	<?php echo do_shortcode('[sigma-mt-sidebar-event-logos]'); ?>
 	                    </div>
@@ -212,5 +230,531 @@ if ($desktop_banner){ ?>
 </div>
 
 <?php echo do_shortcode('[sigma-mt-newsletter]'); ?>
+
+<style>
+.new-layout.home-banner.home-new-banner .sigma-banner-wrapper {
+    height: calc( 70vh - 100px );
+}
+.new-layout.home-banner.home-new-banner .inner-animate, .inner-map-label {
+    /*width: 600px;
+	height: 370px;
+	background-size: 600px 360px;*/
+	width: 750px;
+	height: 400px;
+	background-size: 750px 400px;
+}
+.new-home-layout.home-banner.home-new-banner .map-label a::before, .new-home-layout.home-banner.home-new-banner .map-label a img {
+	width: 60px;
+	height: 60px;
+}
+.new-home-layout.home-banner.home-new-banner .label-wrap-map {
+    position: relative;
+    height: 30px;
+}
+.home-banner.home-new-banner {
+    min-height: calc(80vh - 100px);
+	padding-bottom: 0;
+}
+.home-banner.home-new-banner .label-wrap-map {
+	position: relative;
+	height: 60px;
+}
+.new-home-layout .home-news {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: -webkit-calc(100% + 40px);
+    width: -moz-calc(100% + 40px);
+    width: calc(100% + 40px);
+    margin-left: -20px !important;
+}
+.home-news .left-sidebar {
+    width: -webkit-calc(25% - 40px);
+    width: -moz-calc(25% - 40px);
+    width: calc(25% - 40px);
+    padding-left: 20px;
+}
+.home-news .home-middle-content {
+    width: -webkit-calc(50% - 40px);
+    width: -moz-calc(50% - 40px);
+    width: calc(50% - 40px);
+}
+.home-news .home-middle-content .right-sidebar {
+    width: -webkit-calc(25% - 40px);
+    width: -moz-calc(25% - 40px);
+    width: calc(25% - 40px);
+    margin-right:  0;
+}
+.home-news .left-sidebar, .home-news .home-middle-content, .home-news .right-sidebar {
+    margin: 10px 15px;
+    margin-top: 0;
+}
+.new-home-layout .blog-listing-module h2 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Montserrat";
+    margin:  0 20px;
+    color:  #ffffff;
+}
+.new-home-layout .blog-listing-module.section {
+    width: calc(50% - 10px);
+}
+.new-home-layout .blog-listing-module.section h2 { 
+    font-weight: 600;
+    margin-top: 15px;
+    margin:  0 20px;
+    color:  #ffffff;
+    font-size: 22px;
+}
+.new-home-layout .blog-listing-module.section:nth-child(odd) {
+    margin-right: 20px;
+}
+.new-home-layout .blog-listing-module .post-item a {
+    margin-bottom: 0;
+}
+.left-sidebar .casino-menu-lists a {
+    display: flex;
+}
+.left-sidebar .casino-menu-lists h2 img {
+    background-color: #eee;
+    margin-right: 10px;
+    min-width: 40px;
+    width: 40px;
+    height: 30px;
+    display: flex;
+}
+.new-home-layout .left-sidebar .h-title a {
+    margin-bottom: 0;
+}
+.casino-menu-lists {
+    padding: 20px;
+	background: #eeeeee;
+}
+.casino-menu-lists article {
+    margin-bottom:  15px;
+}
+.casino-menu-lists .title {
+    align-items: center;
+    align-content: center;
+    display: flex;
+}
+.left-sidebar .casino-menu-lists a h2 {
+    font-size: 14px;
+    line-height: 1.31;
+    color: #e21735;
+    font-weight: 600;
+    transition: .3s all;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+.new-home-layout .left-sidebar .space, .new-home-layout .right-sidebar .space {
+	margin-bottom: 20px;
+}
+.new-home-layout .space .sigma-event {
+    text-align: center;
+	padding: 20px;
+	background: #fdeed4;
+}
+.sigma-multi-events .sigma-event-logo {
+    padding: 0;
+	width: 80%;
+	margin: 0 auto;
+}
+.new-home-layout .text-event {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600;
+}
+.new-home-layout .space.sigma-print {
+    background: #e21735;
+    padding: 50px;
+}
+.new-home-layout .space.sigma-multi-events {
+    text-align: center;
+}
+.new-home-layout .right-sidebar .space .h-title a {
+	margin-bottom: 0;
+}
+.new-home-layout .space .sigma-event {
+    text-align: center;
+    padding: 20px;
+    background: #fdeed4;
+}
+.right-sidebar .space.sigma-multi-events .h-title {
+    margin-bottom: 10px;
+}
+.sigma-multi-events .sigma-event-logo {
+    padding: 0;
+    width: auto;
+    margin: 0 auto;
+}
+.new-home-layout .sigma-college .text-event {
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: 600;
+}
+.new-home-layout .sigma-print .text-event {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+.new-home-layout .text-event {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600;
+}
+.new-home-layout .sigma-print .top-img {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.home-sidebar-magazines.testimonial-slide-home{
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 20px;
+    width: 78%;
+    margin: 0 auto;
+}
+.home-sidebar-magazines.testimonial-slide-home .slick-prev, .home-sidebar-magazines.testimonial-slide-home .slick-arrow.slick-next {
+    top: 50%;
+}
+.home-sidebar-magazines.testimonial-slide-home .slick-prev::before, .home-sidebar-magazines.testimonial-slide-home .slick-arrow.slick-next::before {
+    border-radius: 5px;
+}
+.new-home-layout .space .sigma-college {
+    background-color: #eee;
+    border-radius: 20px;
+    width: 78%;
+    margin: 0 auto;
+    text-align: center;
+}
+.home-sidebar-magazines .sigma-print  {
+    min-height: 250px;
+    color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.new-home-layout .right-sidebar .space .h-title a {
+    margin-bottom: 0;
+}
+.left-sidebar .casino-menu-lists h2 img {
+    background-color: #eee;
+    margin-right: 10px;
+    min-width: 40px;
+    width: 40px;
+    height: 30px;
+    display: inline-block;
+}
+/*.new-home-layout {
+    margin-top: 15px;
+}*/
+.new-home-layout .category-lists .topic-link {
+    display: inline-block;
+    border: 1px solid #fff;
+    color: #fff;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #131313;
+	border: 1px solid #4d4d4d;
+	color: #fff;
+}
+.sigma-multi-events .sigma-event-logo img {
+    padding: 10px;
+}
+.new-home-layout .blog-listing-module .post-item .post-alignment .category-lists a {
+    margin-bottom: 0;
+}
+.new-home-layout .blog-listing-bellow .blog-listing-bellow {
+    display: flex;
+    flex-wrap: wrap;
+}
+.new-home-layout .wi-WidgetOverlay {
+    background-image: linear-gradient(180deg,transparent,#000);
+    bottom: 0;
+    height: 160px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+.new-home-layout .blog-listing-module .thumb-img img {
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+}
+.new-home-layout .blog-listing-module .thumb-img .news-content {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+.new-home-layout .blog-listing-module .post-alignment {
+	height: 400px;
+	position: relative;
+}
+.new-home-layout .blog-listing-bellow .blog-listing-module .post-alignment {
+	height: 180px;
+	position: relative;
+}
+.new-home-layout .blog-listing-module .category-lists {
+    margin: 10px 20px;
+}
+.new-home-layout .blog-listing-module .post-item {
+    border-bottom: 2px solid #e21735;
+    margin-bottom: 20px;
+}
+.new-home-layout .blog-listing-module .post-item .excerpt-content {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.new-home-layout .blog-listing-bellow .post-item {
+    border-bottom: none;
+}
+
+.home-middle-content .load-articles {
+    text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin-top: 10px;
+}
+.home-middle-content .load-more-articles:hover {
+    background: linear-gradient(45deg,#57cc00 0%,#96f020 35%,#96f020 65%,#57cc00 100%);
+}
+.home-middle-content .load-more-articles {
+    background: #ed1a3b;
+    border-color: #ed1a3b;
+    padding: 10px 28px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1.2;
+    transition: .3s all;
+    cursor: pointer;
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+.new-layout .banner-map-wrap-left .inner-animate::before {
+    content: '';
+    position: absolute;
+    /*left: -40px;
+    top: 73px;*/
+    background-image: url(/wp-content/uploads/2021/08/Lighthouse-Light.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 120px;
+    height: 25px;
+    z-index: 2;
+    animation: spinHorizontal 8s infinite linear;
+    left: -35px;
+	top: 76px;
+}
+.new-layout .banner-map-wrap-left .inner-animate::after {
+    left: 68px;
+    top: 117px;
+    width: 35px;
+    height: 45px;
+}
+.new-layout .banner-map-wrap-left .america-ele2::before {
+    /*width: 20px;
+    height: 20px;
+    left: 148px;
+    top: 133px;*/
+    width: 25px;
+	height: 25px;
+	left: 186px;
+	top: 142px
+}
+.new-layout .banner-map-wrap-left .america-ele2::after {
+    /*left: 188px;
+    bottom: 123px;
+    width: 20px;
+    height: 15px;*/
+    left: 233px;
+	bottom: 124px;
+	width: 25px;
+	height: 20px;
+}
+.new-layout .banner-map-wrap-left .america-ele::before {
+    left: 163px;
+    bottom: 78px;
+    width: 20px;
+    height: 40px;
+}
+.banner-map-wrap-middle .europe-ele::before { 
+	width: 15px;
+	height: 15px;
+}
+.banner-map-wrap-middle .europe-ele2::before {
+    left: 41%;
+    top: 45%;
+    width: 75px;
+    height: 10px;
+}
+.new-layout .map-label a::before, .new-layout .map-label a img {
+    width: 100px;
+    height: 100px;
+}
+.mobile-magazine {
+	display: none;
+}
+.newsletter .newsletter-form .hbspt-form form .hs-submit .actions input[type="submit"] {
+	background: #414042;
+}
+
+@media (min-width: 1600px) {
+	.new-layout .map-label a::before, .new-layout .map-label a img {
+	    width: 110px;
+	    height: 110px;
+	}
+	.new-layout .map-label a:hover img, .new-layout .map-label a:hover::before {
+	    height: 150px;
+	    width: 150px;
+	    transition: width .5s ease,height .5s ease;
+	}
+	.new-layout.home-banner.home-new-banner .inner-animate, .inner-map-label {
+	    width: 900px;
+	    height: 500px;
+	    background-size: 900px 500px;
+	}
+	.new-layout .banner-map-wrap-left .inner-animate::before {
+	    left: -32px;
+		top: 99px;
+	}
+	.new-layout .banner-map-wrap-left .america-ele2::before {
+	    width: 30px;
+	    height: 30px;
+	    left: 223px;
+	    top: 175px;
+	}
+	.new-layout .banner-map-wrap-left .america-ele2::after {
+	    left: 278px;
+	    bottom: 157px;
+	    width: 30px;
+	    height: 25px;
+	}
+	.new-layout .banner-map-wrap-left .inner-animate::after {
+	    left: 76px;
+	    top: 140px;
+	    width: 40px;
+	    height: 50px;
+	}
+}
+@media (min-width: 580px) and (max-width: 850px) {
+	.new-home-layout .home-news .left-sidebar, .new-home-layout .home-news .right-sidebar {
+		width: 40%;
+	}
+	.new-home-layout .blog-listing-module.section {
+	    width: 100%;
+	}
+	.new-home-layout .blog-listing-module.section:nth-child(2n+1) {
+	    margin-right: 0;
+	}
+	.home-sidebar-magazines .sigma-print {
+		background-size: 100% 100%;
+	}
+}
+@media (min-width: 200px) and (max-width: 579px) {
+	.new-home-layout .home-news .left-sidebar, .new-home-layout .home-news .right-sidebar {
+		width: 100%;
+		padding: 20px;
+	}
+	.new-home-layout .home-news .home-middle-content {
+		width: 100%;
+		padding: 20px;
+	}
+	.home-news .left-sidebar, .home-news .home-middle-content, .home-news .right-sidebar {
+		width: 100%;
+		padding: 20px;
+		margin: 0;
+	}
+	.new-home-layout .blog-listing-module .post-item {
+	    height: 100px;
+	    padding: 10px;
+		border-bottom: none;
+		margin-bottom: 0;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-module .post-item {
+	    height: auto;
+	    padding: 0;
+		border-bottom: none;
+		margin-bottom: 0;
+	}
+	.new-home-layout .blog-listing-module .thumb-img .news-content {
+	    bottom: 0;
+	    box-sizing: border-box;
+	    display: flex;
+	    flex-direction: column;
+	    flex-grow: 1;
+	    justify-content: start;
+	}
+	.new-home-layout .blog-listing-module .thumb-img {
+	    display: block;
+	}
+	.new-home-layout .blog-listing-module.section {
+	    width: 100%;
+	}
+	.new-home-layout .blog-listing-module.section h2 {
+	    color: #131313;
+	}
+	.wi-WidgetOverlay {
+	    background-image: none;
+	    bottom: 0;
+	    height: auto;
+	    position: relative;
+	    width: 100%;
+	    z-index: 1;
+	}
+	.new-home-layout .blog-listing-module.section:nth-child(2n+1) {
+	    margin-right: 0;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-module.section {
+	    margin-bottom: 0;
+	    padding: 0 10px;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-module .thumb-img .news-content h2 {
+	    color: #000;
+	    font-size: 14px;
+	    padding-left: 8px;
+	    margin:  0;
+	    display: block;
+		line-height: 20px;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-module .post-item {
+		margin-bottom: 10px;
+	}
+	.new-home-layout .blog-listing-module .excerpt-content {
+		display:  none;
+	}
+	.new-home-layout .home-middle-content .blog-listing-module .post-alignment {
+	    display: flex;
+	    height: 150px;
+	    position: relative;
+	}
+	.new-home-layout .home-middle-content .blog-listing-bellow .blog-listing-module .post-alignment {
+        display: flex;
+        height: 100px;
+        border-bottom: 1px solid #e21735;
+        position: relative;
+    }
+    .desktop-magazine {
+    	display:  none;
+    }
+    .mobile-magazine {
+    	display:  block;
+    }
+}
+@media (min-width: 200px) and (max-width: 400px) {
+	.home-news .left-sidebar, .home-news .home-middle-content, .home-news .right-sidebar {
+		width: 100%;
+		padding: 20px;
+		margin: 0;
+	}
+}
+</style>
 
 <?php get_footer(); ?>

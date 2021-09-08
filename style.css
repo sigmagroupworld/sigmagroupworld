@@ -1,4 +1,4 @@
-Theme Name: Twenty Twenty-One-child
+/*Theme Name: Twenty Twenty-One-child
 Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. With new block patterns, which allow you to create a beautiful layout in a matter of seconds, this theme’s soft colors and eye-catching — yet timeless — design will let your work shine. Take it for a spin! See how Twenty Twenty-One elevates your portfolio, business website, or personal blog.
 Template: twentytwentyone
 Requires at least: 5.3
@@ -713,28 +713,30 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 
 /*HUBSPOT NEWSLETTER CSS START*/
 
-.newsletter-form #hbspt-form-1629371029000-1139413232 form {
+.newsletter-form form {
   position: relative;
 }
 
-.newsletter-form #hbspt-form-1629371029000-1139413232 form .hs-form-field label {
+.newsletter-form form .hs-form-field label {
   display: none;
 }
 
-.newsletter-form #hbspt-form-1629371029000-1139413232 form .hs-form-field .input {
+.newsletter-form form .hs-form-field .input {
   margin: 0;
   width: 75%;
 }
 
-.newsletter-form #hbspt-form-1629371029000-1139413232 form .hs-form-field .input input[type="email"] {
+.newsletter-form form .hs-form-field .input input[type="email"] {
   background: #414042;
   outline: none;
   border: none;
-  padding: 25px 12px;
+  padding: 25px 12px !important;
   font-size: 16px;
   color: #fff;
 }
-
+.newsletter-form + p + p {
+    display: none;
+}
 .newsletter-form .hbspt-form form .hs-form-field .input input[type="email"]::placeholder {
   color: #38b6e9;
   font-size: 15px;
@@ -754,7 +756,7 @@ div.wpforms-container-full.footer-newsletter .wpforms-form label.wpforms-error {
 }
 .newsletter-form .hbspt-form form * {
     box-sizing: border-box;
-    font-family: var(--branding--color-text);
+    font-family: var(--branding--color-text) !important;
 }
 .newsletter-form .hbspt-form form .hs-submit .actions input[type="submit"] {
     width: 100%;
@@ -8954,4 +8956,18 @@ body {
 		padding: 20px;
 	}
 }
-/********* New Layout Css end *******
+/********* New Layout Css end *******/
+
+/*** Page Not Found ****/
+.not-found-page .page-content {
+	margin: 0 auto;
+}
+.not-found-page .page-content h3, .not-found-page .page-content h1 {
+	color: #ed1a3b
+}
+.not-found-page .page-content h3 {
+	font-size: 20px;
+}
+.not-found-page .page-content h1 {
+	font-size: 160px;
+}
