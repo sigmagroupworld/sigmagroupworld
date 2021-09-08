@@ -807,5 +807,14 @@ function openModal(elementId, modalId, closeId) {
 }
 /** Sponsors modal popup Detail end ***/
 
+/** SiGMA College**/
+jQuery(document).ready(function(){
+ 
+
+
+jQuery('body.page-id-15236 .header-clogo a img').attr('src','https://sigma.world/wp-content/uploads/2021/09/SiGMA-College-Logo.png');
+console.log("part2");
+});
+
 
 
