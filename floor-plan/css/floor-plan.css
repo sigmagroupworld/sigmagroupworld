@@ -216,6 +216,22 @@
     align-items: center;
 	display: flex;
 }
+
+.floorplan-button{
+	display: flex;
+	justify-content: center;
+}
+
+.floorplan-button a{
+	background: #e21735;
+	color: #ffffff;
+	padding: 15px 25px;
+	font-weight: 400;
+	display: block;
+	margin: 10px;
+	text-transform: uppercase;
+	border-radius: 25px;
+}
 /* Become Sponsor Section End */
 
 /* Responsive Css Start */

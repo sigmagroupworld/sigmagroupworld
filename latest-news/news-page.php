@@ -45,7 +45,10 @@ if ($desktop_banner){ ?>
             ?>
             <div>
                 <div class="post-item">
-                    <?php if ($featured_image) {?>
+                    <?php if ($banner) {?>
+                        <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
+                           style="background-image:url('<?php echo $banner; ?>') ">
+                    <?php } else if ($featured_image) {?>
                         <a href="<?php echo get_the_permalink($featured_post->ID); ?>"
                            style="background-image:url('<?php echo $featured_image[0]; ?>') ">
                     <?php } else { ?>
@@ -80,7 +83,7 @@ if ($desktop_banner){ ?>
 				<div class="news-menu">
 					<div class="mobile-pick">
 						<ul>
-							<li><?php echo $desktop_banner["all_categories_title"]; ?></li>
+							<li>All Categories</li>
 						</ul>
 						<div class="btn">
 							<div>
@@ -135,7 +138,7 @@ if ($desktop_banner){ ?>
 			<div class="home-news">
 				<div class="latest-news hp-left">
 					<?php
-					$news_tags = sigma_mt_get_news_tags_data('', $taxonomy, 14);
+					$news_tags = sigma_mt_get_news_tags_data('', $taxonomy, 14, true);
 					?>
 					<div class="h-title">
 						<a href="#"><?php echo $desktop_banner["latest_posts_title"]; ?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -284,7 +287,7 @@ if ($desktop_banner){ ?>
 	        	if (!empty($desktop_banner["sigma_top_add"]) && isset($desktop_banner["sigma_top_add"])) {
 	                foreach($desktop_banner["sigma_upcoming_add"] as $value) { ?>
 		                <div class="all-news">
-		                    <a href="#">
+		                    <a href="<?php echo $value['link']; ?>">
 		                        <img src="<?php echo $value['latest_news_bottom_image']; ?>" alt="">
 		                    </a>
 		                </div>

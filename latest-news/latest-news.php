@@ -361,11 +361,11 @@ $africa = '<section class="home-blog">
 				$africa .= '</div>
 			</div>
 			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(2057, $taxonomy, 13);
+				$news_tags = sigma_mt_get_news_tags_data(6160, $taxonomy, 13);
 				$africa .= '<div class="h-title"><a href="';
-				$africa .= get_tag_link($news_tags['term_value']->term_id);
+				$africa .= isset($news_tags['term_value']->term_id) ? get_tag_link($news_tags['term_value']->term_id) : '';
 				$africa .= '">';
-				$africa .= $news_tags['term_value']->name;
+				$africa .= isset($news_tags['term_value']->name) ? $news_tags['term_value']->name : '';
 				$africa .= '<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</a>
 				</div>

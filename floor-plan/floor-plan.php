@@ -53,6 +53,19 @@ $page_id = $wp_query->get_queried_object()->ID;
   }
   ?>
   <!-- Main floor plan section end -->
+  
+  <!-- Floor Plan View Fullscreen -->
+  <?php $view = get_field('view_fullscreen');
+    if($view){
+  ?>
+    <div class="floorplan-button">
+      <?php if( !empty( $view['fullscreen_button_text'])) { ?>
+        <span>
+          <a href="<?php echo $view['fullscreen_button']; ?>" target="_blank"><?php echo $view['fullscreen_button_text']; ?></a>
+        </span>
+      <?php } ?>
+    </div>
+  <?php } ?>
 
   <!-- News Image slider start -->
   <?php $for_advertisement = get_field('add_banner');

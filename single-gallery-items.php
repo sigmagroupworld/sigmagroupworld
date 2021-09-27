@@ -36,7 +36,8 @@ $video_gallery_album = get_field('video_album', get_the_ID());
 					<?php }
 					}
 				}
-				if(!empty($video_gallery_album)) {
+				
+				if(isset($video_gallery_album) && $video_gallery_album) {
 					foreach($video_gallery_album as $video) { //echo '<pre>'; print_r($video); echo '</pre>'; ?>
 						<div class="single-gallery">
                             <div class="featured-image img-gallery">

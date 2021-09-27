@@ -119,7 +119,7 @@ $europe = '<section class="home-blog">
 				</div>
 			</div>
 			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(2057, $taxonomy, 12);
+				$news_tags = sigma_mt_get_news_tags_data(1907, $taxonomy, 12);
 				$europe .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -538,7 +538,7 @@ $africa = '<section class="home-blog">
 				$africa .= '</div>
 			</div>
 			<div class="spotify hp-right">';
-				$news_tags = sigma_mt_get_news_tags_data(1942, $taxonomy, 12);
+				$news_tags = sigma_mt_get_news_tags_data(6160, $taxonomy, 12);
 				$africa .= '<div class="h-title">
 					<a href="' . get_tag_link($news_tags['term_value']->term_id) . '">' .
 						$news_tags['term_value']->name . '<i class="fa fa-angle-right" aria-hidden="true"></i>

@@ -1599,7 +1599,7 @@ body {
         display: flex;
     }
     .news-menu > ul {
-        margin-top: 30px;
+        margin-top: 60px;
         max-height: 0px;
         overflow: hidden;
         background-color: #fff;
@@ -1653,7 +1653,7 @@ body {
     .news-search .search-form .s-form .search-label {
         position: absolute;
         right: 0;
-        top: 27px;
+        top: 10px;
     }
     /* news menu css end */
     .ui-widget.ui-widget-content {

@@ -11,14 +11,15 @@ get_header();
 
 // get the current casino post
 $post_id = get_the_ID();
-$thumbnail = get_field('review_thumbnail', $post_id);
 $review = get_field('review_content', $post_id);
 $detail = get_field('detail_content', $post_id);
 $casino_provider = get_field('casino_details', $post_id);
 $migrated = get_field('fully_migrated', $post_id);
+$thumbnail = $casino_provider['casino_logo'];
 ?>
 
 <section class="single-casino-page">
+		<h1 style="padding: 34px 0 ;text-align: center;font-size: 24px;font-weight: 600;"><?php the_title(); ?></h1>
 	<div class="container">
 		<div class="single-casino-banner">
 	    	<img src="<?php echo $thumbnail; ?>">
@@ -70,30 +71,9 @@ $migrated = get_field('fully_migrated', $post_id);
 									<div class="innermethod">
 										<div class="method-all-imgs">
 											<?php if(isset($casino_provider['deposit_methods'])) {
-												foreach($casino_provider['deposit_methods'] as $value) {
-													$visa = __( 'Visa', 'sigmaigaming' );
-													$mastercard = __( 'Mastercard', 'sigmaigaming' );
-													$neteller =__( 'Neteller', 'sigmaigaming' );
-													$skrill = __( 'Skrill', 'sigmaigaming' );
-													$mestrocard = __( 'Mestrocard', 'sigmaigaming' );
-													$paypal = __( 'Paypal', 'sigmaigaming' );
-													$bitcoin =__( 'Bitcoin', 'sigmaigaming' );
-													$ecopays = __( 'Ecopays', 'sigmaigaming' );
-													$entropay = __( 'Entropay', 'sigmaigaming' );
-													$webpay =__( 'Webpay', 'sigmaigaming' );
-													$epay = __( 'Epay', 'sigmaigaming' );
-													$trustpay =__( 'Trustpay', 'sigmaigaming' );
-													$payeer = __( 'Payeer', 'sigmaigaming' );
-													?>
+												foreach($casino_provider['deposit_methods'] as $value) { ?>
 													<div class="method-single-img">
-														<?php if($value === $visa) echo '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">'; ?>
-														<?php if($value === $mastercard) echo '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">'; ?>
-														<?php if($value === $neteller) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">'; ?>
-														<?php if($value === $payeer) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">'; ?>
-														<?php if($value === $bitcoin) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">'; ?>
-														<?php if($value === $ecopays) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">'; ?>
-														<?php if($value === $webpay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">'; ?>
-														<?php if($value === $epay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">'; ?>
+														<?php echo '<img src="/fileadmin/providers/'.$value.'.png">'; ?>
 													</div>
 											<?php }
 											} ?>
@@ -107,26 +87,10 @@ $migrated = get_field('fully_migrated', $post_id);
 								<div class="content">
 									<div class="innermethod">
 										<?php if(isset($casino_provider['withdrawal_methods'])) { 
-											foreach($casino_provider['withdrawal_methods'] as $value) {
-												$visa = __( 'Visa', 'sigmaigaming' );
-												$mastercard = __( 'Mastercard', 'sigmaigaming' );
-												$neteller =__( 'Neteller', 'sigmaigaming' );
-												$skrill = __( 'Skrill', 'sigmaigaming' );
-												$mestrocard = __( 'Mestrocard', 'sigmaigaming' );
-												$paypal = __( 'Paypal', 'sigmaigaming' );
-												$bitcoin =__( 'Bitcoin', 'sigmaigaming' );
-												$ecopayz = __( 'Ecopayz', 'sigmaigaming' );
-												?>
-												<div class="method-single-img">
-													<?php if($value === $visa) echo '<img src="'. CHILD_DIR . '/online-casinos/images/VISA-new-logo.png">'; ?>
-													<?php if($value === $mastercard) echo '<img src="'. CHILD_DIR . '/online-casinos/images/mastercard.png">'; ?>
-													<?php if($value === $neteller) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Neteller.png">'; ?>
-													<?php if($value === $payeer) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Payeer.png">'; ?>
-													<?php if($value === $bitcoin) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Bitcoin.png">'; ?>
-													<?php if($value === $ecopays) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Ecopayz.png">'; ?>
-													<?php if($value === $webpay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Webpay logo.png">'; ?>
-													<?php if($value === $epay) echo '<img src="'. CHILD_DIR . '/online-casinos/images/Epay logo.png">'; ?>
-												</div>
+											foreach($casino_provider['withdrawal_methods'] as $value) { ?>
+										<div class="method-single-img">
+											<?php echo '<img src="/fileadmin/providers/'.$value.'.png">'; ?>
+										</div>
 										<?php }
 										} ?>
 									</div>
@@ -143,43 +107,91 @@ $migrated = get_field('fully_migrated', $post_id);
 										} ?></h4>
 								</div>
 							</div>
+							
 							<?php 
-								$slots = __( 'Slots', 'sigmaigaming' );
-								$roulette = __( 'Roulette', 'sigmaigaming' );
-								$blackjack = __( 'Black Jack', 'sigmaigaming' );
-								$no_sports_betting = __( 'No Sports betting', 'sigmaigaming' );
-								$videopoker = __( 'Video Poker', 'sigmaigaming' );
-								$bingo = __( 'Bingo', 'sigmaigaming' );
-								$baccarat = __( 'Baccarat', 'sigmaigaming' );
-								$jackpot_games = __( 'Jackpot Games', 'sigmaigaming' );
-								$live_games =__( 'Live Games', 'sigmaigaming' );
-								$no_poker = __( 'No Poker', 'sigmaigaming' );
-								$craps = __( 'Craps', 'sigmaigaming' );
-								$keno = __( 'Keno', 'sigmaigaming' );
-								$scratch_cards = __( 'Scratch Cards', 'sigmaigaming' );
-								$no_e_sports = __( 'No eSports betting', 'sigmaigaming' );
+								$slots = 'Slots';
+								$roulette = 'Roulette';
+								$blackjack = 'BlackJack';
+								$sports_betting = 'Sports Betting';
+								$videopoker = 'Video Poker';
+								$bingo = 'Bingo';
+								$baccarat = 'Baccarat';
+								$jackpot_games = 'Jackpot Games';
+								$live_games ='Live Games';
+								$poker = 'Poker';
+								$craps = 'Craps';
+								$keno = 'Keno';
+								$scratch_cards = 'Scratch Cards';
+								$e_sports = 'eSports betting';
+								if(!empty($casino_provider['casino_games'])){
 							?>
 							<div class="casino_type detailblk">
 								<div class="title"><?php echo __('Casino Games', 'sigmaigaming'); ?></div>
 								<div class="content">
 									<ul>
-										<li class="keyitem <?php if(in_array($slots, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $slots; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/slot-machine.png" /></a></li>
-										<li class="keyitem <?php if(in_array($roulette, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $roulette; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/roulette.png" /></a></li>
-										<li class="keyitem <?php if(in_array($blackjack, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $blackjack; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/black-jack.png" /></a></li>
-										<li class="keyitem <?php if(in_array($no_sports_betting, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $no_sports_betting; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/sport-betting.png" /></a></li>
-										<li class="keyitem <?php if(in_array($videopoker, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $videopoker; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/online-betting.png" /></a></li>
-										<li class="keyitem <?php if(in_array($bingo, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $bingo; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/bingo.png" /></a></li>
-										<li class="keyitem <?php if(in_array($baccarat, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $baccarat; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/baccarat.png" /></a></li>
-										<li class="keyitem <?php if(in_array($jackpot_games, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $jackpot_games; ?> Games<img src="<?php echo CHILD_DIR; ?>/online-casinos/images/jackpot-games.png" /></a></li>
-										<li class="keyitem <?php if(in_array($live_games, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $live_games; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/live-games.png" /></a></li>
-										<li class="keyitem <?php if(in_array($no_poker, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $no_poker; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/live-games.png" /></a></li>
-										<li class="keyitem <?php if(in_array($craps, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $craps; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/keno.png" /></a></li>
-										<li class="keyitem <?php if(in_array($keno, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $keno; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/keno.png" /></a></li>
-										<li class="keyitem <?php if(in_array($scratch_cards, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $scratch_cards; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/scratch-card.png" /></a></li>
-										<li class="keyitem <?php if(in_array($no_e_sports, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php echo $no_e_sports; ?><img src="<?php echo CHILD_DIR; ?>/online-casinos/images/esport-betting.png" /></a></li>
+										<li class="keyitem <?php if(in_array($slots, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($slots, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $slots; ?><img src="/fileadmin/games/slot-machine.png" /></a></li>
+										<li class="keyitem <?php if(in_array($roulette, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($roulette, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $roulette; ?><img src="/fileadmin/games/roulette.png" /></a></li>
+										<li class="keyitem <?php if(in_array($blackjack, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($blackjack, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $blackjack; ?><img src="/fileadmin/games/black-jack.png" /></a></li>
+										<li class="keyitem <?php if(in_array($sports_betting, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($sports_betting, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $sports_betting; ?><img src="/fileadmin/games/sport-betting.png" /></a></li>
+										<li class="keyitem <?php if(in_array($videopoker, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($videopoker, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $videopoker; ?><img src="/fileadmin/games/online-betting.png" /></a></li>
+										<li class="keyitem <?php if(in_array($bingo, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($bingo, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $bingo; ?><img src="/fileadmin/games/bingo.png" /></a></li>
+										<li class="keyitem <?php if(in_array($baccarat, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($baccarat, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $baccarat; ?><img src="/fileadmin/games/baccarat.png" /></a></li>
+										<li class="keyitem <?php if(in_array($jackpot_games, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($jackpot_games, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $jackpot_games; ?> Games<img src="/fileadmin/games/jackpot-games.png" /></a></li>
+										<li class="keyitem <?php if(in_array($live_games, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($live_games, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $live_games; ?><img src="/fileadmin/games/live-games.png" /></a></li>
+										<li class="keyitem <?php if(in_array($poker, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($poker, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $poker; ?><img src="/fileadmin/games/live-games.png" /></a></li>
+										<li class="keyitem <?php if(in_array($craps, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($craps, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $craps; ?><img src="/fileadmin/games/keno.png" /></a></li>
+										<li class="keyitem <?php if(in_array($keno, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($keno, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $keno; ?><img src="/fileadmin/games/keno.png" /></a></li>
+										<li class="keyitem <?php if(in_array($scratch_cards, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($scratch_cards, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $scratch_cards; ?><img src="/fileadmin/games/scratch-card.png" /></a></li>
+										<li class="keyitem <?php if(in_array($e_sports, $casino_provider['casino_games'])) {echo "selected";} ?>"><a><?php if(!in_array($e_sports, $casino_provider['casino_games'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $e_sports; ?><img src="/fileadmin/games/esport-betting.png" /></a></li>
 									</ul>
 								</div>
 							</div>
+							<?php } ?>
+							
+							<?php 
+								$football = 'Football';
+								$basketball = 'Basketball';
+								$volleyball = 'VolleyBall / Handball';
+								$tennis = 'Racket sports(tennis,etc...)';
+								$boxing = 'Boxing/MMA';
+								$icehockey = 'Ice Hockey';
+								$cricket = 'Cricket';
+								$cycling = 'Cycling';
+								$darts  ='Darts';
+								$rugby = 'Rugby';
+								$golf = 'Golf';
+								$horse = 'Horse Riding';
+								$formulaone  ='Formula 1';
+								$ufc = 'UFC/Martial Arts';
+								$esports = 'Esports';
+								$virtual  ='Virtual Sports';
+								if(!empty($casino_provider['sport_types'])){
+							?>
+							<div class="casino_type detailblk">
+								<div class="title"><?php echo __('Sport Type', 'sigmaigaming'); ?></div>
+								<div class="content">
+									<ul>
+										<li class="keyitem <?php if(in_array($football, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($football, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $football; ?><img src="/fileadmin/sports/Football.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($basketball, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($basketball, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $basketball; ?><img src="/fileadmin/sports/Basketball.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($volleyball, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($volleyball, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $volleyball; ?><img src="/fileadmin/sports/Volley.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($tennis, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($tennis, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $tennis; ?><img src="/fileadmin/sports/Racket.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($boxing, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($boxing, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $boxing; ?><img src="/fileadmin/sports/Boxing.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($icehockey, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($icehockey, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $icehockey; ?><img src="/fileadmin/sports/IceHockey.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($cricket, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($cricket, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $cricket; ?><img src="/fileadmin/sports/Cricket.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($cycling, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($cycling, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $cycling; ?><img src="/fileadmin/sports/Cycling.svg" /></a></li>										
+										<li class="keyitem <?php if(in_array($darts, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($darts, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $darts; ?><img src="/fileadmin/sports/Darts.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($rugby, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($rugby, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $rugby; ?><img src="/fileadmin/sports/Rugby.svg" /></a></li>										
+										<li class="keyitem <?php if(in_array($golf, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($golf, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $golf; ?><img src="/fileadmin/sports/Golf.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($horse, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($horse, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $horse; ?><img src="/fileadmin/sports/HorseRiding.svg" /></a></li>										
+										<li class="keyitem <?php if(in_array($formulaone, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($formulaone, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $formulaone; ?><img src="/fileadmin/sports/Formula1.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($ufc, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($ufc, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $ufc; ?><img src="/fileadmin/sports/UFC.svg" /></a></li>
+										
+										<li class="keyitem <?php if(in_array($esports, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($esports, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $esports; ?><img src="/fileadmin/sports/Esports.svg" /></a></li>
+										<li class="keyitem <?php if(in_array($virtual, $casino_provider['sport_types'])) {echo "selected";} ?>"><a><?php if(!in_array($virtual, $casino_provider['sport_types'])) {echo __('No ', 'sigmaigaming');}  ?><?php echo $virtual; ?><img src="/fileadmin/sports/VirtualSports.svg" /></a></li>
+									</ul>
+								</div>
+							</div>
+							<?php } ?>
 							
 							<?php if(isset($casino_provider['software_providers'])) { ?>
 							<div class="casino_software detailblk">

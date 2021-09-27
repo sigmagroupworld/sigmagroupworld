@@ -23,7 +23,7 @@ $page_id = $wp_query->get_queried_object()->ID;
 
 if ($desktop_banner){ ?>
 	<!-- Home page banner start -->
-	<section class="home-banner home-new-banner new-layout" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
+	<section class="home-banner rrr home-new-banner new-layout" style="background-image: url(<?php echo $desktop_banner['banner_background_image']; ?>);">
 		<div class="banner-container">
 			<!-- Desktop banner start -->
 			<div class="desktop-banner">
@@ -118,7 +118,8 @@ if ($desktop_banner){ ?>
 	            <div class="home-news">
 	                <div class="left-sidebar">
 	                	<div class="space menus">
-							<?php echo do_shortcode('[sigma_mt_show_sidebar_sigma_directory]'); ?>
+							<?php echo do_shortcode('[sigma_mt_show_sidebar elements="122119"]'); 
+					 			  //echo do_shortcode('[sigma_mt_show_sidebar_sigma_directory]'); ?>
 	                    </div>
 	                    <div class="space desktop-magazine">
 	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines]'); ?>
@@ -134,7 +135,7 @@ if ($desktop_banner){ ?>
 							</a>
 	                    </div>
 	                    <div class="space mobile-magazine">
-	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar_magazines]'); ?>
+	                    	<?php //echo do_shortcode('[sigma_mt_show_sidebar_magazines]'); ?>
 							<?php //echo do_shortcode('[sigma_mt_show_sidebar_magazines term_id="1149"]'); ?>
 	                    </div>
 	                </div>
@@ -199,7 +200,8 @@ if ($desktop_banner){ ?>
 
 	                <div class="right-sidebar">
 	                    <div class="space sigma-multi-events">
-	                    	<?php echo do_shortcode('[sigma-mt-sidebar-event-logos]'); ?>
+	                    	<?php echo do_shortcode('[sigma_mt_show_sidebar elements="206684"]');
+	                    		//echo do_shortcode('[sigma-mt-sidebar-event-logos]'); ?>
 	                    </div>
 	                </div>
 	            </div>
@@ -218,7 +220,7 @@ if ($desktop_banner){ ?>
 
 <div class="home-page popup close">
 	<div class="popupinner">
-		<img src="/wp-content/uploads/2021/08/Malta-Week-Pop-up-Banner.webp">
+		<img src="/wp-content/uploads/2021/08/Malta-Week-Pop-up-Banner.png">
 		<a href="https://sigmamalta.events/sigma-malta-2021" target="_blank" class="tl"></a>
 		<a href="https://sigmamalta.events/aibc-europe" target="_blank" class="tr"></a>
 		<a href="https://sigmamalta.events/malta-affiliate-grand-slam" target="_blank" class="bl"></a>
@@ -234,6 +236,11 @@ if ($desktop_banner){ ?>
 <style>
 .new-layout.home-banner.home-new-banner .sigma-banner-wrapper {
     height: calc( 70vh - 100px );
+}
+new-layout.home-banner.home-new-banner .maplabel a:hover img, new-layout.home-banner.home-new-banner .maplabel a:hover::before {
+    height: 150px;
+    width: 150px;
+    transition: width 0.5s ease, height 0.5s ease;
 }
 .new-layout.home-banner.home-new-banner .inner-animate, .inner-map-label {
     /*width: 600px;
@@ -413,11 +420,11 @@ if ($desktop_banner){ ?>
     margin-top: 0;
     margin-bottom: 0;
 }
-.home-sidebar-magazines.testimonial-slide-home{
+.home-sidebar-magazines.testimonial-slide-home {
     background-color: #eee;
     padding: 10px;
     border-radius: 20px;
-    width: 78%;
+    /*width: 78%;*/
     margin: 0 auto;
 }
 .home-sidebar-magazines.testimonial-slide-home .slick-prev, .home-sidebar-magazines.testimonial-slide-home .slick-arrow.slick-next {
@@ -429,13 +436,17 @@ if ($desktop_banner){ ?>
 .new-home-layout .space .sigma-college {
     background-color: #eee;
     border-radius: 20px;
-    width: 78%;
+    /*width: 78%;*/
     margin: 0 auto;
     text-align: center;
+}
+.home-sidebar-magazines.testimonial-slide-home .slick-slide img {
+    display: inline-block;
 }
 .home-sidebar-magazines .sigma-print  {
     min-height: 250px;
     color: #fff;
+	text-align: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -603,7 +614,35 @@ if ($desktop_banner){ ?>
 	display: none;
 }
 .newsletter .newsletter-form .hbspt-form form .hs-submit .actions input[type="submit"] {
-	background: #414042;
+	background: #0093c8;
+	color: #000;
+	font-weight: bold;
+}
+.newsletter .newsletter-form .hbspt-form form .hs-submit .actions input::placeholder {
+  color: red;
+}
+.new-home-layout .home-blog.latest-news .blog-sub-title {
+	background-color: #e21735;
+	color: #fff;
+	text-decoration: none;
+	margin-bottom: 0;
+	padding: 13px 15px;
+}
+.new-home-layout .home-blog.latest-news .blog-sub-title h3 {
+	text-decoration: none;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 18px;
+	font-weight: 600;
+	background-color: #e21735;
+	color: #fff;
+	margin: 0;
+	width: 100%;
+}
+.new-home-layout .home-blog.latest-news .blog-sub-title::after, .new-home-layout .home-blog.latest-news .sidebar br {
+	display: none;
 }
 
 @media (min-width: 1600px) {
@@ -659,6 +698,28 @@ if ($desktop_banner){ ?>
 	}
 }
 @media (min-width: 200px) and (max-width: 579px) {
+	.new-home-layout .blog-listing-bellow .blog-listing-bellow .wi-WidgetOverlay {
+		background-image: none;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-bellow .thumb-img img {
+		height: 90px;
+		object-fit: cover;
+		position: relative;
+		width: 120px;
+		min-width: 120px;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-bellow .post-alignment .news-content {
+		position: relative;
+	}
+	.new-home-layout .blog-listing-module .post-item {
+		height: auto;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-bellow .post-item {
+		height: 160px;
+	}
+	.new-home-layout .blog-listing-bellow .blog-listing-bellow .category-lists {
+		display: none;
+	}
 	.new-home-layout .home-news .left-sidebar, .new-home-layout .home-news .right-sidebar {
 		width: 100%;
 		padding: 20px;
@@ -673,7 +734,6 @@ if ($desktop_banner){ ?>
 		margin: 0;
 	}
 	.new-home-layout .blog-listing-module .post-item {
-	    height: 100px;
 	    padding: 10px;
 		border-bottom: none;
 		margin-bottom: 0;
@@ -746,6 +806,9 @@ if ($desktop_banner){ ?>
     }
     .mobile-magazine {
     	display:  block;
+    }
+    .home-banner.home-new-banner {
+    	min-height: auto;
     }
 }
 @media (min-width: 200px) and (max-width: 400px) {

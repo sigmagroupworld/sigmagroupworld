@@ -162,7 +162,8 @@ $featured_images = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id )
 		-o-transform .4s
 	}
 	.item--post .post-desc {
-		background-color:#ee4438;
+		/*background-color:#ee4438;*/
+		background-color: rgba(0,0,0,0.75);
 		width:100%;
 		margin:auto 0 0 0;
 		padding:10px;
@@ -194,7 +195,7 @@ $featured_images = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id )
 		color:#fff;
 		margin:0;
 		font-size:15px;
-		font-weight:100;
+		font-weight:500;
 		overflow:hidden;
 		-o-text-overflow:ellipsis;
 		text-overflow:ellipsis;
@@ -260,6 +261,17 @@ $featured_images = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id )
 		padding: 10px 20px 20px 20px
 	}
 
+	.blog-details.author-details {
+		background-color: #f4f4f4;
+		padding-top: 51px;
+		margin:  20px;
+	}
+	.blog-banner.author-top-banner img {
+		width: 100%;
+		object-fit: cover;
+		max-height: 400px;
+	}
+
 	@media only screen and (max-width:544px) {
 		.blog-author-avatar-wrapper {
 			display: block;
@@ -282,7 +294,7 @@ $featured_images = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id )
 
 <section>
 	<!-- News Banner start -->
-	<div class="blog-banner">
+	<div class="blog-banner author-top-banner">
 		<a href="#">
 			<img src="/fileadmin/SiGMA-news-preview.png">
 		</a>
@@ -299,7 +311,7 @@ $featured_images = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id )
 			<!-- Leftbar end -->
 
 			<!-- Middle Detail News start -->
-			<div class="blog-details">
+			<div class="blog-details author-details">
 				<div class="blog-inner-details"><div class="blog-author-info">
 					<div class="blog-author-profile">
 					  <div class="blog-author-avatar-wrapper">

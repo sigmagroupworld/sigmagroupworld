@@ -109,6 +109,38 @@ function sigma_mt_tags_news(){
 	);
 }
 
+add_filter( 'rest_conference-items_query', 'sigma_mt_change_post_per_page', 10, 2 );
+
+function sigma_mt_change_post_per_page( $args, $request ) {
+    $max = max( (int) $request->get_param( 'custom_per_page' ), 300 );
+    $args['posts_per_page'] = $max;   
+    return $args;
+}
+
+add_filter( 'rest_conference-items_collection_params', 'sigma_mt_filter_add_rest_orderby_params', 10, 1 );
+
+function sigma_mt_filter_rest_accommodation_query($query_vars, $request) {
+    $orderby = $request->get_param('orderby');
+    if (isset($orderby) && $orderby === 'start') {
+        $query_vars["sort_order"] = "asc";
+        $query_vars["orderby"] = "meta_value_num";
+        $query_vars["meta_key"] = "start";
+    }
+    return $query_vars;
+}
+
+// The filter is named rest_{post_type}_query. So you need to hook a new filter for each 
+// of the custom post types you need to sort.
+add_filter( 'rest_conference-items_query', 'sigma_mt_filter_rest_accommodation_query', 10, 2);
+
+/**
+ * Add menu_order to the list of permitted orderby values
+ */
+function sigma_mt_filter_add_rest_orderby_params( $params ) {
+	$params['orderby']['enum'][] = 'start';
+	return $params;
+}
+
 // Create CPT for authors
 add_action('init', 'sigma_mt_author_custom_posts');
 function sigma_mt_author_custom_posts(){
@@ -198,7 +230,8 @@ function sigma_mt_conference_custom_posts() {
 			'not_found_in_trash' => __('No Conferences found in Trash', 'sigmaigaming'),
 		),
 		'public' => TRUE,
-		'rewrite' => array('slug' => 'sigma-conference'),		
+		'rewrite' => array('slug' => 'conference'),		
+      	'show_in_rest' => true,
 		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
 	));
 }
@@ -224,6 +257,82 @@ function sigma_mt_taxonomies_conference(){
 			'rewrite' => array('slug' => 'sm-conference')
 		)
 	);
+}
+add_action('rest_api_init', function(){
+  register_rest_field('conference-items', 'start', 
+    array(
+    'get_callback' => 'sigma_mt_get_post_meta_cb', 
+    'update_callback' => 'sigma_mt_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('conference-items', 'end', 
+    array(
+    'get_callback' => 'sigma_mt_get_post_meta_cb', 
+    'update_callback' => 'sigma_mt_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('conference-items', 'top_level_conference', 
+    array(
+    'get_callback' => 'sigma_mt_get_post_meta_cb', 
+    'update_callback' => 'sigma_mt_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('conference-items', 'event', 
+    array(
+    'get_callback' => 'sigma_mt_get_post_meta_cb', 
+    'update_callback' => 'sigma_mt_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('conference-items', 'room', 
+    array(
+    'get_callback' => 'sigma_mt_get_post_meta_cb', 
+    'update_callback' => 'sigma_mt_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('conference-items', 'parent_conference', 
+    array(
+    'get_callback' => 'sigma_mt_get_post_meta_cb', 
+    'update_callback' => 'sigma_mt_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('conference-items', 'speakers', 
+    array(
+    'get_callback' => 'sigma_mt_get_speakers_meta_cb', 
+    'update_callback' => 'sigma_mt_update_speakers_meta_cb', 
+    'schema' => null
+    )
+  ); 
+});
+function sigma_mt_get_post_meta_cb($object, $field_name, $request){
+    return get_post_meta($object['id'], $field_name, true); 
+}
+function sigma_mt_update_post_meta_cb($value, $object, $field_name){
+  return update_post_meta($object['id'], $field_name, $value); 
+}
+function sigma_mt_get_speakers_meta_cb($object, $field_name, $request){
+   $resp = [];
+   $speakers = get_field($field_name, $object['id']);
+   foreach($speakers as $k => $speakerlist){
+	   $respInner = [];
+	   foreach($speakerlist as $j => $speaker){
+	   	$respInner["name"] = get_the_title($speaker);
+	   	$respInner["designation"] = get_field('designation', $speaker);
+		$company = get_field('company', $speaker);
+		$respInner["company"] = get_the_title($company);
+	    $respInner["image"] = wp_get_attachment_image_src( get_post_thumbnail_id( $speaker ), 'full' );
+	   	array_push($resp, $respInner);
+   	   }
+   }
+   return $resp;
+}
+function sigma_mt_update_speakers_meta_cb($value, $object, $field_name){
+  return;
 }
 
 // create a Custom post type testimonial
@@ -364,6 +473,9 @@ function sigma_mt_taxonomies_casinos(){
 	);
 }
 
+
+
+// 
 // create a Custom post type jobs
 add_action('init', 'sigma_mt_jobs_custom_posts');
 function sigma_mt_jobs_custom_posts(){
@@ -842,19 +954,19 @@ function sigma_mt_m_and_a_custom_posts() {
 function sigma_mt_disable_autoupdate_slug($post_ID, $post, $update)
 {
     if ($post->post_type == 'news-items') {
-        $disable_autoupdate = get_post_meta($post->ID, 'disable_autoupdate_slug', true);
+        $disable_autoupdate = get_post_meta($post_ID, 'disable_autoupdate_slug', true);
 
-        if (empty($disable_autoupdate)) {
+        if (is_array($disable_autoupdate) && empty($disable_autoupdate)) {
             // check the slug and run an update if necessary
-            $new_slug = sanitize_title($post->post_title);
-            if ($post->post_name != $new_slug) {
+            //$new_slug = sanitize_title($post->post_title);
+            //if ($post->post_name != $new_slug) {
                 wp_update_post(
                     array(
-                        'ID' => $post->ID,
-                        'post_name' => $new_slug
+                        'ID' => $post->ID
+                        //'post_name' => $new_slug
                     )
                 );
-            }
+            //}
         }
     }
 }
@@ -926,4 +1038,28 @@ function sigma_mt_tags_games(){
             'query_var'     => true
         )
     );
+}
+
+// create a Custom post type for casino bonus section
+add_action('init', 'sigma_mt_casino_bonus');
+function sigma_mt_casino_bonus(){
+
+	register_post_type('casino-bonus', array(
+		'labels' => array(
+			'name' => __('Casino bonus', 'sigmaigaming'),
+			'singular_name' => __('Casino-bonus', 'sigmaigaming'),
+			'menu_name' => __('Casino bonus', 'sigmaigaming'),
+			'add_new' => __('Add Casino bonus', 'sigmaigaming'),
+			'add_new_item' => __('Add Casino bonus', 'sigmaigaming'),
+			'edit_item' => __('Edit Casino bonus', 'sigmaigaming'),
+			'new_item' => __('Casino bonus', 'sigmaigaming'),
+			'view_item' => __('View Casino bonus', 'sigmaigaming'),
+			'search_items' => __('Search Casino bonus', 'sigmaigaming'),
+			'not_found' => __('No Casino bonus found', 'sigmaigaming'),
+			'not_found_in_trash' => __('No Casino bonus found in Trash', 'sigmaigaming'),
+		),
+		'public' => TRUE,
+		'rewrite' => array('slug' => 'casino-bonus'),		
+		'supports' => array('title', 'thumbnail', 'editor', 'comments'),
+	));
 }

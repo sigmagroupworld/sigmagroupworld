@@ -4,6 +4,7 @@ body {
 * {
     box-sizing: border-box;
 }
+
 /* Blog Banner css start */
 .blog-banner a {
     display: block;
@@ -25,6 +26,14 @@ body {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
+
+/* News Page Adjustments SW-121, SW-128 */
+
+.post-body ul li{
+    list-style-type: disc !important;
+    list-style-position: inside !important;
+	font-family: "Montserrat" !important;
+}
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
@@ -227,18 +236,23 @@ body {
     font-weight: 600;
     font-size: 22px;
 }
-.post-body p {
+.post-body p,
+.post-body ul li { /* SW-121 */
     font-size: 15px;
     font-weight: 500;
     line-height: 1.6;
     color: gray;
-    margin-bottom: 20px;
     font-family: "Montserrat";
+}
+
+.post-body p{
+    margin-bottom: 30px; /* SW-128 */
 }
 .featured-img {
     margin-bottom: 20px;
 }
-.post-body p a {
+.post-body p a,
+.post-body h2 a{ /* SW-128 */
     text-decoration: underline;
     -webkit-transition: all .3s linear;
     -o-transition: all .3s linear;
@@ -247,6 +261,12 @@ body {
     display: inline-block;
     color: #ed1a3b;
     font-weight: inherit;
+}
+/* SW-121 */
+.post-body ul li{
+    list-style-type: disc !important;
+    list-style-position: inside !important;
+	font-family: "Montserrat" !important;
 }
 /* New content css End */
 /* Recent News css start */

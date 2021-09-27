@@ -11,8 +11,6 @@ get_header();
 
 $post_id = get_the_ID();
 $thumbnail = get_field('single_thumbnail', $post_id);
-$content = get_field('company_content', $post_id);
-$migrated = get_field('fully_migrated', $post_id);
 $key_metrics = get_field('key_metrics', $post_id);
 $platform_provider = get_field('platform_provider', $post_id);
 $payment_provider = get_field('payment_provider', $post_id);
@@ -26,6 +24,7 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 <section>
 	<!-- News page main section start -->
 	<div class="blog-content">
+		<h1 style="padding: 34px 0 0;text-align: center;font-size: 24px;font-weight: 600;"><?php the_title(); ?></h1>
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
@@ -39,16 +38,9 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 					<?php echo '<img src="' . $thumbnail . '">'; ?>
 				</div>
 				<div class="post-body">
-					<?php if(!$migrated){ ?>
-					<div class="post-content">
-						<?php echo $content; ?>
-					</div>
-					<?php } else { ?>
 					<div class="post-content">
 						<div class="SinglegamingWrapper">
 							<div class="SinglegamingInnerWrapper">
-								
-								<div class="single-gaming-banner"></div>
 								
 								<div class="single-desc">
 									<?php the_content(); ?>
@@ -63,13 +55,13 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 										<div class="key_choices">
 											<?php 
 											$arrayVal = array();
-								 			$options = array('PSP', 'Aggregator', 'Acquire');
+											$options = array('PSP', 'Aggregator', 'Acquire');
 											foreach($payment_provider['type'] as $val) {
 												$arrayVal[] = $val;
 											}
 											foreach($options as $val) {
 												$class = ((in_array($val, $arrayVal)) ? ' selected' : '');
-									  		 	echo '<div class="keyitem detail'.$class.'"><span>'.$val.'</span></div>';
+												echo '<div class="keyitem detail'.$class.'"><span>'.$val.'</span></div>';
 											} ?>
 										</div>
 									<?php } ?>
@@ -78,8 +70,8 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 										<div class="keyabout">
 											<p class="region">
 												<span><?php echo __('Regions served', 'sigmaigaming'); ?>: </span><?php echo $payment_provider['regions_served']; ?>
-										  	</p>
-									 	 </div>
+											</p>
+										 </div>
 									<?php } ?>
 									
 									<?php if(isset($shared_fields) && isset($shared_fields['licences']) && $shared_fields['licences'] != '') { ?>
@@ -105,13 +97,13 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<p class="title"><?php echo __('Game Types:', 'sigmaigaming'); ?></p>
 												<?php 
 												  $arrayVal = array();
-								 				  $options = array('Slots', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette)', 'Keno, Lottery', 'Video Poker', 'Scratchcard Games', 'Branded Games', 'VR', 'Others');
+												  $options = array('Slots', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette)', 'Keno, Lottery', 'Video Poker', 'Scratchcard Games', 'Branded Games', 'VR', 'Others');
 												  foreach($game_provider['game_types'] as $val) {
 													  $arrayVal[] = $val;
 												  }
 												  foreach($options as $val) {
 													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -121,10 +113,13 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<p class="title"><?php echo __('Platform Types:', 'sigmaigaming'); ?></p>
 												<?php 
 												  $arrayVal = array();
-								 				  $options = array('Licensed platform', 'White Label provider');
+												  $options = array('Licensed platform', 'White Label provider');
+												  foreach($platform_provider['platform_types'] as $val) {
+													  $arrayVal[] = $val;
+												  }
 												  foreach($options as $val) {
-													  $class = ($val == $platform_provider['platform_types'] ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -134,10 +129,13 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<p class="title"><?php echo __('Platform Product:', 'sigmaigaming'); ?></p>
 												<?php 
 												  $arrayVal = array();
-								 				  $options = array('Casino platform provider', 'Sportsbook provider');
+												  $options = array('Casino platform provider', 'Sportsbook provider');
+												  foreach($platform_provider['platform_product'] as $val) {
+													  $arrayVal[] = $val;
+												  }
 												  foreach($options as $val) {
-													  $class = ($val == $platform_provider['platform_product'] ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -146,10 +144,10 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 											<div class="gametypes">
 												<p class="title"><?php echo __('Landbased / Retail Platform:', 'sigmaigaming'); ?></p>
 												<?php 
-								 				  $options = array('Yes', 'No');
+												  $options = array('Yes', 'No');
 												  foreach($options as $val) {
 													  $class = ($platform_provider['landbasedretail_platform'] == $val ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -158,14 +156,14 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<p class="title"><?php echo __('Services included in the platform:', 'sigmaigaming'); ?></p>
 												<?php 
 												  $arrayVal = array();
-								 				  $options = array('24/7 customer service', 'CRM tool', 'CRM service', 'Payment gateway', 'Anti-Fraud tools', 'KYC services', 'Affiliate Platform' ,'Licences (certifications)' ,'Marketing options (bonuses, jackpots cashbacks, free spins) Other', 'Games aggregator as B2B', 'Blockchain &amp; smart contract solution');
+												  $options = array('24/7 customer service', 'CRM tool', 'CRM service', 'Payment gateway', 'Anti-Fraud tools', 'KYC services', 'Affiliate Platform' ,'Licences (certifications)' ,'Marketing options (bonuses, jackpots cashbacks, free spins) Other', 'Games aggregator as B2B', 'Blockchain &amp; smart contract solution');
 												  
 												  foreach($platform_provider['service_included_in_the_platform'] as $val) {
 													  $arrayVal[] = $val;
 												  }
 												  foreach($options as $val) {
 													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -175,13 +173,13 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<p class="title"><?php echo __('Payment Methods Type', 'sigmaigaming'); ?>:</p>
 												<?php 
 												  $arrayVal = array();
-								 				  $options = array('Visa/Mastercard', 'E-wallets', 'Prepaid Cards and Vouchers', 'Direct Bank', 'Agents', 'Cash on delivery', 'Crypto', 'Mobile Payments');
+												  $options = array('Visa/Mastercard', 'E-wallets', 'Prepaid Cards and Vouchers', 'Direct Bank', 'Agents', 'Cash on delivery', 'Crypto', 'Mobile Payments');
 												  foreach($payment_provider['payment_methods_type'] as $val) {
 													  $arrayVal[] = $val;
 												  }
 												  foreach($options as $val) {
 													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -191,26 +189,27 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												<p class="title"><?php echo __('Payment Services', 'sigmaigaming'); ?>:</p>
 												<?php 
 												  $arrayVal = array();
-								 				  $options = array('Payment facilitator', 'Risk management', 'Fraud protection', 'Multi-currency processing', 'Retail');
+												  $options = array('Payment facilitator', 'Risk management', 'Fraud protection', 'Multi-currency processing', 'Retail');
 												  foreach($payment_provider['payment_services'] as $val) {
 													  $arrayVal[] = $val;
 												  }
 												  foreach($options as $val) {
 													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
-									  				  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
 										</div>
 										<div class="right">
-											<div class="casino_qt">
+
 											<?php if(isset($shared_fields) && isset($shared_fields['operators_integrated']) && $shared_fields['operators_integrated'] != '') { ?>
+											<div class="casino_qt">
 												<p class="title"><?php echo __('Operators Integrated:', 'sigmaigaming'); ?></p>
 												<?php 
-								 				  $options = array('< 10', '11-25', '26-50', '51-100', '>101');
+												  $options = array('<10', '11-25', '26-50', '51-100', '>101');
 												  foreach($options as $val) {
 													  $class = ($shared_fields['operators_integrated'] == $val ? ' selected' : '');
-									  				  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
@@ -221,26 +220,24 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 												  $options = array('< 2', '3-5', '6-10', '>10');
 												  foreach($options as $val) {
 													  $class = ($shared_fields['years_in_business'] == $val ? ' selected' : '');
-									  				  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
 											<?php } ?>
-											<?php if(isset($platform_provider) && isset($platform_provider['types_of_bet']) && !empty($platform_provider['types_of_bet'])) { ?>
-											<div class="gametypes">
-												<p class="title"><?php echo __('Types of bet:', 'sigmaigaming'); ?></p>
+											<?php if(isset($platform_provider) && isset($platform_provider['types_of_bet']) && $platform_provider['types_of_bet'] != '') { ?>
+											<div class="year_est">
+												<p class="title"><?php echo __('Types of Bet:', 'sigmaigaming'); ?></p>
 												<?php 
 												  $arrayVal = array();
-												  $options = array('Sportsbook', 'E-sports', 'Virtual Sports', 'Live Casino Games', 'Dice Games', 'Table games (Blackjack, Baccarat, Roulette, Poker)', 'Keno,Lottery', 'Video Poker', 'Scratch card Games');
+												  $options = array('Sportsbook','E-sports','Virtual Sports','Live Casino Games','Dice Games','Table games (Blackjack, Baccarat, Roulette, Poker)','Keno,Lottery','Video Poker','Scratch card Games');
 												  foreach($platform_provider['types_of_bet'] as $val) {
 													  $arrayVal[] = $val;
 												  }
 												  foreach($options as $val) {
 													  $class = ((in_array($val, $arrayVal)) ? ' selected' : '');
-													  echo '<p class="gametypeitem detail'.$class.'">'.$val.'</p>';
+													  echo '<p class="qtyitem detail'.$class.'">'.$val.'</p>';
 												  } ?>
 											</div>
-											</div>
-								
 											<?php } ?>
 										</div>
 									</div>	
@@ -296,28 +293,34 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 									</div>
 								</div>
 								<br />
-								<?php } ?>
-								
-								<?php if(isset($game_provider) && isset($game_provider['games']) && !empty($game_provider['games'])) { ?>
-								<div class="gamesWrap">
-								  <h2 class="sectiontitle">GAMES</h2>
-								  <div class="gamescontent">
-									<div class="gameswrap load-more-items">
-									  <?php foreach($game_provider['games'] as $game) { ?>
-									  <div class="games on-page show-item">
-										<div class="gamesinner">
-										  <a target="_blank" href="<?php echo $game['game_url']; ?>">
-											<img src="<?php echo $game['game_image']; ?>" class="gameimg">                
-											<h4 class="gamelink">Play Now</h4>
-										  </a>
-										</div>
-									  </div>
-									  <?php } ?>
-									</div>
-								  </div>
-    							</div>
-								<br />
-								<?php } ?>
+								<?php }
+								if(isset($game_provider) && isset($game_provider['select_games'])){
+									$games = $game_provider['select_games'];
+									if ($color != 'purple') {
+										if (isset($games) && !empty($games)) { ?>
+											<div class="gamesWrap">
+												<h2 class="sectiontitle">GAMES</h2>
+												<div class="gamescontent">
+													<div class="gameswrap load-more-items">
+														<?php foreach ($games as $game) { ?>
+															<div class="games on-page show-item">
+																<div class="gamesinner">
+																	<a target="_blank"
+																	   href="<?php echo get_the_permalink($game->ID); ?>">
+																		<img class="gameimg"
+																			 src="<?php echo get_the_post_thumbnail_url($game->ID); ?>"/>
+																		<h4 class="gamelink">Play Now</h4>
+																	</a>
+																</div>
+															</div>
+														<?php } ?>
+													</div>
+												</div>
+											</div>
+											<br/>
+										<?php }
+									}
+								}?>
 								
 								<?php if(isset($shared_fields)) { ?>
 								<div class="intrestedIn">
@@ -336,13 +339,13 @@ $color = isset($_GET['appearance']) ? $_GET['appearance'] : '';
 								<?php } ?>
 							</div>
 						</div>
-					<?php } ?>
 					</div>
 					<div class="releted-post">
 						<br />
 						<?php echo do_shortcode('[sigma-mt-related-articles term_name="'.get_the_title().'" post_per_page = 10]'); ?>
 					</div>
 				</div>
+			</div>
 			<!-- Middle Detail News end -->
 
 			<!-- Rightbar start -->

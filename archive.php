@@ -8,7 +8,6 @@
  * @subpackage Twenty_Twenty_One
  * @since Twenty Twenty-One 1.0
  */
-
 get_header();
 $term = get_queried_object();
 $featured_image = get_field('featured', $term);
@@ -209,6 +208,13 @@ div.item--post:nth-child(2n+1) {
 	-webkit-box-orient:vertical;
 	display:-webkit-box
 }
+.arc-title{
+	text-align: center;
+	font-size: 24px;
+	padding: 40px 0 0;
+	font-weight: 600;
+	text-transform: capitalize;
+}
 </style>
 
 <section>
@@ -224,6 +230,8 @@ div.item--post:nth-child(2n+1) {
 
 	<!-- News page main section start -->
 	<div class="blog-content">
+			<h1 class="arc-title" ><?php echo $term->name; ?> Latest news</h1>
+
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">

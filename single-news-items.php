@@ -60,7 +60,7 @@ if($firstcategory != null){
 
 			<!-- Middle Detail News start -->
 			<div class="blog-details">
-				<h2 class="blog-title"><?php the_title(); ?></h2>
+				<h1 class="blog-title"><?php the_title(); ?></h1>
 				<div class="info">
 					<span id="publish-date">
 						<?php echo __('Posted:', 'sigmaigaming'); ?>: <strong><?php echo get_the_date( 'M d, Y' ); ?> <?php the_time( 'H:i' );?></strong>

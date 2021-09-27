@@ -15,6 +15,8 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 <section>
 	<!-- News page main section start -->
 	<div class="blog-content">
+		<h1 style="padding: 34px 0 0;text-align: center;font-size: 24px;font-weight: 600;"><?php the_title(); ?></h1>
+		
 		<div class="page-container">
 			<!-- Leftbar start -->
 			<div class="blog-leftbar">
@@ -48,7 +50,8 @@ $responsibilities_section = get_field('responsibilities_section', get_the_ID());
 						<?php } ?>
 						<div class="vacancy-application">
 							<h3><?php echo __( 'Vacancies Application', 'sigmaigaming' ) ?></h3>
-							<?php echo do_shortcode('[wpforms id="19915"]'); ?>
+							<?php echo do_shortcode('[hubspot type=form portal=6357768 id=5933d170-b5f5-4623-a51e-c9b68dceaa90]'); ?>
+
 						</div>
 					</div>
 				</div>
