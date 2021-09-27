@@ -1047,3 +1047,48 @@
 }
 
 /* Responsive Css End */
+/* extra css */
+
+#americas-gaming-awards h2{
+	color:#004a34;
+	border-bottom: 1px solid #dab228;
+}
+
+
+#americas-gaming-awards .award-box .bottom:hover, .award-box.open .bottom:hover{
+	background: #006d4f;
+}
+
+
+#americas-gaming-awards .judge-img {
+    background: url(/wp-content/uploads/2021/09/backgroundjudges.png);
+	  background-repeat: repeat;
+    background-size: cover; 
+}
+
+#americas-gaming-awards .single-item .btn{
+	background:#006d4f;
+}
+#americas-gaming-awards .our-btn a{
+	background:#006d4f!important;
+}
+
+#americas-gaming-awards .four-tab-panels .tab-buttons .iconbtn{
+	    border: 2px solid #004a34;
+}
+
+
+#americas-gaming-awards .four-tab-panels .tab-buttons .iconbtn:hover {
+    background: #004a34;
+}
+
+#americas-gaming-awards .toggle {
+    background: #006d4e;
+}
+
+#americas-gaming-awards .single-winner h3 {
+       color: #dab125;
+    border-bottom: 2px solid #006d4e;
+}
+	
+

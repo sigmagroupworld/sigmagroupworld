@@ -1,16 +1,113 @@
 jQuery(document).ready(function($) {
 
+
+	// About europe sliders start
+	$('.slider-speakers').slick({
+		lazyLoad: 'ondemand',
+		rows: 2,
+		slidesPerRow: 5,
+		dots: true,
+		arrows: true,
+		responsive: [
+			{
+				breakpoint: 1440,
+				settings: {
+					slidesPerRow: 5,
+				}
+			},
+			{
+				breakpoint: 1025,
+				settings: {
+					slidesPerRow: 4,
+				}
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesPerRow: 2,
+					dots: false,
+				}
+			},
+			{
+				breakpoint: 425,
+				settings: {
+					slidesPerRow: 1,
+					dots: false,
+
+				}
+			},
+		]
+	});
+
+	$('.slider-exhibitor').slick({
+		lazyLoad: 'ondemand',
+		rows: 3,
+		slidesPerRow: 8,
+		dots: true,
+		arrows: true,
+		responsive: [
+			{
+				breakpoint: 1440,
+				settings: {
+					slidesPerRow: 8,
+				}
+			},
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesPerRow: 4,
+				}
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesPerRow: 3,
+					dots: false,
+
+				}
+			},
+			{
+				breakpoint: 425,
+				settings: {
+					slidesPerRow: 3,
+					dots: false,
+
+				}
+			},
+			{
+				breakpoint: 375,
+				settings: {
+					slidesPerRow: 3,
+					dots: false,
+
+				}
+			},
+		]
+
+	});
+	// About europe sliders end
+
+
 	$('.blog-listing-module.section').wrapAll('<div class="blog-listing-bellow"></div>');
-	
+	$('body.page-id-15236 .header-clogo a img').attr('src','/wp-content/uploads/2021/09/SiGMA-College-Logo.png');
 	// SW-83 Fix for iGathering - auto open first tab
 	$('.toggle-first').click();
-	
-	$('.img-gallery').slickLightbox({
-		itemSelector        : 'img',
-  		navigateByKeyboard  : true,
-  		src		    : 'src',
-  		//itemSelector: '.img-gallery img'
-	});
+
+	/*$('.img-gallery').slick({
+  		infinite        : true,
+  		slidesToShow    : 1,
+  		slidesToScroll  : 1,
+  		mobileFirst     : true
+	});*/
+
+	/*$('.img-gallery').slickLightbox({
+		itemSelector: 'img',
+		arrows: true,
+		navigateByKeyboard: true,
+		src: 'src'
+		//itemSelector: '.img-gallery img'
+	});*/
+
 
 
 	$('.video-slider-mo').slick({
@@ -22,6 +119,57 @@ jQuery(document).ready(function($) {
       		adaptiveHeight: true,
       		arrows: true
 	  });
+
+	// SW-118 
+	$("#podcast-popupinner").click(function(event){
+		if(event.target.id=="podcast-popupinner"){
+			$(this).hide();
+		}
+	})
+
+	$('.related-news-slider .deep-insights-slider1').slick({
+      		slidesToShow : 3,
+      		slidesToScroll: 1,
+      		autoplay: false,
+      		dots: false,
+      		infinite: true,
+      		adaptiveHeight: true,
+      		arrows: true,
+      		responsive: [{
+      			breakpoint: 850,
+      			settings: {
+      				slidesToShow: 1,
+      				slidesToScroll: 1,
+      				infinite: true,
+      			}
+      		}]
+	  });
+	
+		$('.related-news-slider .site-slider').slick({
+	      		slidesToShow : 3,
+	      		slidesToScroll: 1,
+	      		autoplay: false,
+	      		dots: false,
+	      		infinite: true,
+	      		adaptiveHeight: true,
+	      		arrows: true,
+	      		responsive: [{
+	      			breakpoint: 850,
+	      			settings: {
+	      				slidesToShow: 2,
+	      				slidesToScroll: 1,
+	      				infinite: true,
+	      			},
+	      			breakpoint: 550,
+	      			settings: {
+	      				slidesToShow: 1,
+	      				slidesToScroll: 1,
+	      				infinite: true,
+	      			}
+	      		}]
+		  });
+	// DEEP TECH SLIDER
+
     // MEDIA PARTNER PAGE
     $('.media-partner-logos .charity-items .single-item > a .btn').click(function(){
     	$(this).parent().parent().toggleClass('open');
@@ -203,9 +351,10 @@ jQuery(document).ready(function($) {
 	  $('.video-slider').slick({
 	      infinite: true,
 	      slidesToShow: 3,
+		arrows: true,
 	      slidesToScroll: 1,
 	      autoplay: true,
-		arrows: true,
+		dots: true,
 	      centerPadding: 10,
 	      responsive: [
 	        {
@@ -373,6 +522,42 @@ jQuery(document).ready(function($) {
 		$('#'+elementId).toggleClass('full');
 	}
 	// charity auction script end 
+	// 
+	// 
+	/** Load more people ***/
+	let page = 2;
+	$("#load-more").click(function(){
+		let term_id = typeof $("#termID").val() !== undefined ? $("#termID").val() : '';
+		let posts_per_page = typeof $("#posts_per_page").val() !== undefined ? $("#posts_per_page").val() : '-1';
+		let person_image = typeof $("#person_image").val() !== undefined ? $("#person_image").val() : '';
+		let person_position = typeof $("#person_position").val() !== undefined ? $("#person_position").val() : '';
+		let person_name = typeof $("#person_name").val() !== undefined ? $("#person_name").val() : '';
+		let person_company = typeof $("#person_company").val() !== undefined ? $("#person_company").val() : '';
+	    let data = {
+	        'action' : 'load_people_by_ajax',
+	        'page' : page,
+	        'term_id' : term_id,
+	        'posts_per_page' : posts_per_page,
+	        'person_image' : person_image,
+	        'person_name' : person_name,
+	        'person_position' : person_position,
+	        'person_company' : person_company,
+	        'security': AjaxRequest.security
+		};
+		$('html, body').css("cursor", "wait");
+		$('#load-more').css("cursor", "wait");
+	        $.post(AjaxRequest.ajax_url, data, function(response) {
+	        	page++;
+	        	$('html, body').css("cursor", "auto");
+	        	$('#load-more').css("cursor", "pointer");
+	        	if (response == "") {
+	        		$('#load-more').hide();
+	        	} else {
+	        		$('.all-speakers').append(response);
+	        	}
+		});
+	});
+	/** Load more people ***/
 
 	/**** Search Autocomplete ***/
 	var search_term = $('.search-field.search-autocomplete').val();
@@ -458,41 +643,6 @@ jQuery(document).ready(function($) {
 	});
 
 	/**** Search Autocomplete end ***/
-
-	/** Load more people ***/
-	let page = 2;
-	$("#load-more").click(function(){
-		let term_id = typeof $("#termID").val() !== undefined ? $("#termID").val() : '';
-		let posts_per_page = typeof $("#posts_per_page").val() !== undefined ? $("#posts_per_page").val() : '-1';
-		let person_image = typeof $("#person_image").val() !== undefined ? $("#person_image").val() : '';
-		let person_position = typeof $("#person_position").val() !== undefined ? $("#person_position").val() : '';
-		let person_name = typeof $("#person_name").val() !== undefined ? $("#person_name").val() : '';
-		let person_company = typeof $("#person_company").val() !== undefined ? $("#person_company").val() : '';
-	    let data = {
-	        'action' : 'load_people_by_ajax',
-	        'page' : page,
-	        'term_id' : term_id,
-	        'posts_per_page' : posts_per_page,
-	        'person_image' : person_image,
-	        'person_name' : person_name,
-	        'person_position' : person_position,
-	        'person_company' : person_company,
-	        'security': AjaxRequest.security
-		};
-		$('html, body').css("cursor", "wait");
-		$('#load-more').css("cursor", "wait");
-	        $.post(AjaxRequest.ajax_url, data, function(response) {
-	        	page++;
-	        	$('html, body').css("cursor", "auto");
-	        	$('#load-more').css("cursor", "pointer");
-	        	if (response == "") {
-	        		$('#load-more').hide();
-	        	} else {
-	        		$('.all-speakers').append(response);
-	        	}
-		});
-	});
-	/** Load more people ***/
 
 	/*** Gallery load more ****/
 	$( '.gallery-load-more' ).click( function(e) {
@@ -806,15 +956,6 @@ function openModal(elementId, modalId, closeId) {
 	}
 }
 /** Sponsors modal popup Detail end ***/
-
-/** SiGMA College**/
-jQuery(document).ready(function(){
- 
-
-
-jQuery('body.page-id-15236 .header-clogo a img').attr('src','https://sigma.world/wp-content/uploads/2021/09/SiGMA-College-Logo.png');
-console.log("part2");
-});
 
 
 

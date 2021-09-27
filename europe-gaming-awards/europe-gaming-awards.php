@@ -66,10 +66,11 @@ $testimonials = get_field('testimonials', $page_id);
 	        <p><?php echo $awards['description']; ?></p>
 	      </div>
 	    </div>
-	    <div class="page-btn">
-	      <a href="<?php echo $awards['nominate_button']['link']; ?>" target="_blank" style="background: #19548c;"><?php echo $awards['nominate_button']['title']; ?></a>
-	    </div>
-	    
+		<?php if(!empty($awards['nominate_button']) && $awards['nominate_button']['link'] != '') { ?>
+			<div class="page-btn">
+			  <a href="<?php echo $awards['nominate_button']['link']; ?>" target="_blank" style="background: #19548c;"><?php echo $awards['nominate_button']['title']; ?></a>
+			</div>
+	    <?php } ?>
 	    <!-- Awards Listing -->
 		<?php echo do_shortcode($awards['awards_shortcode']); ?>
 		<!-- Awards Listing end -->
@@ -183,6 +184,7 @@ $testimonials = get_field('testimonials', $page_id);
 	<!-- Past winner section start -->
 
 	<!-- Testimonial section start --> 
+	<?php if(!empty($testimonials['title']) && $testimonials['title'] != ''){  ?>
 	<section class="testimonial">
 	  <div class="container">
 	    <div class="page-title">
@@ -191,6 +193,7 @@ $testimonials = get_field('testimonials', $page_id);
 	    <?php echo do_shortcode($testimonials['shortcode']); ?>
 	  </div>
 	</section>
+	<?php }?>
 	<!-- Testimonial section end --> 
 
 </div>

@@ -41,7 +41,7 @@ if ($about_banner){ ?>
 		      			<div class="parabtn" style="width: 100%;">
 		        			<a href="<?php echo $about_banner['register_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['register_button_text']; ?></a>
 		        			<a href="<?php echo $about_banner['learn_more_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['learn_more_button_text']; ?></a>
-		        			<a href="<?php echo $about_banner['agenda_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" target="_blank"><?php echo $about_banner['agenda_button_text']; ?></a>
+		        			<a href="<?php echo $about_banner['agenda_button_link']; ?>" style="background-color:<?php echo $about_banner['register_color']; ?>" <?php if($about_banner['agenda_button_link'] != '#'){ echo 'target="_blank"'; } ?>><?php echo $about_banner['agenda_button_text']; ?></a>
 		      			</div>
 		    		</div>
 					<?php } ?>
